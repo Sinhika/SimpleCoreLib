@@ -4,8 +4,8 @@ modLoader="javafml" #mandatory
 
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
 loaderVersion="[34,)" #mandatory
+license="LGPL 2.1"
 issueTrackerURL="https://github.com/Sinhika/SimpleCoreLib/issues"
-logoFile=""
 
 [[mods]]
 modId="simplecorelib"
@@ -13,9 +13,12 @@ version="${version}"
 displayName="SimpleCoreLib"
 updateJSONURL="https://raw.githubusercontent.com/Sinhika/SimpleCoreLib/1.16/update.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/simplecore-api"
+logoFile=""
 credits="AleXndrTheGr8st (original mod), Sinhika (maintenance, ports)"
 authors="Sinhika"
-description="Common classes and methods used by the SimpleOres mods and add-ons."
+description='''
+Common classes and methods used by the SimpleOres mods and add-ons.
+'''
 
 [[dependencies.simplecorelib]] #optional
     modId="forge"
@@ -27,6 +30,6 @@ description="Common classes and methods used by the SimpleOres mods and add-ons.
 [[dependencies.simplecorelib]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3,]"
+    versionRange="[1.16.3]"
     ordering="NONE"
     side="BOTH"
