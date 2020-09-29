@@ -1,0 +1,32 @@
+# The overall format is standard TOML format, v0.5.0.
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml" #mandatory
+
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion="[34,)" #mandatory
+issueTrackerURL="https://github.com/Sinhika/SimpleCoreLib/issues"
+logoFile=""
+
+[[mods]]
+modId="simplecorelib"
+version="${version}"
+displayName="SimpleCoreLib"
+updateJSONURL="https://raw.githubusercontent.com/Sinhika/SimpleCoreLib/1.16/update.json"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/simplecore-api"
+credits="AleXndrTheGr8st (original mod), Sinhika (maintenance, ports)"
+authors="Sinhika"
+description="Common classes and methods used by the SimpleOres mods and add-ons."
+
+[[dependencies.simplecorelib]] #optional
+    modId="forge"
+    mandatory=true
+    versionRange="[34.1.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.simplecorelib]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3,]"
+    ordering="NONE"
+    side="BOTH"
