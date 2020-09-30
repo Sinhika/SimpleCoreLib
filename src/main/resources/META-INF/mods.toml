@@ -13,7 +13,6 @@ version="${version}"
 displayName="SimpleCoreLib"
 updateJSONURL="https://raw.githubusercontent.com/Sinhika/SimpleCoreLib/1.16/update.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/simplecore-api"
-logoFile=""
 credits="AleXndrTheGr8st (original mod), Sinhika (maintenance, ports)"
 authors="Sinhika"
 description='''
