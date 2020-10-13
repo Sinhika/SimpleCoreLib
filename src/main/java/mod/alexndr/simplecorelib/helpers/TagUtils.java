@@ -8,13 +8,22 @@ import net.minecraft.tags.ItemTags;
 
 public final class TagUtils
 {
+    public static ITag.INamedTag<Item> modTag(String modid, String name)
+    {
+        return ItemTags.makeWrapperTag(modid + ":" + name);
+    }
+    
     public static ITag.INamedTag<Item> forgeTag(String name)
     {
-        return ItemTags.makeWrapperTag("forge:" + name);
+        return modTag("forge", name);
+    }
+    
+    public static ITag.INamedTag<Block> modBlockTag(String modid, String name) {
+        return BlockTags.makeWrapperTag(modid + ":" + name);
     }
     
     public static ITag.INamedTag<Block> forgeBlockTag(String name) {
-        return BlockTags.makeWrapperTag("forge:" + name);
+        return modBlockTag("forge", name);
     }
     
-}
+} // end class TagUtils
