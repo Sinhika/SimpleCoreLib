@@ -16,7 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 
@@ -47,7 +47,7 @@ public final class CrushingRecipeBuilder extends AbstractRecipeSetBuilder
         return builder(modid, Ingredient.fromItems(ingredient), processTime);
     }
 
-    public static CrushingRecipeBuilder builder(String modid, Tag<Item> ingredient, int processTime)
+    public static CrushingRecipeBuilder builder(String modid, ITag.INamedTag<Item> ingredient, int processTime)
     {
         return builder(modid, Ingredient.fromTag(ingredient), processTime);
     }
@@ -57,19 +57,19 @@ public final class CrushingRecipeBuilder extends AbstractRecipeSetBuilder
         return new CrushingRecipeBuilder(modid, ingredient, processTime);
     }
 
-    public static CrushingRecipeBuilder crushingChunks(String modid, Tag<Item> chunks, IItemProvider dust,
+    public static CrushingRecipeBuilder crushingChunks(String modid, ITag.INamedTag<Item> chunks, IItemProvider dust,
             int processTime, float extraChance)
     {
         return builder(modid, chunks, processTime).result(dust, 1).result(dust, 1, extraChance);
     }
 
-    public static CrushingRecipeBuilder crushingIngot(String modid, Tag<Item> ingot, IItemProvider dust,
+    public static CrushingRecipeBuilder crushingIngot(String modid, ITag.INamedTag<Item> ingot, IItemProvider dust,
             int processTime)
     {
         return builder(modid, ingot, processTime).result(dust, 1);
     }
 
-    public static CrushingRecipeBuilder crushingOre(String modid, Tag<Item> ore, IItemProvider chunks, int processTime,
+    public static CrushingRecipeBuilder crushingOre(String modid, ITag.INamedTag<Item> ore, IItemProvider chunks, int processTime,
             @Nullable IItemProvider extra, float extraChance)
     {
         CrushingRecipeBuilder builder = builder(modid, ore, processTime);
