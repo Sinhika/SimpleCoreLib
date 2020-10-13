@@ -26,17 +26,11 @@ import net.minecraftforge.registries.ForgeRegistries;
  * @author Sinhika
  *
  */
-public class RecipeSetBuilder
+public class RecipeSetBuilder extends AbstractRecipeSetBuilder
 {
-    protected final String modid;
-    
     public RecipeSetBuilder(String modid)
     {
-        this.modid = modid;
-    }
-
-    public ResourceLocation make_resource(String path) {
-        return new ResourceLocation(this.modid, path);
+        super(modid);
     }
 
     public ConditionalAdvancement.Builder build_advancement_with_condition(ResourceLocation recipe_id, ICondition condition,
@@ -50,10 +44,18 @@ public class RecipeSetBuilder
                             .withRewards(AdvancementRewards.Builder.recipe(recipe_id))
                             .withCriterion("has_item", criterion));
     }
+  
+    
+     public void buildOre2IngotRecipes(Consumer<IFinishedRecipe> consumer, Ingredient oreIn, IItemProvider ingotOut,
+            ICriterionInstance criterion, float experienceIn, int cookingTimeIn)
+    {
+        buildOre2IngotRecipes(consumer, oreIn, ingotOut, criterion, experienceIn, cookingTimeIn, null);
+    }
     
     
     /**
-     * 
+     * build both the smelting and blasting recipes for a cook-type recipe.
+     *  
      * @param consumer Used by a RecipeProvider to generate ore-to-ingot smelting and blasting recipes.
      * 
      * @param consumer passed in from RecipeProvider to builder() call.
@@ -62,16 +64,23 @@ public class RecipeSetBuilder
      * @param criterion required to get the recipe advancement; usually hasItem()
      * @param experienceIn  smelting/blasting xp.
      * @param cookingTimeIn smelting cook time. Blasting time is automatically 1/2 that.
+     * @param suffix to be appended to recipe_name string.
      */
     public void buildOre2IngotRecipes(Consumer<IFinishedRecipe> consumer, Ingredient oreIn, IItemProvider ingotOut,
-            ICriterionInstance criterion, float experienceIn, int cookingTimeIn)
+            ICriterionInstance criterion, float experienceIn, int cookingTimeIn, String suffix)
     {
         String recipe_name = ingotOut.asItem().toString() + "_from_smelting";
+        if (suffix != null) {
+            recipe_name = recipe_name.concat(suffix);
+        }
         CookingRecipeBuilder.smeltingRecipe(oreIn, ingotOut, experienceIn, cookingTimeIn)
             .addCriterion(recipe_name, criterion)
             .build(consumer, make_resource(recipe_name));
 
        recipe_name = ingotOut.asItem().toString() + "_from_blasting";
+       if (suffix != null) {
+           recipe_name = recipe_name.concat(suffix);
+       }
        CookingRecipeBuilder.blastingRecipe(oreIn, ingotOut, experienceIn, cookingTimeIn/2)
            .addCriterion(recipe_name, criterion)
            .build(consumer, make_resource(recipe_name));
