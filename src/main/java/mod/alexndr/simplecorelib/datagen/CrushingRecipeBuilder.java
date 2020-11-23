@@ -6,10 +6,10 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 
-import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import mod.alexndr.simplecorelib.helpers.NameUtils;
 import mod.alexndr.simplecorelib.recipes.CrushingRecipe;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
@@ -81,6 +81,18 @@ public final class CrushingRecipeBuilder extends AbstractRecipeSetBuilder
         return builder;
     }
 
+    public static CrushingRecipeBuilder crushingOre(String modid, IItemProvider ore, IItemProvider chunks, int processTime,
+            @Nullable IItemProvider extra, float extraChance)
+    {
+        CrushingRecipeBuilder builder = builder(modid, ore, processTime);
+        builder.result(chunks, 2);
+        if (extra != null)
+        {
+            builder.result(extra, 1, extraChance);
+        }
+        return builder;
+    }
+    
     public CrushingRecipeBuilder result(IItemProvider item, int count, float chance)
     {
         results.put(new ItemStack(item, count), chance);
@@ -92,24 +104,9 @@ public final class CrushingRecipeBuilder extends AbstractRecipeSetBuilder
         return result(item, count, 1f);
     }
 
-    /**
-     * Gets the registry name of the stack's item, throwing an exception if it is
-     * null
-     *
-     * @param stack The ItemStack
-     * @return The registry name
-     * @throws NullPointerException if registry name is null
-     */
-    public static ResourceLocation fromItem(ItemStack stack)
-    {
-        ResourceLocation name = stack.getItem().getRegistryName();
-        Preconditions.checkNotNull(name, "Name is null, make sure the object has been registered correctly");
-        return name;
-    }
-
     public void build(Consumer<IFinishedRecipe> consumer)
     {
-        ResourceLocation resultId = fromItem(results.keySet().iterator().next());
+        ResourceLocation resultId = NameUtils.fromItem(results.keySet().iterator().next());
         ResourceLocation id = new ResourceLocation(modid, "crushing/" + resultId.getPath());
         build(consumer, id);
     }
@@ -144,7 +141,7 @@ public final class CrushingRecipeBuilder extends AbstractRecipeSetBuilder
         private JsonObject serializeResult(ItemStack stack, float chance)
         {
             JsonObject json = new JsonObject();
-            json.addProperty("item", fromItem(stack).toString());
+            json.addProperty("item", NameUtils.fromItem(stack).toString());
             if (stack.getCount() > 1)
             {
                 json.addProperty("count", stack.getCount());

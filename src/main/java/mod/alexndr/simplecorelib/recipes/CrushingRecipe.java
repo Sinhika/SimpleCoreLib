@@ -31,7 +31,8 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
  * Recipe class for Silent's Mechanisms crusher. Code borrowed and modified
  * from Silent's Mechanisms
  * (https://github.com/SilentChaos512/Silents-Mechanisms), which is under MIT
- * License.
+ * License. This class exists only for the purpose of data generation, and should
+ * only be invoked during datagen, lest it conflict with the one in Silent's Mechanisms.
  * 
  * @author SilentChaos512, Sinhika.
  *
@@ -49,6 +50,10 @@ public class CrushingRecipe implements IRecipe<IInventory>
             return CRUSHING.toString();
         }
     };
+    
+    // as this is forced to load AFTER silents_mechanisms, and before any SimpleOres add-ons
+    // that might use recipes, it's safe to say that the recipe type should be registered
+    // before it is used, and we do not need deferred registration.
     public static final Serializer SERIALIZER = new Serializer();
 
     private final ResourceLocation recipeId;
@@ -202,5 +207,5 @@ public class CrushingRecipe implements IRecipe<IInventory>
                 buffer.writeFloat(chance);
             });
         }
-    }
-} // end CrushingRecipe
+    } // end-class Serializer
+} // end-class CrushingRecipe
