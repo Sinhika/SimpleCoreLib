@@ -57,13 +57,26 @@ public final class CrushingRecipeBuilder extends AbstractRecipeSetBuilder
         return new CrushingRecipeBuilder(modid, ingredient, processTime);
     }
 
+    public static CrushingRecipeBuilder crushingChunks(String modid, IItemProvider chunks, IItemProvider dust,
+            int processTime, float extraChance)
+    {
+        return builder(modid, chunks, processTime).result(dust, 1).result(dust, 1, extraChance);
+    }
+    
     public static CrushingRecipeBuilder crushingChunks(String modid, ITag.INamedTag<Item> chunks, IItemProvider dust,
             int processTime, float extraChance)
     {
         return builder(modid, chunks, processTime).result(dust, 1).result(dust, 1, extraChance);
     }
 
+
     public static CrushingRecipeBuilder crushingIngot(String modid, ITag.INamedTag<Item> ingot, IItemProvider dust,
+            int processTime)
+    {
+        return builder(modid, ingot, processTime).result(dust, 1);
+    }
+
+    public static CrushingRecipeBuilder crushingIngot(String modid, IItemProvider ingot, IItemProvider dust,
             int processTime)
     {
         return builder(modid, ingot, processTime).result(dust, 1);
