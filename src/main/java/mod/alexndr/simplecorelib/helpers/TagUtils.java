@@ -8,6 +8,7 @@ import net.minecraft.tags.ItemTags;
 
 public final class TagUtils
 {
+    // ITEM TAGS
     public static ITag.INamedTag<Item> modTag(String modid, String name)
     {
         return ItemTags.makeWrapperTag(modid + ":" + name);
@@ -17,7 +18,12 @@ public final class TagUtils
     {
         return modTag("forge", name);
     }
+
+    public static ITag.INamedTag<Item> silentsTag(String name) {
+        return modTag("silents_mechanisms", name);
+    }
     
+    // BLOCK TAGS
     public static ITag.INamedTag<Block> modBlockTag(String modid, String name) {
         return BlockTags.makeWrapperTag(modid + ":" + name);
     }
