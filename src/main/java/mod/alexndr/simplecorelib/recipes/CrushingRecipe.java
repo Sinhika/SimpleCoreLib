@@ -37,6 +37,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
  * @author SilentChaos512, Sinhika.
  *
  */
+@Deprecated
 public class CrushingRecipe implements IRecipe<IInventory> 
 {
     protected final String modid;

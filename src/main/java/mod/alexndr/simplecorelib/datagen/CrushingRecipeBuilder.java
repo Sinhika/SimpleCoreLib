@@ -29,6 +29,7 @@ import net.minecraft.util.ResourceLocation;
  * @author SilentChaos512, Sinhika.
  *
  */
+@Deprecated
 public final class CrushingRecipeBuilder extends AbstractRecipeSetBuilder
 {
     private final Map<ItemStack, Float> results = new LinkedHashMap<>();
