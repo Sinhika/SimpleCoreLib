@@ -2,6 +2,9 @@ package mod.alexndr.simplecorelib.world;
 
 import mod.alexndr.simplecorelib.config.ModOreConfig;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
@@ -34,4 +37,8 @@ public class OreGenUtils
                 .range(cfg.getCfg().maximum).square().func_242731_b(cfg.getVein_count());
     }
     
+    public static void registerFeature(String modid, String name, ConfiguredFeature<?, ?> cfg_feature)
+    {
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(modid, name), cfg_feature);
+    }
 } // end class
