@@ -3,7 +3,7 @@
 modLoader="javafml" #mandatory
 
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[35,)" #mandatory
+loaderVersion="[36,)" #mandatory
 license="LGPL 2.1"
 issueTrackerURL="https://github.com/Sinhika/SimpleCoreLib/issues"
 
@@ -22,13 +22,13 @@ Common classes and methods used by the SimpleOres mods and add-ons.
 [[dependencies.simplecorelib]] #optional
     modId="forge"
     mandatory=true
-    versionRange="[35.0.7,)"
+    versionRange="[36.0.0,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.simplecorelib]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.4]"
+    versionRange="[1.16.5]"
     ordering="NONE"
     side="BOTH"
