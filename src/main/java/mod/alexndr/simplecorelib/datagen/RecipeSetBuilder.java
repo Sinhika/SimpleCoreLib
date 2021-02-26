@@ -18,6 +18,7 @@ import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Stash functions to assemble standard recipe sets (tools, armors, storage) here.
@@ -387,12 +388,16 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         ResourceLocation shears_name = has_shears ? make_resource(variant + "_shears") : null;
         
         Ingredient stick = Ingredient.fromTag(Tags.Items.RODS_WOODEN);
-        Item sword = ForgeRegistries.ITEMS.getValue(sword_name);
-        Item pickaxe = ForgeRegistries.ITEMS.getValue(pickaxe_name);
-        Item axe = ForgeRegistries.ITEMS.getValue(axe_name);
-        Item shovel = ForgeRegistries.ITEMS.getValue(shovel_name);
-        Item hoe = ForgeRegistries.ITEMS.getValue(hoe_name);
-        Item shears = has_shears ? ForgeRegistries.ITEMS.getValue(shears_name) : null;
+        IForgeRegistry<Item> itemReg = ForgeRegistries.ITEMS;
+        
+        Item sword = itemReg.containsKey(sword_name) ? itemReg.getValue(sword_name) : null;
+        Item pickaxe = itemReg.containsKey(pickaxe_name) ? itemReg.getValue(pickaxe_name) : null;
+        Item axe = itemReg.containsKey(axe_name) ? itemReg.getValue(axe_name) : null;
+        Item shovel = itemReg.containsKey(shovel_name) ? itemReg.getValue(shovel_name) : null;
+        Item hoe = itemReg.containsKey(hoe_name) ? itemReg.getValue(hoe_name) : null;
+        Item shears = has_shears 
+                ? (itemReg.containsKey(shears_name) ? itemReg.getValue(shears_name) : null )
+                : null;
 
         if (condition==null) 
         {
