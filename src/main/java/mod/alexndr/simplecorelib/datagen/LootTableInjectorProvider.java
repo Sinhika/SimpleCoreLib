@@ -17,13 +17,13 @@ public abstract class LootTableInjectorProvider extends AbstractLootTableProvide
         // TODO Auto-generated constructor stub
     }
     
-    void addInjectionTable(String modid, String table_name, LootPool.Builder pool)
+    public void addInjectionTable(String modid, String table_name, LootPool.Builder pool)
     {
         this.addTable(new ResourceLocation(modid, "inject/" + table_name), 
                 LootTable.builder().addLootPool(pool), LootParameterSets.CHEST);
     }
     
-    LootPool.Builder createChestPool(int minRolls, int maxRolls, float chanceRoll) 
+    public LootPool.Builder createChestPool(int minRolls, int maxRolls, float chanceRoll) 
     {
         return LootPool.builder()
                 .name("main")
