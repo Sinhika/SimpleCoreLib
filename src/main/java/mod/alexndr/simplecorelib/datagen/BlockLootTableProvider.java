@@ -57,7 +57,8 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 
     LootPool.Builder createStandardDrops(IItemProvider itemProvider)
     {
-        return LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(SurvivesExplosion.builder())
+        return LootPool.builder().rolls(ConstantRange.of(1))
+                .acceptCondition(SurvivesExplosion.builder())
                 .addEntry(ItemLootEntry.builder(itemProvider));
     }
 
