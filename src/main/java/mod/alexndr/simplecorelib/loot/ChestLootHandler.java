@@ -6,7 +6,7 @@ import net.minecraft.loot.TableLootEntry;
 import net.minecraft.util.ResourceLocation;
 
 /**
- * Code that handles injecting seeds into chest loot pools.
+ * Code that handles injecting stuff into chest loot pools.
  * Based heavily on Botania's LootHandler, without which I never would have
  * figured this out.
  * 
