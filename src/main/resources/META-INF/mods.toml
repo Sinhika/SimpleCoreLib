@@ -9,7 +9,7 @@ issueTrackerURL="https://github.com/Sinhika/SimpleCoreLib/issues"
 
 [[mods]]
 modId="simplecorelib"
-version="${version}"
+version="${file.jarVersion}"
 displayName="SimpleCoreLib"
 updateJSONURL="https://raw.githubusercontent.com/Sinhika/SimpleCoreLib/1.16/update.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/simplecore-api"
@@ -22,7 +22,7 @@ Common classes and methods used by the SimpleOres mods and add-ons.
 [[dependencies.simplecorelib]] #optional
     modId="forge"
     mandatory=true
-    versionRange="[36.0.0,)"
+    versionRange="[36.1.0,)"
     ordering="NONE"
     side="BOTH"
 
