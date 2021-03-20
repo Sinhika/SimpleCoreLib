@@ -40,10 +40,10 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         return ConditionalAdvancement.builder()
                 .addCondition(condition)
                 .addAdvancement(
-                        Advancement.Builder.builder()
-                            .withParentId(new ResourceLocation("minecraft", "recipes/root"))
-                            .withRewards(AdvancementRewards.Builder.recipe(recipe_id))
-                            .withCriterion("has_item", criterion));
+                        Advancement.Builder.advancement()
+                            .parent(new ResourceLocation("minecraft", "recipes/root"))
+                            .rewards(AdvancementRewards.Builder.recipe(recipe_id))
+                            .addCriterion("has_item", criterion));
     }
   
     
@@ -74,17 +74,17 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         if (suffix != null) {
             recipe_name = recipe_name.concat(suffix);
         }
-        CookingRecipeBuilder.smeltingRecipe(oreIn, ingotOut, experienceIn, cookingTimeIn)
-            .addCriterion(recipe_name, criterion)
-            .build(consumer, make_resource(recipe_name));
+        CookingRecipeBuilder.smelting(oreIn, ingotOut, experienceIn, cookingTimeIn)
+            .unlockedBy(recipe_name, criterion)
+            .save(consumer, make_resource(recipe_name));
 
        recipe_name = ingotOut.asItem().toString() + "_from_blasting";
        if (suffix != null) {
            recipe_name = recipe_name.concat(suffix);
        }
-       CookingRecipeBuilder.blastingRecipe(oreIn, ingotOut, experienceIn, cookingTimeIn/2)
-           .addCriterion(recipe_name, criterion)
-           .build(consumer, make_resource(recipe_name));
+       CookingRecipeBuilder.blasting(oreIn, ingotOut, experienceIn, cookingTimeIn/2)
+           .unlockedBy(recipe_name, criterion)
+           .save(consumer, make_resource(recipe_name));
     }
     
     /**
@@ -100,14 +100,14 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                                              float experienceIn, int cookingTimeIn)
     {
         String recipe_name = nugget.asItem().toString() + "_from_smelting";
-        CookingRecipeBuilder.smeltingRecipe(ingredients, nugget, experienceIn, cookingTimeIn)
-            .addCriterion(recipe_name, criterion)
-            .build(consumer, make_resource(recipe_name));
+        CookingRecipeBuilder.smelting(ingredients, nugget, experienceIn, cookingTimeIn)
+            .unlockedBy(recipe_name, criterion)
+            .save(consumer, make_resource(recipe_name));
             
         recipe_name = nugget.asItem().toString() + "_from_blasting";
-        CookingRecipeBuilder.blastingRecipe(ingredients, nugget, experienceIn, cookingTimeIn/2)
-            .addCriterion(recipe_name, criterion)
-            .build(consumer, make_resource(recipe_name));
+        CookingRecipeBuilder.blasting(ingredients, nugget, experienceIn, cookingTimeIn/2)
+            .unlockedBy(recipe_name, criterion)
+            .save(consumer, make_resource(recipe_name));
     } // end buildVanillaRecyclingRecipes
     
     /**
@@ -125,35 +125,35 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                                           IItemProvider nugget, ICriterionInstance criterion)
     {
         // block <=> ingots
-        ShapelessRecipeBuilder.shapelessRecipe(ingot.asItem(), 9)
-            .addIngredient(block.asItem())
-            .addCriterion("has_item", criterion)
-            .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(block.asItem())
-            .key('S', ingot)
-            .patternLine("SSS")
-            .patternLine("SSS")
-            .patternLine("SSS")
-            .addCriterion("has_item", criterion)
-            .build(consumer);
+        ShapelessRecipeBuilder.shapeless(ingot.asItem(), 9)
+            .requires(block.asItem())
+            .unlockedBy("has_item", criterion)
+            .save(consumer);
+        ShapedRecipeBuilder.shaped(block.asItem())
+            .define('S', ingot)
+            .pattern("SSS")
+            .pattern("SSS")
+            .pattern("SSS")
+            .unlockedBy("has_item", criterion)
+            .save(consumer);
         
         // ingot <=> nuggets
         if (nugget != null)
         {
             String ingot_name = ingot.asItem().toString();
                     
-            ShapelessRecipeBuilder.shapelessRecipe(nugget.asItem(), 9)
-                .addIngredient(ingot)
-                .addCriterion("has_item", criterion)
-                .build(consumer);
+            ShapelessRecipeBuilder.shapeless(nugget.asItem(), 9)
+                .requires(ingot)
+                .unlockedBy("has_item", criterion)
+                .save(consumer);
             
-            ShapedRecipeBuilder.shapedRecipe(ingot)
-                .key('S', nugget.asItem())
-                .patternLine("SSS")
-                .patternLine("SSS")
-                .patternLine("SSS")
-                .addCriterion("has_item", criterion)
-                .build(consumer, make_resource(ingot_name + "_from_nuggets"));
+            ShapedRecipeBuilder.shaped(ingot)
+                .define('S', nugget.asItem())
+                .pattern("SSS")
+                .pattern("SSS")
+                .pattern("SSS")
+                .unlockedBy("has_item", criterion)
+                .save(consumer, make_resource(ingot_name + "_from_nuggets"));
         }
     } // end buildSimpleStorageRecipes
     
@@ -169,18 +169,18 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             String mchunk_name = medium_chunk.asItem().toString();
             
             // nuggets to medium chunk,
-            ShapedRecipeBuilder.shapedRecipe(medium_chunk)
-                .key('S', nugget.asItem())
-                .patternLine("SS")
-                .patternLine("SS")
-                .addCriterion("has_item", criterion)
-                .build(consumer, make_resource(mchunk_name + "_from_nuggets"));
+            ShapedRecipeBuilder.shaped(medium_chunk)
+                .define('S', nugget.asItem())
+                .pattern("SS")
+                .pattern("SS")
+                .unlockedBy("has_item", criterion)
+                .save(consumer, make_resource(mchunk_name + "_from_nuggets"));
                 
             // medium chunk to nuggets
-            ShapelessRecipeBuilder.shapelessRecipe(nugget.asItem(), 4)
-                .addIngredient(medium_chunk)
-                .addCriterion("has_item", criterion)
-                .build(consumer, make_resource(nugget_name + "_from_medium_chunk"));
+            ShapelessRecipeBuilder.shapeless(nugget.asItem(), 4)
+                .requires(medium_chunk)
+                .unlockedBy("has_item", criterion)
+                .save(consumer, make_resource(nugget_name + "_from_medium_chunk"));
         }
         if (large_chunk != null && medium_chunk != null)
         {
@@ -188,33 +188,33 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             String mchunk_name = medium_chunk.asItem().toString();
             
             // large chunk to medium chunks
-            ShapelessRecipeBuilder.shapelessRecipe(medium_chunk.asItem(), 2)
-                .addIngredient(large_chunk)
-                .addCriterion("has_item", criterion)
-                .build(consumer, make_resource(mchunk_name + "_from_large_chunk"));
+            ShapelessRecipeBuilder.shapeless(medium_chunk.asItem(), 2)
+                .requires(large_chunk)
+                .unlockedBy("has_item", criterion)
+                .save(consumer, make_resource(mchunk_name + "_from_large_chunk"));
             
             // medium chunks + nugget to large chunk
-            ShapelessRecipeBuilder.shapelessRecipe(large_chunk.asItem())
-                .addIngredient(medium_chunk, 2)
-                .addIngredient(nugget)
-                .addCriterion("has_item", criterion)
-                .build(consumer, make_resource(lchunk_name + "_from_medium_chunks"));
+            ShapelessRecipeBuilder.shapeless(large_chunk.asItem())
+                .requires(medium_chunk, 2)
+                .requires(nugget)
+                .unlockedBy("has_item", criterion)
+                .save(consumer, make_resource(lchunk_name + "_from_medium_chunks"));
             
             // nuggets & medium chunk to large chunk.
-            ShapelessRecipeBuilder.shapelessRecipe(large_chunk.asItem())
-                .addIngredient(nugget, 5)
-                .addIngredient(medium_chunk)
-                .addCriterion("has_item", criterion)
-                .build(consumer, make_resource(lchunk_name + "_from_nuggets"));
+            ShapelessRecipeBuilder.shapeless(large_chunk.asItem())
+                .requires(nugget, 5)
+                .requires(medium_chunk)
+                .unlockedBy("has_item", criterion)
+                .save(consumer, make_resource(lchunk_name + "_from_nuggets"));
            
         } // end-if large_chunk && medium_chunk
         else if (large_chunk != null)
         {
             // large chunk to nuggets
-            ShapelessRecipeBuilder.shapelessRecipe(nugget.asItem(), 8)
-                .addIngredient(large_chunk)
-                .addCriterion("has_item", criterion)
-                .build(consumer, make_resource(nugget_name + "_from_large_chunk"));
+            ShapelessRecipeBuilder.shapeless(nugget.asItem(), 8)
+                .requires(large_chunk)
+                .unlockedBy("has_item", criterion)
+                .save(consumer, make_resource(nugget_name + "_from_large_chunk"));
         } // end else-if just large_chunk exists.
     } // end buildChunkConversionRecipes
     
@@ -228,38 +228,38 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             Item rod, Ingredient keystone, ICriterionInstance criterion, ICondition condition)
     {
             Item bow = ForgeRegistries.ITEMS.getValue(bow_name);
-            Ingredient string = Ingredient.fromTag(Tags.Items.STRING);
+            Ingredient string = Ingredient.of(Tags.Items.STRING);
                     
-            ShapedRecipeBuilder.shapedRecipe(rod)
-                .key('S', rod_material)
-                .patternLine("S")
-                .patternLine("S")
-                .addCriterion("has_item", criterion)
-                .build(consumer);
+            ShapedRecipeBuilder.shaped(rod)
+                .define('S', rod_material)
+                .pattern("S")
+                .pattern("S")
+                .unlockedBy("has_item", criterion)
+                .save(consumer);
             
             if (condition==null)
             {
-                ShapedRecipeBuilder.shapedRecipe(bow)
-                    .key('X', rod)
-                    .key('Y', string)
-                    .key('Z', keystone)
-                    .patternLine(" XY")
-                    .patternLine("Z Y")
-                    .patternLine(" XY")
-                    .addCriterion("has_item", criterion)
-                    .build(consumer);
+                ShapedRecipeBuilder.shaped(bow)
+                    .define('X', rod)
+                    .define('Y', string)
+                    .define('Z', keystone)
+                    .pattern(" XY")
+                    .pattern("Z Y")
+                    .pattern(" XY")
+                    .unlockedBy("has_item", criterion)
+                    .save(consumer);
             } // end-if no condition
             else {
                 ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shapedRecipe(bow)
-                    .key('X', rod)
-                    .key('Y', string)
-                    .key('Z', keystone)
-                    .patternLine(" XY")
-                    .patternLine("Z Y")
-                    .patternLine(" XY")
-                    .addCriterion("has_item", criterion)               
-                    ::build)
+                .addRecipe(ShapedRecipeBuilder.shaped(bow)
+                    .define('X', rod)
+                    .define('Y', string)
+                    .define('Z', keystone)
+                    .pattern(" XY")
+                    .pattern("Z Y")
+                    .pattern(" XY")
+                    .unlockedBy("has_item", criterion)               
+                    ::save)
                 .setAdvancement(bow_name, build_advancement_with_condition(bow_name, condition, criterion))
                 .build(consumer, bow_name);
             } // end-else condition
@@ -291,76 +291,76 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
     
         if (condition==null) 
         {
-            ShapedRecipeBuilder.shapedRecipe(helmet)
-                .key('S', item)
-                .patternLine("SSS")
-                .patternLine("S S")
-                .patternLine("   ")
-                .addCriterion("has_item", criterion)
-                .build(consumer);
-            ShapedRecipeBuilder.shapedRecipe(chestplate)
-                .key('S',item)
-                .patternLine("S S")
-                .patternLine("SSS")
-                .patternLine("SSS")
-                .addCriterion("has_item", criterion)
-                .build(consumer);
-            ShapedRecipeBuilder.shapedRecipe(leggings)
-                .key('S', item)
-                .patternLine("SSS")
-                .patternLine("S S")
-                .patternLine("S S")
-                .addCriterion("has_item", criterion)
-                .build(consumer);
-            ShapedRecipeBuilder.shapedRecipe(boots)
-                .key('S', item)
-                .patternLine("   ")
-                .patternLine("S S")
-                .patternLine("S S")
-                .addCriterion("has_item", criterion)
-                .build(consumer);
+            ShapedRecipeBuilder.shaped(helmet)
+                .define('S', item)
+                .pattern("SSS")
+                .pattern("S S")
+                .pattern("   ")
+                .unlockedBy("has_item", criterion)
+                .save(consumer);
+            ShapedRecipeBuilder.shaped(chestplate)
+                .define('S',item)
+                .pattern("S S")
+                .pattern("SSS")
+                .pattern("SSS")
+                .unlockedBy("has_item", criterion)
+                .save(consumer);
+            ShapedRecipeBuilder.shaped(leggings)
+                .define('S', item)
+                .pattern("SSS")
+                .pattern("S S")
+                .pattern("S S")
+                .unlockedBy("has_item", criterion)
+                .save(consumer);
+            ShapedRecipeBuilder.shaped(boots)
+                .define('S', item)
+                .pattern("   ")
+                .pattern("S S")
+                .pattern("S S")
+                .unlockedBy("has_item", criterion)
+                .save(consumer);
         } // end condition null
         else 
         {
             ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shapedRecipe(helmet)
-                        .key('S', item)
-                        .patternLine("SSS")
-                        .patternLine("S S")
-                        .patternLine("   ")
-                        .addCriterion("has_item", criterion)
-                        ::build)
+                .addRecipe(ShapedRecipeBuilder.shaped(helmet)
+                        .define('S', item)
+                        .pattern("SSS")
+                        .pattern("S S")
+                        .pattern("   ")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
                 .setAdvancement(helmet_name, build_advancement_with_condition(helmet_name, condition, criterion))
                 .build(consumer, helmet_name);
             
             ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shapedRecipe(chestplate)
-                        .key('S',item)
-                        .patternLine("S S")
-                        .patternLine("SSS")
-                        .patternLine("SSS")
-                        .addCriterion("has_item", criterion)
-                        ::build)
+                .addRecipe(ShapedRecipeBuilder.shaped(chestplate)
+                        .define('S',item)
+                        .pattern("S S")
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
                 .setAdvancement(chestplate_name, build_advancement_with_condition(chestplate_name, condition, criterion))
                 .build(consumer, chestplate_name);
             ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shapedRecipe(leggings)
-                        .key('S', item)
-                        .patternLine("SSS")
-                        .patternLine("S S")
-                        .patternLine("S S")
-                        .addCriterion("has_item", criterion)
-                        ::build)
+                .addRecipe(ShapedRecipeBuilder.shaped(leggings)
+                        .define('S', item)
+                        .pattern("SSS")
+                        .pattern("S S")
+                        .pattern("S S")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
                 .setAdvancement(leggings_name, build_advancement_with_condition(leggings_name, condition, criterion))
                 .build(consumer, leggings_name);
             ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shapedRecipe(boots)
-                        .key('S', item)
-                        .patternLine("   ")
-                        .patternLine("S S")
-                        .patternLine("S S")
-                        .addCriterion("has_item", criterion)
-                        ::build)
+                .addRecipe(ShapedRecipeBuilder.shaped(boots)
+                        .define('S', item)
+                        .pattern("   ")
+                        .pattern("S S")
+                        .pattern("S S")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
                 .setAdvancement(boots_name, build_advancement_with_condition(boots_name, condition, criterion))
                 .build(consumer, boots_name);
         } // else has condition
@@ -387,7 +387,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         ResourceLocation hoe_name = make_resource(variant + "_hoe");
         ResourceLocation shears_name = has_shears ? make_resource(variant + "_shears") : null;
         
-        Ingredient stick = Ingredient.fromTag(Tags.Items.RODS_WOODEN);
+        Ingredient stick = Ingredient.of(Tags.Items.RODS_WOODEN);
         IForgeRegistry<Item> itemReg = ForgeRegistries.ITEMS;
         
         Item sword = itemReg.containsKey(sword_name) ? itemReg.getValue(sword_name) : null;
@@ -402,72 +402,72 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         if (condition==null) 
         {
             // sword
-            ShapedRecipeBuilder.shapedRecipe(sword)
-                .key('S', item)
-                .key('T', stick)
-                .patternLine(" S ")
-                .patternLine(" S ")
-                .patternLine(" T ")
-                .addCriterion("has_item", criterion)
-                .build(consumer);
+            ShapedRecipeBuilder.shaped(sword)
+                .define('S', item)
+                .define('T', stick)
+                .pattern(" S ")
+                .pattern(" S ")
+                .pattern(" T ")
+                .unlockedBy("has_item", criterion)
+                .save(consumer);
             
             // axe
             if (axe != null) {
-                ShapedRecipeBuilder.shapedRecipe(axe)
-                    .key('S', item)
-                    .key('T', stick)
-                    .patternLine("SS ")
-                    .patternLine("ST ")
-                    .patternLine(" T ")
-                    .addCriterion("has_item", criterion)
-                    .build(consumer);
+                ShapedRecipeBuilder.shaped(axe)
+                    .define('S', item)
+                    .define('T', stick)
+                    .pattern("SS ")
+                    .pattern("ST ")
+                    .pattern(" T ")
+                    .unlockedBy("has_item", criterion)
+                    .save(consumer);
             }
             
             // hoe
             if (hoe != null) {
-                ShapedRecipeBuilder.shapedRecipe(hoe)
-                    .key('S', item)
-                    .key('T', stick)
-                    .patternLine("SS ")
-                    .patternLine(" T ")
-                    .patternLine(" T ")
-                    .addCriterion("has_item", criterion)
-                    .build(consumer);
+                ShapedRecipeBuilder.shaped(hoe)
+                    .define('S', item)
+                    .define('T', stick)
+                    .pattern("SS ")
+                    .pattern(" T ")
+                    .pattern(" T ")
+                    .unlockedBy("has_item", criterion)
+                    .save(consumer);
             }
             
             // pickaxe
             if (pickaxe != null) {
-                ShapedRecipeBuilder.shapedRecipe(pickaxe)
-                    .key('S', item)
-                    .key('T', stick)
-                    .patternLine("SSS")
-                    .patternLine(" T ")
-                    .patternLine(" T ")
-                    .addCriterion("has_item", criterion)
-                    .build(consumer);
+                ShapedRecipeBuilder.shaped(pickaxe)
+                    .define('S', item)
+                    .define('T', stick)
+                    .pattern("SSS")
+                    .pattern(" T ")
+                    .pattern(" T ")
+                    .unlockedBy("has_item", criterion)
+                    .save(consumer);
             }
             
             // shovel
             if (shovel != null)
             {
-                ShapedRecipeBuilder.shapedRecipe(shovel)
-                    .key('S', item)
-                    .key('T', stick)
-                    .patternLine(" S ")
-                    .patternLine(" T ")
-                    .patternLine(" T ")
-                    .addCriterion("has_item", criterion)
-                    .build(consumer);
+                ShapedRecipeBuilder.shaped(shovel)
+                    .define('S', item)
+                    .define('T', stick)
+                    .pattern(" S ")
+                    .pattern(" T ")
+                    .pattern(" T ")
+                    .unlockedBy("has_item", criterion)
+                    .save(consumer);
             }
             
             if (has_shears && shears != null) 
             {
-                ShapedRecipeBuilder.shapedRecipe(shears)
-                    .key('S', item)
-                    .patternLine(" S")
-                    .patternLine("S ")
-                    .addCriterion("has_item", criterion)
-                    .build(consumer);
+                ShapedRecipeBuilder.shaped(shears)
+                    .define('S', item)
+                    .pattern(" S")
+                    .pattern("S ")
+                    .unlockedBy("has_item", criterion)
+                    .save(consumer);
             }
         } // end condition null
         else 
@@ -475,14 +475,14 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             // sword
             ConditionalRecipe.builder().addCondition(condition)
                 .addRecipe(
-                    ShapedRecipeBuilder.shapedRecipe(sword)
-                        .key('S', item)
-                        .key('T', stick)
-                        .patternLine(" S ")
-                        .patternLine(" S ")
-                        .patternLine(" T ")
-                        .addCriterion("has_item", criterion)
-                        ::build)
+                    ShapedRecipeBuilder.shaped(sword)
+                        .define('S', item)
+                        .define('T', stick)
+                        .pattern(" S ")
+                        .pattern(" S ")
+                        .pattern(" T ")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
                 .setAdvancement(sword_name, build_advancement_with_condition(sword_name, condition, criterion))
                 .build(consumer, sword_name);
 
@@ -490,14 +490,14 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (pickaxe != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shapedRecipe(pickaxe)
-                            .key('S', item)
-                            .key('T', stick)
-                            .patternLine("SSS")
-                            .patternLine(" T ")
-                            .patternLine(" T ")
-                            .addCriterion("has_item", criterion)
-                            ::build)
+                        ShapedRecipeBuilder.shaped(pickaxe)
+                            .define('S', item)
+                            .define('T', stick)
+                            .pattern("SSS")
+                            .pattern(" T ")
+                            .pattern(" T ")
+                            .unlockedBy("has_item", criterion)
+                            ::save)
                     .setAdvancement(pickaxe_name, build_advancement_with_condition(pickaxe_name, condition, criterion))
                     .build(consumer, pickaxe_name);
             }
@@ -506,14 +506,14 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (axe != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shapedRecipe(axe)
-                            .key('S', item)
-                            .key('T', stick)
-                            .patternLine("SS ")
-                            .patternLine("ST ")
-                            .patternLine(" T ")
-                            .addCriterion("has_item", criterion)
-                            ::build)
+                        ShapedRecipeBuilder.shaped(axe)
+                            .define('S', item)
+                            .define('T', stick)
+                            .pattern("SS ")
+                            .pattern("ST ")
+                            .pattern(" T ")
+                            .unlockedBy("has_item", criterion)
+                            ::save)
                    .setAdvancement(axe_name, build_advancement_with_condition(axe_name, condition, criterion))
                    .build(consumer, axe_name);
             }
@@ -521,14 +521,14 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (shovel != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shapedRecipe(shovel)
-                            .key('S', item)
-                            .key('T', stick)
-                            .patternLine(" S ")
-                            .patternLine(" T ")
-                            .patternLine(" T ")
-                            .addCriterion("has_item", criterion)
-                            ::build)
+                        ShapedRecipeBuilder.shaped(shovel)
+                            .define('S', item)
+                            .define('T', stick)
+                            .pattern(" S ")
+                            .pattern(" T ")
+                            .pattern(" T ")
+                            .unlockedBy("has_item", criterion)
+                            ::save)
                     .setAdvancement(shovel_name, build_advancement_with_condition(shovel_name, condition, criterion))
                     .build(consumer, shovel_name);
             }
@@ -536,14 +536,14 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (hoe != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shapedRecipe(hoe)
-                            .key('S', item)
-                            .key('T', stick)
-                            .patternLine("SS ")
-                            .patternLine(" T ")
-                            .patternLine(" T ")
-                            .addCriterion("has_item", criterion)
-                            ::build)
+                        ShapedRecipeBuilder.shaped(hoe)
+                            .define('S', item)
+                            .define('T', stick)
+                            .pattern("SS ")
+                            .pattern(" T ")
+                            .pattern(" T ")
+                            .unlockedBy("has_item", criterion)
+                            ::save)
                     .setAdvancement(hoe_name, build_advancement_with_condition(hoe_name, condition, criterion))
                     .build(consumer, hoe_name);
             }
@@ -551,12 +551,12 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (has_shears && shears != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                            ShapedRecipeBuilder.shapedRecipe(shears)
-                            .key('S', item)
-                            .patternLine(" S")
-                            .patternLine("S ")
-                            .addCriterion("has_item", criterion)
-                            ::build)
+                            ShapedRecipeBuilder.shaped(shears)
+                            .define('S', item)
+                            .pattern(" S")
+                            .pattern("S ")
+                            .unlockedBy("has_item", criterion)
+                            ::save)
                     .setAdvancement(shears_name, build_advancement_with_condition(shears_name, condition, criterion))
                     .build(consumer, shears_name);
             }

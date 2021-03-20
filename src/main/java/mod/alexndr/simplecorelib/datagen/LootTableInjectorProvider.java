@@ -20,15 +20,15 @@ public abstract class LootTableInjectorProvider extends AbstractLootTableProvide
     public void addInjectionTable(String modid, String table_name, LootPool.Builder pool)
     {
         this.addTable(new ResourceLocation(modid, "inject/" + table_name), 
-                LootTable.builder().addLootPool(pool), LootParameterSets.CHEST);
+                LootTable.lootTable().withPool(pool), LootParameterSets.CHEST);
     }
     
     public LootPool.Builder createChestPool(int minRolls, int maxRolls, float chanceRoll) 
     {
-        return LootPool.builder()
+        return LootPool.lootPool()
                 .name("main")
-                .rolls(RandomValueRange.of((float)minRolls, (float)maxRolls))
-                .acceptCondition(RandomChance.builder(chanceRoll));
+                .setRolls(RandomValueRange.between((float)minRolls, (float)maxRolls))
+                .when(RandomChance.randomChance(chanceRoll));
     } // end createChestPool
     
 

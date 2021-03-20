@@ -14,7 +14,7 @@ public final class LightUtils
     
     public static ToIntFunction<BlockState> setSwitchedLight(BooleanProperty prop, int foo)
     {
-        return (bar) -> {return bar.get(prop) ? foo : 0;};
+        return (bar) -> {return bar.getValue(prop) ? foo : 0;};
     }
    
 } // end class

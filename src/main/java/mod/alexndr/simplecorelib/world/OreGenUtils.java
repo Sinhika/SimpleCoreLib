@@ -14,9 +14,9 @@ public class OreGenUtils
     public static ConfiguredFeature<?, ?> buildOverworldOreFeature(
                                 Feature<OreFeatureConfig> feature, BlockState bstate, ModOreConfig cfg)
     {
-        return feature.withConfiguration(
-                new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, bstate, cfg.getVein_size()))
-                .range(cfg.getCfg().maximum).square().func_242731_b(cfg.getVein_count());
+        return feature.configured(
+                new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, bstate, cfg.getVein_size()))
+                .range(cfg.getCfg().maximum).squared().count(cfg.getVein_count());
     } // end buildOverworldOreFeature()
 
 
@@ -24,17 +24,17 @@ public class OreGenUtils
                             Feature<OreFeatureConfig> feature, BlockState bstate, ModOreConfig cfg)
     {
         return feature
-                .withConfiguration(
+                .configured(
                         new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, bstate, cfg.getVein_size()))
-                .range(cfg.getCfg().maximum).square().func_242731_b(cfg.getVein_count());
+                .range(cfg.getCfg().maximum).squared().count(cfg.getVein_count());
     }
 
     public static ConfiguredFeature<?, ?> buildNetherRockFeature(
                                     Feature<OreFeatureConfig> feature, BlockState bstate, ModOreConfig cfg)
     {
-        return feature.withConfiguration(
-                    new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_NETHER, bstate, cfg.getVein_size()))
-                .range(cfg.getCfg().maximum).square().func_242731_b(cfg.getVein_count());
+        return feature.configured(
+                    new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHER_ORE_REPLACEABLES, bstate, cfg.getVein_size()))
+                .range(cfg.getCfg().maximum).squared().count(cfg.getVein_count());
     }
     
     public static void registerFeature(String modid, String name, ConfiguredFeature<?, ?> cfg_feature)

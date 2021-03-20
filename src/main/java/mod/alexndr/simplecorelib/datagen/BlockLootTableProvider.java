@@ -32,8 +32,8 @@ import net.minecraft.util.IItemProvider;
 public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 {
     private static final ILootCondition.IBuilder SILK_TOUCH = 
-            MatchTool.builder(ItemPredicate.Builder.create()
-                         .enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
+            MatchTool.toolMatches(ItemPredicate.Builder.item()
+                         .hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
 
     public BlockLootTableProvider(DataGenerator dataGeneratorIn)
     {
@@ -42,12 +42,12 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 
     protected void standardDropTable(Block b)
     {
-        blockTable(b, LootTable.builder().addLootPool(createStandardDrops(b)));
+        blockTable(b, LootTable.lootTable().withPool(createStandardDrops(b)));
     }
 
     protected void specialDropTable(Block b, Item ii)
     {
-        blockTable(b, LootTable.builder().addLootPool(createItemWithFortuneDrops(b, ii)));
+        blockTable(b, LootTable.lootTable().withPool(createItemWithFortuneDrops(b, ii)));
     }
     
     void blockTable(Block b, LootTable.Builder lootTable) 
@@ -57,31 +57,31 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 
     LootPool.Builder createStandardDrops(IItemProvider itemProvider)
     {
-        return LootPool.builder().rolls(ConstantRange.of(1))
-                .acceptCondition(SurvivesExplosion.builder())
-                .addEntry(ItemLootEntry.builder(itemProvider));
+        return LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                .when(SurvivesExplosion.survivesExplosion())
+                .add(ItemLootEntry.lootTableItem(itemProvider));
     }
 
     LootPool.Builder createItemWithFortuneDrops(Block blockIn, Item itemIn)
     {
         return droppingWithSilkTouch(blockIn, withExplosionDecay(blockIn,
-                ItemLootEntry.builder(itemIn).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
+                ItemLootEntry.lootTableItem(itemIn).apply(ApplyBonus.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
     
     static <T> T withExplosionDecay(IItemProvider itemIn, ILootFunctionConsumer<T> consumer)
     {
-        return (T) (consumer.acceptFunction(ExplosionDecay.builder()));
+        return (T) (consumer.apply(ExplosionDecay.explosionDecay()));
     }
 
      @SuppressWarnings({ "unchecked", "rawtypes" })
     static LootPool.Builder dropping(Block blockIn, ILootCondition.IBuilder builderIn,
             LootEntry.Builder<?> entryBuilderIn)
     {
-        return LootPool.builder().rolls(ConstantRange.of(1))
-                .addEntry(
-                        ((StandaloneLootEntry.Builder) ItemLootEntry.builder(blockIn)
-                                .acceptCondition(builderIn))
-                                .alternatively(entryBuilderIn));
+        return LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                .add(
+                        ((StandaloneLootEntry.Builder) ItemLootEntry.lootTableItem(blockIn)
+                                .when(builderIn))
+                                .otherwise(entryBuilderIn));
     }
 
     static LootPool.Builder droppingWithSilkTouch(Block blockIn, LootEntry.Builder<?> builderIn)

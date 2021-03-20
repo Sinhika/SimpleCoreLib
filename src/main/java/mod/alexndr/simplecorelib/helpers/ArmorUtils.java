@@ -21,13 +21,13 @@ public final class ArmorUtils
      */
     public static boolean isPlayerWearingFullSet(PlayerEntity player, @Nonnull IArmorMaterial material)
     {
-        Iterable<ItemStack> armorList = player.getArmorInventoryList();
+        Iterable<ItemStack> armorList = player.getArmorSlots();
         for (ItemStack stack : armorList)
         {
             if (stack.isEmpty()) { return false; }
             if (! (stack.getItem() instanceof ArmorItem)) { return false; }
             ArmorItem piece = (ArmorItem) stack.getItem();
-            IArmorMaterial pieceMaterial = piece.getArmorMaterial();
+            IArmorMaterial pieceMaterial = piece.getMaterial();
             if (pieceMaterial != material) {
                 return false;
             }

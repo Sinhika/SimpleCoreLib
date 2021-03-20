@@ -37,7 +37,7 @@ public abstract class AbstractLootTableProvider extends LootTableProvider
     @Override
     protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker)
     {
-        map.forEach((loc, table) -> LootTableManager.validateLootTable(validationtracker, loc, table));
+        map.forEach((loc, table) -> LootTableManager.validate(validationtracker, loc, table));
     }
 
 } // end class

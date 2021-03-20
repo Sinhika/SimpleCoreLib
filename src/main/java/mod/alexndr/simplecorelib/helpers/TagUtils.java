@@ -11,7 +11,7 @@ public final class TagUtils
     // ITEM TAGS
     public static ITag.INamedTag<Item> modTag(String modid, String name)
     {
-        return ItemTags.makeWrapperTag(modid + ":" + name);
+        return ItemTags.bind(modid + ":" + name);
     }
     
     public static ITag.INamedTag<Item> forgeTag(String name)
@@ -25,7 +25,7 @@ public final class TagUtils
     
     // BLOCK TAGS
     public static ITag.INamedTag<Block> modBlockTag(String modid, String name) {
-        return BlockTags.makeWrapperTag(modid + ":" + name);
+        return BlockTags.bind(modid + ":" + name);
     }
     
     public static ITag.INamedTag<Block> forgeBlockTag(String name) {
