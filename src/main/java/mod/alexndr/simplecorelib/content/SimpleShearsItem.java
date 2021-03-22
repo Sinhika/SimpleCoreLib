@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.extensions.IForgeBlockState;
 
-import net.minecraft.item.Item.Properties;
-
 public class SimpleShearsItem extends ShearsItem
 {
 
