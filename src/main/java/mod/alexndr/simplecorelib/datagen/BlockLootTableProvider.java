@@ -19,6 +19,8 @@ import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.loot.conditions.SurvivesExplosion;
 import net.minecraft.loot.functions.ApplyBonus;
+import net.minecraft.loot.functions.CopyName;
+import net.minecraft.loot.functions.CopyName.Source;
 import net.minecraft.loot.functions.ExplosionDecay;
 import net.minecraft.util.IItemProvider;
 
@@ -40,17 +42,43 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
         super(dataGeneratorIn);
     }
 
+    /**
+     * Creates a standard "drop yourself" block loot table, with no special conditions other
+     * the standard "survives_explosion".
+     * 
+     * @param b block being harvested/to be dropped.
+     */
     protected void standardDropTable(Block b)
     {
         blockTable(b, LootTable.lootTable().withPool(createStandardDrops(b)));
     }
 
+    /**
+     * Create a block loot table that drops an item instead of the block itself. Used 
+     * for example, for gems that drop from gem ore blocks. Assumed to be affected by
+     * Fortune-enchanted tools.
+     * 
+     * @param b block being harvested
+     * @param ii item dropped by block.
+     */
     protected void specialDropTable(Block b, Item ii)
     {
         blockTable(b, LootTable.lootTable().withPool(createItemWithFortuneDrops(b, ii)));
     }
-    
-    void blockTable(Block b, LootTable.Builder lootTable) 
+
+    /**
+     * Create a block loot table that drops an item-block for the block, but with any
+     * custom names copied over. Used for machines and other blocks that might have names.
+     * 
+     * @param b block being harvested
+     * @param ii item-block that is dropped.
+     */
+    protected void copyNameDropTable(Block b, Item ii)
+    {
+        blockTable(b, LootTable.lootTable().withPool(createItemWithNameCopy(ii)));
+    }
+
+    protected void blockTable(Block b, LootTable.Builder lootTable) 
     {
         addTable(b.getLootTable(), lootTable, LootParameterSets.BLOCK);
     }
@@ -62,6 +90,14 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
                 .add(ItemLootEntry.lootTableItem(itemProvider));
     }
 
+    protected LootPool.Builder createItemWithNameCopy(Item itemProvider)
+    {
+        return LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                .when(SurvivesExplosion.survivesExplosion())
+                .add(ItemLootEntry.lootTableItem(itemProvider))
+                .apply(CopyName.copyName(Source.BLOCK_ENTITY));
+    }
+    
     LootPool.Builder createItemWithFortuneDrops(Block blockIn, Item itemIn)
     {
         return droppingWithSilkTouch(blockIn, withExplosionDecay(blockIn,
