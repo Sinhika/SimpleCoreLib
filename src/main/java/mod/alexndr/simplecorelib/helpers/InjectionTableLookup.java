@@ -32,18 +32,27 @@ public abstract class InjectionTableLookup extends HashMap<String, String>
         AddDungeonAliases();
     } // end AddAllAliases()
     
+    /**
+     * use 'simple_dungeon' for 'pillager_outpost' and 'woodland_mansion'.
+     */
     public void AddDungeonAliases()
     {
         this.put("pillager_outpost", "simple_dungeon");
         this.put("woodland_mansion", "simple_dungeon");
     }
     
+    /**
+     * use 'stronghold' for crossing and corridor.
+     */
     public void AddStrongholdAliases()
     {
         this.put("stronghold_corridor", "stronghold");
         this.put("stronghold_crossing", "stronghold");
     }
     
+    /**
+     * use 'village_house' for all village_*_house tables.
+     */
     public void AddVillageHouseAliases()
     {
         this.put("village_savanna_house", "village_house");
@@ -53,6 +62,9 @@ public abstract class InjectionTableLookup extends HashMap<String, String>
         this.put("village_taiga_house", "village_house");
     }
     
+    /**
+     * use 'bastion' for all nether chests.
+     */
     public void AddNetherAliases()
     {
         this.put("bastion_bridge", "bastion");
@@ -62,6 +74,10 @@ public abstract class InjectionTableLookup extends HashMap<String, String>
         this.put("nether_bridge", "bastion");
     }
 
+    /**
+     * use 'shipwreck' for all 'shipwreck_*' tables, and 'underwater_ruin' for all 'underwater_ruin_*'.
+     * 
+     */
     public void AddOceanAliases()
     {
         this.put("shipwreck_map", "shipwreck");
