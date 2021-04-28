@@ -2,22 +2,31 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 ============================================
 version_minecraft = 1.16.5
 #version_snapshot = 20201028-1.16.3
-version_forge = 1.16.5-36.1.12
+version_forge = 1.16.5-36.1.13
 
 simplecorelib_version = 1.16.5-2.0.7.5
-simpleores_version = 1.16.5-2.4.6.3
-netherrocks_version = 1.16.5-2.3.5.3
-fusion_version = 1.16.5-2.7.3.4
-onlysilver_version = 1.16.5-3.2.4.0
+simpleores_version = 1.16.5-2.4.6.6
+netherrocks_version = 1.16.5-2.3.5.4
+fusion_version = 1.16.5-2.7.3.7
+onlysilver_version = 1.16.5-3.2.4.1
 aesthetics_version = 1.16.5-1.10.3.0
 simple_machines_version = 1.16.5-1.7.4.0
-arsenic_version = 1.16.5-2.0.2.1
+arsenic_version = 1.16.5-2.0.2.2
 hadite_version = 1.16.5-2.4.4.0
 sterlingblack_version = 1.16.5-2.2.3.0
 tungsten_version = 1.16.5-2.3.4.0
 
 ashenwheat_version = 1.16.5-4.4.3.0
 
+classicalalchemy_version = 1.16.5-2.0.0.0
+
+version_mcjei = 1.16.5
+jei_version = 7.6.4.87
+
+silents_mechanisms: versionRange="[0.8.9,)"
+silentgear: versionRange="[2.6.5,)"
+
+=====================
 OLD SNAPSHOT MAPPINGS
 =====================
 simplecorelib_version = 1.16.5-2.0.6.2
@@ -32,10 +41,3 @@ hadite_version = 1.16.5-2.4.3.1
 sterlingblack_version = 1.16.5-2.2.2.0
 tungsten_version = 1.16.5-2.3.3.0
 
-classicalalchemy_version = 1.16.5-2.0.0.0
-
-version_mcjei = 1.16.4
-jei_version = 7.6.1.71
-
-silents_mechanisms: versionRange="[1.16.3-0.8.9,)"
-silentgear: versionRange="[1.16.3-2.6.5,)"
