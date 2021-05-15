@@ -22,7 +22,7 @@ def getVersionAppendage() {
 }
 
 version = "${version_minecraft}-${version_mod}." + getVersionAppendage()
-group = 'mod.alexndr.simplecorelib' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'mod.alexndr.simplecorelib' 
 archivesBaseName = 'simplecorelib'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
@@ -163,6 +163,7 @@ jar.finalizedBy('reobfJar')
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId = 'simplecore-api'
             artifact jar
         }
     }
