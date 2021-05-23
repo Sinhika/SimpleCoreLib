@@ -83,7 +83,7 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
         addTable(b.getLootTable(), lootTable, LootParameterSets.BLOCK);
     }
 
-    LootPool.Builder createStandardDrops(IItemProvider itemProvider)
+    protected LootPool.Builder createStandardDrops(IItemProvider itemProvider)
     {
         return LootPool.lootPool().setRolls(ConstantRange.exactly(1))
                 .when(SurvivesExplosion.survivesExplosion())
@@ -98,19 +98,19 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
                 .apply(CopyName.copyName(Source.BLOCK_ENTITY));
     }
     
-    LootPool.Builder createItemWithFortuneDrops(Block blockIn, Item itemIn)
+    protected LootPool.Builder createItemWithFortuneDrops(Block blockIn, Item itemIn)
     {
         return droppingWithSilkTouch(blockIn, withExplosionDecay(blockIn,
                 ItemLootEntry.lootTableItem(itemIn).apply(ApplyBonus.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
     
-    static <T> T withExplosionDecay(IItemProvider itemIn, ILootFunctionConsumer<T> consumer)
+    protected static <T> T withExplosionDecay(IItemProvider itemIn, ILootFunctionConsumer<T> consumer)
     {
         return (T) (consumer.apply(ExplosionDecay.explosionDecay()));
     }
 
      @SuppressWarnings({ "unchecked", "rawtypes" })
-    static LootPool.Builder dropping(Block blockIn, ILootCondition.IBuilder builderIn,
+    protected static LootPool.Builder dropping(Block blockIn, ILootCondition.IBuilder builderIn,
             LootEntry.Builder<?> entryBuilderIn)
     {
         return LootPool.lootPool().setRolls(ConstantRange.exactly(1))
@@ -120,10 +120,9 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
                                 .otherwise(entryBuilderIn));
     }
 
-    static LootPool.Builder droppingWithSilkTouch(Block blockIn, LootEntry.Builder<?> builderIn)
+    protected static LootPool.Builder droppingWithSilkTouch(Block blockIn, LootEntry.Builder<?> builderIn)
     {
         return dropping(blockIn, SILK_TOUCH, builderIn);
     }
-   
     
 } // end class AbstractLootTableProvider
