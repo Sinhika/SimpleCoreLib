@@ -33,7 +33,7 @@ import net.minecraft.util.IItemProvider;
  */
 public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 {
-    private static final ILootCondition.IBuilder SILK_TOUCH = 
+    protected static final ILootCondition.IBuilder SILK_TOUCH = 
             MatchTool.toolMatches(ItemPredicate.Builder.item()
                          .hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
 
