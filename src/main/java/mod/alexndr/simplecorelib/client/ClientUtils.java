@@ -37,22 +37,24 @@ public final class ClientUtils
     } // end setupBowModelProperties()
     
     /**
-     * Standard equation for generating random particle positions for blocks that spew random
-     * particles. Used as a helper function in animateTick().
+     * like findBlockParticleVector, but allows the displacement factors to be specified.
      * @param pos as provided by animateTick()
      * @param rand as provided by animateTick()
+     * @param fact1 factor subtracted from first 3 terms.
+     * @param fact2 factor multiplied by next 3 terms.
      * @return array with args for World.addParticle position & vector.
+     *     
      */
-    public static double[] findBlockParticleVector(BlockPos pos, Random rand)
+    public static double[] findBlockParticleVector(BlockPos pos, Random rand, float fact1, float fact2)
     {
         double pv[] = new double[6];
         
-        float f1 = (float)pos.getX() - 0.5F;
-        float f2 = (float)pos.getY() - 0.5F;
-        float f3 = (float)pos.getZ() - 0.5F;
-        float f4 = rand.nextFloat() * 2.0f;
-        float f5 = rand.nextFloat() * 2.0f;
-        float f6 = rand.nextFloat() * 2.0f;
+        float f1 = (float)pos.getX() - fact1;
+        float f2 = (float)pos.getY() - fact1;
+        float f3 = (float)pos.getZ() - fact1;
+        float f4 = rand.nextFloat() * fact2;
+        float f5 = rand.nextFloat() * fact2;
+        float f6 = rand.nextFloat() * fact2;
         pv[0] = (double)(f1 + f4);
         pv[1] = (double)(f2 + f5);
         pv[2] = (double)(f3 + f6);
@@ -61,6 +63,18 @@ public final class ClientUtils
         pv[5] = 0.0D;
         
         return pv;
-    } // end findBlockParticleVector()
+    } // end findBlockParticleVector(pos, rand, f1, f2)
+    
+    /**
+     * Standard equation for generating random particle positions for blocks that spew random
+     * particles. Used as a helper function in animateTick().
+     * @param pos as provided by animateTick()
+     * @param rand as provided by animateTick()
+     * @return array with args for World.addParticle position & vector.
+     */
+    public static double[] findBlockParticleVector(BlockPos pos, Random rand)
+    {
+        return findBlockParticleVector(pos, rand, 0.5F, 2.0F);
+    } // end findBlockParticleVector(pos, rand)
 
 } // end class

@@ -4,7 +4,7 @@ version_minecraft = 1.16.5
 #version_snapshot = 20201028-1.16.3
 version_forge = 1.16.5-36.1.32
 
-simplecorelib_version = 1.16.5-2.0.8.2
+simplecorelib_version = 1.16.5-2.0.8.3
 simpleores_version = 1.16.5-2.4.7.0
 netherrocks_version = 1.16.5-2.3.6.0
 fusion_version = 1.16.5-2.7.4.0
