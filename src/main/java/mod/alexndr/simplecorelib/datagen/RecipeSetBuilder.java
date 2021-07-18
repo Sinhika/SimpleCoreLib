@@ -402,14 +402,16 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         if (condition==null) 
         {
             // sword
-            ShapedRecipeBuilder.shaped(sword)
-                .define('S', item)
-                .define('T', stick)
-                .pattern(" S ")
-                .pattern(" S ")
-                .pattern(" T ")
-                .unlockedBy("has_item", criterion)
-                .save(consumer);
+            if (sword != null) {
+                ShapedRecipeBuilder.shaped(sword)
+                    .define('S', item)
+                    .define('T', stick)
+                    .pattern(" S ")
+                    .pattern(" S ")
+                    .pattern(" T ")
+                    .unlockedBy("has_item", criterion)
+                    .save(consumer);
+            }
             
             // axe
             if (axe != null) {
@@ -473,19 +475,21 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         else 
         {
             // sword
-            ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(
-                    ShapedRecipeBuilder.shaped(sword)
-                        .define('S', item)
-                        .define('T', stick)
-                        .pattern(" S ")
-                        .pattern(" S ")
-                        .pattern(" T ")
-                        .unlockedBy("has_item", criterion)
-                        ::save)
-                .setAdvancement(sword_name, build_advancement_with_condition(sword_name, condition, criterion))
-                .build(consumer, sword_name);
-
+            if (sword != null) {
+                ConditionalRecipe.builder().addCondition(condition)
+                    .addRecipe(
+                        ShapedRecipeBuilder.shaped(sword)
+                            .define('S', item)
+                            .define('T', stick)
+                            .pattern(" S ")
+                            .pattern(" S ")
+                            .pattern(" T ")
+                            .unlockedBy("has_item", criterion)
+                            ::save)
+                    .setAdvancement(sword_name, build_advancement_with_condition(sword_name, condition, criterion))
+                    .build(consumer, sword_name);
+            }
+            
             // pickaxe
             if (pickaxe != null) {
                 ConditionalRecipe.builder().addCondition(condition)

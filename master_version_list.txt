@@ -1,13 +1,15 @@
 USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 ============================================
+org.gradle.java.home=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+
 version_minecraft = 1.16.5
 #version_snapshot = 20201028-1.16.3
 version_forge = 1.16.5-36.1.32
 
-simplecorelib_version = 1.16.5-2.0.8.3
+simplecorelib_version = 1.16.5-2.0.8.4
 simpleores_version = 1.16.5-2.4.7.0
 netherrocks_version = 1.16.5-2.3.6.0
-fusion_version = 1.16.5-2.7.4.0
+fusion_version = 1.16.5-2.7.4.1
 onlysilver_version = 1.16.5-3.2.5.0
 aesthetics_version = 1.16.5-1.10.4.0
 simple_machines_version = 1.16.5-1.7.5.0
