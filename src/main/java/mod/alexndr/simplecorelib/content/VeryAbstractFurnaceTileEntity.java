@@ -1,32 +1,48 @@
 package mod.alexndr.simplecorelib.content;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RangedWrapper;
@@ -102,7 +118,6 @@ public abstract class VeryAbstractFurnaceTileEntity extends LockableTileEntity
     {
         super(tileEntityTypeIn);
         this.recipeType = recipeTypeIn;
-        // TODO Auto-generated constructor stub
     }
 
     abstract public boolean isFuel(ItemStack stack);
@@ -110,12 +125,21 @@ public abstract class VeryAbstractFurnaceTileEntity extends LockableTileEntity
     /**
      * @return If the stack is not empty and has a smelting recipe associated with it
      */
-    abstract protected boolean isInput(final ItemStack stack);
+    protected boolean isInput(final ItemStack stack)
+    {
+        if (stack.isEmpty())
+            return false;
+        return getRecipe(stack).isPresent();
+    }
 
     /**
      * @return If the stack's item is equal to the result of smelting our input
      */
-    abstract protected boolean isOutput(final ItemStack stack);
+    protected boolean isOutput(final ItemStack stack)
+    {
+        final Optional<ItemStack> result = getResult(inventory.getStackInSlot(INPUT_SLOT));
+        return result.isPresent() && ItemStack.isSame(result.get(), stack);
+    }
     
     public boolean isBurning()
     {
@@ -123,15 +147,10 @@ public abstract class VeryAbstractFurnaceTileEntity extends LockableTileEntity
     }
 
     /**
-     * @return If the fuel was burnt
-     */
-    abstract protected boolean burnFuel(); 
-
-    /**
      * @return The smelting recipe for the inventory; implements recipe caching.
      */
     @SuppressWarnings("unchecked")
-    private Optional<AbstractCookingRecipe> getRecipe(final IInventory inventory)
+    protected Optional<AbstractCookingRecipe> getRecipe(final IInventory inventory)
     {
         if (cachedRecipe != null && cachedRecipe.matches(inventory, level))
         {
@@ -155,7 +174,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends LockableTileEntity
     /**
      * @return The smelting recipe for the input stack
      */
-    private Optional<AbstractCookingRecipe> getRecipe(final ItemStack input)
+    protected Optional<AbstractCookingRecipe> getRecipe(final ItemStack input)
     {
         if (input.isEmpty() || input == failedMatch) {
             return Optional.empty();
@@ -344,7 +363,226 @@ public abstract class VeryAbstractFurnaceTileEntity extends LockableTileEntity
         if (flag1) {
             this.setChanged();
          }
-        
     } // end tick()
 
+    /**
+     * Retrieves the Optional handler for the capability requested on the specific side.
+     *
+     * @param cap  The capability to check
+     * @param side The Direction to check from. CAN BE NULL! Null is defined to represent 'internal' or 'self'
+     * @return The requested an optional holding the requested capability.
+     */
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, @Nullable final Direction side)
+    {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (side == null)
+                return inventoryCapabilityExternal.cast();
+            switch (side) {
+                case DOWN:
+                    return inventoryCapabilityExternalDown.cast();
+                case UP:
+                    return inventoryCapabilityExternalUp.cast();
+                case NORTH:
+                case SOUTH:
+                case WEST:
+                case EAST:
+                    return inventoryCapabilityExternalSides.cast();
+            }
+        }
+        return super.getCapability(cap, side);
+    }
+    
+    @Override
+    public void onLoad()
+    {
+        super.onLoad();
+        // We set this in onLoad instead of the constructor so that TileEntities
+        // constructed from NBT (saved tile entities) have this set to the proper value
+        if (level != null && !level.isClientSide)
+            lastBurning = isBurning();
+    }
+
+    /**
+     * Read saved data from disk into the tile.
+     */
+    @Override
+    public void load(BlockState stateIn, final CompoundNBT compound)
+    {
+        super.load(stateIn, compound);
+        this.inventory.deserializeNBT(compound.getCompound(INVENTORY_TAG));
+        this.smeltTimeProgress = compound.getShort(SMELT_TIME_LEFT_TAG);
+        this.maxSmeltTime = compound.getShort(MAX_SMELT_TIME_TAG);
+        this.fuelBurnTimeLeft = compound.getInt(FUEL_BURN_TIME_LEFT_TAG);
+        this.maxFuelBurnTime = compound.getInt(MAX_FUEL_BURN_TIME_TAG);
+
+        // We set this in read() instead of the constructor so that TileEntities
+        // constructed from NBT (saved tile entities) have this set to the proper value
+        if (this.hasLevel() && !this.level.isClientSide) {
+            lastBurning = this.isBurning();
+        }
+
+        // get recipe2xp map
+        int ii = compound.getShort("RecipesUsedSize");
+        for(int jj = 0; jj < ii; ++jj) {
+           ResourceLocation resourcelocation 
+               = new ResourceLocation(compound.getString("RecipeLocation" + jj));
+           int kk = compound.getInt("RecipeAmount" + jj);
+           this.recipe2xp_map.put(resourcelocation, kk);
+        }
+        
+        // blockstate?
+        if (this.hasLevel()) {
+            this.level.setBlockAndUpdate(getBlockPos(), this.getBlockState()
+                                            .setValue(BlockStateProperties.LIT, 
+                                                    Boolean.valueOf(this.isBurning())));
+        }
+        
+    } // end read()
+
+    /**
+     * Write data from the tile into a compound tag for saving to disk.
+     */
+    @Nonnull
+    @Override
+    public CompoundNBT save(final CompoundNBT compound)
+    {
+        super.save(compound);
+        compound.put(INVENTORY_TAG, this.inventory.serializeNBT());
+        compound.putShort(SMELT_TIME_LEFT_TAG, this.smeltTimeProgress);
+        compound.putShort(MAX_SMELT_TIME_TAG, this.maxSmeltTime);
+        compound.putInt(FUEL_BURN_TIME_LEFT_TAG, this.fuelBurnTimeLeft);
+        compound.putInt(MAX_FUEL_BURN_TIME_TAG, this.maxFuelBurnTime);
+        
+        // write recipe2xp map
+        compound.putShort("RecipesUsedSize", (short)this.recipe2xp_map.size());
+        int ii = 0;
+        for(Entry<ResourceLocation, Integer> entry : this.recipe2xp_map.entrySet()) 
+        {
+           compound.putString("RecipeLocation" + ii, entry.getKey().toString());
+           compound.putInt("RecipeAmount" + ii, entry.getValue());
+           ++ii;
+        }
+        return compound;
+    } // end save()
+
+    /**
+     * Get an NBT compound to sync to the client with SPacketChunkData, used for initial loading of the
+     * chunk or when many blocks change at once.
+     * This compound comes back to you client-side in {@link #handleUpdateTag}
+     * The default implementation ({@link TileEntity#handleUpdateTag}) calls {@link #writeInternal)}
+     * which doesn't save any of our extra data so we override it to call {@link #write} instead
+     */
+    @Nonnull
+    public CompoundNBT getUpdateTag()
+    {
+        return this.save(new CompoundNBT());
+    }
+
+    /**
+     * Called when the chunk's TE update tag, gotten from {@link #getUpdateTag()}, is received on the client.
+     * Used to handle this tag in a special way. By default this simply calls {@link #readFromNBT(NBTTagCompound)}.
+     *
+     * @param tag The {@link NBTTagCompound} sent from {@link #getUpdateTag()}
+     */
+    @Override
+    public void handleUpdateTag(BlockState state, CompoundNBT tag)
+    {
+        this.load(state, tag);
+    }
+
+    @Override
+    public SUpdateTileEntityPacket getUpdatePacket()
+    {
+        CompoundNBT nbtTag = new CompoundNBT();
+        return new SUpdateTileEntityPacket(getBlockPos(), -1, save(nbtTag));
+    }
+
+    
+    /**
+     * Called when you receive a TileEntityData packet for the location this
+     * TileEntity is currently in. On the client, the NetworkManager will always
+     * be the remote server. On the server, it will be whomever is responsible for
+     * sending the packet.
+     *
+     * @param net The NetworkManager the packet originated from
+     * @param pkt The data packet
+     */
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
+    {
+        CompoundNBT nbtTag = pkt.getTag();
+        this.load(getBlockState(), nbtTag);
+    }
+
+
+    @Override
+    protected void invalidateCaps()
+    {
+        super.invalidateCaps();
+        // We need to invalidate our capability references so that any cached references (by other mods) don't
+        // continue to reference our capabilities and try to use them and/or prevent them from being garbage collected
+        inventoryCapabilityExternal.invalidate();
+        inventoryCapabilityExternalUp.invalidate();
+        inventoryCapabilityExternalDown.invalidate();
+        inventoryCapabilityExternalSides.invalidate();
+    }
+
+
+    @Nonnull
+    @Override
+    public abstract ITextComponent getDisplayName();
+
+    /**
+     * Called from {@link NetworkHooks#openGui}
+     * (which is called from {@link ElectricFurnaceBlock#onBlockActivated} on the logical server)
+     *
+     * @return The logical-server-side Container for this TileEntity
+     */
+    @Nonnull
+    @Override
+    public abstract Container createMenu(final int windowId, final PlayerInventory inventory, final PlayerEntity player);
+
+    public void grantExperience(PlayerEntity player)
+    {
+        List<IRecipe<?>> list = Lists.newArrayList();
+
+        for (Entry<ResourceLocation, Integer> entry : this.recipe2xp_map.entrySet())
+        {
+            player.level.getRecipeManager().byKey(entry.getKey()).ifPresent((p_213993_3_) -> {
+                list.add(p_213993_3_);
+                spawnExpOrbs(player, entry.getValue(), ((AbstractCookingRecipe) p_213993_3_).getExperience());
+            });
+        }
+        player.awardRecipes(list);
+        this.recipe2xp_map.clear();
+    }
+    
+    protected static void spawnExpOrbs(PlayerEntity player, int pCount, float experience)
+    {
+        if (experience == 0.0F) {
+            pCount = 0;
+        }
+        else if (experience < 1.0F)
+        {
+            int i = MathHelper.floor((float) pCount * experience);
+            if (i < MathHelper.ceil((float) pCount * experience)
+                    && Math.random() < (double) ((float) pCount * experience - (float) i))
+            {
+                ++i;
+            }
+            pCount = i;
+        }
+
+        while (pCount > 0)
+        {
+            int j = ExperienceOrbEntity.getExperienceValue(pCount);
+            pCount -= j;
+            player.level.addFreshEntity(new ExperienceOrbEntity(player.level, player.getX(), player.getY() + 0.5D,
+                    player.getZ() + 0.5D, j));
+        }
+    } // end spawnExpOrbs()
+
+  
 } // end class
