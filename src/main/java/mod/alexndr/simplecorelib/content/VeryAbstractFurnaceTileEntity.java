@@ -2,8 +2,8 @@ package mod.alexndr.simplecorelib.content;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,8 +30,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
+import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -54,7 +54,7 @@ import net.minecraftforge.items.wrapper.RangedWrapper;
  * @author Sinhika
  *
  */
-public abstract class VeryAbstractFurnaceTileEntity extends LockableTileEntity
+public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
         implements ITickableTileEntity, INamedContainerProvider
 {
     public static final int FUEL_SLOT = 0;
@@ -120,7 +120,10 @@ public abstract class VeryAbstractFurnaceTileEntity extends LockableTileEntity
         this.recipeType = recipeTypeIn;
     }
 
-    abstract public boolean isFuel(ItemStack stack);
+    public boolean isFuel(ItemStack stack)
+    {
+        return FurnaceTileEntity.isFuel(stack);
+    }
     
     /**
      * @return If the stack is not empty and has a smelting recipe associated with it
@@ -235,8 +238,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends LockableTileEntity
             {
                 return false;
             }
-            else if (outstack.getCount() + result.getCount() <= this.getMaxStackSize()
-                    && outstack.getCount() + result.getCount() <= outstack.getMaxStackSize())
+            else if (outstack.getCount() + result.getCount() <= outstack.getMaxStackSize())
             { // Forge fix: make furnace respect stack sizes in furnace recipes
                 return true;
             }
