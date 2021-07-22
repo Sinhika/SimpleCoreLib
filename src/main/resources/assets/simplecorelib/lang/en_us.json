@@ -1,0 +1,6 @@
+{
+	"itemGroup.simplecorelib" : "SimpleCoreLib",
+	
+    "_comment": "Blocks",
+    "block.simplecorelib.test_furnace": "Test Furnace"
+}

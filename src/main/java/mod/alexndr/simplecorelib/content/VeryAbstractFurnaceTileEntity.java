@@ -227,7 +227,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     
     protected boolean canBurn(ItemStack result)
     {
-        if (!this.inventory.getStackInSlot(OUTPUT_SLOT).isEmpty() && !result.isEmpty())
+        if (!this.inventory.getStackInSlot(FUEL_SLOT).isEmpty() && !result.isEmpty())
         {
             ItemStack outstack = inventory.getStackInSlot(OUTPUT_SLOT);
             if (outstack.isEmpty())
@@ -312,7 +312,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
             ItemStack fuel = inventory.getStackInSlot(FUEL_SLOT).copy();
             final ItemStack result = getResult(input).orElse(ItemStack.EMPTY);
             
-            if (this.isBurning() || !input.isEmpty() && !fuel.isEmpty())
+            if (this.isBurning() || (!input.isEmpty() && !fuel.isEmpty()) )
             {
                 if (!this.isBurning() && this.canBurn(result))
                 {
