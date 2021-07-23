@@ -16,7 +16,7 @@ public final class ModBlocks
             DeferredRegister.create(ForgeRegistries.BLOCKS, SimpleCoreLib.MODID);
     
     // Test Blocks
-    public static final RegistryObject<TestFurnaceBlock> onyx_furnace = BLOCKS.register("test_furnace",
+    public static final RegistryObject<TestFurnaceBlock> test_furnace = BLOCKS.register("test_furnace",
             () -> new TestFurnaceBlock(Block.Properties.of(Material.STONE)
                     .strength(3.5F, 12.0F).requiresCorrectToolForDrops()
                     .lightLevel(LightUtils.setFixedLight(13)).harvestTool(ToolType.PICKAXE)));    
