@@ -77,7 +77,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     protected double fuelMultiplier = 1.0;
 
     public short smeltTimeProgress = -1;
-    public short maxSmeltTime = -1;
+    public short maxSmeltTime = 200;
     public int fuelBurnTimeLeft = -1;
     public int maxFuelBurnTime = -1;
     protected boolean lastBurning = false;
@@ -98,7 +98,16 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                         return false;
                 }
             } // end ItemStackHander(3).isItemValid()
-    
+            
+            @Override
+            public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+                // If something is added to input, get the smelt time.
+                if (! simulate && slot == INPUT_SLOT ) {
+                    VeryAbstractFurnaceTileEntity.this.maxSmeltTime = VeryAbstractFurnaceTileEntity.this.getSmeltTime(stack);
+                }
+                return super.insertItem(slot, stack, simulate);
+            }
+
             @Override
             protected void onContentsChanged(final int slot) {
                 super.onContentsChanged(slot);
@@ -227,7 +236,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     
     protected boolean canBurn(ItemStack result)
     {
-        if (!this.inventory.getStackInSlot(FUEL_SLOT).isEmpty() && !result.isEmpty())
+        if (!this.inventory.getStackInSlot(INPUT_SLOT).isEmpty() && !result.isEmpty())
         {
             ItemStack outstack = inventory.getStackInSlot(OUTPUT_SLOT);
             if (outstack.isEmpty())
@@ -312,7 +321,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
             ItemStack fuel = inventory.getStackInSlot(FUEL_SLOT).copy();
             final ItemStack result = getResult(input).orElse(ItemStack.EMPTY);
             
-            if (this.isBurning() || (!input.isEmpty() && !fuel.isEmpty()) )
+            if ((this.isBurning() || !fuel.isEmpty()) && !input.isEmpty() )
             {
                 if (!this.isBurning() && this.canBurn(result))
                 {
@@ -336,7 +345,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                 if (this.isBurning() && this.canBurn(result))
                 {
                     ++this.smeltTimeProgress;
-                    if (this.smeltTimeProgress == this.maxSmeltTime) 
+                    if (this.smeltTimeProgress >= this.maxSmeltTime) 
                     {
                         this.smeltTimeProgress = 0;
                         this.maxSmeltTime = this.getSmeltTime(input);
