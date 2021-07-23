@@ -347,9 +347,9 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                     ++this.smeltTimeProgress;
                     if (this.smeltTimeProgress >= this.maxSmeltTime) 
                     {
-                        this.smeltTimeProgress = 0;
-                        this.maxSmeltTime = this.getSmeltTime(input);
                         this.burn(result);
+                        this.smeltTimeProgress = 0;
+                        this.maxSmeltTime = this.getSmeltTime(inventory.getStackInSlot(INPUT_SLOT));
                         flag1 = true;
                     } // end-if progess == maxTime
                 } // end-if burning and canBurn
