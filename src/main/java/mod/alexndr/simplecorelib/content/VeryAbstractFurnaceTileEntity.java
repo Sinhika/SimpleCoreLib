@@ -76,7 +76,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     
     protected double fuelMultiplier = 1.0;
 
-    public short smeltTimeProgress = -1;
+    public short smeltTimeProgress = 0;
     public short maxSmeltTime = 200;
     public int fuelBurnTimeLeft = -1;
     public int maxFuelBurnTime = -1;
@@ -226,15 +226,21 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     {
         if (!fuelstack.isEmpty()) 
         {
-            // improved fuel efficiency processing here.
-            return (int) Math.ceil( ((double) ForgeHooks.getBurnTime(fuelstack, null)) * fuelMultiplier);
+            if (fuelMultiplier == 1.0)
+            {
+                return ForgeHooks.getBurnTime(fuelstack, recipeType);
+            }
+            else {
+                // improved fuel efficiency processing here.
+                return (int) Math.ceil( ((double) ForgeHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
+            }
         }
         else {
             return 0;
         }
     } // end getBurnDuration
     
-    protected boolean canBurn(ItemStack result)
+    protected boolean canSmelt(ItemStack result)
     {
         if (!this.inventory.getStackInSlot(INPUT_SLOT).isEmpty() && !result.isEmpty())
         {
@@ -276,9 +282,9 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                 .shortValue();
     }
 
-    protected void burn(ItemStack result)  // result = itemstack1
+    protected void smelt(ItemStack result)  // result = itemstack1
     {
-        if (!result.isEmpty() && this.canBurn(result))
+        if (!result.isEmpty() && this.canSmelt(result))
         {
             ItemStack inputStack = inventory.getStackInSlot(INPUT_SLOT).copy();  // itemstack
             ItemStack outstack = inventory.getStackInSlot(OUTPUT_SLOT).copy(); // itemstack2
@@ -323,7 +329,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
             
             if ((this.isBurning() || !fuel.isEmpty()) && !input.isEmpty() )
             {
-                if (!this.isBurning() && this.canBurn(result))
+                if (!this.isBurning() && this.canSmelt(result))
                 {
                     this.fuelBurnTimeLeft = this.getBurnDuration(fuel);
                     this.maxFuelBurnTime = this.fuelBurnTimeLeft;
@@ -340,14 +346,14 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                             inventory.setStackInSlot(FUEL_SLOT, fuel); // Update the data
                         }
                     } // end-if isBurning
-                } // end-if canBurn
+                } // end-if !isBurning but canSmelt
                 
-                if (this.isBurning() && this.canBurn(result))
+                if (this.isBurning() && this.canSmelt(result))
                 {
                     ++this.smeltTimeProgress;
                     if (this.smeltTimeProgress >= this.maxSmeltTime) 
                     {
-                        this.burn(result);
+                        this.smelt(result);
                         this.smeltTimeProgress = 0;
                         this.maxSmeltTime = this.getSmeltTime(inventory.getStackInSlot(INPUT_SLOT));
                         flag1 = true;
