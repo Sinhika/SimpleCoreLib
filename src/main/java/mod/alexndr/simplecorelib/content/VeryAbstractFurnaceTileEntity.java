@@ -8,6 +8,9 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -57,6 +60,8 @@ import net.minecraftforge.items.wrapper.RangedWrapper;
 public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
         implements ITickableTileEntity, INamedContainerProvider
 {
+    protected static final Logger LOGGER = LogManager.getLogger();
+    
     public static final int FUEL_SLOT = 0;
     public static final int INPUT_SLOT = 1;
     public static final int OUTPUT_SLOT = 2;
@@ -78,8 +83,8 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
 
     public short smeltTimeProgress = 0;
     public short maxSmeltTime = 200;
-    public int fuelBurnTimeLeft = -1;
-    public int maxFuelBurnTime = -1;
+    public int fuelBurnTimeLeft = 0;
+    public int maxFuelBurnTime = 0;
     protected boolean lastBurning = false;
 
     public final ItemStackHandler inventory = new ItemStackHandler(3) 
@@ -224,20 +229,24 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     
     protected int getBurnDuration(ItemStack fuelstack) 
     {
+        int returnval = 0;
+        
         if (!fuelstack.isEmpty()) 
         {
             if (fuelMultiplier == 1.0)
             {
-                return ForgeHooks.getBurnTime(fuelstack, recipeType);
+                returnval = ForgeHooks.getBurnTime(fuelstack, recipeType);
             }
             else {
                 // improved fuel efficiency processing here.
-                return (int) Math.ceil( ((double) ForgeHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
+                returnval = (int) Math.ceil( ((double) ForgeHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
             }
         }
         else {
-            return 0;
+            returnval = 0;
         }
+        LOGGER.debug("getBurnDuration: returns " + returnval + " for " + fuelstack.toString());
+        return returnval;
     } // end getBurnDuration
     
     protected boolean canSmelt(ItemStack result)
