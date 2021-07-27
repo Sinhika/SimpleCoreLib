@@ -8,11 +8,9 @@ import net.minecraft.tileentity.TileEntityType;
 public abstract class VeryAbstractSmokerTileEntity extends VeryAbstractFurnaceTileEntity
 {
 
-    public VeryAbstractSmokerTileEntity(TileEntityType<?> tileEntityTypeIn,
-            IRecipeType<? extends AbstractCookingRecipe> recipeTypeIn)
+    public VeryAbstractSmokerTileEntity(TileEntityType<?> tileEntityTypeIn)
     {
         super(tileEntityTypeIn, IRecipeType.SMOKING);
-        // TODO Auto-generated constructor stub
     }
 
     @Override

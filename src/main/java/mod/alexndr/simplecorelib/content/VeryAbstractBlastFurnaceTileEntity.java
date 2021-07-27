@@ -8,8 +8,7 @@ import net.minecraft.tileentity.TileEntityType;
 public abstract class VeryAbstractBlastFurnaceTileEntity extends VeryAbstractFurnaceTileEntity
 {
 
-    public VeryAbstractBlastFurnaceTileEntity(TileEntityType<?> tileEntityTypeIn,
-            IRecipeType<? extends AbstractCookingRecipe> recipeTypeIn)
+    public VeryAbstractBlastFurnaceTileEntity(TileEntityType<?> tileEntityTypeIn)
     {
         super(tileEntityTypeIn, IRecipeType.BLASTING);
     }

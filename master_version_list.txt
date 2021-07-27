@@ -6,7 +6,7 @@ version_minecraft = 1.16.5
 #version_snapshot = 20201028-1.16.3
 version_forge = 1.16.5-36.1.65
 
-simplecorelib_version = 1.16.5-2.0.8.5/1.16.5-2.0.8.12 (for furnaces)
+simplecorelib_version = 1.16.5-2.0.8.5/1.16.5-2.0.8.14 (for furnaces)
 simpleores_version = 1.16.5-2.4.7.2
 netherrocks_version = 1.16.5-2.3.6.1
 fusion_version = 1.16.5-2.7.4.2
