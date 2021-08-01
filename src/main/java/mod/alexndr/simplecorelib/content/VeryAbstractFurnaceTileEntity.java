@@ -241,7 +241,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                 // improved fuel efficiency processing here.
                 returnval = (int) Math.ceil( ((double) ForgeHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
             }
-            LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractFurnaceTileEntity.getBurnDuration: returns " + returnval + " for " + fuelstack.toString());
+            // LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractFurnaceTileEntity.getBurnDuration: returns " + returnval + " for " + fuelstack.toString());
         }
         else {
             returnval = 0;
@@ -358,8 +358,8 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                     ++this.smeltTimeProgress;
                     if (this.smeltTimeProgress >= this.maxSmeltTime) 
                     {
-                        LOGGER.debug("tick: smeltTimeProgress=" + this.smeltTimeProgress + ", maxSmeltTime=" + this.maxSmeltTime);
-                        LOGGER.debug("tick: fuelBurnTimeLeft=" + this.fuelBurnTimeLeft + ", maxFuelBurnTime=" + this.maxFuelBurnTime);
+//                        LOGGER.debug("tick: smeltTimeProgress=" + this.smeltTimeProgress + ", maxSmeltTime=" + this.maxSmeltTime);
+//                        LOGGER.debug("tick: fuelBurnTimeLeft=" + this.fuelBurnTimeLeft + ", maxFuelBurnTime=" + this.maxFuelBurnTime);
                         this.smelt(result);
                         this.smeltTimeProgress = 0;
                         if (!inventory.getStackInSlot(INPUT_SLOT).isEmpty()) 

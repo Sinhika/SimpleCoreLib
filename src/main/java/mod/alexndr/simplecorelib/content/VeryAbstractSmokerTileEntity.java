@@ -16,7 +16,7 @@ public abstract class VeryAbstractSmokerTileEntity extends VeryAbstractFurnaceTi
     protected int getBurnDuration(ItemStack fuelstack)
     {
         int retval = super.getBurnDuration(fuelstack) / 2;
-        LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractSmokerTileEntity.getBurnDuration: returns " + retval + " for " + fuelstack.toString());
+//        LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractSmokerTileEntity.getBurnDuration: returns " + retval + " for " + fuelstack.toString());
         return retval;
     }
 
