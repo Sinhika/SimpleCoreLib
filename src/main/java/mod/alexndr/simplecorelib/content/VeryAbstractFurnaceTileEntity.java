@@ -241,11 +241,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                 // improved fuel efficiency processing here.
                 returnval = (int) Math.ceil( ((double) ForgeHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
             }
+            LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractFurnaceTileEntity.getBurnDuration: returns " + returnval + " for " + fuelstack.toString());
         }
         else {
             returnval = 0;
         }
-        LOGGER.debug("getBurnDuration: returns " + returnval + " for " + fuelstack.toString());
         return returnval;
     } // end getBurnDuration
     
@@ -262,15 +262,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
             {
                 return false;
             }
-            else if (outstack.getCount() + result.getCount() <= outstack.getMaxStackSize())
-            { // Forge fix: make furnace respect stack sizes in furnace recipes
-                return true;
-            }
             else
-            {
-                // Forge fix: make furnace respect stack sizes in furnace recipes
-                return outstack.getCount() + result.getCount() <= result.getMaxStackSize(); 
+            { // Forge fix: make furnace respect stack sizes in furnace recipes
+                return (outstack.getCount() + result.getCount() <= outstack.getMaxStackSize());
             }
+ 
         } // end-if not output empty and not result empty.
         else
         {
@@ -317,7 +313,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
             }
             inputStack.shrink(1);
             inventory.setStackInSlot(INPUT_SLOT, inputStack);
-        } // end-if canBurn result
+        } // end-if canSmelt result
     } // end burn()
     
     
@@ -362,9 +358,17 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                     ++this.smeltTimeProgress;
                     if (this.smeltTimeProgress >= this.maxSmeltTime) 
                     {
+                        LOGGER.debug("tick: smeltTimeProgress=" + this.smeltTimeProgress + ", maxSmeltTime=" + this.maxSmeltTime);
+                        LOGGER.debug("tick: fuelBurnTimeLeft=" + this.fuelBurnTimeLeft + ", maxFuelBurnTime=" + this.maxFuelBurnTime);
                         this.smelt(result);
                         this.smeltTimeProgress = 0;
-                        this.maxSmeltTime = this.getSmeltTime(inventory.getStackInSlot(INPUT_SLOT));
+                        if (!inventory.getStackInSlot(INPUT_SLOT).isEmpty()) 
+                        {
+                            this.maxSmeltTime = this.getSmeltTime(inventory.getStackInSlot(INPUT_SLOT));
+                        }
+                        else {
+                            this.maxSmeltTime = 0;
+                        }
                         flag1 = true;
                     } // end-if progess == maxTime
                 } // end-if burning and canBurn

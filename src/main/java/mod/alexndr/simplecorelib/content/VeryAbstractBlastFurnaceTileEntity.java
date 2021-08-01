@@ -1,7 +1,6 @@
 package mod.alexndr.simplecorelib.content;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.TileEntityType;
 
@@ -16,7 +15,9 @@ public abstract class VeryAbstractBlastFurnaceTileEntity extends VeryAbstractFur
     @Override
     protected int getBurnDuration(ItemStack fuelstack)
     {
-        return super.getBurnDuration(fuelstack)/2;
+        int retval = super.getBurnDuration(fuelstack) / 2;
+        LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractBlastFurnaceTileEntity.getBurnDuration: returns " + retval + " for " + fuelstack.toString());
+        return retval;
     }
 
     
