@@ -80,7 +80,8 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     protected ItemStack failedMatch = ItemStack.EMPTY;
     
     protected double fuelMultiplier = 1.0;
-
+    protected boolean hasFuelMultiplier = false;
+    
     public short smeltTimeProgress = 0;
     public short maxSmeltTime = 200;
     public int fuelBurnTimeLeft = 0;
@@ -131,6 +132,8 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     public VeryAbstractFurnaceTileEntity(TileEntityType<?> tileEntityTypeIn, IRecipeType<? extends AbstractCookingRecipe> recipeTypeIn)
     {
         super(tileEntityTypeIn);
+        this.fuelMultiplier = 1.0;
+        this.hasFuelMultiplier = false;
         this.recipeType = recipeTypeIn;
     }
 
@@ -223,29 +226,23 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
         final Inventory dummyInventory = new Inventory(input);
         Optional<ItemStack> maybe_result = getRecipe(dummyInventory).map(recipe -> recipe.assemble(dummyInventory));
 
-        ItemStack result = maybe_result.orElse(ItemStack.EMPTY);
-        return Optional.of(result);
+        return Optional.of(maybe_result.orElse(ItemStack.EMPTY));
     }
     
     protected int getBurnDuration(ItemStack fuelstack) 
     {
         int returnval = 0;
         
-        if (!fuelstack.isEmpty()) 
+        // ForgeHooks.getBurnTime() handles empty stack case, so we don't have to.
+        if (!hasFuelMultiplier)
         {
-            if (fuelMultiplier == 1.0)
-            {
-                returnval = ForgeHooks.getBurnTime(fuelstack, recipeType);
-            }
-            else {
-                // improved fuel efficiency processing here.
-                returnval = (int) Math.ceil( ((double) ForgeHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
-            }
-            // LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractFurnaceTileEntity.getBurnDuration: returns " + returnval + " for " + fuelstack.toString());
+            returnval = ForgeHooks.getBurnTime(fuelstack, recipeType);
         }
         else {
-            returnval = 0;
+            // improved fuel efficiency processing here.
+            returnval = (int) Math.ceil(((double) ForgeHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
         }
+        // LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractFurnaceTileEntity.getBurnDuration: returns " + returnval + " for " + fuelstack.toString());
         return returnval;
     } // end getBurnDuration
     
