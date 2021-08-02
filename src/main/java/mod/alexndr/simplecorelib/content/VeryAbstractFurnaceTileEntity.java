@@ -108,7 +108,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
             public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
                 // If something is added to input, get the smelt time.
                 if (! simulate && slot == INPUT_SLOT ) {
-                    VeryAbstractFurnaceTileEntity.this.maxSmeltTime = VeryAbstractFurnaceTileEntity.this.getSmeltTime(stack);
+                    maxSmeltTime = getSmeltTime(stack);
                 }
                 return super.insertItem(slot, stack, simulate);
             }
@@ -119,7 +119,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                 // Mark the tile entity as having changed whenever its inventory changes.
                 // "markDirty" tells vanilla that the chunk containing the tile entity has
                 // changed and means the game will save the chunk to disk later.
-                VeryAbstractFurnaceTileEntity.this.setChanged();
+                setChanged();
             } // end ()
     }; // end ItemStackHandler(3)
 
