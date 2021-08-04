@@ -23,6 +23,7 @@ gradlew*
 # other
 eclipse
 run
+*.swp
 
 # Files from Forge MDK
 forge*changelog.txt

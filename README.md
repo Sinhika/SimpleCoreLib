@@ -1,9 +1,14 @@
 # SimpleCoreLib
 The 1.16+ sequel to SimpleCore, which consists of common api code pulled from Simple Ores.
 
+My semantic versioning has changed as of 1.17: 
+    * MAJOR version changes with Minecraft version changes that require major code rewrites.  
+    * MINOR version changes: breaking changes within a Minecraft version.
+    * PATCH level version: we changed something.
+    * BUILDNumber: should now be irrelevant. Mostly.
+
 TO-DO
 -----
-* overhaul loot table injection code, as 1.16.5 Forge practice prefers using global loot modifiers.
 
 
 License
