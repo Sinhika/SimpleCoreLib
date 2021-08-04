@@ -2,31 +2,30 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 ============================================
 org.gradle.java.home=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 
-version_minecraft = 1.16.5
-#version_snapshot = 20201028-1.16.3
-version_forge = 1.16.5-36.2.2
+version_minecraft = 1.17.1
+version_forge = 1.17.1-37.0.25
 
-simplecorelib_version = 1.16.5-2.0.8.22
-simpleores_version = 1.16.5-2.4.7.2
-netherrocks_version = 1.16.5-2.3.6.5
-fusion_version = 1.16.5-2.7.4.4
-onlysilver_version = 1.16.5-3.2.5.0
-aesthetics_version = 1.16.5-1.10.4.1
-simple_machines_version = 1.16.5-1.7.5.5
-arsenic_version = 1.16.5-2.0.3.1
-classicalalchemy_version = 1.16.5-2.0.1.1
-hadite_version = 1.16.5-2.4.5.1
-sterlingblack_version = 1.16.5-2.2.4.1
-tungsten_version = 1.16.5-2.3.5.1
-cthon_version = 1.16.5-2.0.0.1
-golden_glitter_version = 1.16.5-2.0.0.0
-cobalt_version =  1.16.5-2.0.0.0
+simplecorelib_version = 
+simpleores_version = 
+netherrocks_version = 
+fusion_version = 
+onlysilver_version = 
+aesthetics_version = 
+simple_machines_version = 
+arsenic_version = 
+classicalalchemy_version = 
+hadite_version = 
+sterlingblack_version = 
+tungsten_version = 
+cthon_version = 
+golden_glitter_version = 
+cobalt_version = 
 
-ashenwheat_version = 1.16.5-4.4.3.0
+ashenwheat_version = 
 
-version_mcjei = 1.16.5
-jei_version = 7.7.1.116
+version_mcjei = 
+jei_version = 
 
-silents_mechanisms: versionRange="[0.8.9,)"
-silentgear: versionRange="[2.6.5,)"
+silents_mechanisms: versionRange="[,)"
+silentgear: versionRange="[,)"
 

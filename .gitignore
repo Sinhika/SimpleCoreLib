@@ -1,18 +1,28 @@
-build/
-gradle/
-run/
-libs/
-.settings/
+# eclipse
+bin
+libs
 *.launch
-*.log
-*.jar
-*.class
-*~
+.settings
+.metadata
 .classpath
-gradlew
-gradlew.bat
-build.number
-bin/
-.gradle/
-.idea/
 .project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+gradle
+gradlew*
+
+# other
+eclipse
+run
+
+# Files from Forge MDK
+forge*changelog.txt
