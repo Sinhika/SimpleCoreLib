@@ -1,15 +1,15 @@
 package mod.alexndr.simplecorelib.content;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public abstract class VeryAbstractBlastFurnaceTileEntity extends VeryAbstractFurnaceTileEntity
 {
 
-    public VeryAbstractBlastFurnaceTileEntity(TileEntityType<?> tileEntityTypeIn)
+    public VeryAbstractBlastFurnaceTileEntity(BlockEntityType<?> tileEntityTypeIn)
     {
-        super(tileEntityTypeIn, IRecipeType.BLASTING);
+        super(tileEntityTypeIn, RecipeType.BLASTING);
     }
 
     @Override

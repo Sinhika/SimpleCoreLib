@@ -2,8 +2,8 @@ package mod.alexndr.simplecorelib.helpers;
 
 import com.google.common.base.Preconditions;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
 import ResourceLocation;
 

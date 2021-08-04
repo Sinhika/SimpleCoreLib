@@ -1,9 +1,9 @@
 package mod.alexndr.simplecorelib.loot;
 
-import net.minecraft.loot.LootEntry;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.TableLootEntry;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+import net.minecraft.resources.ResourceLocation;
 
 import LootPool;
 
@@ -25,9 +25,9 @@ public final class ChestLootHandler
                 .build();
     }
 
-    private static LootEntry.Builder<?> getInjectEntry(String modid, String name, int weight) {
+    private static LootPoolEntryContainer.Builder<?> getInjectEntry(String modid, String name, int weight) {
         ResourceLocation table = new ResourceLocation(modid, "inject/" + name);
-        return TableLootEntry.lootTableReference(table).setWeight(weight);
+        return LootTableReference.lootTableReference(table).setWeight(weight);
     }
 
 } // end-class

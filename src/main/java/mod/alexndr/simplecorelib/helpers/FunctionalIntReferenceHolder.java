@@ -1,6 +1,6 @@
 package mod.alexndr.simplecorelib.helpers;
 
-import net.minecraft.util.IntReferenceHolder;
+import net.minecraft.world.inventory.DataSlot;
 
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -10,7 +10,7 @@ import java.util.function.IntSupplier;
  *
  * @author Cadiboo
  */
-public class FunctionalIntReferenceHolder extends IntReferenceHolder {
+public class FunctionalIntReferenceHolder extends DataSlot {
 
 	private final IntSupplier getter;
 	private final IntConsumer setter;

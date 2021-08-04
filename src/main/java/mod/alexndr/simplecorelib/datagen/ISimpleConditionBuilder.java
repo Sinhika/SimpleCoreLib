@@ -2,7 +2,7 @@ package mod.alexndr.simplecorelib.datagen;
 
 import mod.alexndr.simplecorelib.config.FlagCondition;
 import mod.alexndr.simplecorelib.config.ISimpleConfig;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 
 /**

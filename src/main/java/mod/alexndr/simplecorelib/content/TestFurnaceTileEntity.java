@@ -2,29 +2,29 @@ package mod.alexndr.simplecorelib.content;
 
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class TestFurnaceTileEntity extends VeryAbstractFurnaceTileEntity
 {
 
     public TestFurnaceTileEntity()
     {
-        super(ModTileEntityTypes.test_furnace.get(), IRecipeType.SMELTING);
+        super(ModTileEntityTypes.test_furnace.get(), RecipeType.SMELTING);
     }
 
     @Override
-    public ITextComponent getDisplayName()
+    public Component getDisplayName()
     {
-        return new TranslationTextComponent(ModBlocks.test_furnace.get().getDescriptionId());
+        return new TranslatableComponent(ModBlocks.test_furnace.get().getDescriptionId());
     }
 
     @Override
-    public Container createMenu(int windowId, PlayerInventory inventory, PlayerEntity player)
+    public AbstractContainerMenu createMenu(int windowId, Inventory inventory, Player player)
     {
         return new TestFurnaceContainer(windowId, inventory, this);
     }

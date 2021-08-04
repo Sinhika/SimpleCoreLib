@@ -1,23 +1,23 @@
 package mod.alexndr.simplecorelib.config;
 
-import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.level.levelgen.feature.configurations.RangeDecoratorConfiguration;
 
 import TopSolidRangeConfig;
 
 public class ModOreConfig
 {
-    protected TopSolidRangeConfig cfg;
+    protected RangeDecoratorConfiguration cfg;
     protected int vein_size;
     protected int vein_count;
     
-    public ModOreConfig(TopSolidRangeConfig cfg, int vein_size, int vein_count)
+    public ModOreConfig(RangeDecoratorConfiguration cfg, int vein_size, int vein_count)
     {
         this.cfg = cfg;
         this.vein_size = vein_size;
         this.vein_count = vein_count;
     }
 
-    public TopSolidRangeConfig getCfg()
+    public RangeDecoratorConfiguration getCfg()
     {
         return cfg;
     }

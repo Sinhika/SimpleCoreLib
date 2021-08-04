@@ -4,31 +4,33 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public abstract class VeryAbstractFurnaceBlock extends HorizontalBlock
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+public abstract class VeryAbstractFurnaceBlock extends HorizontalDirectionalBlock
 {
 
     public VeryAbstractFurnaceBlock(Properties builder)
@@ -50,7 +52,7 @@ public abstract class VeryAbstractFurnaceBlock extends HorizontalBlock
 
     @Nullable
     @Override
-    public abstract TileEntity createTileEntity(final BlockState state, final IBlockReader world);
+    public abstract BlockEntity createTileEntity(final BlockState state, final BlockGetter world);
 
     /**
      * Called when a player right clicks our block.
@@ -60,13 +62,13 @@ public abstract class VeryAbstractFurnaceBlock extends HorizontalBlock
      * Implementing/overriding is fine.
      */
     @Override
-    public abstract ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit); 
+    public abstract InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit); 
     
     /**
      * Makes the block face the player when placed
      */
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context)
+    public BlockState getStateForPlacement(BlockPlaceContext context)
     {
     	return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
@@ -78,9 +80,9 @@ public abstract class VeryAbstractFurnaceBlock extends HorizontalBlock
      * Implementing/overriding is fine.
      */
     @Override
-    public int getAnalogOutputSignal(BlockState blockState, World worldIn, BlockPos pos)
+    public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos)
     {
-    	final TileEntity tileEntity = worldIn.getBlockEntity(pos);
+    	final BlockEntity tileEntity = worldIn.getBlockEntity(pos);
     	if (tileEntity instanceof VeryAbstractFurnaceTileEntity)
     		return ItemHandlerHelper.calcRedstoneFromInventory(((VeryAbstractFurnaceTileEntity) tileEntity).inventory);
     	return super.getAnalogOutputSignal(blockState, worldIn, pos);
@@ -90,7 +92,7 @@ public abstract class VeryAbstractFurnaceBlock extends HorizontalBlock
      * Called from inside the constructor {@link Block#Block(Properties)} to add all the properties to our blockstate
      */
     @Override
-    protected void createBlockStateDefinition(final StateContainer.Builder<Block, BlockState> builder)
+    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> builder)
     {
     	super.createBlockStateDefinition(builder);
     	builder.add(FACING);
@@ -128,7 +130,7 @@ public abstract class VeryAbstractFurnaceBlock extends HorizontalBlock
         */
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
+    public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand)
     {
         if (stateIn.getValue(BlockStateProperties.LIT))
         {
@@ -137,7 +139,7 @@ public abstract class VeryAbstractFurnaceBlock extends HorizontalBlock
             double d2 = (double) pos.getZ() + 0.5D;
             if (rand.nextDouble() < 0.1D)
             {
-                worldIn.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F,
+                worldIn.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F,
                         false);
             }
 

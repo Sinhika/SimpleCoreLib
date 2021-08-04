@@ -1,9 +1,9 @@
 package mod.alexndr.simplecorelib.helpers;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 
 /**
  * A bunch of predicates and other utility functions for setting properties. 
@@ -19,7 +19,7 @@ public final class PropertyUtils
      * @param blockpos
      * @return
      */
-    public static boolean always(BlockState bstate, IBlockReader breader, BlockPos blockpos)
+    public static boolean always(BlockState bstate, BlockGetter breader, BlockPos blockpos)
     {
         return true;
     }
@@ -31,7 +31,7 @@ public final class PropertyUtils
      * @param blockpos
      * @return
      */
-    public static boolean never(BlockState bstate, IBlockReader breader, BlockPos blockpos)
+    public static boolean never(BlockState bstate, BlockGetter breader, BlockPos blockpos)
     {
         return false;
     }
@@ -44,7 +44,7 @@ public final class PropertyUtils
      * @param entity
      * @return
      */
-    public static Boolean never(BlockState bstate, IBlockReader breader, BlockPos blockpos,
+    public static Boolean never(BlockState bstate, BlockGetter breader, BlockPos blockpos,
             EntityType<?> entity)
     {
         return (boolean) false;
@@ -58,7 +58,7 @@ public final class PropertyUtils
      * @param entity
      * @return
      */
-    public static Boolean always(BlockState bstate, IBlockReader breader, BlockPos blockpos,
+    public static Boolean always(BlockState bstate, BlockGetter breader, BlockPos blockpos,
             EntityType<?> entity)
     {
         return (boolean) true;

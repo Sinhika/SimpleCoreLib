@@ -1,7 +1,7 @@
 package mod.alexndr.simplecorelib.helpers;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * interface for helper classes for weapons with special effects on hitting

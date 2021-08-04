@@ -2,15 +2,15 @@ package mod.alexndr.simplecorelib.client.gui;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.content.TestFurnaceContainer;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 
 public class TestFurnaceScreen extends VeryAbstractFurnaceScreen<TestFurnaceContainer>
 {
     private final static int name_color =  0x0ffffff;
 
-    public TestFurnaceScreen(TestFurnaceContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
+    public TestFurnaceScreen(TestFurnaceContainer screenContainer, Inventory inv, Component titleIn)
     {
         super(screenContainer, inv, 
                 new ResourceLocation(SimpleCoreLib.MODID, "textures/gui/container/test_furnace_gui.png"), 

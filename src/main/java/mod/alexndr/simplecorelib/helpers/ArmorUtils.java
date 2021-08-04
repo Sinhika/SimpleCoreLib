@@ -1,10 +1,10 @@
 package mod.alexndr.simplecorelib.helpers;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -23,17 +23,17 @@ public final class ArmorUtils
      * @param[in] slot_list list of slots required.
      * @return boolean
      */
-    public static boolean isPlayerWearingPartialSet(PlayerEntity player, @Nonnull IArmorMaterial material,
-            @Nonnull Iterable<EquipmentSlotType> slot_list)
+    public static boolean isPlayerWearingPartialSet(Player player, @Nonnull ArmorMaterial material,
+            @Nonnull Iterable<EquipmentSlot> slot_list)
     {
         List<ItemStack> armorList = (List<ItemStack>) player.getArmorSlots();
-        for (EquipmentSlotType slot : slot_list)
+        for (EquipmentSlot slot : slot_list)
         {
             ItemStack stack = armorList.get(slot.getIndex());
             if (stack.isEmpty()) { return false; }
             if (!(stack.getItem() instanceof ArmorItem)) { return false; }
             ArmorItem piece = (ArmorItem) stack.getItem();
-            IArmorMaterial pieceMaterial = piece.getMaterial();
+            ArmorMaterial pieceMaterial = piece.getMaterial();
             if (pieceMaterial != material)
             {
                 return false;
@@ -46,7 +46,7 @@ public final class ArmorUtils
      * Is player wearing a full set of the same armor material?
      * @return boolean
      */
-    public static boolean isPlayerWearingFullSet(PlayerEntity player, @Nonnull IArmorMaterial material)
+    public static boolean isPlayerWearingFullSet(Player player, @Nonnull ArmorMaterial material)
     {
         Iterable<ItemStack> armorList = player.getArmorSlots();
         for (ItemStack stack : armorList)
@@ -54,7 +54,7 @@ public final class ArmorUtils
             if (stack.isEmpty()) { return false; }
             if (! (stack.getItem() instanceof ArmorItem)) { return false; }
             ArmorItem piece = (ArmorItem) stack.getItem();
-            IArmorMaterial pieceMaterial = piece.getMaterial();
+            ArmorMaterial pieceMaterial = piece.getMaterial();
             if (pieceMaterial != material) {
                 return false;
             }

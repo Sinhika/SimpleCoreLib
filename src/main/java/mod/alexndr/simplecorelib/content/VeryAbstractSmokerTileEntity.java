@@ -1,15 +1,15 @@
 package mod.alexndr.simplecorelib.content;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public abstract class VeryAbstractSmokerTileEntity extends VeryAbstractFurnaceTileEntity
 {
 
-    public VeryAbstractSmokerTileEntity(TileEntityType<?> tileEntityTypeIn)
+    public VeryAbstractSmokerTileEntity(BlockEntityType<?> tileEntityTypeIn)
     {
-        super(tileEntityTypeIn, IRecipeType.SMOKING);
+        super(tileEntityTypeIn, RecipeType.SMOKING);
     }
 
     @Override

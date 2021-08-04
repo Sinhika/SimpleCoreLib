@@ -2,8 +2,8 @@ package mod.alexndr.simplecorelib.helpers;
 
 import java.util.function.ToIntFunction;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.state.BooleanProperty;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public final class LightUtils
 {

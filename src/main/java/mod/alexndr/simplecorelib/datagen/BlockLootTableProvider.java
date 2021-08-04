@@ -1,28 +1,28 @@
 package mod.alexndr.simplecorelib.datagen;
 
-import net.minecraft.advancements.criterion.EnchantmentPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
-import net.minecraft.block.Block;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
-import net.minecraft.loot.ConstantRange;
-import net.minecraft.loot.ILootFunctionConsumer;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootEntry;
-import net.minecraft.loot.LootParameterSets;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.StandaloneLootEntry;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.loot.conditions.MatchTool;
-import net.minecraft.loot.conditions.SurvivesExplosion;
-import net.minecraft.loot.functions.ApplyBonus;
-import net.minecraft.loot.functions.CopyName;
-import net.minecraft.loot.functions.CopyName.Source;
-import net.minecraft.loot.functions.ExplosionDecay;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.storage.loot.ConstantIntValue;
+import net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyNameFunction.NameSource;
+import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.ItemLike;
 
 /**
  * A LootTableProvider class with helper functions. Based on work by sciwhiz12
@@ -33,9 +33,9 @@ import net.minecraft.util.IItemProvider;
  */
 public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 {
-    protected static final ILootCondition.IBuilder SILK_TOUCH = 
+    protected static final LootItemCondition.Builder SILK_TOUCH = 
             MatchTool.toolMatches(ItemPredicate.Builder.item()
-                         .hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
+                         .hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
 
     public BlockLootTableProvider(DataGenerator dataGeneratorIn)
     {
@@ -80,47 +80,47 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 
     protected void blockTable(Block b, LootTable.Builder lootTable) 
     {
-        addTable(b.getLootTable(), lootTable, LootParameterSets.BLOCK);
+        addTable(b.getLootTable(), lootTable, LootContextParamSets.BLOCK);
     }
 
-    protected LootPool.Builder createStandardDrops(IItemProvider itemProvider)
+    protected LootPool.Builder createStandardDrops(ItemLike itemProvider)
     {
-        return LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                .when(SurvivesExplosion.survivesExplosion())
-                .add(ItemLootEntry.lootTableItem(itemProvider));
+        return LootPool.lootPool().setRolls(ConstantIntValue.exactly(1))
+                .when(ExplosionCondition.survivesExplosion())
+                .add(LootItem.lootTableItem(itemProvider));
     }
 
     protected LootPool.Builder createItemWithNameCopy(Item itemProvider)
     {
-        return LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                .when(SurvivesExplosion.survivesExplosion())
-                .add(ItemLootEntry.lootTableItem(itemProvider))
-                .apply(CopyName.copyName(Source.BLOCK_ENTITY));
+        return LootPool.lootPool().setRolls(ConstantIntValue.exactly(1))
+                .when(ExplosionCondition.survivesExplosion())
+                .add(LootItem.lootTableItem(itemProvider))
+                .apply(CopyNameFunction.copyName(NameSource.BLOCK_ENTITY));
     }
     
     protected LootPool.Builder createItemWithFortuneDrops(Block blockIn, Item itemIn)
     {
         return droppingWithSilkTouch(blockIn, withExplosionDecay(blockIn,
-                ItemLootEntry.lootTableItem(itemIn).apply(ApplyBonus.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+                LootItem.lootTableItem(itemIn).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
     
-    protected static <T> T withExplosionDecay(IItemProvider itemIn, ILootFunctionConsumer<T> consumer)
+    protected static <T> T withExplosionDecay(ItemLike itemIn, FunctionUserBuilder<T> consumer)
     {
-        return (T) (consumer.apply(ExplosionDecay.explosionDecay()));
+        return (T) (consumer.apply(ApplyExplosionDecay.explosionDecay()));
     }
 
      @SuppressWarnings({ "unchecked", "rawtypes" })
-    protected static LootPool.Builder dropping(Block blockIn, ILootCondition.IBuilder builderIn,
-            LootEntry.Builder<?> entryBuilderIn)
+    protected static LootPool.Builder dropping(Block blockIn, LootItemCondition.Builder builderIn,
+            LootPoolEntryContainer.Builder<?> entryBuilderIn)
     {
-        return LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+        return LootPool.lootPool().setRolls(ConstantIntValue.exactly(1))
                 .add(
-                        ((StandaloneLootEntry.Builder) ItemLootEntry.lootTableItem(blockIn)
+                        ((LootPoolSingletonContainer.Builder) LootItem.lootTableItem(blockIn)
                                 .when(builderIn))
                                 .otherwise(entryBuilderIn));
     }
 
-    protected static LootPool.Builder droppingWithSilkTouch(Block blockIn, LootEntry.Builder<?> builderIn)
+    protected static LootPool.Builder droppingWithSilkTouch(Block blockIn, LootPoolEntryContainer.Builder<?> builderIn)
     {
         return dropping(blockIn, SILK_TOUCH, builderIn);
     }

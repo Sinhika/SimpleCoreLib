@@ -4,15 +4,15 @@ import java.util.function.Consumer;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.data.CookingRecipeBuilder;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.advancements.CriterionTriggerInstance;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
@@ -35,7 +35,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
     }
 
     public ConditionalAdvancement.Builder build_advancement_with_condition(ResourceLocation recipe_id, ICondition condition,
-                                                                            ICriterionInstance criterion)
+                                                                            CriterionTriggerInstance criterion)
     {
         return ConditionalAdvancement.builder()
                 .addCondition(condition)
@@ -47,8 +47,8 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
     }
   
     
-     public void buildOre2IngotRecipes(Consumer<IFinishedRecipe> consumer, Ingredient oreIn, IItemProvider ingotOut,
-            ICriterionInstance criterion, float experienceIn, int cookingTimeIn)
+     public void buildOre2IngotRecipes(Consumer<FinishedRecipe> consumer, Ingredient oreIn, ItemLike ingotOut,
+            CriterionTriggerInstance criterion, float experienceIn, int cookingTimeIn)
     {
         buildOre2IngotRecipes(consumer, oreIn, ingotOut, criterion, experienceIn, cookingTimeIn, null);
     }
@@ -67,14 +67,14 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
      * @param cookingTimeIn smelting cook time. Blasting time is automatically 1/2 that.
      * @param suffix to be appended to recipe_name string.
      */
-    public void buildOre2IngotRecipes(Consumer<IFinishedRecipe> consumer, Ingredient oreIn, IItemProvider ingotOut,
-            ICriterionInstance criterion, float experienceIn, int cookingTimeIn, String suffix)
+    public void buildOre2IngotRecipes(Consumer<FinishedRecipe> consumer, Ingredient oreIn, ItemLike ingotOut,
+            CriterionTriggerInstance criterion, float experienceIn, int cookingTimeIn, String suffix)
     {
         String recipe_name = ingotOut.asItem().toString() + "_from_smelting";
         if (suffix != null) {
             recipe_name = recipe_name.concat(suffix);
         }
-        CookingRecipeBuilder.smelting(oreIn, ingotOut, experienceIn, cookingTimeIn)
+        SimpleCookingRecipeBuilder.smelting(oreIn, ingotOut, experienceIn, cookingTimeIn)
             .unlockedBy(recipe_name, criterion)
             .save(consumer, make_resource(recipe_name));
 
@@ -82,7 +82,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
        if (suffix != null) {
            recipe_name = recipe_name.concat(suffix);
        }
-       CookingRecipeBuilder.blasting(oreIn, ingotOut, experienceIn, cookingTimeIn/2)
+       SimpleCookingRecipeBuilder.blasting(oreIn, ingotOut, experienceIn, cookingTimeIn/2)
            .unlockedBy(recipe_name, criterion)
            .save(consumer, make_resource(recipe_name));
     }
@@ -95,17 +95,17 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
      * @param nugget output item
      * @param criterion required to get the recipe advancement; usually hasItem()
      */
-    public void buildVanillaRecyclingRecipes(Consumer<IFinishedRecipe> consumer, Ingredient ingredients, 
-                                             IItemProvider nugget, ICriterionInstance criterion, 
+    public void buildVanillaRecyclingRecipes(Consumer<FinishedRecipe> consumer, Ingredient ingredients, 
+                                             ItemLike nugget, CriterionTriggerInstance criterion, 
                                              float experienceIn, int cookingTimeIn)
     {
         String recipe_name = nugget.asItem().toString() + "_from_smelting";
-        CookingRecipeBuilder.smelting(ingredients, nugget, experienceIn, cookingTimeIn)
+        SimpleCookingRecipeBuilder.smelting(ingredients, nugget, experienceIn, cookingTimeIn)
             .unlockedBy(recipe_name, criterion)
             .save(consumer, make_resource(recipe_name));
             
         recipe_name = nugget.asItem().toString() + "_from_blasting";
-        CookingRecipeBuilder.blasting(ingredients, nugget, experienceIn, cookingTimeIn/2)
+        SimpleCookingRecipeBuilder.blasting(ingredients, nugget, experienceIn, cookingTimeIn/2)
             .unlockedBy(recipe_name, criterion)
             .save(consumer, make_resource(recipe_name));
     } // end buildVanillaRecyclingRecipes
@@ -120,9 +120,9 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
      * @param nugget item
      * @param criterion required to get the recipe advancement; usually hasItem()
      */
-    public void buildSimpleStorageRecipes(Consumer<IFinishedRecipe> consumer, 
-                                          IItemProvider ingot, IItemProvider block,
-                                          IItemProvider nugget, ICriterionInstance criterion)
+    public void buildSimpleStorageRecipes(Consumer<FinishedRecipe> consumer, 
+                                          ItemLike ingot, ItemLike block,
+                                          ItemLike nugget, CriterionTriggerInstance criterion)
     {
         // block <=> ingots
         ShapelessRecipeBuilder.shapeless(ingot.asItem(), 9)
@@ -158,9 +158,9 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
     } // end buildSimpleStorageRecipes
     
     
-    public void buildChunkConversionRecipes(Consumer<IFinishedRecipe> consumer, IItemProvider nugget,
-                                            IItemProvider medium_chunk, IItemProvider large_chunk, 
-                                            ICriterionInstance criterion)
+    public void buildChunkConversionRecipes(Consumer<FinishedRecipe> consumer, ItemLike nugget,
+                                            ItemLike medium_chunk, ItemLike large_chunk, 
+                                            CriterionTriggerInstance criterion)
     {
         String nugget_name = nugget.asItem().toString();
         
@@ -224,8 +224,8 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
      * optionally with a condition.
      *
      */
-    public void buildModBowRecipe(Consumer<IFinishedRecipe> consumer, ResourceLocation bow_name, Ingredient rod_material,
-            Item rod, Ingredient keystone, ICriterionInstance criterion, ICondition condition)
+    public void buildModBowRecipe(Consumer<FinishedRecipe> consumer, ResourceLocation bow_name, Ingredient rod_material,
+            Item rod, Ingredient keystone, CriterionTriggerInstance criterion, ICondition condition)
     {
             Item bow = ForgeRegistries.ITEMS.getValue(bow_name);
             Ingredient string = Ingredient.of(Tags.Items.STRING);
@@ -276,8 +276,8 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
      * @param criterion required to get the recipe advancement; usually hasItem()
      * @param condition null for no conditions, ICondition object for a conditional recipe.
      */
-    public void buildSimpleArmorSet(Consumer<IFinishedRecipe> consumer, Ingredient item, 
-                                    String variant, ICriterionInstance criterion, ICondition condition)
+    public void buildSimpleArmorSet(Consumer<FinishedRecipe> consumer, Ingredient item, 
+                                    String variant, CriterionTriggerInstance criterion, ICondition condition)
     {
         ResourceLocation helmet_name = make_resource(variant + "_helmet");
         ResourceLocation chestplate_name = make_resource(variant + "_chestplate");
@@ -377,8 +377,8 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
      * @param condition null for no conditions, ICondition object for a conditional recipe.
      * @param has_shears true if there is a shears for this variant, false if no shears.
      */
-    public void buildSimpleToolSet(Consumer<IFinishedRecipe> consumer, Ingredient item,
-            String variant, ICriterionInstance criterion, ICondition condition, boolean has_shears )
+    public void buildSimpleToolSet(Consumer<FinishedRecipe> consumer, Ingredient item,
+            String variant, CriterionTriggerInstance criterion, ICondition condition, boolean has_shears )
     {
         ResourceLocation sword_name = make_resource(variant + "_sword");
         ResourceLocation pickaxe_name = make_resource(variant + "_pickaxe");
