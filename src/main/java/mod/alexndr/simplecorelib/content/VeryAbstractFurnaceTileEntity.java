@@ -82,8 +82,8 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
     protected double fuelMultiplier = 1.0;
     protected boolean hasFuelMultiplier = false;
     
-    public short smeltTimeProgress = 0;
-    public short maxSmeltTime = 200;
+    public short smeltTimeProgress = -1;
+    public short maxSmeltTime = -1;
     public int fuelBurnTimeLeft = 0;
     public int maxFuelBurnTime = 0;
     protected boolean lastBurning = false;
@@ -105,15 +105,6 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                 }
             } // end ItemStackHander(3).isItemValid()
             
-            @Override
-            public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-                // If something is added to input, get the smelt time.
-                if (! simulate && slot == INPUT_SLOT ) {
-                    maxSmeltTime = getSmeltTime(stack);
-                }
-                return super.insertItem(slot, stack, simulate);
-            }
-
             @Override
             protected void onContentsChanged(final int slot) {
                 super.onContentsChanged(slot);
@@ -229,6 +220,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
         return Optional.of(maybe_result.orElse(ItemStack.EMPTY));
     }
     
+    /**
+     * Given a stack of fuel, gets the burn duration of one item.
+     * @param fuelstack - fuel items to be checked.
+     * @return burn duration in ticks.
+     */
     protected int getBurnDuration(ItemStack fuelstack) 
     {
         int returnval = 0;
@@ -246,6 +242,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
         return returnval;
     } // end getBurnDuration
     
+    /**
+     * Is it physically possible to put the smelting result in the output slot?
+     * @param result - hypothetical smelting product.
+     * @return true if result can be added to output slot, false if it cannot.
+     */
     protected boolean canSmelt(ItemStack result)
     {
         if (!this.inventory.getStackInSlot(INPUT_SLOT).isEmpty() && !result.isEmpty())
@@ -269,7 +270,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
         {
             return false;
         }
-    } // end canBurn()
+    } // end canSmelt()
     
     /**
      * Mimics the code in {@link AbstractFurnaceTileEntity#getTotalCookTime()}
@@ -352,6 +353,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends TileEntity
                 
                 if (this.isBurning() && this.canSmelt(result))
                 {
+                    if (this.smeltTimeProgress <= 0) // never smelted before
+                    {
+                        this.maxSmeltTime = this.getSmeltTime(inventory.getStackInSlot(INPUT_SLOT));
+                        this.smeltTimeProgress = 0;
+                    }
                     ++this.smeltTimeProgress;
                     if (this.smeltTimeProgress >= this.maxSmeltTime) 
                     {
