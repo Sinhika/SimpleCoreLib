@@ -2,6 +2,8 @@ package mod.alexndr.simplecorelib.config;
 
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 
+import TopSolidRangeConfig;
+
 public class ModOreConfig
 {
     protected TopSolidRangeConfig cfg;

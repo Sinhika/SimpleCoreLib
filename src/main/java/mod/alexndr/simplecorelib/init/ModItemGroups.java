@@ -9,6 +9,8 @@ import mod.alexndr.simplecorelib.SimpleCoreLib;
 
 import java.util.function.Supplier;
 
+import ItemGroup;
+
 /**
  * This class holds all our ItemGroups (Formerly called CreativeTabs).
  * Static initialisers are fine here.

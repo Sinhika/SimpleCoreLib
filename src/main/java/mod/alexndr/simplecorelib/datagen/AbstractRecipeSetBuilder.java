@@ -2,6 +2,8 @@ package mod.alexndr.simplecorelib.datagen;
 
 import net.minecraft.util.ResourceLocation;
 
+import ResourceLocation;
+
 public class AbstractRecipeSetBuilder
 {
 

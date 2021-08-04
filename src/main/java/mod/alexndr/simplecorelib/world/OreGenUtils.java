@@ -9,6 +9,8 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 
+import ConfiguredFeature;
+
 public class OreGenUtils
 {
     public static ConfiguredFeature<?, ?> buildOverworldOreFeature(

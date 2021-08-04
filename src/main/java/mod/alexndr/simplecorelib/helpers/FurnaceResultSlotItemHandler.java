@@ -7,6 +7,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import PlayerEntity;
+import TileEntity;
+
 /**
  * Based on vanilla FurnaceResultSlot class, but for SlotItemHandlers.
  *
