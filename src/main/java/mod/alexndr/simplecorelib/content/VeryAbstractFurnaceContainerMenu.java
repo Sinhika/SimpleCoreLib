@@ -4,18 +4,17 @@ import javax.annotation.Nonnull;
 
 import mod.alexndr.simplecorelib.helpers.FunctionalIntReferenceHolder;
 import mod.alexndr.simplecorelib.helpers.FurnaceResultSlotItemHandler;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.items.SlotItemHandler;
 
-public abstract class VeryAbstractFurnaceContainer<T extends VeryAbstractFurnaceBlock> extends AbstractContainerMenu
+public abstract class VeryAbstractFurnaceContainerMenu<T extends VeryAbstractFurnaceBlock> extends AbstractContainerMenu
 {
     protected RegistryObject<T> my_block; 
     public VeryAbstractFurnaceTileEntity tileEntity;
@@ -25,7 +24,7 @@ public abstract class VeryAbstractFurnaceContainer<T extends VeryAbstractFurnace
      * Constructor called logical-server-side from {@link MythrilFurnaceTileEntity#createMenu}
      * and logical-client-side from {@link #ModFurnaceContainer(int, PlayerInventory, PacketBuffer)}
      */
-    public VeryAbstractFurnaceContainer(MenuType<?> type, int id, final Inventory playerInventory, 
+    public VeryAbstractFurnaceContainerMenu(MenuType<?> type, int id, final Inventory playerInventory, 
                                        final VeryAbstractFurnaceTileEntity tileEntity, 
                                        final RegistryObject<T> block)
     {
@@ -83,7 +82,7 @@ public abstract class VeryAbstractFurnaceContainer<T extends VeryAbstractFurnace
     		final ItemStack slotStack = slot.getItem();
     		returnStack = slotStack.copy();
     
-    		final int containerSlots = this.slots.size() - player.inventory.items.size();
+    		final int containerSlots = this.slots.size() - player.getInventory().items.size();
     		if (index < containerSlots) {
     			if (!moveItemStackTo(slotStack, containerSlots, this.slots.size(), true)) {
     				return ItemStack.EMPTY;

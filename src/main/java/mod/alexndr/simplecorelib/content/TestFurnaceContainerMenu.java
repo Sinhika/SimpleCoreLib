@@ -10,23 +10,23 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fml.network.IContainerFactory;
 
-public class TestFurnaceContainer extends VeryAbstractFurnaceContainer<TestFurnaceBlock>
+public class TestFurnaceContainerMenu extends VeryAbstractFurnaceContainerMenu<TestFurnaceBlock>
 {
 
     /**
      * Logical-client-side constructor, called from {@link ContainerType#create(IContainerFactory)}
      * Calls the logical-server-side constructor with the TileEntity at the pos in the PacketBuffer
      */
-    public TestFurnaceContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) 
+    public TestFurnaceContainerMenu(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) 
     {
-        this(windowId, playerInventory, TestFurnaceContainer.getTileEntity(playerInventory, data));
+        this(windowId, playerInventory, TestFurnaceContainerMenu.getTileEntity(playerInventory, data));
     }
 
     /**
      * Constructor called logical-server-side from {@link TestFurnaceTileEntity#createMenu}
      * and logical-client-side from {@link #ModFurnaceContainer(int, PlayerInventory, PacketBuffer)}
      */
-    public TestFurnaceContainer(final int windowId, final Inventory playerInventory, final TestFurnaceTileEntity tileEntity) 
+    public TestFurnaceContainerMenu(final int windowId, final Inventory playerInventory, final TestFurnaceTileEntity tileEntity) 
     {
         super(ModContainerTypes.test_furnace.get(), windowId, playerInventory, tileEntity, ModBlocks.test_furnace);
     } // end-server-side ctor

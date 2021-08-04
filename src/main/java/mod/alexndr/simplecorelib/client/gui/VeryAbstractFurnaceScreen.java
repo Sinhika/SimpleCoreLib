@@ -3,7 +3,7 @@ package mod.alexndr.simplecorelib.client.gui;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceContainer;
+import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceContainerMenu;
 import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceTileEntity;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceContainer<?>> extends AbstractContainerScreen<T>
+public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceContainerMenu<?>> extends AbstractContainerScreen<T>
 {
 
     private static ResourceLocation BACKGROUND_TEXTURE;
