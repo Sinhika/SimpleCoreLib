@@ -1,15 +1,13 @@
 package mod.alexndr.simplecorelib.init;
 
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.function.Supplier;
-
-import ItemGroup;
 
 /**
  * This class holds all our ItemGroups (Formerly called CreativeTabs).

@@ -3,9 +3,10 @@ package mod.alexndr.simplecorelib.client.gui;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceContainerMenu;
+import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceMenu;
 import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceTileEntity;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
@@ -13,16 +14,16 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceContainerMenu<?>> extends AbstractContainerScreen<T>
+public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMenu> extends AbstractContainerScreen<T>
 {
 
-    private static ResourceLocation BACKGROUND_TEXTURE;
+    private final ResourceLocation BACKGROUND_TEXTURE;
     private int displayNameColor;
     
-    public VeryAbstractFurnaceScreen(T screenContainer, Inventory inv, 
+    public VeryAbstractFurnaceScreen(T screenMenu, Inventory inv, 
                                     ResourceLocation texture, Component titleIn, int nameColor)
     {
-        super(screenContainer, inv, titleIn);
+        super(screenMenu, inv, titleIn);
         BACKGROUND_TEXTURE = texture;
         displayNameColor = nameColor;
     }
@@ -48,7 +49,7 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceCon
     	// Copied from AbstractFurnaceScreen#drawGuiContainerForegroundLayer
     	String s = this.title.getString();
     	this.font.draw(matStack, s, (float) (this.imageWidth / 2 - this.font.width(s) / 2), 6.0F, displayNameColor);
-    	this.font.draw(matStack, this.inventory.getDisplayName().getString(), 8.0F, 
+    	this.font.draw(matStack, this.playerInventoryTitle.getString(), 8.0F, 
     	                     (float) (this.imageHeight - 96 + 2), displayNameColor);
     }
 
@@ -64,8 +65,10 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceCon
     @Override
     protected void renderBg(PoseStack matStack, final float partialTicks, final int mouseX, final int mouseY)
     {
-    	RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    	getMinecraft().getTextureManager().bind(BACKGROUND_TEXTURE);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, this.BACKGROUND_TEXTURE);
+
     	int startX = this.leftPos;
     	int startY = this.topPos;
     
@@ -74,8 +77,7 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceCon
     
     	this.blit(matStack, startX, startY, 0, 0, this.imageWidth, this.imageHeight);
     
-    	final VeryAbstractFurnaceTileEntity tileEntity = menu.tileEntity;
-    	if (tileEntity.smeltTimeProgress > 0) {
+    	if (this.menu.smeltTimeProgress > 0) {
     		// Draw progress arrow
     		int arrowWidth = getSmeltTimeScaled();
     		this.blit(matStack,

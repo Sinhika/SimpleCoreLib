@@ -136,7 +136,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
 
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> createFurnaceTicker(Level level, BlockEntityType<T> entityType, 
-    																				BlockEntityType<? extends VeryAbstractFurnaceTileEntity> entityTypeE) 
+    															BlockEntityType<? extends VeryAbstractFurnaceTileEntity> entityTypeE) 
     {
        return level.isClientSide ? null : createTickerHelper(entityType, entityTypeE, VeryAbstractFurnaceTileEntity::serverTick);
     }

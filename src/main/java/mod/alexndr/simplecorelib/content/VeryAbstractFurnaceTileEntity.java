@@ -14,25 +14,21 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import mod.alexndr.simplecorelib.helpers.ItemStackHandlerContainerUtils;
+import mod.alexndr.simplecorelib.helpers.ItemStackHandlerUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.RecipeHolder;
-import net.minecraft.world.inventory.StackedContentsCompatible;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
@@ -42,10 +38,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
-import net.minecraft.world.level.block.entity.TickingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ForgeHooks;
@@ -77,6 +71,14 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
     protected static final String MAX_SMELT_TIME_TAG = "maxSmeltTime";
     protected static final String FUEL_BURN_TIME_LEFT_TAG = "fuelBurnTimeLeft";
     protected static final String MAX_FUEL_BURN_TIME_TAG = "maxFuelBurnTime";
+
+    public static final int DATA_LIT_TIME = 0;
+    public static final int DATA_LIT_DURATION = 1;
+    public static final int DATA_COOKING_PROGRESS = 2;
+    public static final int DATA_COOKING_TOTAL_TIME = 3;
+    public static final int NUM_DATA_VALUES = 4;
+
+    public static final int BURN_TIME_STANDARD = 200;
     
     protected final RecipeType<? extends AbstractCookingRecipe> recipeType;
     protected final Map<ResourceLocation, Integer> recipe2xp_map = Maps.newHashMap();
@@ -121,6 +123,47 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
             } // end ()
     }; // end ItemStackHandler(3)
 
+    
+	protected final ContainerData dataAccess = new ContainerData() 
+	{
+		public int get(int index) {
+			switch (index)
+			{
+			case DATA_LIT_TIME:
+				return VeryAbstractFurnaceTileEntity.this.fuelBurnTimeLeft;
+			case DATA_LIT_DURATION:
+				return VeryAbstractFurnaceTileEntity.this.maxFuelBurnTime;
+			case DATA_COOKING_PROGRESS:
+				return VeryAbstractFurnaceTileEntity.this.smeltTimeProgress;
+			case DATA_COOKING_TOTAL_TIME:
+				return VeryAbstractFurnaceTileEntity.this.maxSmeltTime;
+			default:
+				return 0;
+			}
+		} // end get()
+
+		public void set(int index, int value) {
+			switch (index)
+			{
+			case DATA_LIT_TIME:
+				VeryAbstractFurnaceTileEntity.this.fuelBurnTimeLeft = value;
+				break;
+			case DATA_LIT_DURATION:
+				VeryAbstractFurnaceTileEntity.this.maxFuelBurnTime = value;
+				break;
+			case DATA_COOKING_PROGRESS:
+				VeryAbstractFurnaceTileEntity.this.smeltTimeProgress = value;
+				break;
+			case DATA_COOKING_TOTAL_TIME:
+				VeryAbstractFurnaceTileEntity.this.maxSmeltTime = value;
+			}
+		} // end set()
+
+		public int getCount() {
+			return NUM_DATA_VALUES;
+		}
+	}; // end VeryAbstractFurnaceTileEntity$ContainerData
+    
     protected final LazyOptional<ItemStackHandler> inventoryCapabilityExternal = LazyOptional.of(() -> this.inventory);
     protected final LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalUp = LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
     protected final LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalDown = LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
@@ -161,13 +204,13 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
 	@Override
 	public ItemStack removeItem(int slot, int count) 
 	{
-		return ItemStackHandlerContainerUtils.removeItem(this.inventory, slot, count);
+		return ItemStackHandlerUtils.removeItem(this.inventory, slot, count);
 	} // end removeItem
 
 	@Override
 	public ItemStack removeItemNoUpdate(int slot) 
 	{
-		return ItemStackHandlerContainerUtils.takeItem(this.inventory, slot);
+		return ItemStackHandlerUtils.takeItem(this.inventory, slot);
 	} // end-removeItemNoUpdate
 
 	@Override
@@ -354,7 +397,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
     {
         return getRecipe(input)
                 .map(AbstractCookingRecipe::getCookingTime)
-                .orElse(200)
+                .orElse(BURN_TIME_STANDARD)
                 .shortValue();
     }
 

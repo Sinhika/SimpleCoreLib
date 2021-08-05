@@ -1,7 +1,5 @@
 package mod.alexndr.simplecorelib.helpers;
 
-import java.util.List;
-
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -9,7 +7,7 @@ import net.minecraftforge.items.ItemStackHandler;
  * Implements helper functions comparable to ContainerHelper, but for ItemStackHandler-based inventories.
  *
  */
-public class ItemStackHandlerContainerUtils 
+public class ItemStackHandlerUtils 
 {
 	public static ItemStack removeItem(ItemStackHandler inv, int slot, int count) 
 	{
@@ -39,4 +37,4 @@ public class ItemStackHandlerContainerUtils
 		return items;
 	} // end takeItem()
 
-} // end ItemStackHandlerContainerUtils
+} // end ItemStackHandlerUtils

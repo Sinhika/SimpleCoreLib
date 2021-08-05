@@ -1,22 +1,22 @@
 package mod.alexndr.simplecorelib.content;
 
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import net.minecraftforge.items.ItemStackHandler;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
 {
@@ -26,11 +26,6 @@ public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
         super(builder);
     }
 
-    @Override
-    public BlockEntity createTileEntity(BlockState state, BlockGetter world)
-    {
-        return  ModTileEntityTypes.test_furnace.get().create();
-    }
 
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn,
@@ -69,5 +64,30 @@ public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
         }
         super.onRemove(oldState, worldIn, pos, newState, isMoving);
     } // end onReplaced()
+
+
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState bstate, BlockEntityType<T> entityType) 
+	{
+		return createFurnaceTicker(level, entityType, ModTileEntityTypes.test_furnace.get());
+	}
+
+
+	@Override
+	public BlockEntity newBlockEntity(BlockPos bpos, BlockState bstate) {
+		return new TestFurnaceTileEntity(bpos, bstate);
+	}
+
+
+	@Override
+	protected void openContainer(Level level, BlockPos bpos, Player player) 
+	{
+		BlockEntity blockentity = level.getBlockEntity(bpos);
+		if (blockentity instanceof TestFurnaceTileEntity)
+		{
+			player.openMenu((MenuProvider) blockentity);
+			player.awardStat(Stats.INTERACT_WITH_FURNACE);
+		}
+	}
     
 } // end class

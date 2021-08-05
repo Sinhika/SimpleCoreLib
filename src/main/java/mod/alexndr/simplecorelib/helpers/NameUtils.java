@@ -5,8 +5,6 @@ import com.google.common.base.Preconditions;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 
-import ResourceLocation;
-
 public final class NameUtils
 {
     /**

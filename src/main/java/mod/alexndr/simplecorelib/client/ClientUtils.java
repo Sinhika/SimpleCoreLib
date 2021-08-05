@@ -2,10 +2,10 @@ package mod.alexndr.simplecorelib.client;
 
 import java.util.Random;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 /**
  * small functions that are used client-side.
@@ -20,7 +20,7 @@ public final class ClientUtils
      */
     public static void setupBowModelProperties(Item bow) 
     {
-        ItemProperties.register(bow, new ResourceLocation("pull"), (p0, p1, p2) -> {
+        ItemProperties.register(bow, new ResourceLocation("pull"), (p0, p1, p2, p4) -> {
             if (p2 == null)
             {
                 return 0.0F;
@@ -31,7 +31,7 @@ public final class ClientUtils
                         : (float) (p0.getUseDuration() - p2.getUseItemRemainingTicks()) / 20.0F;
             }
         });
-        ItemProperties.register(bow, new ResourceLocation("pulling"), (p0, p1, p2) -> {
+        ItemProperties.register(bow, new ResourceLocation("pulling"), (p0, p1, p2, p4) -> {
             return p2 != null && p2.isUsingItem() && p2.getUseItem() == p0 ? 1.0F : 0.0F;
         });
     } // end setupBowModelProperties()

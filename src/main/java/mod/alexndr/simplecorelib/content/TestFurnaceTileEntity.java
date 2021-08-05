@@ -24,7 +24,7 @@ public class TestFurnaceTileEntity extends VeryAbstractFurnaceTileEntity
     }
 
 	@Override
-	protected AbstractContainerMenu createMenu(int windowId, Inventory inventory) {
+	public AbstractContainerMenu createMenu(int windowId, Inventory inventory) {
         return new TestFurnaceContainerMenu(windowId, inventory, this);
 	}
 
