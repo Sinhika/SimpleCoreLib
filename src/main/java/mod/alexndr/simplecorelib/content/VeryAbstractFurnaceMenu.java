@@ -44,6 +44,7 @@ public abstract class VeryAbstractFurnaceMenu extends AbstractContainerMenu
 	   protected final ContainerData data;
 	   protected final Level level;
 	   protected final RecipeType<? extends AbstractCookingRecipe> recipeType;
+
 	   
 	/**
 	 * Client-side constructor. 

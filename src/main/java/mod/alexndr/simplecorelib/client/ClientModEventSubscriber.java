@@ -2,7 +2,7 @@ package mod.alexndr.simplecorelib.client;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.client.gui.TestFurnaceScreen;
-import mod.alexndr.simplecorelib.init.ModContainerTypes;
+import mod.alexndr.simplecorelib.init.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,7 +27,7 @@ public final class ClientModEventSubscriber
         // Register ContainerType Screens
         // ScreenManager.registerFactory is not safe to call during parallel mod loading so we queue it to run later
         event.enqueueWork(() -> {
-            MenuScreens.register(ModContainerTypes.test_furnace.get(), TestFurnaceScreen::new);
+            MenuScreens.register(ModMenuTypes.test_furnace.get(), TestFurnaceScreen::new);
             // LOGGER.debug("Registered ContainerType Screens");
         });
     }

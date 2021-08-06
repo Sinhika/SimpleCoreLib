@@ -3,6 +3,7 @@ package mod.alexndr.simplecorelib.content;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.PumpkinBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -49,9 +50,9 @@ public class SimpleShearsItem extends ShearsItem
             return InteractionResult.PASS;
         }
         // tell me about the block we clicked on.
-        IForgeBlockState targetBlock = worldIn.getBlockState(pos);
+        BlockState targetBlock = worldIn.getBlockState(pos);
         // is it a pumpkin? Then carve it!
-        if (targetBlock.getBlockState().getBlock() instanceof PumpkinBlock)
+        if (targetBlock.getBlock() instanceof PumpkinBlock)
         {
             if (!worldIn.isClientSide) 
             {
