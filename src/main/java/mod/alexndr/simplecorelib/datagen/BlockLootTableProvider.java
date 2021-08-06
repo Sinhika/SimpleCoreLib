@@ -3,26 +3,26 @@ package mod.alexndr.simplecorelib.datagen;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.storage.loot.ConstantIntValue;
-import net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
-import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction.NameSource;
-import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 /**
  * A LootTableProvider class with helper functions. Based on work by sciwhiz12
@@ -85,14 +85,14 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 
     protected LootPool.Builder createStandardDrops(ItemLike itemProvider)
     {
-        return LootPool.lootPool().setRolls(ConstantIntValue.exactly(1))
+        return LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                 .when(ExplosionCondition.survivesExplosion())
                 .add(LootItem.lootTableItem(itemProvider));
     }
 
     protected LootPool.Builder createItemWithNameCopy(Item itemProvider)
     {
-        return LootPool.lootPool().setRolls(ConstantIntValue.exactly(1))
+        return LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                 .when(ExplosionCondition.survivesExplosion())
                 .add(LootItem.lootTableItem(itemProvider))
                 .apply(CopyNameFunction.copyName(NameSource.BLOCK_ENTITY));
@@ -113,7 +113,7 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
     protected static LootPool.Builder dropping(Block blockIn, LootItemCondition.Builder builderIn,
             LootPoolEntryContainer.Builder<?> entryBuilderIn)
     {
-        return LootPool.lootPool().setRolls(ConstantIntValue.exactly(1))
+        return LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                 .add(
                         ((LootPoolSingletonContainer.Builder) LootItem.lootTableItem(blockIn)
                                 .when(builderIn))

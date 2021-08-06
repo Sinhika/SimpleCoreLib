@@ -1,12 +1,12 @@
 package mod.alexndr.simplecorelib.datagen;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.RandomValueBounds;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public abstract class LootTableInjectorProvider extends AbstractLootTableProvider
 {
@@ -27,7 +27,7 @@ public abstract class LootTableInjectorProvider extends AbstractLootTableProvide
     {
         return LootPool.lootPool()
                 .name("main")
-                .setRolls(RandomValueBounds.between((float)minRolls, (float)maxRolls))
+                .setRolls(UniformGenerator.between((float)minRolls, (float)maxRolls))
                 .when(LootItemRandomChanceCondition.randomChance(chanceRoll));
     } // end createChestPool
     

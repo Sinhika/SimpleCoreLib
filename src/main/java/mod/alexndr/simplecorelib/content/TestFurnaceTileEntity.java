@@ -2,18 +2,13 @@ package mod.alexndr.simplecorelib.content;
 
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedContents;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TestFurnaceTileEntity extends VeryAbstractFurnaceTileEntity
 {

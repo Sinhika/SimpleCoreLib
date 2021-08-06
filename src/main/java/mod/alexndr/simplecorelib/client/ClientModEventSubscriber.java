@@ -20,7 +20,6 @@ public final class ClientModEventSubscriber
      * This method will always be called after the Registry events.
      * This means that all Blocks, Items, TileEntityTypes, etc. will all have been registered already
      */
-    @SuppressWarnings("deprecation")
     @SubscribeEvent
     public static void onFMLClientSetupEvent(final FMLClientSetupEvent event) 
     {
