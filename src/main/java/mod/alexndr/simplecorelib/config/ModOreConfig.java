@@ -2,8 +2,6 @@ package mod.alexndr.simplecorelib.config;
 
 import net.minecraft.world.level.levelgen.feature.configurations.RangeDecoratorConfiguration;
 
-import TopSolidRangeConfig;
-
 public class ModOreConfig
 {
     protected RangeDecoratorConfiguration cfg;

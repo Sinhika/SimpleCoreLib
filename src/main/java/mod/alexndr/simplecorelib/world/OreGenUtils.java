@@ -9,8 +9,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 
-import ConfiguredFeature;
-
 public class OreGenUtils
 {
     public static ConfiguredFeature<?, ?> buildOverworldOreFeature(
@@ -18,7 +16,7 @@ public class OreGenUtils
     {
         return feature.configured(
                 new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, bstate, cfg.getVein_size()))
-                .range(cfg.getCfg().maximum).squared().count(cfg.getVein_count());
+                .range(cfg.getCfg()).squared().count(cfg.getVein_count());
     } // end buildOverworldOreFeature()
 
 
@@ -28,7 +26,7 @@ public class OreGenUtils
         return feature
                 .configured(
                         new OreConfiguration(OreConfiguration.Predicates.NETHERRACK, bstate, cfg.getVein_size()))
-                .range(cfg.getCfg().maximum).squared().count(cfg.getVein_count());
+                .range(cfg.getCfg()).squared().count(cfg.getVein_count());
     }
 
     public static ConfiguredFeature<?, ?> buildNetherRockFeature(
@@ -36,7 +34,7 @@ public class OreGenUtils
     {
         return feature.configured(
                     new OreConfiguration(OreConfiguration.Predicates.NETHER_ORE_REPLACEABLES, bstate, cfg.getVein_size()))
-                .range(cfg.getCfg().maximum).squared().count(cfg.getVein_count());
+                .range(cfg.getCfg()).squared().count(cfg.getVein_count());
     }
     
     public static void registerFeature(String modid, String name, ConfiguredFeature<?, ?> cfg_feature)

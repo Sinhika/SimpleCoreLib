@@ -15,7 +15,6 @@ public class TestFurnaceScreen extends VeryAbstractFurnaceScreen<TestFurnaceCont
         super(screenContainer, inv, 
                 new ResourceLocation(SimpleCoreLib.MODID, "textures/gui/container/test_furnace_gui.png"), 
                         titleIn, name_color);
-        // TODO Auto-generated constructor stub
     }
 
-}
+} // end class

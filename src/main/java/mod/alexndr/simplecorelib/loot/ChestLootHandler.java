@@ -5,8 +5,6 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.resources.ResourceLocation;
 
-import LootPool;
-
 /**
  * Code that handles injecting stuff into chest loot pools.
  * Based heavily on Botania's LootHandler, without which I never would have

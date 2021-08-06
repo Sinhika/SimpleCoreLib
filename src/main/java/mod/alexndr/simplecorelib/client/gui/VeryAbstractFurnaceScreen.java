@@ -1,15 +1,14 @@
 package mod.alexndr.simplecorelib.client.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceMenu;
-import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceTileEntity;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -61,7 +60,6 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMen
      * @param mouseX
      * @param mouseY
      */
-    @SuppressWarnings("deprecation")
     @Override
     protected void renderBg(PoseStack matStack, final float partialTicks, final int mouseX, final int mouseY)
     {
@@ -77,7 +75,7 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMen
     
     	this.blit(matStack, startX, startY, 0, 0, this.imageWidth, this.imageHeight);
     
-    	if (this.menu.smeltTimeProgress > 0) {
+    	if (this.menu.getBurnProgress() > 0) {
     		// Draw progress arrow
     		int arrowWidth = getSmeltTimeScaled();
     		this.blit(matStack,
@@ -86,7 +84,7 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMen
     				arrowWidth, 14
     		);
     	}
-    	if (tileEntity.isBurning()) {
+    	if (this.menu.isLit()) {
     		// Draw flames
     		int flameHeight = getFuelBurnTimeScaled();
     		this.blit(matStack,
@@ -99,20 +97,12 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMen
 
     private int getSmeltTimeScaled()
     {
-    	final VeryAbstractFurnaceTileEntity tileEntity = this.menu.tileEntity;
-    	final short smeltTimeProgress = tileEntity.smeltTimeProgress;
-    	final short maxSmeltTime = tileEntity.maxSmeltTime;
-    	if (smeltTimeProgress <= 0 || maxSmeltTime <= 0)
-    		return 0;
-    	return (smeltTimeProgress * 24) / maxSmeltTime; // 24 is the width of the arrow
+    	return this.menu.getBurnProgress();
     }
 
     private int getFuelBurnTimeScaled()
     {
-    	final VeryAbstractFurnaceTileEntity tileEntity = this.menu.tileEntity;
-    	if (tileEntity.maxFuelBurnTime <= 0)
-    		return 0;
-    	return (tileEntity.fuelBurnTimeLeft * 16) / tileEntity.maxFuelBurnTime; // 14 is the height of the flames
+    	return this.menu.getLitProgress();    
     }
 
 }
