@@ -14,7 +14,7 @@ public final class ModMenuTypes
     public static final DeferredRegister<MenuType<?>> CONTAINER_TYPES = 
             DeferredRegister.create(ForgeRegistries.CONTAINERS, SimpleCoreLib.MODID);
     
-    public static final RegistryObject<MenuType<AbstractContainerMenu>> test_furnace 
+    public static final RegistryObject<MenuType<? extends AbstractContainerMenu>> test_furnace 
     	= CONTAINER_TYPES.register("test_furnace", 
     			() -> IForgeContainerType.create(TestFurnaceContainerMenu::new));
 }
