@@ -28,7 +28,6 @@ public final class ClientModEventSubscriber
     {
         // Register ContainerType Screens
         MenuScreens.register((MenuType<TestFurnaceContainerMenu>) ModMenuTypes.test_furnace.get(), TestFurnaceScreen::new);
-        // LOGGER.debug("Registered ContainerType Screens");
     }
 
 } // end class

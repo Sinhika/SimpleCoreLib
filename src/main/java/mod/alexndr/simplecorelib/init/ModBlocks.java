@@ -20,6 +20,7 @@ public final class ModBlocks
     public static final RegistryObject<TestFurnaceBlock> test_furnace = BLOCKS.register("test_furnace",
             () -> new TestFurnaceBlock(Block.Properties.of(Material.STONE)
                     .strength(3.5F, 12.0F).requiresCorrectToolForDrops()
-                    .lightLevel(LightUtils.setSwitchedLight(BlockStateProperties.LIT, 13)).harvestTool(ToolType.PICKAXE)));    
+                    .lightLevel(LightUtils.setSwitchedLight(BlockStateProperties.LIT, 13))
+                    .harvestLevel(0).harvestTool(ToolType.PICKAXE)));    
    
 } // end class

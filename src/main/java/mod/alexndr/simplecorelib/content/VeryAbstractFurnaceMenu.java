@@ -29,8 +29,8 @@ public abstract class VeryAbstractFurnaceMenu extends AbstractContainerMenu
 	   public static final int SLOT_COUNT = 3;
 	   public static final int DATA_COUNT = 4;
 
-	   public static final int DATA_LIT_TIME = 0;
-	   public static final int DATA_LIT_DURATION = 1;
+	   public static final int DATA_FUEL_TIME_LEFT = 0;
+	   public static final int DATA_FUEL_TIME_MAX = 1;
 	   public static final int DATA_COOKING_PROGRESS = 2;
 	   public static final int DATA_COOKING_TOTAL_TIME = 3;
 	   public static final int NUM_DATA_VALUES = 4;
@@ -198,18 +198,19 @@ public abstract class VeryAbstractFurnaceMenu extends AbstractContainerMenu
 		return j != 0 && i != 0 ? i * 24 / j : 0;
 	}
 
-	public int getLitProgress() {
-		int i = this.data.get(DATA_LIT_DURATION);
+	public int getLitProgress() 
+	{
+		int i = this.data.get(DATA_FUEL_TIME_MAX);
+		int j = this.data.get(DATA_FUEL_TIME_LEFT);
 		if (i == 0)
 		{
 			i = 200;
 		}
-
-		return this.data.get(DATA_LIT_TIME) * 13 / i;
+		return  (i - j) * 13 / i;
 	}
 
 	public boolean isLit() {
-		return this.data.get(DATA_LIT_TIME) > 0;
+		return this.data.get(DATA_FUEL_TIME_LEFT) > 0;
 	}
 	
 } // end class

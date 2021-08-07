@@ -66,13 +66,13 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
     public static final int OUTPUT_SLOT = 2;
     
     protected static final String INVENTORY_TAG = "inventory";
-    protected static final String SMELT_TIME_LEFT_TAG = "smeltTimeLeft";
+    protected static final String SMELT_TIME_LEFT_TAG = "smeltTimeProgress";
     protected static final String MAX_SMELT_TIME_TAG = "maxSmeltTime";
     protected static final String FUEL_BURN_TIME_LEFT_TAG = "fuelBurnTimeLeft";
     protected static final String MAX_FUEL_BURN_TIME_TAG = "maxFuelBurnTime";
 
-    public static final int DATA_LIT_TIME = 0;
-    public static final int DATA_LIT_DURATION = 1;
+    public static final int DATA_FUEL_TIME_LEFT = 0;
+    public static final int DATA_FUEL_TIME_MAX = 1;
     public static final int DATA_COOKING_PROGRESS = 2;
     public static final int DATA_COOKING_TOTAL_TIME = 3;
     public static final int NUM_DATA_VALUES = 4;
@@ -128,9 +128,9 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
 		public int get(int index) {
 			switch (index)
 			{
-			case DATA_LIT_TIME:
+			case DATA_FUEL_TIME_LEFT:
 				return VeryAbstractFurnaceTileEntity.this.fuelBurnTimeLeft;
-			case DATA_LIT_DURATION:
+			case DATA_FUEL_TIME_MAX:
 				return VeryAbstractFurnaceTileEntity.this.maxFuelBurnTime;
 			case DATA_COOKING_PROGRESS:
 				return VeryAbstractFurnaceTileEntity.this.smeltTimeProgress;
@@ -144,10 +144,10 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
 		public void set(int index, int value) {
 			switch (index)
 			{
-			case DATA_LIT_TIME:
+			case DATA_FUEL_TIME_LEFT:
 				VeryAbstractFurnaceTileEntity.this.fuelBurnTimeLeft = value;
 				break;
-			case DATA_LIT_DURATION:
+			case DATA_FUEL_TIME_MAX:
 				VeryAbstractFurnaceTileEntity.this.maxFuelBurnTime = value;
 				break;
 			case DATA_COOKING_PROGRESS:
@@ -474,8 +474,6 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
                 ++tile.smeltTimeProgress;
                 if (tile.smeltTimeProgress >= tile.maxSmeltTime) 
                 {
-//                        LOGGER.debug("tick: smeltTimeProgress=" + tile.smeltTimeProgress + ", maxSmeltTime=" + tile.maxSmeltTime);
-//                        LOGGER.debug("tick: fuelBurnTimeLeft=" + tile.fuelBurnTimeLeft + ", maxFuelBurnTime=" + tile.maxFuelBurnTime);
                     tile.smelt(result);
                     tile.smeltTimeProgress = 0;
                     if (!tile.inventory.getStackInSlot(INPUT_SLOT).isEmpty()) 
