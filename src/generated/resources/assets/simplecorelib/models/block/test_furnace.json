@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "simplecorelib:block/test_furnace_side",
+    "front": "simplecorelib:block/test_furnace_front",
+    "top": "simplecorelib:block/test_furnace_top"
+  }
+}

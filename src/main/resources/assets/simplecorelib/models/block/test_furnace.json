@@ -1,8 +1,0 @@
-{
-	"parent": "block/orientable",
-	"textures": {
-		"top": "simplecorelib:block/test_furnace_top",
-		"front": "simplecorelib:block/test_furnace_front",
-		"side": "simplecorelib:block/test_furnace_side"
-	}
-}
