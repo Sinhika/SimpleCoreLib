@@ -206,7 +206,7 @@ public abstract class VeryAbstractFurnaceMenu extends AbstractContainerMenu
 		{
 			i = 200;
 		}
-		return  (i - j) * 13 / i;
+		return  j * 13 / i;
 	}
 
 	public boolean isLit() {

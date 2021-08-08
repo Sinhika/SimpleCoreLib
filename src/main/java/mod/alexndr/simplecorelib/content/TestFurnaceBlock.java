@@ -2,11 +2,8 @@ package mod.alexndr.simplecorelib.content;
 
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -14,8 +11,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
@@ -26,22 +21,6 @@ public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
         super(builder);
     }
 
-
-    @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn,
-            BlockHitResult hit)
-    {
-        if (!worldIn.isClientSide)
-        {
-            final BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-            if (tileEntity instanceof TestFurnaceTileEntity) 
-            {
-                NetworkHooks.openGui((ServerPlayer) player, (TestFurnaceTileEntity) tileEntity, pos);
-                player.awardStat(Stats.INTERACT_WITH_FURNACE);
-            }
-        }
-        return InteractionResult.SUCCESS;
-    }
 
     /**
      * Called on the logical server when a BlockState with a TileEntity is replaced by another BlockState.

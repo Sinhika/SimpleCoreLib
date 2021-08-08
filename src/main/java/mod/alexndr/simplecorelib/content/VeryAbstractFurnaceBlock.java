@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,15 +36,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
 {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+	   public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public VeryAbstractFurnaceBlock(Properties builder)
     {
         super(builder);
         
         // Set the default values for our blockstate properties
-        this.stateDefinition.any()
+        this.registerDefaultState(this.stateDefinition.any()
         	.setValue(FACING, Direction.NORTH)
-            .setValue(BlockStateProperties.LIT, false);
+            .setValue(LIT, Boolean.valueOf(false)));
     }
 
     @Nullable
@@ -63,7 +65,18 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
      * Implementing/overriding is fine.
      */
     @Override
-    public abstract InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit); 
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
+    {
+		if (worldIn.isClientSide)
+		{
+			return InteractionResult.SUCCESS;
+		} 
+		else
+		{
+			this.openContainer(worldIn, pos, player);
+			return InteractionResult.CONSUME;
+		}
+    }
     
     /**
      * Makes the block face the player when placed
@@ -107,7 +120,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
     {
     	super.createBlockStateDefinition(builder);
     	builder.add(FACING);
-    	builder.add(BlockStateProperties.LIT);
+    	builder.add(LIT);
     }
 
     /**
@@ -150,7 +163,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
     @Override
     public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand)
     {
-        if (stateIn.getValue(BlockStateProperties.LIT))
+        if (stateIn.getValue(LIT))
         {
             double d0 = (double) pos.getX() + 0.5D;
             double d1 = (double) pos.getY();
