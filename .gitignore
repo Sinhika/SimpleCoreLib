@@ -24,6 +24,8 @@ gradlew*
 eclipse
 run
 *.swp
+src/generated/resources/.cache/
+build.number
 
 # Files from Forge MDK
 forge*changelog.txt
