@@ -22,6 +22,7 @@ public class SimpleCoreDataGenerator
         if (event.includeClient())
         {
         	gen.addProvider(new SimpleCoreBlockStateProvider(gen, event.getExistingFileHelper()));
+        	gen.addProvider(new SimpleCoreItemModelProvider(gen, event.getExistingFileHelper()));
         }
 	} // end gatherData()
 	
