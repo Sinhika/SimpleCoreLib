@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.PumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 public class SimpleShearsItem extends ShearsItem
 {
@@ -63,8 +65,10 @@ public class SimpleShearsItem extends ShearsItem
                 stack.hurtAndBreak(1, player, (p_220282_1_) -> {
                    p_220282_1_.broadcastBreakEvent(context.getHand());
                 });
-             }
-            
+                worldIn.gameEvent(player, GameEvent.SHEAR, pos);
+                player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
+            }
+            return InteractionResult.sidedSuccess(worldIn.isClientSide);
         }
         return super.useOn(context);
     } // end onItemUse()

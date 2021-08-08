@@ -2,5 +2,6 @@
 	"itemGroup.simplecorelib" : "SimpleCoreLib",
 	
     "_comment": "Blocks",
-    "block.simplecorelib.test_furnace": "Test Furnace"
+    "block.simplecorelib.test_furnace": "Test Furnace",
+    "item.simplecorelib.test_shears" : "Test Shears"
 }

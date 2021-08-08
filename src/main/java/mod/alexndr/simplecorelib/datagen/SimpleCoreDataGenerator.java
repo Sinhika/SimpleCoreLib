@@ -16,6 +16,7 @@ public class SimpleCoreDataGenerator
         if (event.includeServer())
         {
         	gen.addProvider(new SimpleCoreBlockTags(gen, event.getExistingFileHelper()));
+        	gen.addProvider(new SimpleCoreItemTags(gen, event.getExistingFileHelper()));
         	gen.addProvider(new SimpleCoreLootTableProvider(gen));
         }
         if (event.includeClient())
