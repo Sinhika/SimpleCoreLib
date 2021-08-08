@@ -18,9 +18,7 @@ public class SimpleCoreBlockTags extends BlockTagsProvider
 	@Override
 	protected void addTags() 
 	{
-		this.tag(TagUtils.modBlockTag("minecraft", "tags/blocks/mineable"))
-			.addTag(TagUtils.modBlockTag("minecraft", "tags/blocks/mineable/pickaxe"));
-		this.tag(TagUtils.modBlockTag("minecraft", "tags/blocks/mineable/pickaxe"))
+		this.tag(TagUtils.modBlockTag("minecraft", "mineable/pickaxe"))
 			.add(ModBlocks.test_furnace.get());
 	}
 
