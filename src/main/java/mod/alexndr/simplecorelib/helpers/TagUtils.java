@@ -32,4 +32,17 @@ public final class TagUtils
         return modBlockTag("forge", name);
     }
     
+    public static Tag.Named<Block> mcMiningTag(String name, int harvest_level)
+    {
+    	String needs_name;
+    	switch (harvest_level) 
+    	{
+	    	case 1: needs_name = "needs_stone_tool"; break;
+	    	case 2: needs_name = "needs_iron_tool"; break;
+	    	case 3: needs_name = "needs_diamond_tool"; break;
+	    	case 4: needs_name = "needs_netherite_tool"; break;
+	    	default: return null;
+    	}
+    	return modBlockTag("minecraft", needs_name);
+    }
 } // end class TagUtils
