@@ -11,6 +11,10 @@ public class ModOreConfig
     
     public static final int UNIFORM = 0;
     public static final int TRIANGLE = 1;
+    public static final int RANGE_4_4 = 4;
+    public static final int RANGE_8_8 = 8;
+    public static final int RANGE_10_10 = 10;
+    public static final int FULL_RANGE = 128;
     
     public ModOreConfig(int range_type, int vein_size, int vein_count, VerticalAnchor lower, VerticalAnchor upper )
     {
