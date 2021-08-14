@@ -6,7 +6,6 @@ import mod.alexndr.simplecorelib.helpers.LightUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,7 +19,7 @@ public final class ModBlocks
     public static final RegistryObject<TestFurnaceBlock> test_furnace = BLOCKS.register("test_furnace",
             () -> new TestFurnaceBlock(Block.Properties.of(Material.STONE)
                     .strength(3.5F, 12.0F).requiresCorrectToolForDrops()
-                    .lightLevel(LightUtils.setSwitchedLight(BlockStateProperties.LIT, 13))
-                    .harvestLevel(0).harvestTool(ToolType.PICKAXE)));    
+                    .lightLevel(LightUtils.setSwitchedLight(BlockStateProperties.LIT, 13))));
+                     
    
 } // end class
