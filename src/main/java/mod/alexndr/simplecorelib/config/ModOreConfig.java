@@ -17,8 +17,8 @@ public class ModOreConfig
         this.range_type = range_type;
         this.vein_size = vein_size;
         this.vein_count = vein_count;
-        this.top = lower;
-        this.bottom = upper;
+        this.top = upper;
+        this.bottom = lower;
     }
 
     public int getRange_type()
