@@ -6,7 +6,7 @@ version_minecraft = 1.17.1
 version_forge = 1.17.1-37.0.33
 
 simplecorelib_version = 1.17.1-3.0.0.4
-simpleores_version = 1.17.1-3.0.0.0
+simpleores_version = 1.17.1-3.0.0.1
 netherrocks_version = 
 fusion_version = 
 onlysilver_version = 
