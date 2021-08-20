@@ -123,7 +123,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
     }; // end ItemStackHandler(3)
 
     
-	protected final ContainerData dataAccess = new ContainerData() 
+	public final ContainerData dataAccess = new ContainerData() 
 	{
 		public int get(int index) {
 			switch (index)

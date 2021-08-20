@@ -3,15 +3,15 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 org.gradle.java.home=/usr/lib/jvm/adoptopenjdk-16-hotspot-amd64
 
 version_minecraft = 1.17.1
-version_forge = 1.17.1-37.0.33
+version_forge = 1.17.1-37.0.40
 
 simplecorelib_version = 1.17.1-3.0.0.4
 simpleores_version = 1.17.1-3.0.0.1
-netherrocks_version = 
-fusion_version = 
-onlysilver_version = 
-aesthetics_version = 
+fusion_version = 1.17.1-3.0.0.0 
 simple_machines_version = 
+netherrocks_version = 
+aesthetics_version = 
+onlysilver_version = 
 arsenic_version = 
 classicalalchemy_version = 
 hadite_version = 

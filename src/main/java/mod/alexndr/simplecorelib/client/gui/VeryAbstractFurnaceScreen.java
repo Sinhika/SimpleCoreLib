@@ -78,20 +78,12 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMen
     	if (this.menu.getBurnProgress() > 0) {
     		// Draw progress arrow
     		int arrowWidth = getSmeltTimeScaled();
-    		this.blit(matStack,
-    				startX + 79, startY + 34,
-    				176, 14,
-    				arrowWidth, 14
-    		);
+    		this.blit(matStack, startX + 79, startY + 34, 176, 14, arrowWidth, 14);
     	}
     	if (this.menu.isLit()) {
     		// Draw flames
     		int flameHeight = getFuelBurnTimeScaled();
-    		this.blit(matStack,
-    				startX + 56, startY + 50 - flameHeight,
-    				176, 14 - flameHeight,
-    				14, flameHeight
-    		);
+    		this.blit(matStack, startX + 56, startY + 50 - flameHeight, 176, 14 - flameHeight,14, flameHeight);
     	}
     }
 
