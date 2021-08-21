@@ -31,17 +31,22 @@ public class MiningBlockTags extends BlockTagsProvider
 		TagsProvider.TagAppender<Block> foo = this.tag(TagUtils.modBlockTag("minecraft", "mineable/pickaxe"));
 		blocks.stream().forEach(b -> foo.add(b));
 		
-		TagsProvider.TagAppender<Block> stone = this.tag(TagUtils.modBlockTag("minecraft", "needs_stone_tool"));
-		stone_blocks.stream().forEach(b -> stone.add(b));
-
-		TagsProvider.TagAppender<Block> iron = this.tag(TagUtils.modBlockTag("minecraft", "needs_iron_tool"));
-		iron_blocks.stream().forEach(b -> iron.add(b));
-
-		TagsProvider.TagAppender<Block> diamond = this.tag(TagUtils.modBlockTag("minecraft", "needs_diamond_tool"));
-		diamond_blocks.stream().forEach(b -> diamond.add(b));
-
-		TagsProvider.TagAppender<Block> netherite = this.tag(TagUtils.modBlockTag("minecraft", "needs_netherite_tool"));
-		netherite_blocks.stream().forEach(b -> netherite.add(b));
+		if (stone_blocks != null && !stone_blocks.isEmpty()) {
+			TagsProvider.TagAppender<Block> stone = this.tag(TagUtils.modBlockTag("minecraft", "needs_stone_tool"));
+			stone_blocks.stream().forEach(b -> stone.add(b));
+		}
+		if (iron_blocks != null && !iron_blocks.isEmpty()) {
+			TagsProvider.TagAppender<Block> iron = this.tag(TagUtils.modBlockTag("minecraft", "needs_iron_tool"));
+			iron_blocks.stream().forEach(b -> iron.add(b));
+		}
+		if (diamond_blocks != null && !diamond_blocks.isEmpty()) {
+			TagsProvider.TagAppender<Block> diamond = this.tag(TagUtils.modBlockTag("minecraft", "needs_diamond_tool"));
+			diamond_blocks.stream().forEach(b -> diamond.add(b));
+		}
+		if (netherite_blocks != null && !netherite_blocks.isEmpty()) {
+			TagsProvider.TagAppender<Block> netherite = this.tag(TagUtils.modBlockTag("minecraft", "needs_netherite_tool"));
+			netherite_blocks.stream().forEach(b -> netherite.add(b));
+		}
 	} // end registerMineableTags
 	
 	// TODO add methods that take lists of blocks and create mineable/mining tags.

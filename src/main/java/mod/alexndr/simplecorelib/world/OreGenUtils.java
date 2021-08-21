@@ -38,23 +38,55 @@ public class OreGenUtils
 		}
 	} // end ModOreConfig2RangeDecorator
 	
-//	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_COPPER_TARGET_LIST = ImmutableList.of(
-//			OreConfiguration.target(OreConfiguration.Predicates.STONE_ORE_REPLACEABLES, Features.States.COPPER_ORE),
-//			OreConfiguration.target(OreConfiguration.Predicates.DEEPSLATE_ORE_REPLACEABLES,
-//					Features.States.DEEPSLATE_COPPER_ORE));
-
-	public static ConfiguredFeature<?, ?> buildOverworldOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
+	
+	/**
+	 * Build an ore features with a specific target list it can replace, using OreConfiguration.target().
+	 *  
+	 * @param target_list - the list of TargetBlockStates that specific ores can replace.
+	 * Example:
+	 * 		public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_COPPER_TARGET_LIST = ImmutableList.of(
+	 *			OreConfiguration.target(OreConfiguration.Predicates.STONE_ORE_REPLACEABLES, Features.States.COPPER_ORE),
+	 *  		OreConfiguration.target(OreConfiguration.Predicates.DEEPSLATE_ORE_REPLACEABLES, Features.States.DEEPSLATE_COPPER_ORE));
+     *
+	 * @param cfg - ModOreConfig object that holds the parameters for the ore vein feature.
+	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
+	 * 
+	 */
+	public static ConfiguredFeature<?, ?> buildTargettedOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
 	{
 			return Feature.ORE.configured(new OreConfiguration(target_list, cfg.getVein_size()))
 					.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
-	} // end buildOverworldOreFeature()
+	} // end buildTargettedOreFeature()
 
+	/**
+	 * For backward compatibility: calls buildTargettedOreFeature(). Use that method instead.
+	 * @see buildTargettedOreFeature() 
+	 */
+	@Deprecated
+	public static ConfiguredFeature<?, ?> buildOverworldOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
+	{
+		return buildTargettedOreFeature(target_list, cfg);
+	}
+	
+	/**
+	 * Old default for nether ores - just replaces netherrack. Normally prefer to use buildNetherRockFeature().
+	 * @param bstate - ore blockstate that replaces netherrack.
+	 * @param cfg - ModOreConfig object that holds the parameters for the ore vein feature.
+	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
+	 */
+	@Deprecated
 	public static ConfiguredFeature<?, ?> buildNetherOreFeature(BlockState bstate, ModOreConfig cfg)
 	{
 		return Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NETHERRACK, bstate, cfg.getVein_size()))
 				.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
 	} // end buildNetherOreFeature
 
+	/**
+	 * new default for nether ores - replaces base_nether_stone. 
+	 * @param bstate - ore blockstate that replaces netherrack.
+	 * @param cfg - ModOreConfig object that holds the parameters for the ore vein feature.
+	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
+	 */
 	public static ConfiguredFeature<?, ?> buildNetherRockFeature(BlockState bstate, ModOreConfig cfg)
 	{
 		return Feature.SCATTERED_ORE.configured(
