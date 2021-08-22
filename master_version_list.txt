@@ -3,7 +3,7 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 org.gradle.java.home=/usr/lib/jvm/adoptopenjdk-16-hotspot-amd64
 
 version_minecraft = 1.17.1
-version_forge = 1.17.1-37.0.40
+version_forge = 1.17.1-37.0.43
 
 simplecorelib_version = 1.17.1-3.0.0.7
 simpleores_version = 1.17.1-3.0.0.1

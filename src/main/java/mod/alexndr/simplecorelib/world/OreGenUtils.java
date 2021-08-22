@@ -18,7 +18,7 @@ import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 
 public class OreGenUtils
 {
-	protected static RangeDecoratorConfiguration ModOreConfig2RangeDecorator(ModOreConfig cfg)
+	public static RangeDecoratorConfiguration ModOreConfig2RangeDecorator(ModOreConfig cfg)
 	{
 		switch (cfg.getRange_type())
 		{
@@ -89,7 +89,7 @@ public class OreGenUtils
 	 */
 	public static ConfiguredFeature<?, ?> buildNetherRockFeature(BlockState bstate, ModOreConfig cfg)
 	{
-		return Feature.SCATTERED_ORE.configured(
+		return Feature.ORE.configured(
 				new OreConfiguration(OreConfiguration.Predicates.NETHER_ORE_REPLACEABLES, bstate, cfg.getVein_size()))
 					.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
 	}
