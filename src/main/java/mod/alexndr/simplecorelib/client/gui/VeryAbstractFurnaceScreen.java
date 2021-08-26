@@ -71,7 +71,7 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMen
     	int startY = this.topPos;
     
     	// Screen#blit draws a part of the current texture (assumed to be 256x256) to the screen
-    	// The parameters are (x, y, u, v, width, height)
+    	// The parameters are (stack, x, y, u, v, width, height)
     
     	this.blit(matStack, startX, startY, 0, 0, this.imageWidth, this.imageHeight);
     

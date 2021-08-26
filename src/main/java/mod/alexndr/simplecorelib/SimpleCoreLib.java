@@ -7,6 +7,7 @@ import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModItems;
 import mod.alexndr.simplecorelib.init.ModMenuTypes;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -20,6 +21,9 @@ public class SimpleCoreLib
 
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
+    
+    // texture atlas for JEI sprites
+    public static final ResourceLocation SIMPLE_TEXTURE_ATLAS = new ResourceLocation(MODID, "textures/atlas/gui.png");
 
     public SimpleCoreLib()
     {
