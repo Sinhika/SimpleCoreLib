@@ -12,6 +12,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
@@ -365,6 +366,77 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                 .build(consumer, boots_name);
         } // else has condition
     } // end buildSimpleArmorSet()
+    
+    /**
+     * Used by a RecipeProvider to generate recipe sets for aesthetic blocks.
+     */
+    public void buildSimpleAestheticBlocks(Consumer<FinishedRecipe> consumer, Ingredient item,
+    		String variant, CriterionTriggerInstance criterion, ICondition condition)
+    {
+    	ResourceLocation bar_name = make_resource(variant + "_bars");
+    	ResourceLocation bricks_name = make_resource(variant + "_bricks");
+    	ResourceLocation brick_stairs_name = make_resource(variant + "_brick_stairs");
+    	ResourceLocation door_name = make_resource(variant + "_door");
+    	
+    	IForgeRegistry<Block> blockReg = ForgeRegistries.BLOCKS;
+    	Block bar = blockReg.containsKey(bar_name) ? blockReg.getValue(bar_name) : null;
+    	Block bricks = blockReg.containsKey(bricks_name) ? blockReg.getValue(bricks_name) : null;
+    	Block brick_stairs = blockReg.containsKey(brick_stairs_name) ? blockReg.getValue(brick_stairs_name) : null;
+    	Block door = blockReg.containsKey(door_name) ? blockReg.getValue(door_name) : null;
+    	
+        // sword
+        if (bar != null) {
+            ConditionalRecipe.builder().addCondition(condition)
+                .addRecipe(
+                    ShapedRecipeBuilder.shaped(bar, 16)
+                        .define('S', item)
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
+                .setAdvancement(bar_name, build_advancement_with_condition(bar_name, condition, criterion))
+                .build(consumer, bar_name);
+        }
+        if (bricks != null) {
+            ConditionalRecipe.builder().addCondition(condition)
+                .addRecipe(
+                    ShapedRecipeBuilder.shaped(bricks)
+                        .define('S', item)
+                        .pattern("SS")
+                        .pattern("SS")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
+                .setAdvancement(bricks_name, build_advancement_with_condition(bricks_name, condition, criterion))
+                .build(consumer, bricks_name);
+        }
+        if (brick_stairs != null) {
+            ConditionalRecipe.builder().addCondition(condition)
+                .addRecipe(
+                    ShapedRecipeBuilder.shaped(brick_stairs, 4)
+                        .define('S', item)
+                        .pattern("S  ")
+                        .pattern("SS ")
+                        .pattern("SSS")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
+                .setAdvancement(brick_stairs_name, build_advancement_with_condition(brick_stairs_name, condition, criterion))
+                .build(consumer, brick_stairs_name);
+        }
+        if (door != null) {
+            ConditionalRecipe.builder().addCondition(condition)
+                .addRecipe(
+                    ShapedRecipeBuilder.shaped(door, 3)
+                        .define('S', item)
+                        .pattern(" SS")
+                        .pattern(" SS")
+                        .pattern(" SS")
+                        .unlockedBy("has_item", criterion)
+                        ::save)
+                .setAdvancement(door_name, build_advancement_with_condition(door_name, condition, criterion))
+                .build(consumer, door_name);
+        }
+   	
+    }  // end buildSimpleAestheticBlocks()
     
     /**
      * Used by a RecipeProvider to generate recipe sets for tool sets. Based heavily on
