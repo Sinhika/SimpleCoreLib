@@ -6,6 +6,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -377,13 +378,15 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
     	ResourceLocation bricks_name = make_resource(variant + "_bricks");
     	ResourceLocation brick_stairs_name = make_resource(variant + "_brick_stairs");
     	ResourceLocation door_name = make_resource(variant + "_door");
+    	ResourceLocation brick_slab_name = make_resource(variant + "brick_slab");
     	
     	IForgeRegistry<Block> blockReg = ForgeRegistries.BLOCKS;
     	Block bar = blockReg.containsKey(bar_name) ? blockReg.getValue(bar_name) : null;
     	Block bricks = blockReg.containsKey(bricks_name) ? blockReg.getValue(bricks_name) : null;
     	Block brick_stairs = blockReg.containsKey(brick_stairs_name) ? blockReg.getValue(brick_stairs_name) : null;
     	Block door = blockReg.containsKey(door_name) ? blockReg.getValue(door_name) : null;
-    	
+    	Block brick_slab = blockReg.containsKey(brick_slab_name) ? blockReg.getValue(brick_slab_name) : null;
+    			
         // sword
         if (bar != null) {
             ConditionalRecipe.builder().addCondition(condition)
@@ -409,11 +412,12 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                 .setAdvancement(bricks_name, build_advancement_with_condition(bricks_name, condition, criterion))
                 .build(consumer, bricks_name);
         }
-        if (brick_stairs != null) {
+        if (brick_stairs != null && bricks != null)  // we need bricks to build stairs. 
+        {
             ConditionalRecipe.builder().addCondition(condition)
                 .addRecipe(
                     ShapedRecipeBuilder.shaped(brick_stairs, 4)
-                        .define('S', item)
+                        .define('S', Ingredient.of(bricks.asItem()))
                         .pattern("S  ")
                         .pattern("SS ")
                         .pattern("SSS")
@@ -421,7 +425,39 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                         ::save)
                 .setAdvancement(brick_stairs_name, build_advancement_with_condition(brick_stairs_name, condition, criterion))
                 .build(consumer, brick_stairs_name);
+            
+            // stonecutting recipe.
+            ConditionalRecipe.builder().addCondition(condition)
+            .addRecipe(
+            		SingleItemRecipeBuilder.stonecutting(Ingredient.of(bricks.asItem()), brick_stairs)
+                    .unlockedBy("has_item", criterion)
+                    ::save)
+            .build(consumer, brick_stairs_name);
+            
         }
+        if (brick_slab != null && bricks != null) // we need bricks to have and make brick slabs. 
+        {
+            ConditionalRecipe.builder().addCondition(condition)
+            .addRecipe(
+                ShapedRecipeBuilder.shaped(brick_slab, 6)
+                    .define('S', Ingredient.of(bricks.asItem()))
+                    .pattern("   ")
+                    .pattern("   ")
+                    .pattern("SSS")
+                    .unlockedBy("has_item", criterion)
+                    ::save)
+            .setAdvancement(brick_slab_name, build_advancement_with_condition(brick_slab_name, condition, criterion))
+            .build(consumer, brick_slab_name);
+        	
+            // stone cutting recipes.
+            ConditionalRecipe.builder().addCondition(condition)
+            .addRecipe(
+            		SingleItemRecipeBuilder.stonecutting(Ingredient.of(bricks.asItem()), brick_slab, 2)
+                    .unlockedBy("has_item", criterion)
+                    ::save)
+            .build(consumer, brick_slab_name);
+        } // end-if brick_slab.
+        
         if (door != null) {
             ConditionalRecipe.builder().addCondition(condition)
                 .addRecipe(
