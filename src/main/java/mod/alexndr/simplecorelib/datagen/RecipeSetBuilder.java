@@ -378,7 +378,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
     	ResourceLocation bricks_name = make_resource(variant + "_bricks");
     	ResourceLocation brick_stairs_name = make_resource(variant + "_brick_stairs");
     	ResourceLocation door_name = make_resource(variant + "_door");
-    	ResourceLocation brick_slab_name = make_resource(variant + "brick_slab");
+    	ResourceLocation brick_slab_name = make_resource(variant + "_brick_slab");
     	
     	IForgeRegistry<Block> blockReg = ForgeRegistries.BLOCKS;
     	Block bar = blockReg.containsKey(bar_name) ? blockReg.getValue(bar_name) : null;
