@@ -432,7 +432,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             		SingleItemRecipeBuilder.stonecutting(Ingredient.of(bricks.asItem()), brick_stairs)
                     .unlockedBy("has_item", criterion)
                     ::save)
-            .build(consumer, brick_stairs_name);
+            .build(consumer, new ResourceLocation(brick_stairs_name + "_stonecutting"));
             
         }
         if (brick_slab != null && bricks != null) // we need bricks to have and make brick slabs. 
@@ -455,7 +455,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             		SingleItemRecipeBuilder.stonecutting(Ingredient.of(bricks.asItem()), brick_slab, 2)
                     .unlockedBy("has_item", criterion)
                     ::save)
-            .build(consumer, brick_slab_name);
+            .build(consumer, new ResourceLocation(brick_slab_name + "_stonecutting"));
         } // end-if brick_slab.
         
         if (door != null) {
