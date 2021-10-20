@@ -50,7 +50,8 @@ public class AlternateFuelRecipe
 	public static Component createSmeltCountText(int burnTime) {
 		if (burnTime == BURN_TIME_STANDARD) {
 			return new TranslatableComponent("gui.jei.category.fuel.smeltCount.single");
-		} else {
+		} 
+		else {
 			NumberFormat numberInstance = NumberFormat.getNumberInstance();
 			numberInstance.setMaximumFractionDigits(2);
 			String smeltCount = numberInstance.format(burnTime / ((float) BURN_TIME_STANDARD));
