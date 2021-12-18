@@ -33,6 +33,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+
 public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
 {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -61,7 +62,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
      * Called when a player right clicks our block.
      * We use this method to open our gui.
      *
-     * @deprecated Call via {@link BlockState#onBlockActivated(World, PlayerEntity, Hand, BlockRayTraceResult)} whenever possible.
+     * @Deprecated Call via {@link BlockState#onBlockActivated(World, PlayerEntity, Hand, BlockRayTraceResult)} whenever possible.
      * Implementing/overriding is fine.
      */
     @Override
@@ -100,7 +101,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
     /**
      * We return the redstone calculated from our inventory
      *
-     * @deprecated call via {@link BlockState#getComparatorInputOverride(World, BlockPos)} whenever possible.
+     * @Deprecated call via {@link BlockState#getComparatorInputOverride(World, BlockPos)} whenever possible.
      * Implementing/overriding is fine.
      */
 //    @Override
@@ -127,7 +128,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
      * Returns the blockstate with the given rotation from the passed blockstate.
      * If inapplicable, returns the passed blockstate.
      *
-     * @deprecated call via {@link BlockState#rotate(Rotation)} whenever possible. Implementing/overriding is fine.
+     * @Deprecated call via {@link BlockState#rotate(Rotation)} whenever possible. Implementing/overriding is fine.
      */
     @Override
     public BlockState rotate(BlockState state, Rotation rot)
@@ -139,7 +140,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
      * Returns the blockstate with the given mirror of the passed blockstate.
      * If inapplicable, returns the passed blockstate.
      *
-     * @deprecated call via {@link BlockState#mirror(Mirror)} whenever possible. Implementing/overriding is fine.
+     * @Deprecated call via {@link BlockState#mirror(Mirror)} whenever possible. Implementing/overriding is fine.
      */
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn)

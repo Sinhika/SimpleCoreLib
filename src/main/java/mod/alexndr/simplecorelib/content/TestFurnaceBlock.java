@@ -26,7 +26,7 @@ public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
      * Called on the logical server when a BlockState with a TileEntity is replaced by another BlockState.
      * We use this method to drop all the items from our tile entity's inventory and update comparators near our block.
      *
-     * @deprecated Call via {@link BlockState#onReplaced(World, BlockPos, BlockState, boolean)}
+     * @Deprecated Call via {@link BlockState#onReplaced(World, BlockPos, BlockState, boolean)}
      * Implementing/overriding is fine.
      */
     @Override
