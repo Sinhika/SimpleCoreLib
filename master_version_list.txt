@@ -2,15 +2,15 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 ============================================
 org.gradle.java.home=/usr/lib/jvm/adoptopenjdk-16-hotspot-amd64
 
-version_minecraft = 1.17.1
-version_forge = 1.17.1-37.1.1
-mods.toml forge = versionRange="[37.0.46,38.0.0)"
+version_minecraft = 1.18.1
+version_forge = 39.0.19
+mods.toml forge = versionRange="[)"
 
-simplecorelib_version = 1.17.1-3.0.5.3-final
-simpleores_version = 1.17.1-3.0.1.6-final
-fusion_version = 1.17.1-3.0.1.2 
-simple_machines_version = 1.17.1-2.0.0.0 
-netherrocks_version = 1.17.1-3.0.0-final.6
+simplecorelib_version = 
+simpleores_version = 
+fusion_version = 
+simple_machines_version = 
+netherrocks_version = 
 aesthetics_version = 
 onlysilver_version = 
 arsenic_version = 
@@ -24,8 +24,8 @@ cobalt_version =
 
 ashenwheat_version = 
 
-version_mcjei = 1.17.1 
-jei_version = 8.3.0.45
+version_mcjei = 1.18.1 
+jei_version = 9.2.1.69
 
 silents_mechanisms: versionRange="[,)"
 silentgear: versionRange="[,)"
