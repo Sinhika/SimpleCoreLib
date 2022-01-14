@@ -5,7 +5,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fmllegacy.hooks.BasicEventHooks;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -62,7 +62,7 @@ public class FurnaceResultSlotItemHandler extends SlotItemHandler
         	((VeryAbstractFurnaceTileEntity)this.tileish).grantExperience(this.player);
         }
         this.removeCount = 0;
-        BasicEventHooks.firePlayerSmeltedEvent(this.player, stack);
+        ForgeEventFactory.firePlayerSmeltedEvent(this.player, stack);
     } // end onCrafting
 
     @Override

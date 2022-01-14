@@ -5,20 +5,26 @@ import java.util.List;
 import mod.alexndr.simplecorelib.config.ModOreConfig;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.Features;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration.TargetBlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.RangeDecoratorConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RangeConfiguration;
 import net.minecraft.world.level.levelgen.heightproviders.TrapezoidHeight;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 
+/**
+ * TODO: COMPLETE REWORK FOR 1.18.1.
+ * @see net.minecraft.data.worldgen.features.OreFeatures
+ * @see net.minecraft.data.worldgen.placement.OrePlacements
+ * @author Sinhika
+ *
+ */
 public class OreGenUtils
 {
-	public static RangeDecoratorConfiguration ModOreConfig2RangeDecorator(ModOreConfig cfg)
+	public static RangeConfiguration ModOreConfig2RangeDecorator(ModOreConfig cfg)
 	{
 		switch (cfg.getRange_type())
 		{
@@ -31,10 +37,10 @@ public class OreGenUtils
 		case ModOreConfig.RANGE_8_8:
 			return Features.Decorators.RANGE_8_8;
 		case ModOreConfig.TRIANGLE:
-			return new RangeDecoratorConfiguration(TrapezoidHeight.of(cfg.getBottom(), cfg.getTop()));
+			return new RangeConfiguration(TrapezoidHeight.of(cfg.getBottom(), cfg.getTop()));
 		case ModOreConfig.UNIFORM:
 		default:
-			return new RangeDecoratorConfiguration(UniformHeight.of(cfg.getBottom(), cfg.getTop()));
+			return new RangeConfiguration(UniformHeight.of(cfg.getBottom(), cfg.getTop()));
 		}
 	} // end ModOreConfig2RangeDecorator
 	

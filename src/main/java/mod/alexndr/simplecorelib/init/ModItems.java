@@ -3,9 +3,9 @@ package mod.alexndr.simplecorelib.init;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ShearsItem;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class ModItems
 {

@@ -44,11 +44,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RangedWrapper;
+import net.minecraftforge.network.NetworkHooks;
 
 /**
  * Abstracts the mechanics of a conventional-ish furnace (1 input, 1 fuel, 1 output slot).
@@ -603,9 +603,9 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
      */
     @Nonnull
     @Override
-    public CompoundTag save(final CompoundTag compound)
+    public void saveAdditional(final CompoundTag compound)
     {
-        super.save(compound);
+        super.saveAdditional(compound);
         compound.put(INVENTORY_TAG, this.inventory.serializeNBT());
         compound.putInt(SMELT_TIME_LEFT_TAG, this.smeltTimeProgress);
         compound.putInt(MAX_SMELT_TIME_TAG, this.maxSmeltTime);
@@ -621,8 +621,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
            compound.putInt("RecipeAmount" + ii, entry.getValue());
            ++ii;
         }
-        return compound;
-    } // end save()
+    } // end saveAdditional()
 
     /**
      * Get an NBT compound to sync to the client with SPacketChunkData, used for initial loading of the
@@ -649,12 +648,12 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
         this.load(tag);
     }
 
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket()
-    {
-        CompoundTag nbtTag = new CompoundTag();
-        return new ClientboundBlockEntityDataPacket(getBlockPos(), -1, save(nbtTag));
-    }
+//    @Override
+//    public ClientboundBlockEntityDataPacket getUpdatePacket()
+//    {
+//        CompoundTag nbtTag = new CompoundTag();
+//        return new ClientboundBlockEntityDataPacket(getBlockPos(), -1, save(nbtTag));
+//    }
 
     
     /**
