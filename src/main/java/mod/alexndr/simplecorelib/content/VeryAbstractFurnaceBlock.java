@@ -142,7 +142,8 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
      *
      * @Deprecated call via {@link BlockState#mirror(Mirror)} whenever possible. Implementing/overriding is fine.
      */
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public BlockState mirror(BlockState state, Mirror mirrorIn)
     {
     	return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));

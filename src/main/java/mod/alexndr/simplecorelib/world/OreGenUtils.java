@@ -2,18 +2,11 @@ package mod.alexndr.simplecorelib.world;
 
 import java.util.List;
 
-import mod.alexndr.simplecorelib.config.ModOreConfig;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration.TargetBlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.RangeConfiguration;
-import net.minecraft.world.level.levelgen.heightproviders.TrapezoidHeight;
-import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 
 /**
  * TODO: COMPLETE REWORK FOR 1.18.1.
@@ -22,28 +15,50 @@ import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
  * @author Sinhika
  *
  */
-public class OreGenUtils
+public final class OreGenUtils
 {
-	public static RangeConfiguration ModOreConfig2RangeDecorator(ModOreConfig cfg)
+	/**
+	 * Creates a target list for use in creating a ConfiguredFeature in the Overworld.
+	 * @param stoneOre - ore that replaces stone
+	 * @param deepslateOre - ore that replaces deepslate
+	 * @return target list.
+	 */
+	public static List<OreConfiguration.TargetBlockState> BuildStandardOreTargetList(Block stoneOre, Block deepslateOre)
 	{
-		switch (cfg.getRange_type())
-		{
-		case ModOreConfig.FULL_RANGE:
-			return Features.Decorators.FULL_RANGE;
-		case ModOreConfig.RANGE_10_10:
-			return Features.Decorators.RANGE_10_10;
-		case ModOreConfig.RANGE_4_4:
-			return Features.Decorators.RANGE_4_4;
-		case ModOreConfig.RANGE_8_8:
-			return Features.Decorators.RANGE_8_8;
-		case ModOreConfig.TRIANGLE:
-			return new RangeConfiguration(TrapezoidHeight.of(cfg.getBottom(), cfg.getTop()));
-		case ModOreConfig.UNIFORM:
-		default:
-			return new RangeConfiguration(UniformHeight.of(cfg.getBottom(), cfg.getTop()));
-		}
-	} // end ModOreConfig2RangeDecorator
+		return List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, stoneOre.defaultBlockState()), 
+				OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, deepslateOre.defaultBlockState()));
+	} // end BuildOreTargetList
 	
+	
+	/**
+	 * Creates a target list for use in creating a ConfiguredFeature in the Nether.
+	 * 
+	 * @param netherOre - ore that replaces nether substrate.
+	 * @param netherrackOnly - true if only netherrack is to be replaced, false if nether_base_stone to be replaced.
+	 * @return target list.
+	 */
+	public static List<OreConfiguration.TargetBlockState> BuildNetherOreTargetList(Block netherOre, boolean netherrackOnly)
+	{
+		if (netherrackOnly) {
+			return List.of(OreConfiguration.target(OreFeatures.NETHERRACK, netherOre.defaultBlockState()));
+		}
+		else {
+			return List.of(OreConfiguration.target(OreFeatures.NETHER_ORE_REPLACEABLES, netherOre.defaultBlockState()));
+		}
+	} // end BuildNetherOreTargetList
+	
+	/**
+	 * 
+	 * @param target_list - list of valid blockstates that can be replaced by which ore.
+	 * @param vein_size - vein size in blocks?
+	 * @param air_decay - chance of not generating if exposed to air.
+	 * @return a configured ore feature.
+	 */
+	public static ConfiguredFeature<OreConfiguration, ?> ConfigureOreFeature(List<OreConfiguration.TargetBlockState> target_list,
+																			int vein_size, float air_decay)
+	{
+		return Feature.ORE.configured(new OreConfiguration(target_list, vein_size, air_decay));
+	}
 	
 	/**
 	 * Build an ore features with a specific target list it can replace, using OreConfiguration.target().
@@ -58,21 +73,19 @@ public class OreGenUtils
 	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
 	 * 
 	 */
-	public static ConfiguredFeature<?, ?> buildTargettedOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
-	{
-			return Feature.ORE.configured(new OreConfiguration(target_list, cfg.getVein_size()))
-					.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
-	} // end buildTargettedOreFeature()
+//	public static ConfiguredFeature<?, ?> buildTargettedOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
+//	{
+//		// TODO
+//	} // end buildTargettedOreFeature()
 
 	/**
 	 * For backward compatibility: calls buildTargettedOreFeature(). Use that method instead.
 	 * @see buildTargettedOreFeature() 
 	 */
-	@Deprecated
-	public static ConfiguredFeature<?, ?> buildOverworldOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
-	{
-		return buildTargettedOreFeature(target_list, cfg);
-	}
+//	public static ConfiguredFeature<?, ?> buildOverworldOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
+//	{
+//		return buildTargettedOreFeature(target_list, cfg);
+//	}
 	
 	/**
 	 * Old default for nether ores - just replaces netherrack. Normally prefer to use buildNetherRockFeature().
@@ -80,12 +93,12 @@ public class OreGenUtils
 	 * @param cfg - ModOreConfig object that holds the parameters for the ore vein feature.
 	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
 	 */
-	@Deprecated
-	public static ConfiguredFeature<?, ?> buildNetherOreFeature(BlockState bstate, ModOreConfig cfg)
-	{
-		return Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NETHERRACK, bstate, cfg.getVein_size()))
-				.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
-	} // end buildNetherOreFeature
+//	@Deprecated
+//	public static ConfiguredFeature<?, ?> buildNetherOreFeature(BlockState bstate, ModOreConfig cfg)
+//	{
+//		return Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NETHERRACK, bstate, cfg.getVein_size()))
+//				.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
+//	} // end buildNetherOreFeature
 
 	/**
 	 * new default for nether ores - replaces base_nether_stone. 
@@ -93,15 +106,15 @@ public class OreGenUtils
 	 * @param cfg - ModOreConfig object that holds the parameters for the ore vein feature.
 	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
 	 */
-	public static ConfiguredFeature<?, ?> buildNetherRockFeature(BlockState bstate, ModOreConfig cfg)
-	{
-		return Feature.ORE.configured(
-				new OreConfiguration(OreConfiguration.Predicates.NETHER_ORE_REPLACEABLES, bstate, cfg.getVein_size()))
-					.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
-	}
+//	public static ConfiguredFeature<?, ?> buildNetherRockFeature(BlockState bstate, ModOreConfig cfg)
+//	{
+//		return Feature.ORE.configured(
+//				new OreConfiguration(OreConfiguration.Predicates.NETHER_ORE_REPLACEABLES, bstate, cfg.getVein_size()))
+//					.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
+//	}
 
-	public static void registerFeature(String modid, String name, ConfiguredFeature<?, ?> cfg_feature)
-	{
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(modid, name), cfg_feature);
-	}
+//	public static void registerFeature(String modid, String name, ConfiguredFeature<?, ?> cfg_feature)
+//	{
+//		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(modid, name), cfg_feature);
+//	}
 } // end class
