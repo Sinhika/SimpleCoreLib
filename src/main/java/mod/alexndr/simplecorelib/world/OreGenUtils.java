@@ -2,18 +2,57 @@ package mod.alexndr.simplecorelib.world;
 
 import java.util.List;
 
+import mod.alexndr.simplecorelib.config.ModOreConfig;
 import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.data.worldgen.placement.OrePlacements;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 /**
- * TODO: COMPLETE REWORK FOR 1.18.1.
+ * COMPLETE REWORK FOR 1.18.1.
  * @see net.minecraft.data.worldgen.features.OreFeatures
  * @see net.minecraft.data.worldgen.placement.OrePlacements
  * @author Sinhika
- *
+ * 
+ * HOW TO USE:
+ <code>
+    // example: tin ore
+ 	ModOreConfig cfg = new ModOreConfig(ModOreConfig.TRIANGLE, 7, 20, true, VerticalAnchor.absolute(20), VerticalAnchor.absolute(90);
+ 	
+ 	// get the target list.
+ 	List<OreConfiguration.TargetBlockState> tlist = 
+ 		BuildStandardOreTargetList(ModBlocks.tin_ore.get(), ModBlocks.deepslate_tin_ore.get());
+ 		
+ 	// build the ore feature.
+ 	ConfiguredFeature<OreConfiguration, ?> ore_cfg = ConfigureOreFeature(tlist, cfg.getVein_size(), 0.0F);
+ 	
+ 	// register the feature.
+ 	public static ConfiguredFeature<?, ?> ORE_TIN = FeatureUtils.register("ore_tin", ore_cfg);
+ 	
+ 	// bulid the ore placement.
+ 	PlacedFeature pfeature = ConfigurePlacedFeature(cfg, ORE_TIN);
+ 	
+ 	// register the placement.
+ 	public static PlacedFeature ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", pfeature);
+ </code>
+ OR as one ugly mess:
+ <code>
+ 	public static ConfiguredFeature<?, ?> ORE_TIN = 
+ 		FeatureUtils.register("ore_tin", 
+ 		   						ConfigureOreFeature(BuildStandardOreTargetList(ModBlocks.tin_ore.get(), 
+ 																			   ModBlocks.deepslate_tin_ore.get()), 
+ 													cfg.getVein_size(), 0.0F));
+ 													
+ 	public static PlacedFeature ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", ConfigurePlacedFeature(cfg, ORE_TIN));												
+ 	
+ </code> 
  */
 public final class OreGenUtils
 {
@@ -48,7 +87,7 @@ public final class OreGenUtils
 	} // end BuildNetherOreTargetList
 	
 	/**
-	 * 
+	 * Creates a ConfiguredFeature<OreConfiguration,?>, ready for registration with FeatureUtils.register().
 	 * @param target_list - list of valid blockstates that can be replaced by which ore.
 	 * @param vein_size - vein size in blocks?
 	 * @param air_decay - chance of not generating if exposed to air.
@@ -61,60 +100,93 @@ public final class OreGenUtils
 	}
 	
 	/**
-	 * Build an ore features with a specific target list it can replace, using OreConfiguration.target().
-	 *  
-	 * @param target_list - the list of TargetBlockStates that specific ores can replace.
-	 * Example:
-	 * 		public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_COPPER_TARGET_LIST = ImmutableList.of(
-	 *			OreConfiguration.target(OreConfiguration.Predicates.STONE_ORE_REPLACEABLES, Features.States.COPPER_ORE),
-	 *  		OreConfiguration.target(OreConfiguration.Predicates.DEEPSLATE_ORE_REPLACEABLES, Features.States.DEEPSLATE_COPPER_ORE));
-     *
-	 * @param cfg - ModOreConfig object that holds the parameters for the ore vein feature.
-	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
+	 * Creates a PlacedFeature, ready for registration with PlacementUtils.register().
 	 * 
+	 * @param cfg - mod config parameters.
+	 * @param orecfg - previously-configured ConfiguredFeature<>
+	 * @return a PlacedFeature.
 	 */
-//	public static ConfiguredFeature<?, ?> buildTargettedOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
-//	{
-//		// TODO
-//	} // end buildTargettedOreFeature()
-
-	/**
-	 * For backward compatibility: calls buildTargettedOreFeature(). Use that method instead.
-	 * @see buildTargettedOreFeature() 
-	 */
-//	public static ConfiguredFeature<?, ?> buildOverworldOreFeature(List<TargetBlockState> target_list, ModOreConfig cfg)
-//	{
-//		return buildTargettedOreFeature(target_list, cfg);
-//	}
+	public static PlacedFeature ConfigurePlacedFeature(ModOreConfig cfg, ConfiguredFeature<OreConfiguration, ?> orecfg)
+	{
+		List<PlacementModifier> pmodifiers = null;
+		HeightRangePlacement hplace;
+		
+		switch(cfg.getRange_type())
+		{
+		case ModOreConfig.UNIFORM:
+			hplace = MakeUniformPlacement(cfg.getBottom(), cfg.getTop());
+			if (cfg.get_commonality()) {
+				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), hplace);
+			}
+			else {
+				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), hplace);
+			}
+			break;
+		case ModOreConfig.TRIANGLE:
+			hplace = MakeTrianglePlacement(cfg.getBottom(), cfg.getTop());
+			if (cfg.get_commonality()) {
+				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), hplace);
+			}
+			else {
+				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), hplace);
+			}
+			break;
+		case ModOreConfig.RANGE_4_4:
+			if (cfg.get_commonality()) {
+				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_4_4);
+			}
+			else {
+				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_4_4);
+			}
+			break;
+		case ModOreConfig.RANGE_8_8:
+			if (cfg.get_commonality()) {
+				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_8_8);
+			}
+			else {
+				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_8_8);
+			}
+			break;
+		case ModOreConfig.RANGE_10_10:
+			if (cfg.get_commonality()) {
+				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_10_10);
+			}
+			else {
+				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_10_10);
+			}
+			break;
+		case ModOreConfig.FULL_RANGE:
+			if (cfg.get_commonality()) {
+				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.FULL_RANGE);
+			}
+			else {
+				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.FULL_RANGE);
+			}
+			break;
+		} // end switch
+		
+		return orecfg.placed(pmodifiers);
+	} // end ConfigurePlacedFeature
 	
 	/**
-	 * Old default for nether ores - just replaces netherrack. Normally prefer to use buildNetherRockFeature().
-	 * @param bstate - ore blockstate that replaces netherrack.
-	 * @param cfg - ModOreConfig object that holds the parameters for the ore vein feature.
-	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
+	 * Create a standard triangular height distribution.
+	 * @param lower - VerticalAnchor of lower end
+	 * @param upper - VerticalAnchor of upper end
+	 * @return a HeightRangePlacement.
 	 */
-//	@Deprecated
-//	public static ConfiguredFeature<?, ?> buildNetherOreFeature(BlockState bstate, ModOreConfig cfg)
-//	{
-//		return Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NETHERRACK, bstate, cfg.getVein_size()))
-//				.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
-//	} // end buildNetherOreFeature
-
+    public static HeightRangePlacement MakeTrianglePlacement( VerticalAnchor lower, VerticalAnchor upper )
+    {
+    	return HeightRangePlacement.triangle(lower, upper);
+    }
+    
 	/**
-	 * new default for nether ores - replaces base_nether_stone. 
-	 * @param bstate - ore blockstate that replaces netherrack.
-	 * @param cfg - ModOreConfig object that holds the parameters for the ore vein feature.
-	 * @return a ConfiguredFeature<?,?>, ready for ore generation.
+	 * Create a standard triangular height distribution.
+	 * @param lower - VerticalAnchor of lower end
+	 * @param upper - VerticalAnchor of upper end
+	 * @return a HeightRangePlacement.
 	 */
-//	public static ConfiguredFeature<?, ?> buildNetherRockFeature(BlockState bstate, ModOreConfig cfg)
-//	{
-//		return Feature.ORE.configured(
-//				new OreConfiguration(OreConfiguration.Predicates.NETHER_ORE_REPLACEABLES, bstate, cfg.getVein_size()))
-//					.range(ModOreConfig2RangeDecorator(cfg)).squared().count(cfg.getVein_count());
-//	}
-
-//	public static void registerFeature(String modid, String name, ConfiguredFeature<?, ?> cfg_feature)
-//	{
-//		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(modid, name), cfg_feature);
-//	}
+    public static HeightRangePlacement MakeUniformPlacement( VerticalAnchor lower, VerticalAnchor upper )
+    {
+        return HeightRangePlacement.uniform(lower, upper);
+    }
 } // end class
