@@ -3,8 +3,8 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 org.gradle.java.home=/usr/lib/jvm/adoptopenjdk-16-hotspot-amd64
 
 version_minecraft = 1.18.1
-version_forge = 39.0.19
-mods.toml forge = versionRange="[)"
+version_forge = 1.18.1-39.0.36
+mods.toml forge = versionRange="[39,)"
 
 simplecorelib_version = 
 simpleores_version = 

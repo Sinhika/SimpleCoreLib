@@ -648,12 +648,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
         this.load(tag);
     }
 
-//    @Override
-//    public ClientboundBlockEntityDataPacket getUpdatePacket()
-//    {
-//        CompoundTag nbtTag = new CompoundTag();
-//        return new ClientboundBlockEntityDataPacket(getBlockPos(), -1, save(nbtTag));
-//    }
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket()
+    {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
 
     
     /**
