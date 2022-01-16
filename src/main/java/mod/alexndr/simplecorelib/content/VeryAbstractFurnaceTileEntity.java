@@ -163,12 +163,8 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
 		}
 	}; // end VeryAbstractFurnaceTileEntity$ContainerData
     
-    protected final LazyOptional<ItemStackHandler> inventoryCapabilityExternal = LazyOptional.of(() -> this.inventory);
-    protected final LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalUp = LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
-    protected final LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalDown = LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
-    protected final LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalSides = LazyOptional.of(() -> new RangedWrapper(this.inventory, FUEL_SLOT, FUEL_SLOT + 1));
-    
-    public VeryAbstractFurnaceTileEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos blockpos, BlockState blockstate,
+
+	public VeryAbstractFurnaceTileEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos blockpos, BlockState blockstate,
     		RecipeType<? extends AbstractCookingRecipe> recipeTypeIn)
     {
         super(tileEntityTypeIn, blockpos, blockstate);
@@ -497,14 +493,14 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
         if (hasFuel != tile.isBurning())
         {
             flag1 = true;
-            final BlockState newState = tile.getBlockState().setValue(BlockStateProperties.LIT, tile.isBurning());
+            blockstate = blockstate.setValue(VeryAbstractFurnaceBlock.LIT, Boolean.valueOf(tile.isBurning()));
     
             // Flag 2: Send the change to clients
-            level.setBlock(blockpos, newState, 3);
+            level.setBlock(blockpos, blockstate, 3);
         }
         
         if (flag1) {
-            tile.setChanged();
+            setChanged(level, blockpos, blockstate);
          }
     } // end serverTick()
 
@@ -521,35 +517,6 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
 		}
 	} // end-stillValid
 
-    
-    /**
-     * Retrieves the Optional handler for the capability requested on the specific side.
-     *
-     * @param cap  The capability to check
-     * @param side The Direction to check from. CAN BE NULL! Null is defined to represent 'internal' or 'self'
-     * @return The requested an optional holding the requested capability.
-     */
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, @Nullable final Direction side)
-    {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if (side == null)
-                return inventoryCapabilityExternal.cast();
-            switch (side) {
-                case DOWN:
-                    return inventoryCapabilityExternalDown.cast();
-                case UP:
-                    return inventoryCapabilityExternalUp.cast();
-                case NORTH:
-                case SOUTH:
-                case WEST:
-                case EAST:
-                    return inventoryCapabilityExternalSides.cast();
-            }
-        }
-        return super.getCapability(cap, side);
-    }
     
     @Override
     public void onLoad()
@@ -672,19 +639,6 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
     }
 
 
-    @Override
-    public void invalidateCaps()
-    {
-        super.invalidateCaps();
-        // We need to invalidate our capability references so that any cached references (by other mods) don't
-        // continue to reference our capabilities and try to use them and/or prevent them from being garbage collected
-        inventoryCapabilityExternal.invalidate();
-        inventoryCapabilityExternalUp.invalidate();
-        inventoryCapabilityExternalDown.invalidate();
-        inventoryCapabilityExternalSides.invalidate();
-    }
-
-
     /**
      * Called from {@link NetworkHooks#openGui}
      * (which is called from {@link ElectricFurnaceBlock#onBlockActivated} on the logical server)
@@ -740,5 +694,63 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
         }
     } // end spawnExpOrbs()
 
-  
+    // CAPABILITY STUFF
+    protected LazyOptional<ItemStackHandler> inventoryCapabilityExternal = LazyOptional.of(() -> this.inventory);
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalUp = LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalDown = LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalSides = LazyOptional.of(() -> new RangedWrapper(this.inventory, FUEL_SLOT, FUEL_SLOT + 1));
+    
+
+    /**
+     * Retrieves the Optional handler for the capability requested on the specific side.
+     *
+     * @param cap  The capability to check
+     * @param side The Direction to check from. CAN BE NULL! Null is defined to represent 'internal' or 'self'
+     * @return The requested an optional holding the requested capability.
+     */
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, @Nullable final Direction side)
+    {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (side == null)
+                return inventoryCapabilityExternal.cast();
+            switch (side) {
+                case DOWN:
+                    return inventoryCapabilityExternalDown.cast();
+                case UP:
+                    return inventoryCapabilityExternalUp.cast();
+                case NORTH:
+                case SOUTH:
+                case WEST:
+                case EAST:
+                    return inventoryCapabilityExternalSides.cast();
+            }
+        }
+        return super.getCapability(cap, side);
+    }
+    
+    @Override
+    public void invalidateCaps()
+    {
+        super.invalidateCaps();
+        // We need to invalidate our capability references so that any cached references (by other mods) don't
+        // continue to reference our capabilities and try to use them and/or prevent them from being garbage collected
+        inventoryCapabilityExternal.invalidate();
+        inventoryCapabilityExternalUp.invalidate();
+        inventoryCapabilityExternalDown.invalidate();
+        inventoryCapabilityExternalSides.invalidate();
+    }
+
+    @Override
+    public void reviveCaps() 
+    {
+       super.reviveCaps();
+       inventoryCapabilityExternal = LazyOptional.of(() -> this.inventory);
+       inventoryCapabilityExternalUp = LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
+       inventoryCapabilityExternalDown = LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
+       inventoryCapabilityExternalSides = LazyOptional.of(() -> new RangedWrapper(this.inventory, FUEL_SLOT, FUEL_SLOT + 1));
+    }
+    
+
 } // end class

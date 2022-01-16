@@ -14,7 +14,6 @@ public abstract class LootTableInjectorProvider extends AbstractLootTableProvide
     public LootTableInjectorProvider(DataGenerator dataGeneratorIn)
     {
         super(dataGeneratorIn);
-        // TODO Auto-generated constructor stub
     }
     
     public void addInjectionTable(String modid, String table_name, LootPool.Builder pool)

@@ -37,7 +37,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
 {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-	   public static final BooleanProperty LIT = BlockStateProperties.LIT;
+	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public VeryAbstractFurnaceBlock(Properties builder)
     {

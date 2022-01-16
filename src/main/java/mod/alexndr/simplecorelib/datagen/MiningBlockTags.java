@@ -43,11 +43,11 @@ public class MiningBlockTags extends BlockTagsProvider
 			TagsProvider.TagAppender<Block> diamond = this.tag(TagUtils.modBlockTag("minecraft", "needs_diamond_tool"));
 			diamond_blocks.stream().forEach(b -> diamond.add(b));
 		}
+		// NOTE: needs_netherite_tool is a FORGE tag, not a vanilla Minecraft tag.
 		if (netherite_blocks != null && !netherite_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Block> netherite = this.tag(TagUtils.modBlockTag("minecraft", "needs_netherite_tool"));
+			TagsProvider.TagAppender<Block> netherite = this.tag(TagUtils.forgeBlockTag("needs_netherite_tool"));
 			netherite_blocks.stream().forEach(b -> netherite.add(b));
 		}
 	} // end registerMineableTags
 	
-	// TODO add methods that take lists of blocks and create mineable/mining tags.
 } // end class
