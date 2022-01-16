@@ -35,6 +35,7 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -114,12 +115,19 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
             
             @Override
             protected void onContentsChanged(final int slot) {
-                super.onContentsChanged(slot);
-                // Mark the tile entity as having changed whenever its inventory changes.
-                // "markDirty" tells vanilla that the chunk containing the tile entity has
-                // changed and means the game will save the chunk to disk later.
                 setChanged();
             } // end ()
+            
+            @Nonnull
+            @Override
+            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) 
+            {
+            	if (slot == FUEL_SLOT && getBurnDuration(stack) <= 0)
+            	{
+            		return stack;
+            	}
+            	return super.insertItem(slot, stack, simulate);
+            }
     }; // end ItemStackHandler(3)
 
     
@@ -434,7 +442,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
         {
             --tile.fuelBurnTimeLeft;
         }
-        
+        if ( blockstate.getValue(VeryAbstractFurnaceBlock.LIT) != tile.isBurning() )
+        {
+            blockstate = blockstate.setValue(VeryAbstractFurnaceBlock.LIT, Boolean.valueOf(tile.isBurning()));
+            level.setBlock(blockpos, blockstate, Block.UPDATE_ALL);
+        }
         ItemStack input = tile.inventory.getStackInSlot(INPUT_SLOT).copy();
         ItemStack fuel = tile.inventory.getStackInSlot(FUEL_SLOT).copy();
         final ItemStack result = tile.getResult(input).orElse(ItemStack.EMPTY);
@@ -496,7 +508,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
             blockstate = blockstate.setValue(VeryAbstractFurnaceBlock.LIT, Boolean.valueOf(tile.isBurning()));
     
             // Flag 2: Send the change to clients
-            level.setBlock(blockpos, blockstate, 3);
+            level.setBlock(blockpos, blockstate, Block.UPDATE_ALL);
         }
         
         if (flag1) {
