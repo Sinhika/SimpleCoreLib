@@ -612,7 +612,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
     @Nonnull
     public CompoundTag getUpdateTag()
     {
-        return this.save(new CompoundTag());
+        return this.saveWithFullMetadata();
     }
 
     /**

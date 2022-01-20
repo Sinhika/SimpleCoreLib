@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 /**
  * A LootTableProvider class with helper functions. Based on work by sciwhiz12
@@ -71,6 +72,21 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
         blockTable(b, LootTable.lootTable().withPool(createItemWithFortuneDrops(b, ii)));
     }
 
+    /**
+     * Create a block loot table that drops multiple items instead of the block itself
+     * (e.g., redstone_ore, copper_ore). Assumed to be affected by Fortune-enchanted tools.
+     * 
+     * @param b block being harvested.
+     * @param ii items dropped by block
+     * @param mincount minimum number of items dropped.
+     * @param maxcount maximum number of items dropped.
+     */
+    protected void multipleDropTable(Block b, Item ii, int mincount, int maxcount)
+    {
+    	blockTable(b, LootTable.lootTable().withPool(
+    			createMultiItemsWithFortuneDrops(b, ii, (float) mincount, (float) maxcount)));
+    }
+    
     /**
      * Create a block loot table that drops an item-block for the block, but with any
      * custom names copied over. Used for machines and other blocks that might have names.
@@ -128,6 +144,16 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
     {
         return droppingWithSilkTouch(blockIn, withExplosionDecay(blockIn,
                 LootItem.lootTableItem(itemIn).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+    }
+    
+    protected LootPool.Builder createMultiItemsWithFortuneDrops(Block blockIn, Item itemIn,
+    														    float min_count, float max_count)
+    {
+    	return droppingWithSilkTouch(blockIn, 
+    			withExplosionDecay(blockIn, 
+    					LootItem.lootTableItem(itemIn)
+    					.apply(SetItemCountFunction.setCount(UniformGenerator.between(min_count, max_count)))
+    					.apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
     
     protected static <T> T withExplosionDecay(ItemLike itemIn, FunctionUserBuilder<T> consumer)
