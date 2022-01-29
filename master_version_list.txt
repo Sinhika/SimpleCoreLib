@@ -7,7 +7,7 @@ version_forge = 1.18.1-39.0.59
 mods.toml forge = versionRange="[39,)"
 
 simplecorelib_version = 1.18.1-4.0.0.2
-simpleores_version = 
+simpleores_version = 1.18.1-4.0.0.0
 fusion_version = 
 simple_machines_version = 
 netherrocks_version = 
@@ -24,7 +24,7 @@ cobalt_version =
 
 ashenwheat_version = 
 
-version_mcjei = 1.18.1 
+version_mcjei = 1.18.1
 jei_version = 9.2.1.69
 
 silents_mechanisms: versionRange="[,)"
