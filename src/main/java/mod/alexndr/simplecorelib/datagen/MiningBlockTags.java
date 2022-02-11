@@ -21,7 +21,6 @@ public class MiningBlockTags extends BlockTagsProvider
 	@Override
 	protected void addTags()
 	{
-		super.addTags();
 		registerOreTags();
 		registerMiningTags();
 	}

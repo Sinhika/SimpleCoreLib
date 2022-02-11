@@ -23,7 +23,6 @@ public class MiningItemTags extends ItemTagsProvider
 	@Override
 	protected void addTags() 
 	{
-		super.addTags();
 		registerOreTags();
 	}
 

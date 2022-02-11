@@ -1,11 +1,11 @@
 USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 ============================================
-org.gradle.java.home=/usr/local/lib/jvm/jdk-jdk8u322-b06
-org.gradle.java.home=/usr/local/lib/jvm/jdk-16.0.2+7
+org.gradle.java.home=/usr/lib/jvm/java-8-openjdk-amd64
+org.gradle.java.home=/usr/lib/jvm/adoptopenjdk-16-hotspot-amd64
 org.gradle.java.home=/usr/local/lib/jvm/jdk-17.0.1+12
 
 version_minecraft = 1.18.1
-version_forge = 1.18.1-39.0.64
+version_forge = 1.18.1-39.0.66
 mods.toml forge = versionRange="[39,)"
 
 simplecorelib_version = 1.18.1-4.0.0.2
