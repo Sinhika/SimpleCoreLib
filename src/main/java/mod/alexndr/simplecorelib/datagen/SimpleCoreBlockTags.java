@@ -1,13 +1,20 @@
 package mod.alexndr.simplecorelib.datagen;
 
+import java.util.List;
+
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.helpers.TagUtils;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class SimpleCoreBlockTags extends BlockTagsProvider
+/**
+ * More complicated than strictly necessary, but also serves to test that we didn't bollix up
+ * the MiningBlockTags logic
+ * @author Sinhika.
+ *
+ */
+public class SimpleCoreBlockTags extends MiningBlockTags
 {
 
 	public SimpleCoreBlockTags(DataGenerator gen, ExistingFileHelper existingFileHelper) 
@@ -18,8 +25,14 @@ public class SimpleCoreBlockTags extends BlockTagsProvider
 	@Override
 	protected void addTags() 
 	{
-		this.tag(TagUtils.modBlockTag("minecraft", "mineable/pickaxe"))
-			.add(ModBlocks.test_furnace.get());
+		super.addTags();  // always call super here, it calls registerOres() and registerMiningTags().
+	}
+
+	@Override
+	protected void registerMiningTags() 
+	{
+		registerMineableTags(List.of(ModBlocks.test_furnace.get()), 
+				List.of(), List.of(), List.of(), List.of());
 	}
 
 	
