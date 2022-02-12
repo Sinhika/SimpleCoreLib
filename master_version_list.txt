@@ -8,8 +8,8 @@ version_minecraft = 1.18.1
 version_forge = 1.18.1-39.0.74
 mods.toml forge = versionRange="[39,)"
 
-simplecorelib_version = 1.18.1-4.0.0.3
-simpleores_version = 1.18.1-4.0.0.0
+simplecorelib_version = 1.18.1-4.0.0.4
+simpleores_version = 1.18.1-4.0.0.1
 fusion_version = 
 simple_machines_version = 
 netherrocks_version = 
