@@ -234,12 +234,14 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
 	}
 
 	@Override
-	public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction side) {
+	public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction side) 
+	{
 		return this.canPlaceItem(slot, stack);
 	}
 
 	@Override
-	public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
+	public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) 
+	{
         if (side == Direction.DOWN && slot == FUEL_SLOT)
         {
             return stack.is(Items.WATER_BUCKET) || stack.is(Items.BUCKET);
