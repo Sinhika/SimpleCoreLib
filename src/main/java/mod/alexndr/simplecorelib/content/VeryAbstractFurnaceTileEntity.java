@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import mod.alexndr.simplecorelib.helpers.ItemStackHandlerUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -23,8 +22,8 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +37,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -59,18 +58,14 @@ import net.minecraftforge.network.NetworkHooks;
  * @author Sinhika
  *
  */
-public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEntity implements WorldlyContainer
+public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity implements MenuProvider
 {
     protected static final Logger LOGGER = LogManager.getLogger();
     
-    public static final int FUEL_SLOT = 0;
-    public static final int INPUT_SLOT = 1;
+    public static final int INPUT_SLOT = 0;
+    public static final int FUEL_SLOT = 1;
     public static final int OUTPUT_SLOT = 2;
     
-    protected static final int[] SLOTS_FOR_UP = new int[]{INPUT_SLOT};
-    protected static final int[] SLOTS_FOR_DOWN = new int[]{OUTPUT_SLOT, FUEL_SLOT};
-    protected static final int[] SLOTS_FOR_SIDES = new int[]{FUEL_SLOT};
-
     protected static final String INVENTORY_TAG = "inventory";
     protected static final String SMELT_TIME_LEFT_TAG = "smeltTimeProgress";
     protected static final String MAX_SMELT_TIME_TAG = "maxSmeltTime";
@@ -104,6 +99,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
     public final ItemStackHandler inventory = new ItemStackHandler(3) 
     {
             @Override
+            protected void onContentsChanged(final int slot) {
+                setChanged();
+            } // end ()
+            
+           @Override
             public boolean isItemValid(final int slot, @Nonnull final ItemStack stack) 
             {
                 switch (slot) {
@@ -118,24 +118,19 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
                 }
             } // end ItemStackHander(3).isItemValid()
             
-            @Override
-            protected void onContentsChanged(final int slot) {
-                setChanged();
-            } // end ()
-            
-            @Nonnull
+             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) 
             {
-            	if (slot == FUEL_SLOT && getBurnDuration(stack) <= 0)
+            	// no, you can't put stuff in the output slot.
+            	if (slot == OUTPUT_SLOT) 
             	{
             		return stack;
             	}
-            	if (slot == OUTPUT_SLOT) {
-            		return stack;
-            	}
+            	// that leaves fuel && input slot, which are covered by isItemValid().
             	return super.insertItem(slot, stack, simulate);
-            }
+            } // end insertItem()
+
     }; // end ItemStackHandler(3)
 
     
@@ -179,6 +174,15 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
 		}
 	}; // end VeryAbstractFurnaceTileEntity$ContainerData
     
+	// CAPABILITY STUFF
+	protected LazyOptional<ItemStackHandler> inventoryCapabilityInternal = LazyOptional.of(() -> this.inventory);
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalUp = 
+            LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalSides = 
+            LazyOptional.of(() -> new RangedWrapper(this.inventory, FUEL_SLOT, FUEL_SLOT + 1));
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalDown = 
+            LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
+
 
 	public VeryAbstractFurnaceTileEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos blockpos, BlockState blockstate,
     		RecipeType<? extends AbstractCookingRecipe> recipeTypeIn)
@@ -188,116 +192,6 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
         this.hasFuelMultiplier = false;
         this.recipeType = recipeTypeIn;
     }
-
-	@Override
-	public int getContainerSize() {
-		return this.inventory.getSlots();
-	}
-
-	@Override
-	public boolean isEmpty() 
-	{
-		for (int ii=0; ii < this.inventory.getSlots(); ii++) {
-			if (!this.inventory.getStackInSlot(ii).isEmpty()) {
-				return false;
-			}
-		}
-		return true;
-	} //  end isEmpty()
-
-	
-	@Override
-	public boolean canPlaceItem(int slot, ItemStack stack) 
-	{
-		if (slot == OUTPUT_SLOT) {
-			return false;
-		} 
-		else if (slot != FUEL_SLOT) {
-			return true;
-		} 
-		else {
-			ItemStack itemstack = this.getItem(FUEL_SLOT);
-			return this.getBurnDuration(stack) > 0
-					|| stack.is(Items.BUCKET) && !itemstack.is(Items.BUCKET);
-		}
-	} // end canPlaceItem()
-
-	@Override
-	public int[] getSlotsForFace(Direction side) 
-	{
-		if (side == Direction.DOWN) {
-			return SLOTS_FOR_DOWN;
-		} 
-		else {
-			return side == Direction.UP ? SLOTS_FOR_UP : SLOTS_FOR_SIDES;
-		}
-	}
-
-	@Override
-	public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction side) 
-	{
-		return this.canPlaceItem(slot, stack);
-	}
-
-	@Override
-	public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) 
-	{
-        if (side == Direction.DOWN && slot == FUEL_SLOT)
-        {
-            return stack.is(Items.WATER_BUCKET) || stack.is(Items.BUCKET);
-        } 
-        else {
-            return true;
-        }
-    }
-
-	@Override
-	public ItemStack getItem(int slot) 
-	{
-		return this.inventory.getStackInSlot(slot);
-	}
-
-	@Override
-	public ItemStack removeItem(int slot, int count) 
-	{
-		return ItemStackHandlerUtils.removeItem(this.inventory, slot, count);
-	} // end removeItem
-
-	@Override
-	public ItemStack removeItemNoUpdate(int slot) 
-	{
-		return ItemStackHandlerUtils.takeItem(this.inventory, slot);
-	} // end-removeItemNoUpdate
-
-	@Override
-	public void setItem(int slot, ItemStack stack) 
-	{
-	      ItemStack itemstack = this.inventory.getStackInSlot(slot);
-	      boolean flag = !stack.isEmpty() && stack.sameItem(itemstack) && ItemStack.tagMatches(stack, itemstack);
-	      
-	      if (stack.getCount() > this.inventory.getSlotLimit(slot))
-	      {
-	    	  stack.setCount(this.inventory.getSlotLimit(slot));
-	      }
-	      this.inventory.setStackInSlot(slot, stack);
-
-	      if (slot == INPUT_SLOT && !flag) 
-	      {
-	         this.maxSmeltTime = getSmeltTime(stack);
-	         this.smeltTimeProgress = 0;
-	         this.setChanged();
-	      }
-	} // end setItem()
-
-	
-	@Override
-	public void clearContent() 
-	{
-		for (int ii = 0; ii < this.inventory.getSlots(); ii++)
-		{
-			this.inventory.setStackInSlot(ii, ItemStack.EMPTY);
-		}
-	} // end clearContent()
 
    public boolean isFuel(ItemStack stack)
     {
@@ -329,6 +223,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
         return this.fuelBurnTimeLeft > 0;
     }
 
+    
     /**
      * @return The smelting recipe for the inventory; implements recipe caching.
      */
@@ -569,20 +464,6 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
          }
     } // end serverTick()
 
-	@Override
-	public boolean stillValid(Player player) 
-	{
-		if (this.level.getBlockEntity(this.worldPosition) != this) 
-		{
-			return false;
-		} 
-		else {
-			return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D,
-					(double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
-		}
-	} // end-stillValid
-
-    
     @Override
     public void onLoad()
     {
@@ -628,7 +509,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
                                                     Boolean.valueOf(this.isBurning())));
         }
         
-    } // end read()
+    } // end load()
 
     /**
      * Write data from the tile into a compound tag for saving to disk.
@@ -711,7 +592,6 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
      * @return The logical-server-side Container for this TileEntity
      */
     @Nonnull
-    @Override
     public abstract AbstractContainerMenu createMenu(final int windowId, final Inventory inv);
 
 	@Override
@@ -759,14 +639,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
         }
     } // end spawnExpOrbs()
 
-    // CAPABILITY STUFF
-    //protected LazyOptional<ItemStackHandler> inventoryCapabilityExternal = LazyOptional.of(() -> this.inventory);
-    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalUp = LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
-    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalDown = LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
-    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalSides = LazyOptional.of(() -> new RangedWrapper(this.inventory, FUEL_SLOT, FUEL_SLOT + 1));
-    
-
-    /**
+     /**
      * Retrieves the Optional handler for the capability requested on the specific side.
      *
      * @param cap  The capability to check
@@ -777,6 +650,10 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, @Nullable final Direction side)
     {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
+        {
+            return inventoryCapabilityInternal.cast();
+        }
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side != null) 
         {
             switch (side) {
@@ -792,29 +669,31 @@ public abstract class VeryAbstractFurnaceTileEntity extends BaseContainerBlockEn
             }
         }
         return super.getCapability(cap, side);
-    }
+    } // end getCapability
     
     @Override
     public void invalidateCaps()
     {
         super.invalidateCaps();
+        
         // We need to invalidate our capability references so that any cached references (by other mods) don't
         // continue to reference our capabilities and try to use them and/or prevent them from being garbage collected
-        // inventoryCapabilityExternal.invalidate();
+        
         inventoryCapabilityExternalUp.invalidate();
         inventoryCapabilityExternalDown.invalidate();
         inventoryCapabilityExternalSides.invalidate();
+        inventoryCapabilityInternal.invalidate();
     }
 
     @Override
     public void reviveCaps() 
     {
        super.reviveCaps();
-       // inventoryCapabilityExternal = LazyOptional.of(() -> this.inventory);
+       inventoryCapabilityInternal = LazyOptional.of(() -> this.inventory);
        inventoryCapabilityExternalUp = LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
        inventoryCapabilityExternalDown = LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
        inventoryCapabilityExternalSides = LazyOptional.of(() -> new RangedWrapper(this.inventory, FUEL_SLOT, FUEL_SLOT + 1));
     }
-    
+
 
 } // end class

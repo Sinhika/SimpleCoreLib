@@ -2,7 +2,6 @@ package mod.alexndr.simplecorelib.init;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.content.TestFurnaceContainerMenu;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -14,7 +13,8 @@ public final class ModMenuTypes
     public static final DeferredRegister<MenuType<?>> CONTAINER_TYPES = 
             DeferredRegister.create(ForgeRegistries.CONTAINERS, SimpleCoreLib.MODID);
     
-    public static final RegistryObject<MenuType<? extends AbstractContainerMenu>> test_furnace 
+    public static final RegistryObject<MenuType<TestFurnaceContainerMenu>> test_furnace 
     	= CONTAINER_TYPES.register("test_furnace", 
-    			() -> IForgeMenuType.create(TestFurnaceContainerMenu::new));
+    			() -> IForgeMenuType.create((windowId, inv, data) 
+    			                        -> new TestFurnaceContainerMenu(windowId, inv, data.readBlockPos()))); 
 }

@@ -20,11 +20,11 @@ public class TestFurnaceTileEntity extends VeryAbstractFurnaceTileEntity
 
 	@Override
 	public AbstractContainerMenu createMenu(int windowId, Inventory inventory) {
-        return new TestFurnaceContainerMenu(windowId, inventory, this);
+        return new TestFurnaceContainerMenu(windowId, inventory, this.getBlockPos());
 	}
 
 	@Override
-	protected Component getDefaultName() {
+	public Component getDisplayName() {
         return new TranslatableComponent(ModBlocks.test_furnace.get().getDescriptionId());
 	}
 

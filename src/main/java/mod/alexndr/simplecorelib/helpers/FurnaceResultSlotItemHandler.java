@@ -2,9 +2,9 @@ package mod.alexndr.simplecorelib.helpers;
 
 import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceTileEntity;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -17,14 +17,14 @@ public class FurnaceResultSlotItemHandler extends SlotItemHandler
 {
     private final Player player;
     private int removeCount;
-    private final Container tileish;
+    private final BlockEntity blockEntity;
     
-    public FurnaceResultSlotItemHandler(Player player, IItemHandler itemHandler, Container tilecontainer,
+    public FurnaceResultSlotItemHandler(Player player, IItemHandler itemHandler, BlockEntity be,
     									int index, int xPosition, int yPosition)
     {
         super(itemHandler, index, xPosition, yPosition);
         this.player = player;
-        this.tileish = tilecontainer;
+        this.blockEntity = be;
     }
 
     /**
@@ -57,9 +57,9 @@ public class FurnaceResultSlotItemHandler extends SlotItemHandler
     protected void checkTakeAchievements(ItemStack stack)
     {
         stack.onCraftedBy(this.player.level, this.player, this.removeCount);
-        if (this.player instanceof ServerPlayer && this.tileish instanceof VeryAbstractFurnaceTileEntity) 
+        if (this.player instanceof ServerPlayer && this.blockEntity instanceof VeryAbstractFurnaceTileEntity) 
         {
-        	((VeryAbstractFurnaceTileEntity)this.tileish).grantExperience(this.player);
+        	((VeryAbstractFurnaceTileEntity)this.blockEntity).grantExperience(this.player);
         }
         this.removeCount = 0;
         ForgeEventFactory.firePlayerSmeltedEvent(this.player, stack);

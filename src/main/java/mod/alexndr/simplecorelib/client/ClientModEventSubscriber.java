@@ -22,12 +22,13 @@ public final class ClientModEventSubscriber
      * This method will always be called after the Registry events.
      * This means that all Blocks, Items, TileEntityTypes, etc. will all have been registered already
      */
-    @SuppressWarnings("unchecked")
-	@SubscribeEvent
+    @SubscribeEvent
     public static void onFMLClientSetupEvent(final FMLClientSetupEvent event) 
     {
         // Register ContainerType Screens
-        MenuScreens.register((MenuType<TestFurnaceContainerMenu>) ModMenuTypes.test_furnace.get(), TestFurnaceScreen::new);
+        event.enqueueWork( () -> {
+            MenuScreens.register((MenuType<TestFurnaceContainerMenu>) ModMenuTypes.test_furnace.get(), TestFurnaceScreen::new);
+        });
     }
 
 } // end class
