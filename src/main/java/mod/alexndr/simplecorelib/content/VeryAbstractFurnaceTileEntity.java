@@ -22,12 +22,9 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -49,7 +46,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RangedWrapper;
-import net.minecraftforge.network.NetworkHooks;
 
 /**
  * Abstracts the mechanics of a conventional-ish furnace (1 input, 1 fuel, 1 output slot).
@@ -58,7 +54,7 @@ import net.minecraftforge.network.NetworkHooks;
  * @author Sinhika
  *
  */
-public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity implements MenuProvider
+public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
 {
     protected static final Logger LOGGER = LogManager.getLogger();
     
@@ -585,19 +581,19 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity implemen
     }
 
 
-    /**
-     * Called from {@link NetworkHooks#openGui}
-     * (which is called from {@link ElectricFurnaceBlock#onBlockActivated} on the logical server)
-     *
-     * @return The logical-server-side Container for this TileEntity
-     */
-    @Nonnull
-    public abstract AbstractContainerMenu createMenu(final int windowId, final Inventory inv);
-
-	@Override
-	public AbstractContainerMenu createMenu(int windowId, Inventory inv, Player player) {
-		return createMenu(windowId, inv);
-	}
+//    /**
+//     * Called from {@link NetworkHooks#openGui}
+//     * (which is called from {@link ElectricFurnaceBlock#onBlockActivated} on the logical server)
+//     *
+//     * @return The logical-server-side Container for this TileEntity
+//     */
+//    @Nonnull
+//    public abstract AbstractContainerMenu createMenu(final int windowId, final Inventory inv);
+//
+//	@Override
+//	public AbstractContainerMenu createMenu(int windowId, Inventory inv, Player player) {
+//		return createMenu(windowId, inv);
+//	}
     
     public void grantExperience(Player player)
     {

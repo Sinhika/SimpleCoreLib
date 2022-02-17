@@ -38,7 +38,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
 {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
-
+	
     public VeryAbstractFurnaceBlock(Properties builder)
     {
         super(builder);
@@ -68,16 +68,12 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
     {
-		if (worldIn.isClientSide)
-		{
-			return InteractionResult.SUCCESS;
-		} 
-		else
+		if (!worldIn.isClientSide)
 		{
 			this.openContainer(worldIn, pos, player);
-			return InteractionResult.CONSUME;
 		}
-    }
+        return InteractionResult.SUCCESS;
+    } // end use()
     
     /**
      * Makes the block face the player when placed

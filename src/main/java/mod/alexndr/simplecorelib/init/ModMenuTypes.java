@@ -16,5 +16,5 @@ public final class ModMenuTypes
     public static final RegistryObject<MenuType<TestFurnaceContainerMenu>> test_furnace 
     	= CONTAINER_TYPES.register("test_furnace", 
     			() -> IForgeMenuType.create((windowId, inv, data) 
-    			                        -> new TestFurnaceContainerMenu(windowId, inv, data.readBlockPos()))); 
+    			                        -> new TestFurnaceContainerMenu(windowId, inv, data.readBlockPos(), inv.player))); 
 }
