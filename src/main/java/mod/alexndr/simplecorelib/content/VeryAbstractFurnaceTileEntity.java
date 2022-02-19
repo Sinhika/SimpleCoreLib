@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import mod.alexndr.simplecorelib.helpers.SidedWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -92,6 +93,47 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
     public int maxFuelBurnTime = 0;
     protected boolean lastBurning = false;
 
+    public final ContainerData dataAccess = new ContainerData() 
+    {
+        public int get(int index) {
+            switch (index)
+            {
+            case DATA_FUEL_TIME_LEFT:
+                return VeryAbstractFurnaceTileEntity.this.fuelBurnTimeLeft;
+            case DATA_FUEL_TIME_MAX:
+                return VeryAbstractFurnaceTileEntity.this.maxFuelBurnTime;
+            case DATA_COOKING_PROGRESS:
+                return VeryAbstractFurnaceTileEntity.this.smeltTimeProgress;
+            case DATA_COOKING_TOTAL_TIME:
+                return VeryAbstractFurnaceTileEntity.this.maxSmeltTime;
+            default:
+                return 0;
+            }
+        } // end get()
+
+        public void set(int index, int value) {
+            switch (index)
+            {
+            case DATA_FUEL_TIME_LEFT:
+                VeryAbstractFurnaceTileEntity.this.fuelBurnTimeLeft = value;
+                break;
+            case DATA_FUEL_TIME_MAX:
+                VeryAbstractFurnaceTileEntity.this.maxFuelBurnTime = value;
+                break;
+            case DATA_COOKING_PROGRESS:
+                VeryAbstractFurnaceTileEntity.this.smeltTimeProgress = value;
+                break;
+            case DATA_COOKING_TOTAL_TIME:
+                VeryAbstractFurnaceTileEntity.this.maxSmeltTime = value;
+            }
+        } // end set()
+
+        public int getCount() {
+            return NUM_DATA_VALUES;
+        }
+    }; // end VeryAbstractFurnaceTileEntity$ContainerData
+    
+
     public final ItemStackHandler inventory = new ItemStackHandler(3) 
     {
             @Override
@@ -113,71 +155,122 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
                         return false;
                 }
             } // end ItemStackHander(3).isItemValid()
-            
-             @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) 
-            {
-            	// no, you can't put stuff in the output slot.
-            	if (slot == OUTPUT_SLOT) 
-            	{
-            		return stack;
-            	}
-            	// that leaves fuel && input slot, which are covered by isItemValid().
-            	return super.insertItem(slot, stack, simulate);
-            } // end insertItem()
-
     }; // end ItemStackHandler(3)
 
-    
-	public final ContainerData dataAccess = new ContainerData() 
-	{
-		public int get(int index) {
-			switch (index)
-			{
-			case DATA_FUEL_TIME_LEFT:
-				return VeryAbstractFurnaceTileEntity.this.fuelBurnTimeLeft;
-			case DATA_FUEL_TIME_MAX:
-				return VeryAbstractFurnaceTileEntity.this.maxFuelBurnTime;
-			case DATA_COOKING_PROGRESS:
-				return VeryAbstractFurnaceTileEntity.this.smeltTimeProgress;
-			case DATA_COOKING_TOTAL_TIME:
-				return VeryAbstractFurnaceTileEntity.this.maxSmeltTime;
-			default:
-				return 0;
-			}
-		} // end get()
+    public class FurnaceHandler extends SidedWrapper
+    {
+        public FurnaceHandler(IItemHandlerModifiable inventory, Direction side)
+        {
+            super(inventory, side);
+        }
 
-		public void set(int index, int value) {
-			switch (index)
-			{
-			case DATA_FUEL_TIME_LEFT:
-				VeryAbstractFurnaceTileEntity.this.fuelBurnTimeLeft = value;
-				break;
-			case DATA_FUEL_TIME_MAX:
-				VeryAbstractFurnaceTileEntity.this.maxFuelBurnTime = value;
-				break;
-			case DATA_COOKING_PROGRESS:
-				VeryAbstractFurnaceTileEntity.this.smeltTimeProgress = value;
-				break;
-			case DATA_COOKING_TOTAL_TIME:
-				VeryAbstractFurnaceTileEntity.this.maxSmeltTime = value;
-			}
-		} // end set()
+        @Nonnull
+        @Override
+        public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) 
+        {
+            // no, you can't put stuff in the output slot.
+            if (slot == OUTPUT_SLOT) 
+            {
+                return stack;
+            }
+            // that leaves fuel && input slot, which are covered by isItemValid().
+            if (slot == INPUT_SLOT && this.side == Direction.UP) 
+            {
+                return super.insertItem(slot, stack, simulate);
+            }
+            if (slot == FUEL_SLOT && isHorizontalSide(this.side)) {
+                return super.insertItem(slot, stack, simulate);
+            }
+            return stack;
+          
+        } // end insertItem()
 
-		public int getCount() {
-			return NUM_DATA_VALUES;
-		}
-	}; // end VeryAbstractFurnaceTileEntity$ContainerData
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate)
+        {
+            // you can extract buckets from the fuel slot.
+            if (slot == FUEL_SLOT && this.side == Direction.DOWN)
+            {
+                ItemStack pstack = this.getStackInSlot(FUEL_SLOT);
+                if (pstack.is(Items.BUCKET) || pstack.is(Items.WATER_BUCKET))
+                {
+                    return super.extractItem(slot, amount, simulate);
+                }
+                else {
+                    return ItemStack.EMPTY;
+                }
+            }
+            // you can extract anything from the output slot.
+            if (slot == OUTPUT_SLOT && this.side == Direction.DOWN) {
+                return super.extractItem(slot, amount, simulate);
+            }
+            
+            return ItemStack.EMPTY;
+        } // end extractItem()
+    } // end DownSideHandler
     
 	// CAPABILITY STUFF
 	protected LazyOptional<ItemStackHandler> inventoryCapabilityInternal = LazyOptional.of(() -> this.inventory);
-    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalUp = 
-            LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
-    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalSides = 
-            LazyOptional.of(() -> new RangedWrapper(this.inventory, FUEL_SLOT, FUEL_SLOT + 1));
-    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalDown = 
-            LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalUp = LazyOptional.of(() -> new FurnaceHandler(this.inventory, Direction.UP));
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalSides = LazyOptional.of(() -> new FurnaceHandler(this.inventory, Direction.EAST));
+    protected LazyOptional<IItemHandlerModifiable> inventoryCapabilityExternalDown = LazyOptional.of(() -> new FurnaceHandler(this.inventory, Direction.DOWN));
+	
+
+    /**
+     * Retrieves the Optional handler for the capability requested on the specific side.
+     *
+     * @param cap  The capability to check
+     * @param side The Direction to check from. CAN BE NULL! Null is defined to represent 'internal' or 'self'
+     * @return The requested an optional holding the requested capability.
+     */
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, @Nullable final Direction side)
+    {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
+        {
+            return inventoryCapabilityInternal.cast();
+        }
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side != null) 
+        {
+            switch (side) {
+                case DOWN:
+                    return inventoryCapabilityExternalDown.cast();
+                case UP:
+                    return inventoryCapabilityExternalUp.cast();
+                case NORTH:
+                case SOUTH:
+                case WEST:
+                case EAST:
+                    return inventoryCapabilityExternalSides.cast();
+            }
+        }
+        return super.getCapability(cap, side);
+    } // end getCapability
+    
+    @Override
+    public void invalidateCaps()
+    {
+        super.invalidateCaps();
+        
+        // We need to invalidate our capability references so that any cached references (by other mods) don't
+        // continue to reference our capabilities and try to use them and/or prevent them from being garbage collected
+        
+        inventoryCapabilityExternalUp.invalidate();
+        inventoryCapabilityExternalDown.invalidate();
+        inventoryCapabilityExternalSides.invalidate();
+        inventoryCapabilityInternal.invalidate();
+    }
+
+    @Override
+    public void reviveCaps() 
+    {
+       super.reviveCaps();
+       inventoryCapabilityInternal = LazyOptional.of(() -> this.inventory);
+       inventoryCapabilityExternalUp = LazyOptional.of(() -> new FurnaceHandler(this.inventory, Direction.UP));
+       inventoryCapabilityExternalSides = LazyOptional.of(() -> new FurnaceHandler(this.inventory, Direction.EAST));
+       inventoryCapabilityExternalDown = LazyOptional.of(() -> new FurnaceHandler(this.inventory, Direction.DOWN));
+    }
 
 
 	public VeryAbstractFurnaceTileEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos blockpos, BlockState blockstate,
@@ -635,61 +728,4 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
         }
     } // end spawnExpOrbs()
 
-     /**
-     * Retrieves the Optional handler for the capability requested on the specific side.
-     *
-     * @param cap  The capability to check
-     * @param side The Direction to check from. CAN BE NULL! Null is defined to represent 'internal' or 'self'
-     * @return The requested an optional holding the requested capability.
-     */
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, @Nullable final Direction side)
-    {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
-        {
-            return inventoryCapabilityInternal.cast();
-        }
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side != null) 
-        {
-            switch (side) {
-                case DOWN:
-                    return inventoryCapabilityExternalDown.cast();
-                case UP:
-                    return inventoryCapabilityExternalUp.cast();
-                case NORTH:
-                case SOUTH:
-                case WEST:
-                case EAST:
-                    return inventoryCapabilityExternalSides.cast();
-            }
-        }
-        return super.getCapability(cap, side);
-    } // end getCapability
-    
-    @Override
-    public void invalidateCaps()
-    {
-        super.invalidateCaps();
-        
-        // We need to invalidate our capability references so that any cached references (by other mods) don't
-        // continue to reference our capabilities and try to use them and/or prevent them from being garbage collected
-        
-        inventoryCapabilityExternalUp.invalidate();
-        inventoryCapabilityExternalDown.invalidate();
-        inventoryCapabilityExternalSides.invalidate();
-        inventoryCapabilityInternal.invalidate();
-    }
-
-    @Override
-    public void reviveCaps() 
-    {
-       super.reviveCaps();
-       inventoryCapabilityInternal = LazyOptional.of(() -> this.inventory);
-       inventoryCapabilityExternalUp = LazyOptional.of(() -> new RangedWrapper(this.inventory, INPUT_SLOT, INPUT_SLOT + 1));
-       inventoryCapabilityExternalDown = LazyOptional.of(() -> new RangedWrapper(this.inventory, OUTPUT_SLOT, OUTPUT_SLOT + 1));
-       inventoryCapabilityExternalSides = LazyOptional.of(() -> new RangedWrapper(this.inventory, FUEL_SLOT, FUEL_SLOT + 1));
-    }
-
-
-} // end class
+ } // end class
