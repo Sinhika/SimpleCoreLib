@@ -46,7 +46,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RangedWrapper;
 
 /**
  * Abstracts the mechanics of a conventional-ish furnace (1 input, 1 fuel, 1 output slot).
@@ -284,7 +283,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
 
    public boolean isFuel(ItemStack stack)
     {
-        return FurnaceBlockEntity.isFuel(stack);
+        return FurnaceBlockEntity.isFuel(stack) || stack.is(Items.BUCKET);
     }
 
    

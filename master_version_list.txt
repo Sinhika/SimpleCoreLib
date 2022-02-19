@@ -5,10 +5,10 @@ org.gradle.java.home=/usr/lib/jvm/adoptopenjdk-16-hotspot-amd64
 org.gradle.java.home=/usr/local/lib/jvm/jdk-17.0.1+12
 
 version_minecraft = 1.18.1
-version_forge = 1.18.1-39.0.76
+version_forge = 1.18.1-39.0.79
 mods.toml forge = versionRange="[39,)"
 
-simplecorelib_version = 1.18.1-4.0.0.4
+simplecorelib_version = 1.18.1-4.0.1.0
 simpleores_version = 1.18.1-4.0.0.2
 fusion_version = 1.18.1-4.0.0.0 
 simple_machines_version = 1.18.1-3.0.0.0
