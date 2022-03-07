@@ -4,18 +4,18 @@ org.gradle.java.home=/usr/lib/jvm/java-8-openjdk-amd64
 org.gradle.java.home=/usr/lib/jvm/adoptopenjdk-16-hotspot-amd64
 org.gradle.java.home=/usr/local/lib/jvm/jdk-17.0.1+12
 
-version_minecraft = 1.18.2
-version_forge = 1.18.2-40.0.12
-version_parchment = 2022.02.13-1.18.2
-mods.toml forge = versionRange="[40,)"
+version_minecraft = 1.18.1
+version_forge = 1.18.1-39.1.2
+version_parchment = 2022.02.13-1.18.1
+mods.toml forge = versionRange="[39,)"
 
-simplecorelib_version = 
-simpleores_version = 
-fusion_version = 
-simple_machines_version = 
-netherrocks_version = 
+simplecorelib_version = 1.18.1-4.0.1.0
+simpleores_version = 1.18.1-4.0.0.3
+fusion_version = 1.18.1-4.0.0.0 
+simple_machines_version = 1.18.1-3.0.0.0
+netherrocks_version = 1.18.1-4.0.1.0
 onlysilver_version = 
-arsenic_version = 
+arsenic_version = 1.18.1-4.0.0.2
 classicalalchemy_version = 
 hadite_version = 
 sterlingblack_version = 
@@ -27,8 +27,8 @@ cobalt_version =
 ashenwheat_version = 
 aesthetics_version = 
 
-version_mcjei = 1.18.2
-jei_version = 9.5.0.125
+version_mcjei = 1.18.1
+jei_version = 9.2.1.69
 
 silents_mechanisms: versionRange="[,)"
 silentgear: versionRange="[,)"
