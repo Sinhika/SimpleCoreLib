@@ -206,7 +206,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
             
             return ItemStack.EMPTY;
         } // end extractItem()
-    } // end DownSideHandler
+    } // end FurnaceHandler
     
 	// CAPABILITY STUFF
 	protected LazyOptional<ItemStackHandler> inventoryCapabilityInternal = LazyOptional.of(() -> this.inventory);

@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -84,7 +85,7 @@ public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
                 }
             }; // end anonymous-class
             NetworkHooks.openGui((ServerPlayer) player, containerProvider, be.getBlockPos());
-//          player.awardStat(Stats.INTERACT_WITH_FURNACE);
+            player.awardStat(Stats.INTERACT_WITH_FURNACE);
         } // end-if
         else {
             throw new IllegalStateException("Our named container provider is missing!");

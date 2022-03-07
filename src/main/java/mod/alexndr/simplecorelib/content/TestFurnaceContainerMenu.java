@@ -9,16 +9,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 public class TestFurnaceContainerMenu extends VeryAbstractFurnaceMenu
 {
 
-//    /**
-//     * Logical-client-side constructor, called from {@link ContainerType#create(IContainerFactory)}
-//     * Calls the logical-server-side constructor with the TileEntity at the pos in the PacketBuffer
-//     */
-//    public TestFurnaceContainerMenu(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) 
-//    {
-//    	// MenuType<?> menutype, RecipeType<? extends AbstractCookingRecipe> recipetype, int id, Inventory inv
-//        super(ModMenuTypes.test_furnace.get(), RecipeType.SMELTING, windowId, playerInventory);
-//    }
-
     /**
      * Constructor called logical-server-side from {@link TestFurnaceTileEntity#createMenu}
      * and logical-client-side from {@link #ModFurnaceContainer(int, PlayerInventory, PacketBuffer)}

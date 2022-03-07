@@ -26,7 +26,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 //public abstract class VeryAbstractFurnaceMenu<T extends VeryAbstractFurnaceBlock> extends RecipeBookMenu<Container>
 public abstract class VeryAbstractFurnaceMenu extends AbstractContainerMenu
 {
-     public static final int INGREDIENT_SLOT = 0;
+    public static final int INGREDIENT_SLOT = 0;
     public static final int FUEL_SLOT = 1;
     public static final int RESULT_SLOT = 2;
     public static final int SLOT_COUNT = 3;
@@ -112,22 +112,6 @@ public abstract class VeryAbstractFurnaceMenu extends AbstractContainerMenu
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);	    
 	}
 	
-//  /**
-//  * Client-side constructor. 
-//  * @param menutype
-//  * @param recipetype
-//  * @param recipeBookType
-//  * @param id
-//  * @param inv
-//  */
-// protected VeryAbstractFurnaceMenu(MenuType<?> menutype, RecipeType<? extends AbstractCookingRecipe> recipetype,
-//                                   int id, Inventory inv) 
-// {
-//     this(menutype, recipetype, id, inv, new ItemStackHandler(3), 
-//             new SimpleContainerData(4), new SimpleContainer(3));
-// } // end client ctor
-//
-// 
 
     /**
      * Generic & dynamic version of {@link Container#transferStackInSlot(PlayerEntity, int)}.

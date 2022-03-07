@@ -95,21 +95,6 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
     }
 
     /**
-     * We return the redstone calculated from our inventory
-     *
-     * @Deprecated call via {@link BlockState#getComparatorInputOverride(World, BlockPos)} whenever possible.
-     * Implementing/overriding is fine.
-     */
-//    @Override
-//    public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos)
-//    {
-//    	final BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-//    	if (tileEntity instanceof VeryAbstractFurnaceTileEntity)
-//    		return ItemHandlerHelper.calcRedstoneFromInventory(((VeryAbstractFurnaceTileEntity) tileEntity).inventory);
-//    	return super.getAnalogOutputSignal(blockState, worldIn, pos);
-//    }
-
-    /**
      * Called from inside the constructor {@link Block#Block(Properties)} to add all the properties to our blockstate
      */
     @Override
