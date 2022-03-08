@@ -8,15 +8,13 @@ import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 /**
- * COMPLETE REWORK FOR 1.18.1.
+ * COMPLETE REWORK FOR 1.18.1.  
+ * Further revamped for 1.18.2.
  * @see net.minecraft.data.worldgen.features.OreFeatures
  * @see net.minecraft.data.worldgen.placement.OrePlacements
  * @author Sinhika
@@ -31,26 +29,27 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
  		BuildStandardOreTargetList(ModBlocks.tin_ore.get(), ModBlocks.deepslate_tin_ore.get());
  		
  	// build the ore feature.
- 	ConfiguredFeature<OreConfiguration, ?> ore_cfg = ConfigureOreFeature(tlist, cfg.getVein_size(), 0.0F);
+ 	OreConfiguration ore_cfg = ConfigureOreFeature(tlist, cfg.getVein_size(), 0.0F);
  	
  	// register the feature.
- 	public static ConfiguredFeature<?, ?> ORE_TIN = FeatureUtils.register("ore_tin", ore_cfg);
+ 	public static Holder<ConfiguredFeature<?, ?>> ORE_TIN = FeatureUtils.register("ore_tin", ore_cfg);
  	
  	// bulid the ore placement.
- 	PlacedFeature pfeature = ConfigurePlacedFeature(cfg, ORE_TIN);
+ 	List<PlacementModifier> pModifiers = ConfigurePlacementModifiers(cfg);
  	
  	// register the placement.
- 	public static PlacedFeature ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", pfeature);
+ 	public static Holder<PlacedFeature> ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", ORE_TIN, pModifiers);
  </code>
  OR as one ugly mess:
  <code>
- 	public static ConfiguredFeature<?, ?> ORE_TIN = 
+ 	public static Holder<ConfiguredFeature<?, ?>> ORE_TIN = 
  		FeatureUtils.register("ore_tin", 
  		   						ConfigureOreFeature(BuildStandardOreTargetList(ModBlocks.tin_ore.get(), 
  																			   ModBlocks.deepslate_tin_ore.get()), 
  													cfg.getVein_size(), 0.0F));
  													
- 	public static PlacedFeature ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", ConfigurePlacedFeature(cfg, ORE_TIN));												
+ 	public static Holder<PlacedFeature> ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", ORE_TIN, 
+ 	                                                                             ConfigurePlacementModifiers(cfg));												
  	
  </code> 
  */
@@ -93,20 +92,19 @@ public final class OreGenUtils
 	 * @param air_decay - chance of not generating if exposed to air.
 	 * @return a configured ore feature.
 	 */
-	public static ConfiguredFeature<OreConfiguration, ?> ConfigureOreFeature(List<OreConfiguration.TargetBlockState> target_list,
+	public static OreConfiguration ConfigureOreFeature(List<OreConfiguration.TargetBlockState> target_list,
 																			int vein_size, float air_decay)
 	{
-		return Feature.ORE.configured(new OreConfiguration(target_list, vein_size, air_decay));
+		return new OreConfiguration(target_list, vein_size, air_decay);
 	}
 	
 	/**
-	 * Creates a PlacedFeature, ready for registration with PlacementUtils.register().
+	 * Creates a List<PlacementModifier>, ready for registration with PlacementUtils.register().
 	 * 
 	 * @param cfg - mod config parameters.
-	 * @param orecfg - previously-configured ConfiguredFeature<>
-	 * @return a PlacedFeature.
+	 * @return a List<PlacementModifier>.
 	 */
-	public static PlacedFeature ConfigurePlacedFeature(ModOreConfig cfg, ConfiguredFeature<OreConfiguration, ?> orecfg)
+	public static List<PlacementModifier> ConfigurePlacementModifiers(ModOreConfig cfg)
 	{
 		List<PlacementModifier> pmodifiers = null;
 		HeightRangePlacement hplace;
@@ -165,8 +163,8 @@ public final class OreGenUtils
 			break;
 		} // end switch
 		
-		return orecfg.placed(pmodifiers);
-	} // end ConfigurePlacedFeature
+		return pmodifiers;
+	} // end ConfigurePlacementModifiers
 	
 	/**
 	 * Create a standard triangular height distribution.

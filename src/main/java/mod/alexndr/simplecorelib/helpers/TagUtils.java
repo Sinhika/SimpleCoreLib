@@ -1,38 +1,39 @@
 package mod.alexndr.simplecorelib.helpers;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public final class TagUtils
 {
     // ITEM TAGS
-    public static Tag.Named<Item> modTag(String modid, String name)
+    public static TagKey<Item> modTag(String modid, String name)
     {
-        return ItemTags.bind(modid + ":" + name);
+        return ItemTags.create(new ResourceLocation(modid, name));
     }
     
-    public static Tag.Named<Item> forgeTag(String name)
+    public static TagKey<Item> forgeTag(String name)
     {
         return modTag("forge", name);
     }
 
-    public static Tag.Named<Item> silentsTag(String name) {
+    public static TagKey<Item> silentsTag(String name) {
         return modTag("silents_mechanisms", name);
     }
     
     // BLOCK TAGS
-    public static Tag.Named<Block> modBlockTag(String modid, String name) {
-        return BlockTags.bind(modid + ":" + name);
+    public static TagKey<Block> modBlockTag(String modid, String name) {
+        return BlockTags.create(new ResourceLocation(modid, name));
     }
     
-    public static Tag.Named<Block> forgeBlockTag(String name) {
+    public static TagKey<Block> forgeBlockTag(String name) {
         return modBlockTag("forge", name);
     }
     
-    public static Tag.Named<Block> mcMiningTag(String name, int harvest_level)
+    public static TagKey<Block> mcMiningTag(String name, int harvest_level)
     {
     	String needs_name;
     	switch (harvest_level) 
