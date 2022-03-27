@@ -1,8 +1,6 @@
 USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 ============================================
-org.gradle.java.home=/usr/lib/jvm/java-8-openjdk-amd64
-org.gradle.java.home=/usr/lib/jvm/adoptopenjdk-16-hotspot-amd64
-org.gradle.java.home=/usr/local/lib/jvm/jdk-17.0.1+12
+org.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64
 
 version_minecraft = 1.18.2
 version_forge = 1.18.2-40.0.12
