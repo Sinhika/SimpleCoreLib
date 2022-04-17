@@ -16,14 +16,14 @@ onlysilver_version = 1.18.1-4.0.0.0
 arsenic_version = 1.18.1-4.0.0.2
 classicalalchemy_version = 1.18.1-3.0.0.0
 hadite_version = 1.18.1-3.0.0.0
-sterlingblack_version = 
+sterlingblack_version = 1.18.1-3.0.0.0 
 tungsten_version = 1.18.1-3.0.0.0
-cthon_version = 
-golden_glitter_version = 
+cthon_version = 1.18.1-3.0.0.0
+golden_glitter_version = 1.18.1-3.0.0.1
 cobalt_version = 1.18.1-3.0.0.1
 
 ashenwheat_version = 1.18.1-5.0.0.0
-aesthetics_version = 
+aesthetics_version = N/A
 
 version_mcjei = 1.18.1
 jei_version = 9.2.1.69

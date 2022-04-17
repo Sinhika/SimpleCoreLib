@@ -3,12 +3,12 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 org.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64
 
 version_minecraft = 1.18.2
-version_forge = 1.18.2-40.0.12
-version_parchment = 1.18.1-2022.03.06-1.18.2
+version_forge = 1.18.2-40.0.48
+version_parchment = 1.18.2-2022.03.13
 mods.toml forge = versionRange="[40,)"
 
-simplecorelib_version = 
-simpleores_version = 
+simplecorelib_version = 1.18.2-4.1.0.0
+simpleores_version = 1.18.2-4.1.0.2
 fusion_version = 
 simple_machines_version = 
 netherrocks_version = 
@@ -26,7 +26,7 @@ ashenwheat_version =
 aesthetics_version = 
 
 version_mcjei = 1.18.2
-jei_version = 9.5.0.125
+jei_version = 9.5.5.174
 
 silents_mechanisms: versionRange="[,)"
 silentgear: versionRange="[,)"
