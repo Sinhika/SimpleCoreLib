@@ -3,11 +3,11 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 org.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64
 
 version_minecraft = 1.18.2
-version_forge = 1.18.2-40.0.48
-version_parchment = 1.18.2-2022.03.13
+version_forge = 1.18.2-40.0.52
+version_parchment = 2022.03.13-1.18.2
 mods.toml forge = versionRange="[40,)"
 
-simplecorelib_version = 1.18.2-4.1.0.0
+simplecorelib_version = 1.18.2-4.1.0.1
 simpleores_version = 1.18.2-4.1.0.2
 fusion_version = 
 simple_machines_version = 
