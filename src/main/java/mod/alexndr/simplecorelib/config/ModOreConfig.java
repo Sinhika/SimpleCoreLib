@@ -9,7 +9,8 @@ public class ModOreConfig
     protected int vein_count;
     protected VerticalAnchor bottom, top;
     protected boolean is_common = true;
-
+    protected float air_decay_rate;
+    
     public static final int UNIFORM = 0;
     public static final int TRIANGLE = 1;
     public static final int RANGE_4_4 = 4;
@@ -25,6 +26,7 @@ public class ModOreConfig
         this.top = upper;
         this.bottom = lower;
         this.is_common = common;
+        this.air_decay_rate = 0.0F;
     }
 
     public boolean get_commonality()
@@ -57,5 +59,14 @@ public class ModOreConfig
 		return top;
 	}
 
+    public float getAirDecay()
+    {
+        return air_decay_rate;
+    }
+    
+    public void setAirDecay(float adr)
+    {
+        this.air_decay_rate = adr;
+    }
     
 } // end class ModOreConfig

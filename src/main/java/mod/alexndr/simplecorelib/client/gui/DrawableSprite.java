@@ -72,8 +72,8 @@ public class DrawableSprite implements IDrawableStatic
 
 		int x = xOffset + maskLeft;
 		int y = yOffset + maskTop;
-		int width = textureWidth - maskRight - maskLeft;
-		int height = textureHeight - maskBottom - maskTop;
+		int width0 = textureWidth - maskRight - maskLeft;
+		int height0 = textureHeight - maskBottom - maskTop;
 		float uSize = sprite.getU1() - sprite.getU0();
 		float vSize = sprite.getV1() - sprite.getV0();
 
@@ -86,13 +86,13 @@ public class DrawableSprite implements IDrawableStatic
 		BufferBuilder bufferBuilder = tessellator.getBuilder();
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		Matrix4f matrix = poseStack.last().pose();
-		bufferBuilder.vertex(matrix, x, y + height, 0)
+		bufferBuilder.vertex(matrix, x, y + height0, 0)
 			.uv(minU, maxV)
 			.endVertex();
-		bufferBuilder.vertex(matrix, x + width, y + height, 0)
+		bufferBuilder.vertex(matrix, x + width0, y + height0, 0)
 			.uv(maxU, maxV)
 			.endVertex();
-		bufferBuilder.vertex(matrix, x + width, y, 0)
+		bufferBuilder.vertex(matrix, x + width0, y, 0)
 			.uv(maxU, minV)
 			.endVertex();
 		bufferBuilder.vertex(matrix, x, y, 0)

@@ -8,6 +8,8 @@ import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
@@ -32,26 +34,14 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
  	OreConfiguration ore_cfg = ConfigureOreFeature(tlist, cfg.getVein_size(), 0.0F);
  	
  	// register the feature.
- 	public static Holder<ConfiguredFeature<?, ?>> ORE_TIN = FeatureUtils.register("ore_tin", ore_cfg);
+ 	public Holder<ConfiguredFeature<?, ?>> ORE_TIN = FeatureUtils.register("ore_tin", ore_cfg);
  	
  	// bulid the ore placement.
  	List<PlacementModifier> pModifiers = ConfigurePlacementModifiers(cfg);
  	
  	// register the placement.
- 	public static Holder<PlacedFeature> ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", ORE_TIN, pModifiers);
+ 	public Holder<PlacedFeature> ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", ORE_TIN, pModifiers);
  </code>
- OR as one ugly mess:
- <code>
- 	public static Holder<ConfiguredFeature<?, ?>> ORE_TIN = 
- 		FeatureUtils.register("ore_tin", 
- 		   						ConfigureOreFeature(BuildStandardOreTargetList(ModBlocks.tin_ore.get(), 
- 																			   ModBlocks.deepslate_tin_ore.get()), 
- 													cfg.getVein_size(), 0.0F));
- 													
- 	public static Holder<PlacedFeature> ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", ORE_TIN, 
- 	                                                                             ConfigurePlacementModifiers(cfg));												
- 	
- </code> 
  */
 public final class OreGenUtils
 {
@@ -86,7 +76,7 @@ public final class OreGenUtils
 	} // end BuildNetherOreTargetList
 	
 	/**
-	 * Creates a ConfiguredFeature<OreConfiguration,?>, ready for registration with FeatureUtils.register().
+	 * Creates an OreConfiguration, ready for use with createConfiguration() factory method.
 	 * @param target_list - list of valid blockstates that can be replaced by which ore.
 	 * @param vein_size - vein size in blocks?
 	 * @param air_decay - chance of not generating if exposed to air.
@@ -96,6 +86,13 @@ public final class OreGenUtils
 																			int vein_size, float air_decay)
 	{
 		return new OreConfiguration(target_list, vein_size, air_decay);
+	}
+	
+
+	public static ConfiguredFeature<OreConfiguration, ?> createConfiguredOreFeature(String id, 
+	        List<OreConfiguration.TargetBlockState> target_list, ModOreConfig cfg)
+	{
+	    return new ConfiguredFeature<>(Feature.ORE, OreGenUtils.ConfigureOreFeature(target_list, cfg.getVein_size(), cfg.getAirDecay()));
 	}
 	
 	/**
