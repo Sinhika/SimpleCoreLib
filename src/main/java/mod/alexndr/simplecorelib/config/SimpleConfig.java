@@ -13,6 +13,7 @@ public class SimpleConfig implements ISimpleConfig
      * @param n - name of flag
      * @return boolean value.
      */
+    @Override
     public boolean getFlag(String n)
     {
         Boolean obj = flags.get(n);
@@ -22,6 +23,7 @@ public class SimpleConfig implements ISimpleConfig
     /**
      * clear the flag collection.
      */
+    @Override
     public void clear()
     {
         flags.clear();
@@ -32,6 +34,7 @@ public class SimpleConfig implements ISimpleConfig
      * @param n - name of flag
      * @param val - boolean value of flag
      */
+    @Override
     public void putFlag(String n, boolean val)
     {
         flags.put(n, val);
