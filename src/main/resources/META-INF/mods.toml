@@ -22,7 +22,7 @@ Common classes and methods used by the SimpleOres mods and add-ons.
 [[dependencies.simplecorelib]] #optional
     modId="forge"
     mandatory=true
-    versionRange="[40,)"
+    versionRange="[40.1,)"
     ordering="NONE"
     side="BOTH"
 
