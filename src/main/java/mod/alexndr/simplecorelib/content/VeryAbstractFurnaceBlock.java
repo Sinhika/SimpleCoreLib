@@ -49,6 +49,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
             .setValue(LIT, Boolean.valueOf(false)));
     }
 
+    @Override
     @Nullable
     public abstract <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState bstate, BlockEntityType<T> entityType);
 
@@ -84,6 +85,7 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
     	return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
+    @Override
     public boolean hasAnalogOutputSignal(BlockState bstate) {
         return true;
      }
