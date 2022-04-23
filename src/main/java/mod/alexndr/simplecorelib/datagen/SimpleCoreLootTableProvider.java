@@ -11,6 +11,7 @@ import mod.alexndr.simplecorelib.api.datagen.BlockLootTableProvider;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootTable.Builder;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 
@@ -26,6 +27,7 @@ public class SimpleCoreLootTableProvider extends BlockLootTableProvider
 	{
 		tables.clear();
 		standardDropTable(ModBlocks.test_furnace.get());
+		specialDropTable(ModBlocks.original_copper_ore.get(), Items.RAW_COPPER);
 		return tables;
 	}
 

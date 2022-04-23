@@ -6,6 +6,8 @@ public final class ConfigHelper
 {
     public static void bakeServer(final ModConfig config)
     {
+        SimpleCoreLibConfig.enableTestFurnace = ConfigHolder.SERVER.serverEnableTestFurnace.get();
+        SimpleCoreLibConfig.enableTestOreGen = ConfigHolder.SERVER.serverEnableTestOreGen.get();
     } // end bakeServer()
    
     

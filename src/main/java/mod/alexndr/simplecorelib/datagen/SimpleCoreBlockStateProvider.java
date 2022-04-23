@@ -33,9 +33,14 @@ public class SimpleCoreBlockStateProvider extends BlockStateProvider
 				 new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace_front_lit"),
 				 new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace_top"));
 		
+		@SuppressWarnings("unused")
+        ModelFile testOriginalCopperOre = this.models().cubeAll("original_copper_ore", 
+		                                                new ResourceLocation(SimpleCoreLib.MODID, "block/original_copper_ore"));
+		
 		// item models
 		this.itemModels().withExistingParent("test_furnace", new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace"));
-		
+		this.itemModels().withExistingParent("original_copper_ore", 
+		                                     new ResourceLocation(SimpleCoreLib.MODID, "block/original_copper_ore"));
 		
 		// blockstates
 		this.getVariantBuilder(ModBlocks.test_furnace.get())
@@ -56,6 +61,7 @@ public class SimpleCoreBlockStateProvider extends BlockStateProvider
 			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.EAST).with(BlockStateProperties.LIT, true)
 			.setModels(new ConfiguredModel(testFurnaceModel_lit, 0, 90, false));
 
+		this.getVariantBuilder(ModBlocks.original_copper_ore.get());
 	}
 
 } // end class

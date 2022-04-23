@@ -2,8 +2,6 @@ package mod.alexndr.simplecorelib.config;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import mezz.jei.forge.config.ClientConfig;
-import mezz.jei.forge.config.ServerConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 

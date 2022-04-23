@@ -7,7 +7,6 @@ public final class ServerConfig
 {
     // general
     final ForgeConfigSpec.BooleanValue serverEnableTestFurnace;
-
     final ForgeConfigSpec.BooleanValue serverEnableTestOreGen;
     
     ServerConfig(final ForgeConfigSpec.Builder builder)
