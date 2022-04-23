@@ -3,6 +3,7 @@ package mod.alexndr.simplecorelib.world;
 import java.util.List;
 
 import mod.alexndr.simplecorelib.config.ModOreConfig;
+import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 /**
@@ -24,7 +26,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
  * HOW TO USE:
  <code>
     // example: tin ore
- 	ModOreConfig cfg = new ModOreConfig(ModOreConfig.TRIANGLE, 7, 20, true, VerticalAnchor.absolute(20), VerticalAnchor.absolute(90);
+ 	ModOreConfig cfg = new ModOreConfig(ModOreConfig.TRIANGLE, 7, 20, true, VerticalAnchor.absolute(20), VerticalAnchor.absolute(90), 0.0F);
  	
  	// get the target list.
  	List<OreConfiguration.TargetBlockState> tlist = 
@@ -88,11 +90,27 @@ public final class OreGenUtils
 		return new OreConfiguration(target_list, vein_size, air_decay);
 	}
 	
-
-	public static ConfiguredFeature<OreConfiguration, ?> createConfiguredOreFeature(String id, 
+    /**
+     * Factory function that supplies a ConfiguredFeature for a RegistryObject. 
+     * @param target_list
+     * @param cfg
+     * @return
+     */
+	public static ConfiguredFeature<OreConfiguration, ?> createConfiguredOreFeature(
 	        List<OreConfiguration.TargetBlockState> target_list, ModOreConfig cfg)
 	{
 	    return new ConfiguredFeature<>(Feature.ORE, OreGenUtils.ConfigureOreFeature(target_list, cfg.getVein_size(), cfg.getAirDecay()));
+	}
+	
+	/**
+	 * Factory function that supplies a PlacedFeature for a RegistryObject.
+	 * @param cf
+	 * @param placements
+	 * @return
+	 */
+	public static PlacedFeature createPlacedOreFeature( Holder<ConfiguredFeature<OreConfiguration, ?>> cf, List<PlacementModifier> placements)
+	{
+	    return new PlacedFeature(Holder.hackyErase(cf), List.copyOf(placements));
 	}
 	
 	/**
