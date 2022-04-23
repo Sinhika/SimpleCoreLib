@@ -1,8 +1,8 @@
 package mod.alexndr.simplecorelib.init;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
+import mod.alexndr.simplecorelib.api.helpers.LightUtils;
 import mod.alexndr.simplecorelib.content.TestFurnaceBlock;
-import mod.alexndr.simplecorelib.helpers.LightUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;

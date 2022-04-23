@@ -1,7 +1,7 @@
 package mod.alexndr.simplecorelib.datagen;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.content.VeryAbstractFurnaceBlock;
+import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceBlock;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;

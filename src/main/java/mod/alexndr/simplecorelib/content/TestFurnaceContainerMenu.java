@@ -1,5 +1,6 @@
 package mod.alexndr.simplecorelib.content;
 
+import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceMenu;
 import mod.alexndr.simplecorelib.init.ModMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;

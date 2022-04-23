@@ -1,7 +1,8 @@
 package mod.alexndr.simplecorelib.datagen;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.helpers.TagUtils;
+import mod.alexndr.simplecorelib.api.datagen.MiningItemTags;
+import mod.alexndr.simplecorelib.api.helpers.TagUtils;
 import mod.alexndr.simplecorelib.init.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;

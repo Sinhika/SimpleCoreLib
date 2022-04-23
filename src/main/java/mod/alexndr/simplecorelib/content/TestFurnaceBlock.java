@@ -1,5 +1,6 @@
 package mod.alexndr.simplecorelib.content;
 
+import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceBlock;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

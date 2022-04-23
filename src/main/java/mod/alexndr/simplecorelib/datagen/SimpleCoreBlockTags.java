@@ -3,6 +3,7 @@ package mod.alexndr.simplecorelib.datagen;
 import java.util.List;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
+import mod.alexndr.simplecorelib.api.datagen.MiningBlockTags;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;

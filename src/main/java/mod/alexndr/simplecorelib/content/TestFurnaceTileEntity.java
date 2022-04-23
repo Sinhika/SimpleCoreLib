@@ -1,5 +1,6 @@
 package mod.alexndr.simplecorelib.content;
 
+import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceTileEntity;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.crafting.RecipeType;

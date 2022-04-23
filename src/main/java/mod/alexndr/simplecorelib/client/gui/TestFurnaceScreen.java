@@ -1,6 +1,7 @@
 package mod.alexndr.simplecorelib.client.gui;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
+import mod.alexndr.simplecorelib.api.client.gui.VeryAbstractFurnaceScreen;
 import mod.alexndr.simplecorelib.content.TestFurnaceContainerMenu;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;

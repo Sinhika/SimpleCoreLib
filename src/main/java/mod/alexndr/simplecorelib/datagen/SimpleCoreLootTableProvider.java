@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import com.mojang.datafixers.util.Pair;
 
+import mod.alexndr.simplecorelib.api.datagen.BlockLootTableProvider;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
