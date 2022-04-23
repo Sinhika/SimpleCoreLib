@@ -1,5 +1,7 @@
 package mod.alexndr.simplecorelib.config;
 
+import java.util.Optional;
+
 import mod.alexndr.simplecorelib.api.config.ModOreConfig;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraftforge.fml.config.ModConfig;
@@ -11,8 +13,8 @@ public final class ConfigHelper
         SimpleCoreLibConfig.enableTestFurnace = ConfigHolder.SERVER.serverEnableTestFurnace.get();
         SimpleCoreLibConfig.enableTestOreGen = ConfigHolder.SERVER.serverEnableTestOreGen.get();
         
-        SimpleCoreLibConfig.original_copper_cfg =  new ModOreConfig(ModOreConfig.UNIFORM, 6, 10, true, 
-                                                        VerticalAnchor.absolute(0), VerticalAnchor.absolute(90));
+        SimpleCoreLibConfig.original_copper_cfg =  Optional.of( new ModOreConfig(ModOreConfig.UNIFORM, 6, 10, true, 
+                                                        VerticalAnchor.absolute(0), VerticalAnchor.absolute(90)));
     } // end bakeServer()
    
     

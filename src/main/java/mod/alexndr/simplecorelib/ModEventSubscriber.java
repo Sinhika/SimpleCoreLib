@@ -3,6 +3,8 @@ package mod.alexndr.simplecorelib;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import mod.alexndr.simplecorelib.config.ConfigHelper;
+import mod.alexndr.simplecorelib.config.ConfigHolder;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModItemGroups;
 import net.minecraft.world.item.BlockItem;
@@ -10,6 +12,8 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -43,5 +47,21 @@ public final class ModEventSubscriber
                 });
         LOGGER.debug("Registered BlockItems");
     }
+
+    @SubscribeEvent
+    public static void onModConfigEvent(final ModConfigEvent event)
+    {
+        final ModConfig config = event.getConfig();
+
+        // Rebake the configs when they change
+        if (config.getSpec() == ConfigHolder.SERVER_SPEC)
+        {
+            ConfigHelper.bakeServer(config);
+        }
+        if (config.getSpec() == ConfigHolder.CLIENT_SPEC)
+        {
+            ConfigHelper.bakeClient(config);
+        }
+    } // onModConfigEvent
 
 } // end class

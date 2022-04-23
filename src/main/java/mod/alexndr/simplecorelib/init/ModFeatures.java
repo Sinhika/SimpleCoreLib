@@ -40,6 +40,6 @@ public class ModFeatures
     public static RegistryObject<PlacedFeature> ORIGINAL_COPPER_DEPOSIT = 
             PLACED_FEATURES.register("original_copper_deposit", 
                     ()-> OreGenUtils.createPlacedOreFeature(ORE_ORIGINAL_COPPER.getHolder().get(), 
-                            OreGenUtils.ConfigurePlacementModifiers(SimpleCoreLibConfig.original_copper_cfg)));
+                                                            SimpleCoreLibConfig.original_copper_cfg));
     
 } // end class

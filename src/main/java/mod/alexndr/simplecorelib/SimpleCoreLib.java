@@ -35,6 +35,10 @@ public class SimpleCoreLib
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        // Register Configs
+        modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.SERVER_SPEC);
+        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
+        
         // Register Deferred Registers (Does not need to be before Configs)
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
@@ -43,9 +47,6 @@ public class SimpleCoreLib
         ModFeatures.CONFIGURED_FEATURES.register(modEventBus);
         ModFeatures.FEATURES.register(modEventBus);
         ModFeatures.PLACED_FEATURES.register(modEventBus);
-        
-        // Register Configs
-        modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.SERVER_SPEC);
         
     } // end SimpleOres()
 

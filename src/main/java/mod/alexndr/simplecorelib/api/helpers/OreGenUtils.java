@@ -1,6 +1,7 @@
 package mod.alexndr.simplecorelib.api.helpers;
 
 import java.util.List;
+import java.util.Optional;
 
 import mod.alexndr.simplecorelib.api.config.ModOreConfig;
 import net.minecraft.core.Holder;
@@ -97,9 +98,10 @@ public final class OreGenUtils
      * @return
      */
 	public static ConfiguredFeature<OreConfiguration, ?> createConfiguredOreFeature(
-	        List<OreConfiguration.TargetBlockState> target_list, ModOreConfig cfg)
+	        List<OreConfiguration.TargetBlockState> target_list, Optional<ModOreConfig> cfg)
 	{
-	    return new ConfiguredFeature<>(Feature.ORE, OreGenUtils.ConfigureOreFeature(target_list, cfg.getVein_size(), cfg.getAirDecay()));
+	    return new ConfiguredFeature<>(Feature.ORE, 
+	            OreGenUtils.ConfigureOreFeature(target_list, cfg.get().getVein_size(), cfg.get().getAirDecay()));
 	}
 	
 	/**
@@ -108,9 +110,10 @@ public final class OreGenUtils
 	 * @param placements
 	 * @return
 	 */
-	public static PlacedFeature createPlacedOreFeature( Holder<ConfiguredFeature<OreConfiguration, ?>> cf, List<PlacementModifier> placements)
+	public static PlacedFeature createPlacedOreFeature( Holder<ConfiguredFeature<OreConfiguration, ?>> cf, 
+	                                                    Optional<ModOreConfig> opt_cfg)
 	{
-	    return new PlacedFeature(Holder.hackyErase(cf), List.copyOf(placements));
+	    return new PlacedFeature(Holder.hackyErase(cf), List.copyOf(ConfigurePlacementModifiers(opt_cfg.get())));
 	}
 	
 	/**
