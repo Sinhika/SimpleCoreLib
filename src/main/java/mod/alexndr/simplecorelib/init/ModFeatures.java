@@ -30,7 +30,8 @@ public class ModFeatures
     public static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_ORIGINAL_COPPER =
             CONFIGURED_FEATURES.register("ore_original_copper", 
                     () -> OreGenUtils.createConfiguredOreFeature(
-                            OreGenUtils.BuildStandardOreTargetList(ModBlocks.original_copper_ore.get(), ModBlocks.original_copper_ore.get()),
+                            OreGenUtils.BuildStandardOreTargetList(ModBlocks.original_copper_ore.get(), 
+                                                                   ModBlocks.original_copper_ore.get()),
                             SimpleCoreLibConfig.original_copper_cfg));
     
     /** PlacedFeature registry */

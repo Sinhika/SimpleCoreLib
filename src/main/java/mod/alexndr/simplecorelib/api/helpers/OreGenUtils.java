@@ -1,7 +1,6 @@
 package mod.alexndr.simplecorelib.api.helpers;
 
 import java.util.List;
-import java.util.Optional;
 
 import mod.alexndr.simplecorelib.api.config.ModOreConfig;
 import net.minecraft.core.Holder;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguratio
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraftforge.common.util.Lazy;
 
 /**
  * COMPLETE REWORK FOR 1.18.1.  
@@ -26,25 +26,8 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
  * 
  * HOW TO USE:
  <code>
-    // example: tin ore
- 	ModOreConfig cfg = new ModOreConfig(ModOreConfig.TRIANGLE, 7, 20, true, VerticalAnchor.absolute(20), VerticalAnchor.absolute(90), 0.0F);
- 	
- 	// get the target list.
- 	List<OreConfiguration.TargetBlockState> tlist = 
- 		BuildStandardOreTargetList(ModBlocks.tin_ore.get(), ModBlocks.deepslate_tin_ore.get());
- 		
- 	// build the ore feature.
- 	OreConfiguration ore_cfg = ConfigureOreFeature(tlist, cfg.getVein_size(), 0.0F);
- 	
- 	// register the feature.
- 	public Holder<ConfiguredFeature<?, ?>> ORE_TIN = FeatureUtils.register("ore_tin", ore_cfg);
- 	
- 	// bulid the ore placement.
- 	List<PlacementModifier> pModifiers = ConfigurePlacementModifiers(cfg);
- 	
- 	// register the placement.
- 	public Holder<PlacedFeature> ORE_TIN_LOWER = PlacementUtils.register("ore_tin_lower", ORE_TIN, pModifiers);
- </code>
+    // example: original_copper_ore
+  </code>
  */
 public final class OreGenUtils
 {
@@ -98,7 +81,7 @@ public final class OreGenUtils
      * @return
      */
 	public static ConfiguredFeature<OreConfiguration, ?> createConfiguredOreFeature(
-	        List<OreConfiguration.TargetBlockState> target_list, Optional<ModOreConfig> cfg)
+	        List<OreConfiguration.TargetBlockState> target_list, Lazy<ModOreConfig> cfg)
 	{
 	    return new ConfiguredFeature<>(Feature.ORE, 
 	            OreGenUtils.ConfigureOreFeature(target_list, cfg.get().getVein_size(), cfg.get().getAirDecay()));
@@ -111,7 +94,7 @@ public final class OreGenUtils
 	 * @return
 	 */
 	public static PlacedFeature createPlacedOreFeature( Holder<ConfiguredFeature<OreConfiguration, ?>> cf, 
-	                                                    Optional<ModOreConfig> opt_cfg)
+	                                                    Lazy<ModOreConfig> opt_cfg)
 	{
 	    return new PlacedFeature(Holder.hackyErase(cf), List.copyOf(ConfigurePlacementModifiers(opt_cfg.get())));
 	}
