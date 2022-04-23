@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "simplecorelib:test_furnace",
     "simplecorelib:original_copper_ore"
   ]
 }
