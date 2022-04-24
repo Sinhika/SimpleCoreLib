@@ -18,6 +18,18 @@ public class ModOreConfig
     public static final int RANGE_10_10 = 10;
     public static final int FULL_RANGE = 128;
     
+    
+    public ModOreConfig()
+    {
+        this.range_type = UNIFORM;
+        this.vein_size = 0;
+        this.vein_count = 0;
+        this.air_decay_rate = 0.0F;
+        this.is_common = true;
+        this.bottom = VerticalAnchor.bottom();
+        this.top = VerticalAnchor.top();
+    }
+
     public ModOreConfig(int range_type, int vein_size, int vein_count, boolean common, VerticalAnchor lower, VerticalAnchor upper )
     {
         this.range_type = range_type;

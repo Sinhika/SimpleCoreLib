@@ -1,7 +1,6 @@
 {
 	"itemGroup.simplecorelib" : "SimpleCoreLib",
-	"simplecorelib.config.enableTestFurnace" : "Enable Test Furnace (happens anyway)",
-	"simplecorelib.config.enableTestOreGen" : "Enable ore generation test using original_copper_ore",
+	"simplecorelib.config.enable_test_furnace" : "Enable Test Furnace (default: false)",
    	"block.simplecorelib.test_furnace": "Test Furnace",
     "block.simplecorelib.original_copper_ore" : "Original Copper Ore",
     "item.simplecorelib.test_shears" : "Test Shears"

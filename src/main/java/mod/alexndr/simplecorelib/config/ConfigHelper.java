@@ -8,7 +8,6 @@ public final class ConfigHelper
     {
         SimpleCoreLibConfig.enableTestFurnace = ConfigHolder.SERVER.serverEnableTestFurnace.get();
         SimpleCoreLibConfig.enableTestOreGen = ConfigHolder.SERVER.serverEnableTestOreGen.get();
-        
     } // end bakeServer()
    
     

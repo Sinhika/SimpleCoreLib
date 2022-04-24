@@ -14,6 +14,9 @@ public class SimpleCoreLibConfig extends SimpleConfig
     public static boolean enableTestOreGen;
     
     public static Lazy<ModOreConfig> original_copper_cfg = 
-            Lazy.of( ()->new ModOreConfig(ModOreConfig.UNIFORM, 6, 10, true, VerticalAnchor.absolute(0), VerticalAnchor.absolute(90)));
+            Lazy.of( ()->new ModOreConfig(ModOreConfig.UNIFORM, ConfigHolder.SERVER.serverOreVeinSize.get(), 
+                    ConfigHolder.SERVER.serverOreVeinCount.get(), true, 
+                    VerticalAnchor.absolute(ConfigHolder.SERVER.serverOreBottomHeight.get()), 
+                    VerticalAnchor.absolute(ConfigHolder.SERVER.serverOreTopHeight.get())));
     
 } // end class
