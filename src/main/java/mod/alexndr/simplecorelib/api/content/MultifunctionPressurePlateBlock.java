@@ -23,13 +23,13 @@ import net.minecraft.world.phys.AABB;
  * @author Sinhika
  *
  */
-public class MutltifunctionPressurePlate extends WeightedPressurePlateBlock
+public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
 {
-    protected final MutltifunctionPressurePlate.Sensitivity sensitivity;
+    protected final MultifunctionPressurePlateBlock.Sensitivity sensitivity;
     protected final boolean is_weighted;
     protected final int pressTime;
     
-    public MutltifunctionPressurePlate(int pMaxWeight, MutltifunctionPressurePlate.Sensitivity pSensitify, int pPressedTime,
+    public MultifunctionPressurePlateBlock(int pMaxWeight, MultifunctionPressurePlateBlock.Sensitivity pSensitify, int pPressedTime,
                                        Properties pProperties)
     {
         super(pMaxWeight, pProperties);
