@@ -10,7 +10,6 @@ public class SimpleCoreLibConfig extends SimpleConfig
     public static SimpleCoreLibConfig INSTANCE = new SimpleCoreLibConfig();
     
     // variable
-    public static boolean enableTestFurnace;
     public static boolean enableTestOreGen;
     
     public static Lazy<ModOreConfig> original_copper_cfg = 

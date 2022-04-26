@@ -6,7 +6,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public final class ServerConfig
 {
     // general
-    final ForgeConfigSpec.BooleanValue serverEnableTestFurnace;
     final ForgeConfigSpec.BooleanValue serverEnableTestOreGen;
     final ForgeConfigSpec.IntValue serverOreVeinSize;
     final ForgeConfigSpec.IntValue serverOreVeinCount;
@@ -17,9 +16,6 @@ public final class ServerConfig
     ServerConfig(final ForgeConfigSpec.Builder builder)
     {
         builder.push("General");
-        serverEnableTestFurnace = builder.comment("true enables test_furnace")
-                .translation(SimpleCoreLib.MODID + ".config.enable_test_furnace")
-                .define("EnableTestFurnace", false);
         serverEnableTestOreGen = builder.comment("true enables ore gen test")
                 .translation(SimpleCoreLib.MODID + ".config.enable_test_oregen")
                 .define("EnableTestOreGen", false);
@@ -40,7 +36,6 @@ public final class ServerConfig
         serverOreTopHeight = builder.comment("Test ore top height")
                 .translation(SimpleCoreLib.MODID + ".config.ore_top_height")
                 .defineInRange("OreTopHeight", 128, -62, 255); 
-        
         builder.pop();
     } // end ctor()
     

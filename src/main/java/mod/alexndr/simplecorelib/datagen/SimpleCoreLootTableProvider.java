@@ -27,6 +27,7 @@ public class SimpleCoreLootTableProvider extends BlockLootTableProvider
 	{
 		tables.clear();
 		standardDropTable(ModBlocks.test_furnace.get());
+		standardDropTable(ModBlocks.test_plate.get());
 		specialDropTable(ModBlocks.original_copper_ore.get(), Items.RAW_COPPER);
 		return tables;
 	}
