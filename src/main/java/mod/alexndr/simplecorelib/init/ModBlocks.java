@@ -29,7 +29,7 @@ public final class ModBlocks
             () -> new OreBlock(Block.Properties.of(Material.STONE).strength(2.0F).requiresCorrectToolForDrops()));
    
     public static final RegistryObject<MultifunctionPressurePlateBlock> test_plate = BLOCKS.register("test_plate", 
-            () -> new MultifunctionPressurePlateBlock(15, MultifunctionPressurePlateBlock.Sensitivity.PLAYERS, 20, 
+            () -> new MultifunctionPressurePlateBlock(15, MultifunctionPressurePlateBlock.Sensitivity.PLAYERS_WEIGHTED, 20, 
                                                       Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK)
                                                         .noCollission().strength(0.5F).sound(SoundType.METAL)));
 } // end class

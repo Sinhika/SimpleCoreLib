@@ -1,7 +1,7 @@
 {
 	"itemGroup.simplecorelib" : "SimpleCoreLib",
-	"simplecorelib.config.enable_test_furnace" : "Enable Test Furnace (default: false)",
    	"block.simplecorelib.test_furnace": "Test Furnace",
+   	"block.simplecorelib.test_plate" : "Test Pressure Plate",
     "block.simplecorelib.original_copper_ore" : "Original Copper Ore",
     "item.simplecorelib.test_shears" : "Test Shears"
 }
