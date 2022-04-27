@@ -8,6 +8,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -29,13 +31,21 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
     protected final boolean is_weighted;
     protected final int pressTime;
     
+    /**
+     * 
+     * @param pMaxWeight - 15 * number of entities per signal strength. light weighted plate=15, heavy weighted plate=150.
+     * @param pSensitify - @see MultifunctionPressurePlateBlock.Sensitivity
+     * @param pPressedTime - game ticks to deactivate when no longer pressed. heavy/light weighted plate=10; stone/wooden plate=20.
+     * @param pProperties - usually @code{Block.Properties.of(Material.STONE).noCollission().strength(0.5F).sound(SoundType.STONE)}
+     */
     public MultifunctionPressurePlateBlock(int pMaxWeight, MultifunctionPressurePlateBlock.Sensitivity pSensitify, int pPressedTime,
                                        Properties pProperties)
     {
         super(pMaxWeight, pProperties);
         this.sensitivity = pSensitify;
         this.pressTime = pPressedTime;
-        this.is_weighted = List.of(Sensitivity.EVERYTHING_WEIGHTED, Sensitivity.MOBS_WEIGHTED, Sensitivity.PLAYERS_WEIGHTED)
+        this.is_weighted = List.of(Sensitivity.EVERYTHING_WEIGHTED, Sensitivity.MOBS_WEIGHTED, Sensitivity.PLAYERS_WEIGHTED,
+                                   Sensitivity.LIVING_WEIGHTED)
                              .contains(sensitivity);
     } // end ctor
     
@@ -59,9 +69,13 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
             case EVERYTHING_WEIGHTED:
                list = pLevel.getEntities((Entity)null, aabb);
                break;
+            case LIVING:
+            case LIVING_WEIGHTED:
+                list = pLevel.getEntitiesOfClass(LivingEntity.class, aabb, arg0 -> ! (arg0 instanceof ArmorStand));
+                break;
             case MOBS:
             case MOBS_WEIGHTED:
-               list = pLevel.getEntitiesOfClass(LivingEntity.class, aabb);
+               list = pLevel.getEntitiesOfClass(Mob.class, aabb);
                break;
             case PLAYERS:
             case PLAYERS_WEIGHTED:
@@ -78,7 +92,8 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
             {
                 float f = (float) Math.min(this.maxWeight, i) / (float) this.maxWeight;
                 return Mth.ceil(f * 15.0F);
-            } else
+            } 
+            else
             {
                 return 0;
             }
@@ -158,12 +173,20 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
     } // end playOffSound()
 
 
-
+    /**
+     * Enum that describes what the pressure-plate is sensitive to. WEIGHTED values also count entities by maxWeight/15 units to
+     * determine signal strength. Non-weighted plates are either ON (15) or OFF (0).
+     * 
+     * @author Sinhika
+     *
+     */
     public static enum Sensitivity {
-        EVERYTHING,
-        MOBS,
-        PLAYERS,
+        EVERYTHING,         // any entity whatsoever
+        LIVING,             // living entities that are not armorstands.
+        MOBS,               // non-player living entities only.
+        PLAYERS,            // player entities only.
         EVERYTHING_WEIGHTED,
+        LIVING_WEIGHTED,
         MOBS_WEIGHTED,
         PLAYERS_WEIGHTED;
      }
