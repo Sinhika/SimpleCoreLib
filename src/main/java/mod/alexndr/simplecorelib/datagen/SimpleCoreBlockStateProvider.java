@@ -1,19 +1,18 @@
 package mod.alexndr.simplecorelib.datagen;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.api.content.MultifunctionPressurePlateBlock;
 import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceBlock;
+import mod.alexndr.simplecorelib.api.datagen.SimpleBlockStateProvider;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class SimpleCoreBlockStateProvider extends BlockStateProvider
+public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 {
 
 	public SimpleCoreBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper)
@@ -48,43 +47,11 @@ public class SimpleCoreBlockStateProvider extends BlockStateProvider
 		
 		
 		// blockstates
-		this.getVariantBuilder(ModBlocks.test_furnace.get())
-			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.NORTH).with(BlockStateProperties.LIT, false)
-			.setModels(new ConfiguredModel(testFurnaceModel))
-			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.SOUTH).with(BlockStateProperties.LIT, false)
-			.setModels(new ConfiguredModel(testFurnaceModel, 0, 180, false))
-			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.WEST).with(BlockStateProperties.LIT, false)
-			.setModels(new ConfiguredModel(testFurnaceModel, 0, 270, false))
-			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.EAST).with(BlockStateProperties.LIT, false)
-			.setModels(new ConfiguredModel(testFurnaceModel, 0, 90, false))
-			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.NORTH).with(BlockStateProperties.LIT, true)
-			.setModels(new ConfiguredModel(testFurnaceModel_lit))
-			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.SOUTH).with(BlockStateProperties.LIT, true)
-			.setModels(new ConfiguredModel(testFurnaceModel_lit, 0, 180, false))
-			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.WEST).with(BlockStateProperties.LIT, true)
-			.setModels(new ConfiguredModel(testFurnaceModel_lit, 0, 270, false))
-			.partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.EAST).with(BlockStateProperties.LIT, true)
-			.setModels(new ConfiguredModel(testFurnaceModel_lit, 0, 90, false));
+		this.buildFurnaceBlockState(ModBlocks.test_furnace.get(), testFurnaceModel, testFurnaceModel_lit);
 
 		this.simpleBlock(ModBlocks.original_copper_ore.get(), new ConfiguredModel(testOriginalCopperOre));
 		
-		this.getVariantBuilder(ModBlocks.test_plate.get())
-		    .partialState().with(MultifunctionPressurePlateBlock.POWER, 0).setModels(new ConfiguredModel(testPlateModel))
-		    .partialState().with(MultifunctionPressurePlateBlock.POWER, 1).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 2).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 3).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 4).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 5).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 6).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 7).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 8).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 9).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 10).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 11).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 12).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 13).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 14).setModels(new ConfiguredModel(testPlateModel_down))
-            .partialState().with(MultifunctionPressurePlateBlock.POWER, 15).setModels(new ConfiguredModel(testPlateModel_down));
+		this.buildWeightedPressurePlateBlockState(ModBlocks.test_plate.get(), testPlateModel, testPlateModel_down);
 		
 	} // end registerStatesAndModels()
 
