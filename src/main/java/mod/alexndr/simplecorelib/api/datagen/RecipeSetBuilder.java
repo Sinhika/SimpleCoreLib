@@ -474,6 +474,19 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
    	
     }  // end buildSimpleAestheticBlocks()
     
+    
+    public void buildSimplePressurePlate(Consumer<FinishedRecipe> consumer, Ingredient item,
+            Block pp, CriterionTriggerInstance criterion)
+    {
+        ShapedRecipeBuilder.shaped(pp.asItem())
+            .define('S', item)
+            .pattern("   ")
+            .pattern("SS ")
+            .pattern("   ")
+            .unlockedBy("has_item", criterion)
+            .save(consumer);
+    }
+    
     /**
      * Used by a RecipeProvider to generate recipe sets for tool sets. Based heavily on
      * Botania's registerToolSetRecipes() method.
@@ -674,5 +687,6 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             }
         } // else has condition
     } // end buildSimpleToolSet()
+    
     
 } // end class
