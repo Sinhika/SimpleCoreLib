@@ -1,13 +1,10 @@
 package mod.alexndr.simplecorelib.datagen;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceBlock;
 import mod.alexndr.simplecorelib.api.datagen.SimpleBlockStateProvider;
 import mod.alexndr.simplecorelib.init.ModBlocks;
-import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
