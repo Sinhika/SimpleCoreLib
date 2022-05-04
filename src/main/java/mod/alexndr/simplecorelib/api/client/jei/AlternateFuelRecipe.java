@@ -21,7 +21,7 @@ public class AlternateFuelRecipe implements IJeiFuelingRecipe
     protected final List<ItemStack> inputs;
 	protected final int burnTime;
 	
-	protected static int BURN_TIME_STANDARD;
+	protected static int BURN_TIME_STANDARD;  // default standard recipe cook time, NOT fuel burn time.
 	
 	public AlternateFuelRecipe(Collection<ItemStack> input, int burnTime)
 	{

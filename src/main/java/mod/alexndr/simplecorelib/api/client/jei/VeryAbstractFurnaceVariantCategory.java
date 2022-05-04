@@ -36,7 +36,7 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
 	{
 		staticFlame = guiHelper.createDrawable(RECIPE_GUI_VANILLA, 82, 114, 14, 14);
 		animatedFlame = guiHelper.createAnimatedDrawable(staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
-		this.smeltCountText = createSmeltCountText(10000000 * AlternateFuelRecipe.getSingleItemBurnTime());
+		this.smeltCountText = createSmeltCountText(10000000);
 }
 
     public Component getSmeltCountText()
