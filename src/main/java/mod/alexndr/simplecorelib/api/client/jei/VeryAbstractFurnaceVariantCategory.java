@@ -2,9 +2,12 @@ package mod.alexndr.simplecorelib.api.client.jei;
 
 import java.text.NumberFormat;
 
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import net.minecraft.network.chat.Component;
@@ -36,8 +39,10 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
 	{
 		staticFlame = guiHelper.createDrawable(RECIPE_GUI_VANILLA, 82, 114, 14, 14);
 		animatedFlame = guiHelper.createAnimatedDrawable(staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
-		this.smeltCountText = createSmeltCountText(10000000);
-}
+		
+		// can't call createSmeltCountText() yet because fuelRecipe does not exist.
+		this.smeltCountText = new TranslatableComponent("gui.jei.category.fuel.smeltCount",10000000);
+	}
 
     public Component getSmeltCountText()
     {
@@ -47,6 +52,48 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
     public IDrawableAnimated getFlame()
     {
         return animatedFlame;
+    }
+
+    @Override
+    public Component getTitle()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IDrawable getBackground()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IDrawable getIcon()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses)
+    {
+        IRecipeCategory.super.setRecipe(builder, recipe, focuses);
+        this.fuelRecipe = recipe;
+    }
+
+    @Override
+    public ResourceLocation getUid()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Class<? extends T> getRecipeClass()
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public Component createSmeltCountText(int burnTime)
