@@ -16,19 +16,19 @@ import net.minecraft.world.item.ItemStack;
  * @author Sinhika
  *
  */
-public class AlternateFuelRecipe implements IJeiFuelingRecipe
+public abstract class AlternateFuelRecipe implements IJeiFuelingRecipe
 {
     protected final List<ItemStack> inputs;
 	protected final int burnTime;
 	
-	protected static int BURN_TIME_STANDARD;  // default standard recipe cook time, NOT fuel burn time.
+	protected int BURN_TIME_STANDARD;  // default standard recipe cook time, NOT fuel burn time.
 	
 	public AlternateFuelRecipe(Collection<ItemStack> input, int burnTime)
 	{
 		Preconditions.checkArgument(burnTime > 0, "burn time must be greater than 0");
 		this.inputs = new ArrayList<>(input);
 		this.burnTime = burnTime;
-		BURN_TIME_STANDARD = 200;
+		this.BURN_TIME_STANDARD = 200;
 	}
 
 	
@@ -43,7 +43,7 @@ public class AlternateFuelRecipe implements IJeiFuelingRecipe
 		return inputs;
 	}
 
-	public static int getSingleItemBurnTime()
+	public int getSingleItemBurnTime()
 	{
 	    return BURN_TIME_STANDARD;
 	}

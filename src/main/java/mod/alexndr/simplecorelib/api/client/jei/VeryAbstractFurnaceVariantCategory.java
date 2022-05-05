@@ -49,9 +49,9 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
         return animatedFlame;
     }
 
-    public static Component createSmeltCountText(int burnTime)
+    public Component createSmeltCountText(int burnTime)
     {
-        if (burnTime == AlternateFuelRecipe.getSingleItemBurnTime())
+        if (burnTime == fuelRecipe.getSingleItemBurnTime())
         {
             return new TranslatableComponent("gui.jei.category.fuel.smeltCount.single");
         } 
@@ -59,7 +59,7 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
         {
             NumberFormat numberInstance = NumberFormat.getNumberInstance();
             numberInstance.setMaximumFractionDigits(2);
-            String smeltCount = numberInstance.format(burnTime / ((float) AlternateFuelRecipe.getSingleItemBurnTime()));
+            String smeltCount = numberInstance.format(burnTime / ((float) fuelRecipe.getSingleItemBurnTime()));
             return new TranslatableComponent("gui.jei.category.fuel.smeltCount", smeltCount);
         }
     } // end createSmeltCountText()
