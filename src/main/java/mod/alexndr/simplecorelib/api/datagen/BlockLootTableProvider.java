@@ -5,6 +5,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -110,6 +111,16 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 		blockTable(b, LootTable.lootTable().withPool(createSlabDrops(b)));
     }
     
+    /**
+     * Create a block loot table that drops a single door from a door double-block.
+     * @param b
+     * @param lootTable
+     */
+    protected void doorDropTable(Block b)
+    {
+        blockTable(b, BlockLoot.createDoorTable(b));
+    } 
+    
     protected void blockTable(Block b, LootTable.Builder lootTable) 
     {
         addTable(b.getLootTable(), lootTable, LootContextParamSets.BLOCK);
@@ -131,6 +142,7 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
 										.setProperties(StatePropertiesPredicate.Builder.properties()
 												.hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))))));
     }
+    
     
     protected LootPool.Builder createItemWithNameCopy(Item itemProvider)
     {
