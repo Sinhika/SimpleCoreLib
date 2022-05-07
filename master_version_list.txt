@@ -7,9 +7,9 @@ version_forge = 1.18.2-40.1.16
 version_parchment = 2022.03.13-1.18.2
 mods.toml forge = versionRange="[40,)"
 
-simplecorelib_version = 1.18.2-4.3.1.1
+simplecorelib_version = 1.18.2-4.3.1.2
 simpleores_version = 1.18.2-4.1.2.3
-netherrocks_version = 1.18.2-4.1.2.1
+netherrocks_version = 1.18.2-4.1.2.2
 simple_machines_version = 1.18.2-3.1.0.0
 fusion_version = 
 ashenwheat_version = 

@@ -10,6 +10,9 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
+import mod.alexndr.simplecorelib.client.ClientModEventSubscriber;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -30,8 +33,12 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
 	protected static final int fuelSlot = 1;
 	protected static final int outputSlot = 2;
 
+	protected final IDrawableStatic background;
 	protected final IDrawableStatic staticFlame;
 	protected final IDrawableAnimated animatedFlame;
+	protected final IDrawableStatic flameTransparentBackground;
+	protected Component localizedName;
+
     protected Component smeltCountText;
     protected T fuelRecipe;
     
@@ -40,8 +47,19 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
 		staticFlame = guiHelper.createDrawable(RECIPE_GUI_VANILLA, 82, 114, 14, 14);
 		animatedFlame = guiHelper.createAnimatedDrawable(staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
 		
+        // width of the recipe depends on the text, which is different in each language
+        Minecraft minecraft = Minecraft.getInstance();
+        Font fontRenderer = minecraft.font;
+        
 		// can't call createSmeltCountText() yet because fuelRecipe does not exist.
 		this.smeltCountText = new TranslatableComponent("gui.jei.category.fuel.smeltCount",10000000);
+        int stringWidth = fontRenderer.width(smeltCountText.getString());
+
+        background = guiHelper.drawableBuilder(VeryAbstractFurnaceVariantCategory.RECIPE_GUI_VANILLA, 0, 134, 18, 34)
+            .addPadding(0, 0, 0, stringWidth + 20)
+            .build();
+
+        flameTransparentBackground = ClientModEventSubscriber.textures.getFlameIcon();
 	}
 
     public Component getSmeltCountText()
@@ -57,22 +75,19 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
     @Override
     public Component getTitle()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return localizedName;
     }
 
     @Override
     public IDrawable getBackground()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return background;
     }
 
     @Override
     public IDrawable getIcon()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return flameTransparentBackground;
     }
 
     @Override
