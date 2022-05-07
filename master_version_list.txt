@@ -10,8 +10,8 @@ mods.toml forge = versionRange="[40,)"
 simplecorelib_version = 1.18.2-4.3.1.2
 simpleores_version = 1.18.2-4.1.2.3
 netherrocks_version = 1.18.2-4.1.2.2
-simple_machines_version = 1.18.2-3.1.0.0
-fusion_version = 
+simple_machines_version = 1.18.2-3.1.0.1
+fusion_version = 1.18.2-4.1.0.1
 ashenwheat_version = 
 onlysilver_version = 
 arsenic_version = 
