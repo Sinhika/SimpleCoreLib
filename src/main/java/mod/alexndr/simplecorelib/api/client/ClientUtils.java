@@ -1,11 +1,16 @@
 package mod.alexndr.simplecorelib.api.client;
 
 import java.util.Random;
+import java.util.function.Predicate;
 
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.event.FOVModifierEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * small functions that are used client-side.
@@ -15,12 +20,48 @@ import net.minecraft.world.item.Item;
 public final class ClientUtils
 {
     /**
+     * The guts of the standard onFovEvent handler are pretty standard, with a few variables.
+     * @param event - the FOVModifierEvent being handled.
+     * @param p - predicate that tests heldItem for inclusion. 
+     *   Example: p -> p instanceof MythrilBowItem
+     */
+    public static void handleFovEvent(FOVModifierEvent event, Predicate<Item> itemChecker, float zoomVal)
+    {
+        float baseFOV = event.getFov();
+        float myNewFOV = 1.0F;
+        
+        ItemStack heldItemStack = event.getEntity().getMainHandItem();
+        if (heldItemStack.isEmpty()) { 
+            return;
+        }
+        Item heldItem = heldItemStack.getItem();
+        int useRemaining = event.getEntity().getTicksUsingItem();
+        if (heldItem instanceof BowItem)
+        { 
+            float zoom = 1.0F;
+            if (itemChecker.test(heldItem))
+            {
+                zoom = zoomVal;
+            }
+            else {
+                return;
+            }
+            myNewFOV = baseFOV - (useRemaining * zoom / 20.0F);
+            if (myNewFOV < baseFOV - zoom)
+                myNewFOV = (baseFOV - zoom);
+            event.setNewfov(myNewFOV);
+        }
+    } // end handleFovEvent()
+    
+    /**
      * register client-side bow model properties so that bow draw ("pull") is properly rendered.
      * @param bow
      */
     public static void setupBowModelProperties(Item bow) 
     {
-        ItemProperties.register(bow, new ResourceLocation("pull"), (p0, p1, p2, p4) -> {
+        String modid = ForgeRegistries.ITEMS.getKey(bow).getNamespace();
+        
+        ItemProperties.register(bow, new ResourceLocation(modid, "pull"), (p0, p1, p2, p4) -> {
             if (p2 == null)
             {
                 return 0.0F;
@@ -31,7 +72,7 @@ public final class ClientUtils
                         : (float) (p0.getUseDuration() - p2.getUseItemRemainingTicks()) / 20.0F;
             }
         });
-        ItemProperties.register(bow, new ResourceLocation("pulling"), (p0, p1, p2, p4) -> {
+        ItemProperties.register(bow, new ResourceLocation(modid, "pulling"), (p0, p1, p2, p4) -> {
             return p2 != null && p2.isUsingItem() && p2.getUseItem() == p0 ? 1.0F : 0.0F;
         });
     } // end setupBowModelProperties()
