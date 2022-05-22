@@ -8,12 +8,12 @@ version_parchment = 2022.03.13-1.18.2
 mods.toml forge = versionRange="[40,)"
 
 simplecorelib_version = 1.18.2-4.3.1.4
-simpleores_version = 1.18.2-4.1.2.5
+simpleores_version = 1.18.2-4.1.2.6
 netherrocks_version = 1.18.2-4.1.2.4
 simple_machines_version = 1.18.2-3.1.0.1
-fusion_version = 1.18.2-4.1.0.2
+fusion_version = 1.18.2-4.1.0.3
 ashenwheat_version = 1.18.2-5.1.0.0
-onlysilver_version = 1.18.2-4.1.0.1
+onlysilver_version = 1.18.2-4.1.0.2
 arsenic_version = 
 classicalalchemy_version = 
 hadite_version = 
