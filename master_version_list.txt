@@ -20,7 +20,7 @@ hadite_version =
 sterlingblack_version = 
 tungsten_version = 
 cthon_version = 
-golden_glitter_version = 
+golden_glitter_version = 1.18.2-3.1.0.0
 cobalt_version = 
 
 aesthetics_version = 
