@@ -16,12 +16,12 @@ ashenwheat_version = 1.18.2-5.1.0.0
 onlysilver_version = 1.18.2-4.1.0.2
 arsenic_version = 1.18.2-4.1.0.1
 classicalalchemy_version = 1.18.2-3.1.0.0
-hadite_version = 
-sterlingblack_version = 
-tungsten_version = 
-cthon_version = 
+hadite_version = 1.18.2-3.1.0.0
+sterlingblack_version = 1.18.2-3.1.0.0 
+tungsten_version = 1.18.2-3.1.0.0
+cthon_version = 1.18.2-3.1.0.0
 golden_glitter_version = 1.18.2-3.1.0.0
-cobalt_version = 
+cobalt_version = 1.18.2-3.1.0.0 
 
 aesthetics_version = 
 
