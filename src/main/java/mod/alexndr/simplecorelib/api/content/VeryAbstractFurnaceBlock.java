@@ -1,7 +1,5 @@
 package mod.alexndr.simplecorelib.api.content;
 
-import java.util.Random;
-
 import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -9,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -144,9 +143,9 @@ public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
         * this method is unrelated to {@link randomTick} and {@link #needsRandomTick}, and will always be called regardless
         * of whether the block can receive random update ticks
         */
-    @OnlyIn(Dist.CLIENT)
     @Override
-    public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand)
+    @OnlyIn(Dist.CLIENT)
+    public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand)
     {
         if (stateIn.getValue(LIT))
         {

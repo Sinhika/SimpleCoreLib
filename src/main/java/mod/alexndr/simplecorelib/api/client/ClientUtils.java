@@ -29,12 +29,12 @@ public final class ClientUtils
         float baseFOV = event.getFov();
         float myNewFOV = 1.0F;
         
-        ItemStack heldItemStack = event.getEntity().getMainHandItem();
+        ItemStack heldItemStack = event.getPlayer().getMainHandItem();
         if (heldItemStack.isEmpty()) { 
             return;
         }
         Item heldItem = heldItemStack.getItem();
-        int useRemaining = event.getEntity().getTicksUsingItem();
+        int useRemaining = event.getPlayer().getTicksUsingItem();
         if (heldItem instanceof BowItem)
         { 
             float zoom = 1.0F;
@@ -48,7 +48,7 @@ public final class ClientUtils
             myNewFOV = baseFOV - (useRemaining * zoom / 20.0F);
             if (myNewFOV < baseFOV - zoom)
                 myNewFOV = (baseFOV - zoom);
-            event.setNewfov(myNewFOV);
+            event.setNewFov(myNewFOV);
         }
     } // end handleFovEvent()
     

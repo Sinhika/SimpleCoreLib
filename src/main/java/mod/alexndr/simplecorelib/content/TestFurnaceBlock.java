@@ -4,7 +4,6 @@ import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceBlock;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.Containers;
@@ -76,7 +75,7 @@ public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
             MenuProvider containerProvider = new MenuProvider() {
                 @Override
                 public Component getDisplayName() {
-                    return new TranslatableComponent(DISPLAY_NAME);
+                    return Component.translatable(DISPLAY_NAME);
                 }
                 
                 @Override

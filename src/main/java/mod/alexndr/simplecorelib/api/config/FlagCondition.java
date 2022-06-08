@@ -34,9 +34,9 @@ public class FlagCondition implements ICondition
     {
         return resource;
     }
-
+    
     @Override
-    public boolean test()
+    public boolean test(IContext context)
     {
         return config.getFlag(this.name);
     }
@@ -74,4 +74,5 @@ public class FlagCondition implements ICondition
             return resource;
         }
     } // end-class-Serializer
+
 } // end-class
