@@ -1,21 +1,9 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net/' }
-        maven { url = 'https://maven.parchmentmc.org' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.parchmentmc:librarian:1.+'
-    }
-}
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 plugins {
     id 'eclipse'
     id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 def getVersionAppendage() {
     if (System.env.BUILD_NUMBER)
@@ -178,10 +166,11 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${version_forge}"
+        // TODO TEMP COMMENT OUT JEI UNTIL 1.19 VERSION
   // compile against the JEI API but do not include it at runtime
-  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}:${jei_version}:api")
+  //compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}:${jei_version}:api")
   // at runtime, use the full JEI jar
-  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}:${jei_version}")
+  //runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}:${jei_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -218,4 +207,8 @@ publishing {
             url = "file:///${project.projectDir}/../mcmodsrepo"
         }
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
