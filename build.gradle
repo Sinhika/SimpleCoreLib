@@ -167,10 +167,10 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${version_forge}"
   // compile against the JEI API but do not include it at runtime
-  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}:${jei_version}:api")
-  // at runtime, use the full JEI jar
-  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}:${jei_version}")
-}
+  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
+  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
+  // at runtime, use the full JEI jar for Forge
+  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")}
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
