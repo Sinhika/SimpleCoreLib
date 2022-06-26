@@ -6,6 +6,24 @@
     "power=1": {
       "model": "simplecorelib:block/test_plate_down"
     },
+    "power=10": {
+      "model": "simplecorelib:block/test_plate_down"
+    },
+    "power=11": {
+      "model": "simplecorelib:block/test_plate_down"
+    },
+    "power=12": {
+      "model": "simplecorelib:block/test_plate_down"
+    },
+    "power=13": {
+      "model": "simplecorelib:block/test_plate_down"
+    },
+    "power=14": {
+      "model": "simplecorelib:block/test_plate_down"
+    },
+    "power=15": {
+      "model": "simplecorelib:block/test_plate_down"
+    },
     "power=2": {
       "model": "simplecorelib:block/test_plate_down"
     },
@@ -28,24 +46,6 @@
       "model": "simplecorelib:block/test_plate_down"
     },
     "power=9": {
-      "model": "simplecorelib:block/test_plate_down"
-    },
-    "power=10": {
-      "model": "simplecorelib:block/test_plate_down"
-    },
-    "power=11": {
-      "model": "simplecorelib:block/test_plate_down"
-    },
-    "power=12": {
-      "model": "simplecorelib:block/test_plate_down"
-    },
-    "power=13": {
-      "model": "simplecorelib:block/test_plate_down"
-    },
-    "power=14": {
-      "model": "simplecorelib:block/test_plate_down"
-    },
-    "power=15": {
       "model": "simplecorelib:block/test_plate_down"
     }
   }

@@ -14,7 +14,8 @@ public final class ModItems
             DeferredRegister.create(ForgeRegistries.ITEMS, SimpleCoreLib.MODID);
 
     public static final RegistryObject<ShearsItem> test_shears = ITEMS.register("test_shears",
-    		() -> new ShearsItem(new Item.Properties().durability(ConfigHolder.SERVER.serverTestShearDurability.get())
+//    		() -> new ShearsItem(new Item.Properties().durability(ConfigHolder.SERVER.serverTestShearDurability.get())
+          () -> new ShearsItem(new Item.Properties().durability(1000)
     		        .tab(ModItemGroups.MOD_ITEM_GROUP)));
     
 } // end-class

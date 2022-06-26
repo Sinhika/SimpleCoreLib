@@ -30,6 +30,8 @@ public final class ModEventSubscriber
     @SubscribeEvent
     public static void onRegisterItems(final RegisterEvent event) 
     {
+        if (event.getRegistryKey() == Registry.ITEM_REGISTRY)
+        {
          // Automatically register BlockItems for all our Blocks
         ModBlocks.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
@@ -47,6 +49,7 @@ public final class ModEventSubscriber
                     });
                 });
         LOGGER.debug("Registered BlockItems");
+        }
     }
 
     @SubscribeEvent
