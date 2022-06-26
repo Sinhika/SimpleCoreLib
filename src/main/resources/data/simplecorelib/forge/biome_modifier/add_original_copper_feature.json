@@ -1,0 +1,6 @@
+{
+	"type" : "forge:add_features",
+	"biomes" : "#minecraft:is_overworld",
+	"features" : "simplecorelib:original_copper_deposit",
+	"step" : "underground_ores"
+}

@@ -1,0 +1,27 @@
+{
+	"feature" : "simplecorelib:ore_original_copper",
+	"placement" : [
+		{
+			"type" : "minecraft:height_range",
+			"height" : {
+				"type" : "minecraft:uniform",
+				"min_inclusive" : {
+					"absolute" : -63
+					},
+				"max_inclusive" : {
+					"absolute" : 120
+				}
+			}
+		},
+		{
+			"type" : "minecraft:count",
+			"count" : 10
+		},
+		{
+			"type" : "minecraft:in_square"
+		},
+		{
+			"type" : "minecraft:biome"
+		}
+	]
+}
