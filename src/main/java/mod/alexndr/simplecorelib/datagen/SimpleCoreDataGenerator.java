@@ -13,17 +13,13 @@ public class SimpleCoreDataGenerator
 	public static void gatherData(GatherDataEvent event)
 	{
 		DataGenerator gen = event.getGenerator();
-        if (event.includeServer())
-        {
-        	gen.addProvider(new SimpleCoreBlockTags(gen, event.getExistingFileHelper()));
-        	gen.addProvider(new SimpleCoreItemTags(gen, event.getExistingFileHelper()));
-        	gen.addProvider(new SimpleCoreLootTableProvider(gen));
-        }
-        if (event.includeClient())
-        {
-        	gen.addProvider(new SimpleCoreBlockStateProvider(gen, event.getExistingFileHelper()));
-        	gen.addProvider(new SimpleCoreItemModelProvider(gen, event.getExistingFileHelper()));
-        }
+		// server datagen
+    	gen.addProvider(event.includeServer(), new SimpleCoreBlockTags(gen, event.getExistingFileHelper()));
+    	gen.addProvider(event.includeServer(), new SimpleCoreItemTags(gen, event.getExistingFileHelper()));
+    	gen.addProvider(event.includeServer(), new SimpleCoreLootTableProvider(gen));
+    	// client datagen
+    	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(gen, event.getExistingFileHelper()));
+    	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(gen, event.getExistingFileHelper()));
 	} // end gatherData()
 	
 } // end class

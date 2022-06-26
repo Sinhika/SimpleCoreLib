@@ -1,22 +1,5 @@
 package mod.alexndr.simplecorelib.api.helpers;
 
-import java.util.List;
-
-import mod.alexndr.simplecorelib.api.config.ModOreConfig;
-import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.features.OreFeatures;
-import net.minecraft.data.worldgen.placement.OrePlacements;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraftforge.common.util.Lazy;
-
 /**
  * COMPLETE REWORK FOR 1.18.1.  
  * Further revamped for 1.18.2.
@@ -37,11 +20,11 @@ public final class OreGenUtils
 	 * @param deepslateOre - ore that replaces deepslate
 	 * @return target list.
 	 */
-	public static List<OreConfiguration.TargetBlockState> BuildStandardOreTargetList(Block stoneOre, Block deepslateOre)
-	{
-		return List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, stoneOre.defaultBlockState()), 
-				OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, deepslateOre.defaultBlockState()));
-	} // end BuildOreTargetList
+//	public static List<OreConfiguration.TargetBlockState> BuildStandardOreTargetList(Block stoneOre, Block deepslateOre)
+//	{
+//		return List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, stoneOre.defaultBlockState()), 
+//				OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, deepslateOre.defaultBlockState()));
+//	} // end BuildOreTargetList
 	
 	
 	/**
@@ -51,15 +34,15 @@ public final class OreGenUtils
 	 * @param netherrackOnly - true if only netherrack is to be replaced, false if nether_base_stone to be replaced.
 	 * @return target list.
 	 */
-	public static List<OreConfiguration.TargetBlockState> BuildNetherOreTargetList(Block netherOre, boolean netherrackOnly)
-	{
-		if (netherrackOnly) {
-			return List.of(OreConfiguration.target(OreFeatures.NETHERRACK, netherOre.defaultBlockState()));
-		}
-		else {
-			return List.of(OreConfiguration.target(OreFeatures.NETHER_ORE_REPLACEABLES, netherOre.defaultBlockState()));
-		}
-	} // end BuildNetherOreTargetList
+//	public static List<OreConfiguration.TargetBlockState> BuildNetherOreTargetList(Block netherOre, boolean netherrackOnly)
+//	{
+//		if (netherrackOnly) {
+//			return List.of(OreConfiguration.target(OreFeatures.NETHERRACK, netherOre.defaultBlockState()));
+//		}
+//		else {
+//			return List.of(OreConfiguration.target(OreFeatures.NETHER_ORE_REPLACEABLES, netherOre.defaultBlockState()));
+//		}
+//	} // end BuildNetherOreTargetList
 	
 	/**
 	 * Creates an OreConfiguration, ready for use with createConfiguration() factory method.
@@ -68,11 +51,11 @@ public final class OreGenUtils
 	 * @param air_decay - chance of not generating if exposed to air.
 	 * @return a configured ore feature.
 	 */
-	public static OreConfiguration ConfigureOreFeature(List<OreConfiguration.TargetBlockState> target_list,
-																			int vein_size, float air_decay)
-	{
-		return new OreConfiguration(target_list, vein_size, air_decay);
-	}
+//	public static OreConfiguration ConfigureOreFeature(List<OreConfiguration.TargetBlockState> target_list,
+//																			int vein_size, float air_decay)
+//	{
+//		return new OreConfiguration(target_list, vein_size, air_decay);
+//	}
 	
     /**
      * Factory function that supplies a ConfiguredFeature for a RegistryObject. 
@@ -80,12 +63,12 @@ public final class OreGenUtils
      * @param cfg
      * @return
      */
-	public static ConfiguredFeature<OreConfiguration, ?> createConfiguredOreFeature(
-	        List<OreConfiguration.TargetBlockState> target_list, Lazy<ModOreConfig> cfg)
-	{
-	    return new ConfiguredFeature<>(Feature.ORE, 
-	            OreGenUtils.ConfigureOreFeature(target_list, cfg.get().getVein_size(), cfg.get().getAirDecay()));
-	}
+//	public static ConfiguredFeature<OreConfiguration, ?> createConfiguredOreFeature(
+//	        List<OreConfiguration.TargetBlockState> target_list, Lazy<ModOreConfig> cfg)
+//	{
+//	    return new ConfiguredFeature<>(Feature.ORE, 
+//	            OreGenUtils.ConfigureOreFeature(target_list, cfg.get().getVein_size(), cfg.get().getAirDecay()));
+//	}
 	
 	/**
 	 * Factory function that supplies a PlacedFeature for a RegistryObject.
@@ -93,11 +76,11 @@ public final class OreGenUtils
 	 * @param placements
 	 * @return
 	 */
-	public static PlacedFeature createPlacedOreFeature( Holder<ConfiguredFeature<OreConfiguration, ?>> cf, 
-	                                                    Lazy<ModOreConfig> opt_cfg)
-	{
-	    return new PlacedFeature(Holder.hackyErase(cf), List.copyOf(ConfigurePlacementModifiers(opt_cfg.get())));
-	}
+//	public static PlacedFeature createPlacedOreFeature( Holder<ConfiguredFeature<OreConfiguration, ?>> cf, 
+//	                                                    Lazy<ModOreConfig> opt_cfg)
+//	{
+//	    return new PlacedFeature(Holder.hackyErase(cf), List.copyOf(ConfigurePlacementModifiers(opt_cfg.get())));
+//	}
 	
 	/**
 	 * Creates a List<PlacementModifier>, ready for registration with PlacementUtils.register().
@@ -105,67 +88,67 @@ public final class OreGenUtils
 	 * @param cfg - mod config parameters.
 	 * @return a List<PlacementModifier>.
 	 */
-	public static List<PlacementModifier> ConfigurePlacementModifiers(ModOreConfig cfg)
-	{
-		List<PlacementModifier> pmodifiers = null;
-		HeightRangePlacement hplace;
-		
-		switch(cfg.getRange_type())
-		{
-		case ModOreConfig.UNIFORM:
-			hplace = MakeUniformPlacement(cfg.getBottom(), cfg.getTop());
-			if (cfg.get_commonality()) {
-				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), hplace);
-			}
-			else {
-				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), hplace);
-			}
-			break;
-		case ModOreConfig.TRIANGLE:
-			hplace = MakeTrianglePlacement(cfg.getBottom(), cfg.getTop());
-			if (cfg.get_commonality()) {
-				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), hplace);
-			}
-			else {
-				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), hplace);
-			}
-			break;
-		case ModOreConfig.RANGE_4_4:
-			if (cfg.get_commonality()) {
-				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_4_4);
-			}
-			else {
-				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_4_4);
-			}
-			break;
-		case ModOreConfig.RANGE_8_8:
-			if (cfg.get_commonality()) {
-				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_8_8);
-			}
-			else {
-				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_8_8);
-			}
-			break;
-		case ModOreConfig.RANGE_10_10:
-			if (cfg.get_commonality()) {
-				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_10_10);
-			}
-			else {
-				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_10_10);
-			}
-			break;
-		case ModOreConfig.FULL_RANGE:
-			if (cfg.get_commonality()) {
-				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.FULL_RANGE);
-			}
-			else {
-				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.FULL_RANGE);
-			}
-			break;
-		} // end switch
-		
-		return pmodifiers;
-	} // end ConfigurePlacementModifiers
+//	public static List<PlacementModifier> ConfigurePlacementModifiers(ModOreConfig cfg)
+//	{
+//		List<PlacementModifier> pmodifiers = null;
+//		HeightRangePlacement hplace;
+//		
+//		switch(cfg.getRange_type())
+//		{
+//		case ModOreConfig.UNIFORM:
+//			hplace = MakeUniformPlacement(cfg.getBottom(), cfg.getTop());
+//			if (cfg.get_commonality()) {
+//				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), hplace);
+//			}
+//			else {
+//				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), hplace);
+//			}
+//			break;
+//		case ModOreConfig.TRIANGLE:
+//			hplace = MakeTrianglePlacement(cfg.getBottom(), cfg.getTop());
+//			if (cfg.get_commonality()) {
+//				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), hplace);
+//			}
+//			else {
+//				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), hplace);
+//			}
+//			break;
+//		case ModOreConfig.RANGE_4_4:
+//			if (cfg.get_commonality()) {
+//				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_4_4);
+//			}
+//			else {
+//				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_4_4);
+//			}
+//			break;
+//		case ModOreConfig.RANGE_8_8:
+//			if (cfg.get_commonality()) {
+//				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_8_8);
+//			}
+//			else {
+//				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_8_8);
+//			}
+//			break;
+//		case ModOreConfig.RANGE_10_10:
+//			if (cfg.get_commonality()) {
+//				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_10_10);
+//			}
+//			else {
+//				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.RANGE_10_10);
+//			}
+//			break;
+//		case ModOreConfig.FULL_RANGE:
+//			if (cfg.get_commonality()) {
+//				pmodifiers = OrePlacements.commonOrePlacement(cfg.getVein_count(), PlacementUtils.FULL_RANGE);
+//			}
+//			else {
+//				pmodifiers = OrePlacements.rareOrePlacement(cfg.getVein_count(), PlacementUtils.FULL_RANGE);
+//			}
+//			break;
+//		} // end switch
+//		
+//		return pmodifiers;
+//	} // end ConfigurePlacementModifiers
 	
 	/**
 	 * Create a standard triangular height distribution.
@@ -173,10 +156,10 @@ public final class OreGenUtils
 	 * @param upper - VerticalAnchor of upper end
 	 * @return a HeightRangePlacement.
 	 */
-    public static HeightRangePlacement MakeTrianglePlacement( VerticalAnchor lower, VerticalAnchor upper )
-    {
-    	return HeightRangePlacement.triangle(lower, upper);
-    }
+//    public static HeightRangePlacement MakeTrianglePlacement( VerticalAnchor lower, VerticalAnchor upper )
+//    {
+//    	return HeightRangePlacement.triangle(lower, upper);
+//    }
     
 	/**
 	 * Create a standard triangular height distribution.
@@ -184,8 +167,8 @@ public final class OreGenUtils
 	 * @param upper - VerticalAnchor of upper end
 	 * @return a HeightRangePlacement.
 	 */
-    public static HeightRangePlacement MakeUniformPlacement( VerticalAnchor lower, VerticalAnchor upper )
-    {
-        return HeightRangePlacement.uniform(lower, upper);
-    }
+//    public static HeightRangePlacement MakeUniformPlacement( VerticalAnchor lower, VerticalAnchor upper )
+//    {
+//        return HeightRangePlacement.uniform(lower, upper);
+//    }
 } // end class

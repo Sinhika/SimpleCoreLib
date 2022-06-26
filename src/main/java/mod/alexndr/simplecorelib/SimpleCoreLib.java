@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 
 import mod.alexndr.simplecorelib.config.ConfigHolder;
 import mod.alexndr.simplecorelib.init.ModBlocks;
-import mod.alexndr.simplecorelib.init.ModFeatures;
 import mod.alexndr.simplecorelib.init.ModItems;
 import mod.alexndr.simplecorelib.init.ModMenuTypes;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
@@ -44,10 +43,9 @@ public class SimpleCoreLib
         ModItems.ITEMS.register(modEventBus);
         ModMenuTypes.CONTAINER_TYPES.register(modEventBus);
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
-        ModFeatures.CONFIGURED_FEATURES.register(modEventBus);
-        ModFeatures.FEATURES.register(modEventBus);
-        ModFeatures.PLACED_FEATURES.register(modEventBus);
-        
+//        ModFeatures.CONFIGURED_FEATURES.register(modEventBus);
+//        ModFeatures.FEATURES.register(modEventBus);
+//        ModFeatures.PLACED_FEATURES.register(modEventBus);
     } // end SimpleOres()
 
 } // end class SimpleOres

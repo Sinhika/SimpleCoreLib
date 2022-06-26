@@ -168,7 +168,7 @@ public abstract class BlockLootTableProvider extends AbstractLootTableProvider
     					.apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
     
-    protected static <T> T withExplosionDecay(ItemLike itemIn, FunctionUserBuilder<T> consumer)
+    protected static <T extends FunctionUserBuilder<T>> T withExplosionDecay(ItemLike itemIn, FunctionUserBuilder<T> consumer)
     {
         return (T) (consumer.apply(ApplyExplosionDecay.explosionDecay()));
     }

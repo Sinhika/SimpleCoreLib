@@ -7,7 +7,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.OreBlock;
+import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class MiningBlockTags extends BlockTagsProvider
@@ -80,9 +80,9 @@ public class MiningBlockTags extends BlockTagsProvider
 	 * @param deepslate_ore_blocks
 	 * @param netherrack_ore_blocks
 	 */
-	protected void registerOresInGroundTags(Collection<OreBlock> ore_blocks, 
-										  Collection<OreBlock> deepslate_ore_blocks,
-										  Collection<OreBlock> netherrack_ore_blocks )
+	protected void registerOresInGroundTags(Collection<DropExperienceBlock> ore_blocks, 
+										  Collection<DropExperienceBlock> deepslate_ore_blocks,
+										  Collection<DropExperienceBlock> netherrack_ore_blocks )
 	{
 		if (ore_blocks != null && !ore_blocks.isEmpty()) {
 			TagsProvider.TagAppender<Block> stone = this.tag(TagUtils.forgeBlockTag("ores_in_ground/stone"));
@@ -105,8 +105,8 @@ public class MiningBlockTags extends BlockTagsProvider
 	 * @param singular_ores blocks that drop a single unit (the usual case).
 	 * @param dense_ores blocks that drop multiple units, e.g. redstone_ore or copper_ore.
 	 */
-	protected void registerOreRateTags(Collection<OreBlock> sparse_ores, Collection<OreBlock> singular_ores, 
-									   Collection<OreBlock> dense_ores)
+	protected void registerOreRateTags(Collection<DropExperienceBlock> sparse_ores, Collection<DropExperienceBlock> singular_ores, 
+									   Collection<DropExperienceBlock> dense_ores)
 	{
 		if (sparse_ores != null && !sparse_ores.isEmpty()) {
 			TagsProvider.TagAppender<Block> sparse = this.tag(TagUtils.forgeBlockTag("ore_rates/sparse"));

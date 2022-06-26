@@ -14,7 +14,6 @@ import mod.alexndr.simplecorelib.client.ClientModEventSubscriber;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -52,7 +51,7 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
         Font fontRenderer = minecraft.font;
         
 		// can't call createSmeltCountText() yet because fuelRecipe does not exist.
-		this.smeltCountText = new TranslatableComponent("gui.jei.category.fuel.smeltCount",10000000);
+		this.smeltCountText = Component.translatable("gui.jei.category.fuel.smeltCount",10000000);
         int stringWidth = fontRenderer.width(smeltCountText.getString());
 
         background = guiHelper.drawableBuilder(VeryAbstractFurnaceVariantCategory.RECIPE_GUI_VANILLA, 0, 134, 18, 34)
@@ -93,36 +92,23 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses)
     {
-        IRecipeCategory.super.setRecipe(builder, recipe, focuses);
+//        setRecipe(builder, recipe, focuses);
         this.fuelRecipe = recipe;
     }
 
-    @Override
-    public ResourceLocation getUid()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Class<? extends T> getRecipeClass()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     public Component createSmeltCountText(int burnTime)
     {
         if (burnTime == fuelRecipe.getSingleItemBurnTime())
         {
-            return new TranslatableComponent("gui.jei.category.fuel.smeltCount.single");
+            return Component.translatable("gui.jei.category.fuel.smeltCount.single");
         } 
         else
         {
             NumberFormat numberInstance = NumberFormat.getNumberInstance();
             numberInstance.setMaximumFractionDigits(2);
             String smeltCount = numberInstance.format(burnTime / ((float) fuelRecipe.getSingleItemBurnTime()));
-            return new TranslatableComponent("gui.jei.category.fuel.smeltCount", smeltCount);
+            return Component.translatable("gui.jei.category.fuel.smeltCount", smeltCount);
         }
     } // end createSmeltCountText()
 
