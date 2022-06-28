@@ -6,7 +6,7 @@ public final class ConfigHelper
 {
     public static void bakeServer(final ModConfig config)
     {
-//        SimpleCoreLibConfig.enableTestOreGen = ConfigHolder.SERVER.serverEnableTestOreGen.get();
+        SimpleCoreLibConfig.testShearDurability = ConfigHolder.SERVER.serverTestShearDurability.get();
     } // end bakeServer()
    
     
