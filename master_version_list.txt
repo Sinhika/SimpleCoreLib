@@ -3,7 +3,7 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 org.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64
 
 version_minecraft = 1.19
-version_forge = 1.19-41.0.45
+version_forge = 1.19-41.0.62
 version_parchment = 1.18.2-2022.05.22-1.19
 mods.toml forge = versionRange="[41,)"
 
@@ -25,8 +25,8 @@ cobalt_version =
 
 aesthetics_version = 
 
-version_mcjei = 
-jei_version = 
+version_mcjei = 1.19
+jei_version = 11.0.0.206
 
 silents_mechanisms: versionRange="[,)"
 silentgear: versionRange="[,)"
