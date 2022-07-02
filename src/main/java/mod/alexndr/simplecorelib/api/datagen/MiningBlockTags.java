@@ -72,7 +72,33 @@ public class MiningBlockTags extends BlockTagsProvider
 		}
 	} // end registerMineableTags
 	
+    
+    /**
+     * As registerMineableTags(), but for shovel-diggable things like dirts.
+     * 
+     * @param blocks - all the blocks that go under the mineable/shovel tag.
+     */
+    protected void registerShovelableTags(Collection<Block> blocks)
+    {
+        TagsProvider.TagAppender<Block> foo = this.tag(TagUtils.modBlockTag("minecraft", "mineable/shovel"));
+        blocks.stream().forEach(b -> foo.add(b));
+      } // end registerShovelableTags()
 	
+    
+    /**
+     * As registerMineableTags(), but for axe-harvestable things like logs.
+     * TODO: move to SimpleCoreLib in 1.19.
+     * 
+     * @param blocks - all the blocks that go under the mineable/axe tag.
+     */
+    protected void registerAxeableTags(Collection<Block> blocks)
+    {
+        TagsProvider.TagAppender<Block> foo = this.tag(TagUtils.modBlockTag("minecraft", "mineable/axe"));
+        blocks.stream().forEach(b -> foo.add(b));
+        
+    } // end registerAxeableTags()
+    
+
 	/** 
 	 * Creates ores_in_ground forge tags for blocks.
 	 * 
