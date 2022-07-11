@@ -18,8 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 /**
  * Incorporate both weighted pressure plate semantics and that of stone and wood pressure plates,
  * and another type that only responds to players.

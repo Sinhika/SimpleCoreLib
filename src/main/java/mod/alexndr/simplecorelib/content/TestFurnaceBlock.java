@@ -19,8 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
 {
     private static final String DISPLAY_NAME = "block.simplecorelib.test_furnace";
