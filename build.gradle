@@ -57,6 +57,7 @@ minecraft {
             mods {
                 simplecorelib {
                     source sourceSets.main
+               //     source sourceSets.api		// uncomment if including JEI support
                 }
             }
         }
@@ -78,6 +79,7 @@ minecraft {
             mods {
                 simplecorelib {
                     source sourceSets.main
+               //     source sourceSets.api		// uncomment if including JEI support
                 }
             }
         }
@@ -106,6 +108,7 @@ minecraft {
             mods {
                 simplecorelib {
                     source sourceSets.main
+               //     source sourceSets.api		// uncomment if including JEI support
                 }
             }
         }
@@ -131,6 +134,7 @@ minecraft {
             mods {
                 simplecorelib {
                     source sourceSets.main
+               //     source sourceSets.api		// uncomment if including JEI support
                 }
             }
         }
@@ -145,16 +149,16 @@ repositories {
         name = "mcmodsrepo"
         url = "file:///${project.projectDir}/../mcmodsrepo"
     }
-    maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
+//    maven {
+//        // location of the maven that hosts JEI files
+//        name = "Progwml6 maven"
+//        url = "https://dvs1.progwml6.com/files/maven/"
+//    }
+//    maven {
+//        // location of a maven mirror for JEI files, as a fallback
+//        name = "ModMaven"
+//        url = "https://modmaven.dev"
+//    }
     maven {
         // fallback if not available locally.
         name = "CurseForge"
@@ -167,11 +171,12 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${version_forge}"
+    // UNCOMMENT JEI stuff if JEI support ready.
   // compile against the JEI API but do not include it at runtime
-  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
-  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
+//  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
+//  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
   // at runtime, use the full JEI jar for Forge
-  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")
+//  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
