@@ -1,4 +1,4 @@
-package mod.alexndr.simplecorelib.api.client.jei;
+package mod.alexndr.simplecorelib.client.jei;
 
 import java.util.ArrayList;
 import java.util.Collection;

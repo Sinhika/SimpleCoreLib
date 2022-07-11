@@ -1,9 +1,9 @@
 package mod.alexndr.simplecorelib.client;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.api.client.gui.SimpleSpriteUploader;
-import mod.alexndr.simplecorelib.api.client.gui.Textures;
+import mod.alexndr.simplecorelib.client.gui.SimpleSpriteUploader;
 import mod.alexndr.simplecorelib.client.gui.TestFurnaceScreen;
+import mod.alexndr.simplecorelib.client.gui.Textures;
 import mod.alexndr.simplecorelib.content.TestFurnaceContainerMenu;
 import mod.alexndr.simplecorelib.init.ModMenuTypes;
 import net.minecraft.client.Minecraft;

@@ -1,4 +1,4 @@
-package mod.alexndr.simplecorelib.api.client.gui;
+package mod.alexndr.simplecorelib.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;

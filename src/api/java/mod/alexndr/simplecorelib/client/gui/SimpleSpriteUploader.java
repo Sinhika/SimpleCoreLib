@@ -1,4 +1,4 @@
-package mod.alexndr.simplecorelib.api.client.gui;
+package mod.alexndr.simplecorelib.client.gui;
 
 import java.util.Collections;
 import java.util.HashSet;
