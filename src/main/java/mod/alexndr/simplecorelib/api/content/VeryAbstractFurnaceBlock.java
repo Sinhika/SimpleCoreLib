@@ -33,6 +33,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public abstract class VeryAbstractFurnaceBlock extends BaseEntityBlock
 {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;

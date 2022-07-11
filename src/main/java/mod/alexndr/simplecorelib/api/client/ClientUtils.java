@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.FOVModifierEvent;
+import net.minecraftforge.client.event.ComputeFovModifierEvent;
 
 /**
  * small functions that are used client-side.
@@ -24,9 +24,9 @@ public final class ClientUtils
      * @param p - predicate that tests heldItem for inclusion. 
      *   Example: p -> p instanceof MythrilBowItem
      */
-    public static void handleFovEvent(FOVModifierEvent event, Predicate<Item> itemChecker, float zoomVal)
+    public static void handleFovEvent(ComputeFovModifierEvent event, Predicate<Item> itemChecker, float zoomVal)
     {
-        float baseFOV = event.getFov();
+        float baseFOV = event.getFovModifier();
         float myNewFOV = 1.0F;
         
         ItemStack heldItemStack = event.getPlayer().getMainHandItem();
@@ -48,7 +48,7 @@ public final class ClientUtils
             myNewFOV = baseFOV - (useRemaining * zoom / 20.0F);
             if (myNewFOV < baseFOV - zoom)
                 myNewFOV = (baseFOV - zoom);
-            event.setNewFov(myNewFOV);
+            event.setNewFovModifier(myNewFOV);
         }
     } // end handleFovEvent()
     
