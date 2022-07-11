@@ -10,7 +10,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.client.ClientModEventSubscriber;
+import mod.alexndr.simplecorelib.client.JEIClientModEventSubscriber;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
@@ -58,7 +58,7 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
             .addPadding(0, 0, 0, stringWidth + 20)
             .build();
 
-        flameTransparentBackground = ClientModEventSubscriber.textures.getFlameIcon();
+        flameTransparentBackground = JEIClientModEventSubscriber.textures.getFlameIcon();
 	}
 
     public Component getSmeltCountText()

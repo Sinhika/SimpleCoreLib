@@ -43,9 +43,6 @@ public class SimpleCoreLib
         ModItems.ITEMS.register(modEventBus);
         ModMenuTypes.CONTAINER_TYPES.register(modEventBus);
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
-//        ModFeatures.CONFIGURED_FEATURES.register(modEventBus);
-//        ModFeatures.FEATURES.register(modEventBus);
-//        ModFeatures.PLACED_FEATURES.register(modEventBus);
     } // end SimpleOres()
 
 } // end class SimpleOres
