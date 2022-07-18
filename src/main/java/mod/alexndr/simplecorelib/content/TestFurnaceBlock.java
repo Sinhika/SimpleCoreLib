@@ -84,7 +84,7 @@ public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
                     return new TestFurnaceContainerMenu(windowId, playerInventory, bpos, playerEntity);
                 }
             }; // end anonymous-class
-            NetworkHooks.openGui((ServerPlayer) player, containerProvider, be.getBlockPos());
+            NetworkHooks.openScreen((ServerPlayer) player, containerProvider, be.getBlockPos());
             player.awardStat(Stats.INTERACT_WITH_FURNACE);
         } // end-if
         else {

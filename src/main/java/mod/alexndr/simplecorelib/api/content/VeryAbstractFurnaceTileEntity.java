@@ -499,9 +499,9 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
                 if (tile.isBurning())
                 {
                     flag1 = true;
-                    if (fuel.hasContainerItem()) 
+                    if (fuel.hasCraftingRemainingItem()) 
                     {
-                        tile.inventory.setStackInSlot(FUEL_SLOT, fuel.getContainerItem());
+                        tile.inventory.setStackInSlot(FUEL_SLOT, fuel.getCraftingRemainingItem());
                     }
                     else if (!fuel.isEmpty()) 
                     {

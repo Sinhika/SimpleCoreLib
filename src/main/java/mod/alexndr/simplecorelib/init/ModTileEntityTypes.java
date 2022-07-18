@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ModTileEntityTypes
 {
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITY_TYPES = 
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, SimpleCoreLib.MODID);
+            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, SimpleCoreLib.MODID);
     
     public static RegistryObject<BlockEntityType<TestFurnaceTileEntity>> test_furnace = 
             TILE_ENTITY_TYPES.register("test_furnace", 
