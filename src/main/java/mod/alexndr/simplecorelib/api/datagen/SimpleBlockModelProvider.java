@@ -24,7 +24,7 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
     {
         return bars(name, "template_bars_post")
                 .texture("particle", texture)
-                .texture("edge", texture);
+                .texture("bars", texture);
     }
     
     public BlockModelBuilder barsPostEnds(String name, ResourceLocation texture)

@@ -41,7 +41,7 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 		this.itemModels().withExistingParent("original_copper_ore", 
 		                                     new ResourceLocation(SimpleCoreLib.MODID, "block/original_copper_ore"));
 		this.itemModels().withExistingParent("test_plate", new ResourceLocation(SimpleCoreLib.MODID, "block/test_plate"));
-		
+		//this.itemModels().basicItem(ModBlocks.test_bars.get().asItem());
 		
 		// blockstates
 		this.buildFurnaceBlockState(ModBlocks.test_furnace.get(), testFurnaceModel, testFurnaceModel_lit);
@@ -49,6 +49,8 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 		this.simpleBlock(ModBlocks.original_copper_ore.get(), new ConfiguredModel(testOriginalCopperOre));
 		
 		this.buildWeightedPressurePlateBlockState(ModBlocks.test_plate.get(), testPlateModel, testPlateModel_down);
+		
+		this.buildBarsBlockState(ModBlocks.test_bars.get(), mcLoc("block/iron_bars"));
 		
 	} // end registerStatesAndModels()
 
