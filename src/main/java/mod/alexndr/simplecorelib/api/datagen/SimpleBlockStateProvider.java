@@ -1,6 +1,7 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Map.Entry;
 
 import mod.alexndr.simplecorelib.api.content.MultifunctionPressurePlateBlock;
@@ -10,12 +11,14 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
@@ -49,6 +52,16 @@ public abstract class SimpleBlockStateProvider extends BlockStateProvider
         return super.itemModels();
     }
 
+    public ItemModelBuilder basicBlockItem(Block block)
+    {
+        ResourceLocation blockItemRL = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(block.asItem()));
+        
+        return this.itemModels().getBuilder(block.asItem().toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(blockItemRL.getNamespace(), "block/" + blockItemRL.getPath()));
+    }
+           
+
     public void buildBarsBlockState(IronBarsBlock pBars, ResourceLocation texture) 
     {
         barsBlockInternal(pBars, ForgeRegistries.BLOCKS.getKey(pBars).toString(), texture);
@@ -66,6 +79,7 @@ public abstract class SimpleBlockStateProvider extends BlockStateProvider
         barsBlock(pBars, post, post_ends, cap, cap_alt, side, side_alt);
     }
   
+    
     public void barsBlock(IronBarsBlock pBars, ModelFile post, ModelFile post_ends, ModelFile cap, ModelFile cap_alt,
             ModelFile side, ModelFile side_alt)
     {
@@ -161,6 +175,7 @@ public abstract class SimpleBlockStateProvider extends BlockStateProvider
             } // end-if
         } // end-for
     } // end ()
+    
     
     public void buildFurnaceBlockState(VeryAbstractFurnaceBlock pFurnace, ModelFile pFurnaceModel, ModelFile pFurnaceModel_lit)
     {

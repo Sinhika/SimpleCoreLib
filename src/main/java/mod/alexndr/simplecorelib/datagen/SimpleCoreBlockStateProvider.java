@@ -41,7 +41,7 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 		this.itemModels().withExistingParent("original_copper_ore", 
 		                                     new ResourceLocation(SimpleCoreLib.MODID, "block/original_copper_ore"));
 		this.itemModels().withExistingParent("test_plate", new ResourceLocation(SimpleCoreLib.MODID, "block/test_plate"));
-		//this.itemModels().basicItem(ModBlocks.test_bars.get().asItem());
+		this.basicBlockItem(ModBlocks.test_bars.get());
 		
 		// blockstates
 		this.buildFurnaceBlockState(ModBlocks.test_furnace.get(), testFurnaceModel, testFurnaceModel_lit);
