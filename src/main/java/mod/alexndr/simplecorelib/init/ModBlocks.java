@@ -1,6 +1,7 @@
 package mod.alexndr.simplecorelib.init;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
+import mod.alexndr.simplecorelib.api.content.MFPressurePlateBlockWithTooltip;
 import mod.alexndr.simplecorelib.api.content.MultifunctionPressurePlateBlock;
 import mod.alexndr.simplecorelib.api.helpers.LightUtils;
 import mod.alexndr.simplecorelib.content.TestFurnaceBlock;
@@ -30,9 +31,10 @@ public final class ModBlocks
             () -> new DropExperienceBlock(Block.Properties.of(Material.STONE).strength(2.0F).requiresCorrectToolForDrops()));
    
     public static final RegistryObject<MultifunctionPressurePlateBlock> test_plate = BLOCKS.register("test_plate", 
-            () -> new MultifunctionPressurePlateBlock(15, MultifunctionPressurePlateBlock.Sensitivity.LIVING, 20, 
+            () -> new MFPressurePlateBlockWithTooltip(15, MultifunctionPressurePlateBlock.Sensitivity.LIVING, 20, 
                                                       Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK)
-                                                        .noCollission().strength(0.5F).sound(SoundType.METAL)));
+                                                        .noCollission().strength(0.5F).sound(SoundType.METAL),
+                                                        "tips.test_plate"));
     
     public static final RegistryObject<IronBarsBlock> test_bars = BLOCKS.register("test_bars",
             () -> new IronBarsBlock(Block.Properties.of(Material.METAL)));

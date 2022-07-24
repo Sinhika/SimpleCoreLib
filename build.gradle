@@ -33,6 +33,11 @@ minecraft {
     
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
+sourceSets {
+    main
+    api
+}
+
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {
@@ -57,7 +62,8 @@ minecraft {
             mods {
                 simplecorelib {
                     source sourceSets.main
-               //     source sourceSets.api		// uncomment if including JEI support
+             // uncomment if including JEI support
+                    source sourceSets.api
                 }
             }
         }
@@ -79,7 +85,7 @@ minecraft {
             mods {
                 simplecorelib {
                     source sourceSets.main
-               //     source sourceSets.api		// uncomment if including JEI support
+                    source sourceSets.api             // uncomment if including JEI support
                 }
             }
         }
@@ -108,7 +114,8 @@ minecraft {
             mods {
                 simplecorelib {
                     source sourceSets.main
-               //     source sourceSets.api		// uncomment if including JEI support
+                    // uncomment if including JEI support
+                    source sourceSets.api
                 }
             }
         }
@@ -134,7 +141,8 @@ minecraft {
             mods {
                 simplecorelib {
                     source sourceSets.main
-               //     source sourceSets.api		// uncomment if including JEI support
+                    // uncomment if including JEI support
+                    source sourceSets.api
                 }
             }
         }
@@ -149,16 +157,16 @@ repositories {
         name = "mcmodsrepo"
         url = "file:///${project.projectDir}/../mcmodsrepo"
     }
-//    maven {
-//        // location of the maven that hosts JEI files
-//        name = "Progwml6 maven"
-//        url = "https://dvs1.progwml6.com/files/maven/"
-//    }
-//    maven {
-//        // location of a maven mirror for JEI files, as a fallback
-//        name = "ModMaven"
-//        url = "https://modmaven.dev"
-//    }
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
     maven {
         // fallback if not available locally.
         name = "CurseForge"
@@ -173,10 +181,10 @@ dependencies {
     minecraft "net.minecraftforge:forge:${version_forge}"
     // UNCOMMENT JEI stuff if JEI support ready.
   // compile against the JEI API but do not include it at runtime
-//  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
-//  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
+  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
+  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
   // at runtime, use the full JEI jar for Forge
-//  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")
+  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

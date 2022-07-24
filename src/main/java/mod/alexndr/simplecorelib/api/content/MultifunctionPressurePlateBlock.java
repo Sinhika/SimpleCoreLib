@@ -2,7 +2,9 @@ package mod.alexndr.simplecorelib.api.content;
 
 import java.util.List;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -11,6 +13,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.WeightedPressurePlateBlock;
@@ -171,6 +176,37 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
                     0.5F);
         }
     } // end playOffSound()
+
+    
+
+    @Override
+    public void appendHoverText(ItemStack pStack, BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag)
+    {
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        String tipKey = null;
+        
+        switch(this.sensitivity) 
+        {
+            case EVERYTHING:
+            case EVERYTHING_WEIGHTED:
+               tipKey = "tips.pressure_plate.everything";
+               break;
+            case LIVING:
+            case LIVING_WEIGHTED:
+                tipKey = "tips.pressure_plate.living";
+                break;
+            case MOBS:
+            case MOBS_WEIGHTED:
+                tipKey = "tips.pressure_plate.mobs";
+               break;
+            case PLAYERS:
+            case PLAYERS_WEIGHTED:
+                tipKey = "tips.pressure_plate.players";
+                break;
+        } // end-switch
+        pTooltip.add(Component.translatable(tipKey).withStyle(ChatFormatting.GREEN));
+    }
+
 
 
     /**

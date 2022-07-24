@@ -26,7 +26,7 @@ cobalt_version =
 aesthetics_version = 
 
 version_mcjei = 1.19
-jei_version = 11.0.0.206
+jei_version = 11.1.0.235
 
 silents_mechanisms: versionRange="[,)"
 silentgear: versionRange="[,)"
