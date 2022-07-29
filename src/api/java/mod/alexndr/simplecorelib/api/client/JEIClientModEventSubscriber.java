@@ -1,8 +1,8 @@
-package mod.alexndr.simplecorelib.client;
+package mod.alexndr.simplecorelib.api.client;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.client.gui.SimpleSpriteUploader;
-import mod.alexndr.simplecorelib.client.gui.Textures;
+import mod.alexndr.simplecorelib.api.client.gui.SimpleSpriteUploader;
+import mod.alexndr.simplecorelib.api.client.gui.Textures;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;

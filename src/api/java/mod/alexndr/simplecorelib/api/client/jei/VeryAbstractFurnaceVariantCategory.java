@@ -1,4 +1,4 @@
-package mod.alexndr.simplecorelib.client.jei;
+package mod.alexndr.simplecorelib.api.client.jei;
 
 import java.text.NumberFormat;
 
@@ -10,7 +10,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.client.JEIClientModEventSubscriber;
+import mod.alexndr.simplecorelib.api.client.JEIClientModEventSubscriber;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;

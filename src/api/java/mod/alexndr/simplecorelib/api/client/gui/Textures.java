@@ -1,4 +1,4 @@
-package mod.alexndr.simplecorelib.client.gui;
+package mod.alexndr.simplecorelib.api.client.gui;
 
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
