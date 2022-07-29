@@ -7,7 +7,7 @@ version_forge = 1.19-41.1.0
 version_parchment = 1.18.2-2022.07.17-1.19
 mods.toml forge = versionRange="[41.0.98,)"
 
-simplecorelib_version = 1.19-5.0.1.6
+simplecorelib_version = 1.19-5.0.1.8
 simpleores_version = 1.19-5.0.0.0
 netherrocks_version = 
 simple_machines_version = 
