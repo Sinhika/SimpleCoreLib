@@ -2,13 +2,13 @@ USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 ============================================
 org.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64
 
-version_minecraft = 1.19
-version_forge = 1.19-41.1.0
-version_parchment = 1.18.2-2022.07.17-1.19
-mods.toml forge = versionRange="[41.0.98,)"
+version_minecraft = 1.19.2
+version_forge = 1.19-43.0.0
+version_parchment = 1.18.2-2022.08.02-1.19.2
+mods.toml forge = versionRange="[43.0.0,)"
 
-simplecorelib_version = 1.19-5.0.1.8
-simpleores_version = 1.19-5.0.0.0
+simplecorelib_version = 
+simpleores_version = 
 netherrocks_version = 
 simple_machines_version = 
 fusion_version = 
@@ -25,8 +25,8 @@ cobalt_version =
 
 aesthetics_version = 
 
-version_mcjei = 1.19
-jei_version = 11.1.0.235
+version_mcjei = 1.19.2
+jei_version = 
 
 silents_mechanisms: versionRange="[,)"
 silentgear: versionRange="[,)"
