@@ -16,10 +16,10 @@ jei_version = 11.1.1.239
 simplecorelib_version = 1.19-5.0.1.8
 simpleores_version = 1.19-5.0.0.0
 netherrocks_version = 1.19-5.0.0.0
+fusion_version = 1.19-5.0.0.0
 simple_machines_version = 1.19-4.0.0.0
-fusion_version = 
+onlysilver_version = 1.19-5.0.0.0
 ashenwheat_version = 
-onlysilver_version = 
 arsenic_version = 
 classicalalchemy_version = 
 hadite_version = 
@@ -35,16 +35,18 @@ aesthetics_version =
 1.19.2
 ---------------------------------------------
 version_minecraft = 1.19.2
-version_forge = 1.19.2-43.0.8
-version_parchment = 1.18.2-2022.08.02-1.19.2
+version_forge = 1.19.2-43.0.19
+version_parchment = 2022.08.14-1.19.2
 mods.toml forge = versionRange="[43.0.0,)"
 
 version_mcjei = 1.19.2
 jei_version = 11.2.0.247
 
-simplecorelib_version = 1.19.2-5.1.0.0
+simplecorelib_version = 1.19.2-5.1.0.1
 simpleores_version = 1.19.2-5.1.0.0
-netherrocks_version = 1.19.2-5.1.0.0
-simple_machines_version = 1.19.2-4.1.0.0
+netherrocks_version = 1.19.2-5.1.0.2
+fusion_version = 1.19-5.1.0.0
+simple_machines_version = 1.19.2-4.1.0.1
+onlysilver_version = 1.19.2-5.1.0.0
 
 
