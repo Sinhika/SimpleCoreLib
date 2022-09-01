@@ -7,7 +7,7 @@ org.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64
 ---------------------------------------------
 version_minecraft = 1.19
 version_forge = 1.19-41.1.0
-version_parchment = 1.18.2-2022.08.02-1.19
+version_parchment = 1.18.2-2022.08.21-1.19
 mods.toml forge = versionRange="[41.1.0,)"
 
 version_mcjei = 1.19
@@ -21,10 +21,10 @@ simple_machines_version = 1.19-4.0.0.0
 onlysilver_version = 1.19-5.0.0.0
 hadite_version = 1.19-4.0.0.0
 cthon_version = 1.19-4.0.0.0
+sterlingblack_version = 1.19-4.0.0.0
+arsenic_version = 1.19-5.0.0.0
 ashenwheat_version = 
-arsenic_version = 
 classicalalchemy_version = 
-sterlingblack_version = 
 tungsten_version = 
 golden_glitter_version = 
 cobalt_version = 
@@ -50,5 +50,7 @@ simple_machines_version = 1.19.2-4.1.0.1
 onlysilver_version = 1.19.2-5.1.0.0
 hadite_version = 1.19.2-4.1.0.0
 cthon_version = 1.19.2-4.1.0.0
+sterlingblack_version = 1.19.2-4.1.0.0
+arsenic_version = 1.19.2-5.1.0.0
 
 

@@ -1,11 +1,11 @@
 package mod.alexndr.simplecorelib.api.client;
 
-import java.util.Random;
 import java.util.function.Predicate;
 
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -85,7 +85,7 @@ public final class ClientUtils
      * @return array with args for World.addParticle position & vector.
      *     
      */
-    public static double[] findBlockParticleVector(BlockPos pos, Random rand, float fact1, float fact2)
+    public static double[] findBlockParticleVector(BlockPos pos, RandomSource rand, float fact1, float fact2)
     {
         double pv[] = new double[6];
         
@@ -112,7 +112,7 @@ public final class ClientUtils
      * @param rand as provided by animateTick()
      * @return array with args for World.addParticle position & vector.
      */
-    public static double[] findBlockParticleVector(BlockPos pos, Random rand)
+    public static double[] findBlockParticleVector(BlockPos pos, RandomSource rand)
     {
         return findBlockParticleVector(pos, rand, 0.5F, 2.0F);
     } // end findBlockParticleVector(pos, rand)
