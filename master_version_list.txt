@@ -10,7 +10,7 @@ mods.toml forge = versionRange="[41.1.0,)"
 version_mcjei = 1.19
 jei_version = 11.1.1.239
 
-simplecorelib_version = 1.19-5.0.1.8
+simplecorelib_version = 1.19-5.0.1.9
 simpleores_version = 1.19-5.0.0.0
 netherrocks_version = 1.19-5.0.0.0
 fusion_version = 1.19-5.0.0.0
@@ -40,7 +40,7 @@ mods.toml forge = versionRange="[43.0.0,)"
 version_mcjei = 1.19.2
 jei_version = 11.2.0.247
 
-simplecorelib_version = 1.19.2-5.1.0.1
+simplecorelib_version = 1.19.2-5.1.0.2
 simpleores_version = 1.19.2-5.1.0.0
 netherrocks_version = 1.19.2-5.1.0.2
 fusion_version = 1.19.2-5.1.0.0
