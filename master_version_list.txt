@@ -6,8 +6,8 @@ org.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64
 1.19.2
 ---------------------------------------------
 version_minecraft = 1.19.2
-version_forge = 1.19.2-43.1.47
-version_parchment = 2022.10.16-1.19.2
+version_forge = 1.19.2-43.1.52
+version_parchment = 2022.11.06-1.19.2
 mods.toml forge = versionRange="[43.0.0,)"
 
 version_mcjei = 1.19.2
@@ -28,7 +28,7 @@ golden_glitter_version = 1.19.2-4.1.0.0
 cobalt_version = 1.19.2-4.1.0.0
 tungsten_version = 1.19.2-4.1.0.0
 
-ashenwheat_version = 1.19.2-6.1.0.0 
+ashenwheat_version = 1.19.2-6.1.0.1 
 
 ---------------------------------------------
 1.19
