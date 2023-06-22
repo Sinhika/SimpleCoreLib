@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import mod.alexndr.simplecorelib.config.ConfigHolder;
+import mod.alexndr.simplecorelib.init.CreativeModeTabs;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModItems;
 import mod.alexndr.simplecorelib.init.ModMenuTypes;
@@ -41,6 +42,7 @@ public class SimpleCoreLib
         // Register Deferred Registers (Does not need to be before Configs)
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
+        CreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         ModMenuTypes.CONTAINER_TYPES.register(modEventBus);
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
     } // end SimpleOres()

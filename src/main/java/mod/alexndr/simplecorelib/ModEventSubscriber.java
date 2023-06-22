@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import mod.alexndr.simplecorelib.config.ConfigHelper;
 import mod.alexndr.simplecorelib.config.ConfigHolder;
 import mod.alexndr.simplecorelib.init.ModBlocks;
-import mod.alexndr.simplecorelib.init.ModItemGroups;
+import mod.alexndr.simplecorelib.init.CreativeModeTabs;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -40,7 +40,7 @@ public final class ModEventSubscriber
                 // Register the BlockItem for the block
                 .forEach(block -> {
                     // Make the properties, and make it so that the item will be on our ItemGroup (CreativeTab)
-                    final Item.Properties properties = new Item.Properties().tab(ModItemGroups.MOD_ITEM_GROUP);
+                    final Item.Properties properties = new Item.Properties().tab(CreativeModeTabs.MOD_ITEM_GROUP);
                     // Create the new BlockItem with the block and it's properties
                     final BlockItem blockItem = new BlockItem(block, properties);
                     // Register the BlockItem

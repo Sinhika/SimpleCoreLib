@@ -10,8 +10,6 @@ import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -23,20 +21,20 @@ public final class ModBlocks
     
     // Test Blocks
     public static final RegistryObject<TestFurnaceBlock> test_furnace = BLOCKS.register("test_furnace",
-            () -> new TestFurnaceBlock(Block.Properties.of(Material.STONE)
+            () -> new TestFurnaceBlock(Block.Properties.of()
                     .strength(3.5F, 12.0F).requiresCorrectToolForDrops()
                     .lightLevel(LightUtils.setSwitchedLight(BlockStateProperties.LIT, 13))));
                  
     public static final RegistryObject<DropExperienceBlock> original_copper_ore = BLOCKS.register("original_copper_ore", 
-            () -> new DropExperienceBlock(Block.Properties.of(Material.STONE).strength(2.0F).requiresCorrectToolForDrops()));
+            () -> new DropExperienceBlock(Block.Properties.of().strength(2.0F).requiresCorrectToolForDrops()));
    
     public static final RegistryObject<MultifunctionPressurePlateBlock> test_plate = BLOCKS.register("test_plate", 
             () -> new MFPressurePlateBlockWithTooltip(15, MultifunctionPressurePlateBlock.Sensitivity.LIVING, 20, 
-                                                      Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK)
+                                                      Block.Properties.of()
                                                         .noCollission().strength(0.5F).sound(SoundType.METAL),
                                                         "tips.test_plate"));
     
     public static final RegistryObject<IronBarsBlock> test_bars = BLOCKS.register("test_bars",
-            () -> new IronBarsBlock(Block.Properties.of(Material.METAL)));
+            () -> new IronBarsBlock(Block.Properties.of()));
     
 } // end class
