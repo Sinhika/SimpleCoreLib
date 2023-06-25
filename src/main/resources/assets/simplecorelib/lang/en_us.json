@@ -1,5 +1,5 @@
 {
-	"itemGroup.simplecorelib" : "SimpleCoreLib",
+	"item_group.simplecorelib.simplecore_tab" : "SimpleCoreLib",
    	"block.simplecorelib.test_furnace": "Test Furnace",
    	"block.simplecorelib.test_plate" : "Test Pressure Plate",
     "block.simplecorelib.original_copper_ore" : "Original Copper Ore",
