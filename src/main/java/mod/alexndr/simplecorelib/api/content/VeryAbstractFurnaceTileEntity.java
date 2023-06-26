@@ -42,6 +42,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -229,11 +230,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, @Nullable final Direction side)
     {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
+        if (cap == ForgeCapabilities.ITEM_HANDLER && side == null)
         {
             return inventoryCapabilityInternal.cast();
         }
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side != null) 
+        if (cap == ForgeCapabilities.ITEM_HANDLER && side != null) 
         {
             switch (side) {
                 case DOWN:
@@ -306,7 +307,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
     protected boolean isOutput(final ItemStack stack)
     {
         final Optional<ItemStack> result = getResult(inventory.getStackInSlot(INPUT_SLOT));
-        return result.isPresent() && ItemStack.isSame(result.get(), stack);
+        return result.isPresent() && ItemStack.isSameItem(result.get(), stack);
     }
     
     public boolean isBurning()
