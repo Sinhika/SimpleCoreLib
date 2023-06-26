@@ -5,8 +5,6 @@ import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,10 +15,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.WeightedPressurePlateBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.phys.AABB;
 
 /**
@@ -43,10 +41,11 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
      * @param pPressedTime - game ticks to deactivate when no longer pressed. heavy/light weighted plate=10; stone/wooden plate=20.
      * @param pProperties - usually @code{Block.Properties.of(Material.STONE).noCollission().strength(0.5F).sound(SoundType.STONE)}
      */
-    public MultifunctionPressurePlateBlock(int pMaxWeight, MultifunctionPressurePlateBlock.Sensitivity pSensitify, int pPressedTime,
-                                       Properties pProperties)
+    public MultifunctionPressurePlateBlock(int pMaxWeight, MultifunctionPressurePlateBlock.Sensitivity pSensitify, 
+    									   int pPressedTime, BlockBehaviour.Properties pProperties,
+    									   BlockSetType pSetType)
     {
-        super(pMaxWeight, pProperties);
+        super(pMaxWeight, pProperties, pSetType);
         this.sensitivity = pSensitify;
         this.pressTime = pPressedTime;
         this.is_weighted = List.of(Sensitivity.EVERYTHING_WEIGHTED, Sensitivity.MOBS_WEIGHTED, Sensitivity.PLAYERS_WEIGHTED,
@@ -136,48 +135,6 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
     {
         return pState.setValue(POWER, Integer.valueOf(pStrength));
     }
-
-
-
-    @Override
-    protected void playOnSound(LevelAccessor pLevel, BlockPos pPos)
-    {
-        if (this.material == Material.WOOD || this.material == Material.NETHER_WOOD)
-        {
-            pLevel.playSound((Player) null, pPos, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON, SoundSource.BLOCKS, 0.3F,
-                    0.8F);
-        }
-        else if (this.material == Material.METAL || this.material == Material.HEAVY_METAL) 
-        {
-            super.playOnSound(pLevel, pPos);
-        }
-        else
-        {
-            pLevel.playSound((Player) null, pPos, SoundEvents.STONE_PRESSURE_PLATE_CLICK_ON, SoundSource.BLOCKS, 0.3F,
-                    0.6F);
-        } 
-    } // end playOnSound()
-
-    @Override
-    protected void playOffSound(LevelAccessor pLevel, BlockPos pPos)
-    {
-        if (this.material == Material.WOOD || this.material == Material.NETHER_WOOD)
-        {
-            pLevel.playSound((Player) null, pPos, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundSource.BLOCKS, 0.3F,
-                    0.7F);
-        } 
-        else if (this.material == Material.METAL || this.material == Material.HEAVY_METAL) 
-        {
-            super.playOffSound(pLevel, pPos);
-        }
-        else
-        {
-            pLevel.playSound((Player) null, pPos, SoundEvents.STONE_PRESSURE_PLATE_CLICK_OFF, SoundSource.BLOCKS, 0.3F,
-                    0.5F);
-        }
-    } // end playOffSound()
-
-    
 
     @Override
     public void appendHoverText(ItemStack pStack, BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag)

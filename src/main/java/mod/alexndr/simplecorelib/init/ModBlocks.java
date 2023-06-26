@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,6 +38,7 @@ public final class ModBlocks
             () -> new MFPressurePlateBlockWithTooltip(15, MultifunctionPressurePlateBlock.Sensitivity.LIVING, 20, 
                                                       BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK)
                                                         .noCollission().strength(0.5F).sound(SoundType.METAL),
+                                                      BlockSetType.IRON,
                                                         "tips.test_plate"));
     
     public static final RegistryObject<IronBarsBlock> test_bars = BLOCKS.register("test_bars",
