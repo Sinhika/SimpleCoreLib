@@ -5,16 +5,17 @@ import java.util.function.Consumer;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
@@ -76,7 +77,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         if (suffix != null) {
             recipe_name = recipe_name.concat(suffix);
         }
-        SimpleCookingRecipeBuilder.smelting(oreIn, ingotOut, experienceIn, cookingTimeIn)
+        SimpleCookingRecipeBuilder.smelting(oreIn, RecipeCategory.MISC, ingotOut, experienceIn, cookingTimeIn)
             .unlockedBy(recipe_name, criterion)
             .save(consumer, make_resource(recipe_name));
 
@@ -84,7 +85,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
        if (suffix != null) {
            recipe_name = recipe_name.concat(suffix);
        }
-       SimpleCookingRecipeBuilder.blasting(oreIn, ingotOut, experienceIn, cookingTimeIn/2)
+       SimpleCookingRecipeBuilder.blasting(oreIn, RecipeCategory.MISC, ingotOut, experienceIn, cookingTimeIn/2)
            .unlockedBy(recipe_name, criterion)
            .save(consumer, make_resource(recipe_name));
     }
@@ -102,12 +103,12 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                                              float experienceIn, int cookingTimeIn)
     {
         String recipe_name = nugget.asItem().toString() + "_from_smelting";
-        SimpleCookingRecipeBuilder.smelting(ingredients, nugget, experienceIn, cookingTimeIn)
+        SimpleCookingRecipeBuilder.smelting(ingredients, RecipeCategory.MISC, nugget, experienceIn, cookingTimeIn)
             .unlockedBy(recipe_name, criterion)
             .save(consumer, make_resource(recipe_name));
             
         recipe_name = nugget.asItem().toString() + "_from_blasting";
-        SimpleCookingRecipeBuilder.blasting(ingredients, nugget, experienceIn, cookingTimeIn/2)
+        SimpleCookingRecipeBuilder.blasting(ingredients, RecipeCategory.MISC, nugget, experienceIn, cookingTimeIn/2)
             .unlockedBy(recipe_name, criterion)
             .save(consumer, make_resource(recipe_name));
     } // end buildVanillaRecyclingRecipes
@@ -127,11 +128,11 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                                           ItemLike nugget, CriterionTriggerInstance criterion)
     {
         // block <=> ingots
-        ShapelessRecipeBuilder.shapeless(ingot.asItem(), 9)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ingot.asItem(), 9)
             .requires(block.asItem())
             .unlockedBy("has_item", criterion)
             .save(consumer);
-        ShapedRecipeBuilder.shaped(block.asItem())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block.asItem())
             .define('S', ingot)
             .pattern("SSS")
             .pattern("SSS")
@@ -144,12 +145,12 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         {
             String ingot_name = ingot.asItem().toString();
                     
-            ShapelessRecipeBuilder.shapeless(nugget.asItem(), 9)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,nugget.asItem(), 9)
                 .requires(ingot)
                 .unlockedBy("has_item", criterion)
                 .save(consumer);
             
-            ShapedRecipeBuilder.shaped(ingot)
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC,ingot)
                 .define('S', nugget.asItem())
                 .pattern("SSS")
                 .pattern("SSS")
@@ -171,7 +172,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             String mchunk_name = medium_chunk.asItem().toString();
             
             // nuggets to medium chunk,
-            ShapedRecipeBuilder.shaped(medium_chunk)
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC,medium_chunk)
                 .define('S', nugget.asItem())
                 .pattern("SS")
                 .pattern("SS")
@@ -179,7 +180,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                 .save(consumer, make_resource(mchunk_name + "_from_nuggets"));
                 
             // medium chunk to nuggets
-            ShapelessRecipeBuilder.shapeless(nugget.asItem(), 4)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,nugget.asItem(), 4)
                 .requires(medium_chunk)
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(nugget_name + "_from_medium_chunk"));
@@ -190,20 +191,20 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             String mchunk_name = medium_chunk.asItem().toString();
             
             // large chunk to medium chunks
-            ShapelessRecipeBuilder.shapeless(medium_chunk.asItem(), 2)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,medium_chunk.asItem(), 2)
                 .requires(large_chunk)
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(mchunk_name + "_from_large_chunk"));
             
             // medium chunks + nugget to large chunk
-            ShapelessRecipeBuilder.shapeless(large_chunk.asItem())
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,large_chunk.asItem())
                 .requires(medium_chunk, 2)
                 .requires(nugget)
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(lchunk_name + "_from_medium_chunks"));
             
             // nuggets & medium chunk to large chunk.
-            ShapelessRecipeBuilder.shapeless(large_chunk.asItem())
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,large_chunk.asItem())
                 .requires(nugget, 5)
                 .requires(medium_chunk)
                 .unlockedBy("has_item", criterion)
@@ -213,7 +214,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         else if (large_chunk != null)
         {
             // large chunk to nuggets
-            ShapelessRecipeBuilder.shapeless(nugget.asItem(), 8)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,nugget.asItem(), 8)
                 .requires(large_chunk)
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(nugget_name + "_from_large_chunk"));
@@ -232,7 +233,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             Item bow = ForgeRegistries.ITEMS.getValue(bow_name);
             Ingredient string = Ingredient.of(Tags.Items.STRING);
                     
-            ShapedRecipeBuilder.shaped(rod)
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC,rod)
                 .define('S', rod_material)
                 .pattern("S")
                 .pattern("S")
@@ -241,7 +242,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             
             if (condition==null)
             {
-                ShapedRecipeBuilder.shaped(bow)
+                ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, bow)
                     .define('X', rod)
                     .define('Y', string)
                     .define('Z', keystone)
@@ -253,7 +254,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             } // end-if no condition
             else {
                 ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shaped(bow)
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, bow)
                     .define('X', rod)
                     .define('Y', string)
                     .define('Z', keystone)
@@ -293,28 +294,28 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
     
         if (condition==null) 
         {
-            ShapedRecipeBuilder.shaped(helmet)
+            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet)
                 .define('S', item)
                 .pattern("SSS")
                 .pattern("S S")
                 .pattern("   ")
                 .unlockedBy("has_item", criterion)
                 .save(consumer);
-            ShapedRecipeBuilder.shaped(chestplate)
+            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, chestplate)
                 .define('S',item)
                 .pattern("S S")
                 .pattern("SSS")
                 .pattern("SSS")
                 .unlockedBy("has_item", criterion)
                 .save(consumer);
-            ShapedRecipeBuilder.shaped(leggings)
+            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, leggings)
                 .define('S', item)
                 .pattern("SSS")
                 .pattern("S S")
                 .pattern("S S")
                 .unlockedBy("has_item", criterion)
                 .save(consumer);
-            ShapedRecipeBuilder.shaped(boots)
+            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, boots)
                 .define('S', item)
                 .pattern("   ")
                 .pattern("S S")
@@ -325,7 +326,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         else 
         {
             ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shaped(helmet)
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet)
                         .define('S', item)
                         .pattern("SSS")
                         .pattern("S S")
@@ -336,7 +337,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                 .build(consumer, helmet_name);
             
             ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shaped(chestplate)
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, chestplate)
                         .define('S',item)
                         .pattern("S S")
                         .pattern("SSS")
@@ -346,7 +347,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                 .setAdvancement(chestplate_name, build_advancement_with_condition(chestplate_name, condition, criterion))
                 .build(consumer, chestplate_name);
             ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shaped(leggings)
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, leggings)
                         .define('S', item)
                         .pattern("SSS")
                         .pattern("S S")
@@ -356,7 +357,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                 .setAdvancement(leggings_name, build_advancement_with_condition(leggings_name, condition, criterion))
                 .build(consumer, leggings_name);
             ConditionalRecipe.builder().addCondition(condition)
-                .addRecipe(ShapedRecipeBuilder.shaped(boots)
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, boots)
                         .define('S', item)
                         .pattern("   ")
                         .pattern("S S")
@@ -391,7 +392,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         if (bar != null) {
             ConditionalRecipe.builder().addCondition(condition)
                 .addRecipe(
-                    ShapedRecipeBuilder.shaped(bar, 16)
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, bar, 16)
                         .define('S', item)
                         .pattern("SSS")
                         .pattern("SSS")
@@ -403,7 +404,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         if (bricks != null) {
             ConditionalRecipe.builder().addCondition(condition)
                 .addRecipe(
-                    ShapedRecipeBuilder.shaped(bricks)
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, bricks)
                         .define('S', item)
                         .pattern("SS")
                         .pattern("SS")
@@ -416,7 +417,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         {
             ConditionalRecipe.builder().addCondition(condition)
                 .addRecipe(
-                    ShapedRecipeBuilder.shaped(brick_stairs, 4)
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, brick_stairs, 4)
                         .define('S', Ingredient.of(bricks.asItem()))
                         .pattern("S  ")
                         .pattern("SS ")
@@ -429,7 +430,8 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             // stonecutting recipe.
             ConditionalRecipe.builder().addCondition(condition)
             .addRecipe(
-            		SingleItemRecipeBuilder.stonecutting(Ingredient.of(bricks.asItem()), brick_stairs)
+            		SingleItemRecipeBuilder.stonecutting(
+            				Ingredient.of(bricks.asItem()), RecipeCategory.BUILDING_BLOCKS, brick_stairs)
                     .unlockedBy("has_item", criterion)
                     ::save)
             .build(consumer, new ResourceLocation(brick_stairs_name + "_stonecutting"));
@@ -439,7 +441,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         {
             ConditionalRecipe.builder().addCondition(condition)
             .addRecipe(
-                ShapedRecipeBuilder.shaped(brick_slab, 6)
+                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, brick_slab, 6)
                     .define('S', Ingredient.of(bricks.asItem()))
                     .pattern("   ")
                     .pattern("   ")
@@ -452,7 +454,8 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             // stone cutting recipes.
             ConditionalRecipe.builder().addCondition(condition)
             .addRecipe(
-            		SingleItemRecipeBuilder.stonecutting(Ingredient.of(bricks.asItem()), brick_slab, 2)
+            		SingleItemRecipeBuilder.stonecutting(
+            				Ingredient.of(bricks.asItem()), RecipeCategory.BUILDING_BLOCKS, brick_slab, 2)
                     .unlockedBy("has_item", criterion)
                     ::save)
             .build(consumer, new ResourceLocation(brick_slab_name + "_stonecutting"));
@@ -461,7 +464,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         if (door != null) {
             ConditionalRecipe.builder().addCondition(condition)
                 .addRecipe(
-                    ShapedRecipeBuilder.shaped(door, 3)
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, door, 3)
                         .define('S', item)
                         .pattern(" SS")
                         .pattern(" SS")
@@ -478,7 +481,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
     public void buildSimplePressurePlate(Consumer<FinishedRecipe> consumer, Ingredient item,
             Block pp, CriterionTriggerInstance criterion)
     {
-        ShapedRecipeBuilder.shaped(pp.asItem())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pp.asItem())
             .define('S', item)
             .pattern("   ")
             .pattern("SS ")
@@ -524,7 +527,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         {
             // sword
             if (sword != null) {
-                ShapedRecipeBuilder.shaped(sword)
+                ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, sword)
                     .define('S', item)
                     .define('T', stick)
                     .pattern(" S ")
@@ -536,7 +539,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             
             // axe
             if (axe != null) {
-                ShapedRecipeBuilder.shaped(axe)
+                ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, axe)
                     .define('S', item)
                     .define('T', stick)
                     .pattern("SS ")
@@ -548,7 +551,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             
             // hoe
             if (hoe != null) {
-                ShapedRecipeBuilder.shaped(hoe)
+                ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hoe)
                     .define('S', item)
                     .define('T', stick)
                     .pattern("SS ")
@@ -560,7 +563,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             
             // pickaxe
             if (pickaxe != null) {
-                ShapedRecipeBuilder.shaped(pickaxe)
+                ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pickaxe)
                     .define('S', item)
                     .define('T', stick)
                     .pattern("SSS")
@@ -573,7 +576,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             // shovel
             if (shovel != null)
             {
-                ShapedRecipeBuilder.shaped(shovel)
+                ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shovel)
                     .define('S', item)
                     .define('T', stick)
                     .pattern(" S ")
@@ -585,7 +588,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             
             if (has_shears && shears != null) 
             {
-                ShapedRecipeBuilder.shaped(shears)
+                ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shears)
                     .define('S', item)
                     .pattern(" S")
                     .pattern("S ")
@@ -599,7 +602,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (sword != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shaped(sword)
+                        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, sword)
                             .define('S', item)
                             .define('T', stick)
                             .pattern(" S ")
@@ -615,7 +618,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (pickaxe != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shaped(pickaxe)
+                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pickaxe)
                             .define('S', item)
                             .define('T', stick)
                             .pattern("SSS")
@@ -631,7 +634,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (axe != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shaped(axe)
+                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, axe)
                             .define('S', item)
                             .define('T', stick)
                             .pattern("SS ")
@@ -646,7 +649,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (shovel != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shaped(shovel)
+                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shovel)
                             .define('S', item)
                             .define('T', stick)
                             .pattern(" S ")
@@ -661,7 +664,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (hoe != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                        ShapedRecipeBuilder.shaped(hoe)
+                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hoe)
                             .define('S', item)
                             .define('T', stick)
                             .pattern("SS ")
@@ -676,7 +679,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             if (has_shears && shears != null) {
                 ConditionalRecipe.builder().addCondition(condition)
                     .addRecipe(
-                            ShapedRecipeBuilder.shaped(shears)
+                            ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shears)
                             .define('S', item)
                             .pattern(" S")
                             .pattern("S ")
