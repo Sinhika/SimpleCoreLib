@@ -1,27 +1,30 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
-import mod.alexndr.simplecorelib.api.helpers.TagUtils;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class MiningItemTags extends ItemTagsProvider 
 {
 
-	public MiningItemTags(DataGenerator gen, BlockTagsProvider blockTags, String modId,
+	public MiningItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, 
+			CompletableFuture<TagLookup<Block>> blockTagProvider, String modId,
 			ExistingFileHelper existingFileHelper) 
 	{
-		super(gen, blockTags, modId, existingFileHelper);
+		super(output, lookupProvider, blockTagProvider, modId, existingFileHelper);
 	}
 
 	@Override
-	protected void addTags() 
+	protected void addTags(HolderLookup.Provider lookupProvider) 
 	{
 		registerOreTags();
 	}
@@ -45,15 +48,15 @@ public class MiningItemTags extends ItemTagsProvider
 										  Collection<DropExperienceBlock> netherrack_ore_blocks )
 	{
 		if (ore_blocks != null && !ore_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Item> stone_item = this.tag(TagUtils.forgeTag("ores_in_ground/stone"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> stone_item = this.tag(Tags.Items.ORES_IN_GROUND_STONE);
 			ore_blocks.stream().forEach(b -> stone_item.add(b.asItem()));
 		}
 		if (deepslate_ore_blocks != null && !deepslate_ore_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Item> deepslate = this.tag(TagUtils.forgeTag("ores_in_ground/deepslate"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> deepslate = this.tag(Tags.Items.ORES_IN_GROUND_DEEPSLATE);
 			deepslate_ore_blocks.stream().forEach(b -> deepslate.add(b.asItem()));
 		}
 		if (netherrack_ore_blocks != null && !netherrack_ore_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Item> netherrack = this.tag(TagUtils.forgeTag("ores_in_ground/netherrack"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> netherrack = this.tag(Tags.Items.ORES_IN_GROUND_NETHERRACK);
 			netherrack_ore_blocks.stream().forEach(b -> netherrack.add(b.asItem()));
 		}
 	} // end registerOresInGroundTags
@@ -69,15 +72,15 @@ public class MiningItemTags extends ItemTagsProvider
 									   Collection<DropExperienceBlock> dense_ores)
 	{
 		if (sparse_ores != null && !sparse_ores.isEmpty()) {
-			TagsProvider.TagAppender<Item> sparse = this.tag(TagUtils.forgeTag("ore_rates/sparse"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> sparse = this.tag(Tags.Items.ORE_RATES_SPARSE);
 			sparse_ores.stream().forEach(b -> sparse.add(b.asItem()));
 		}
 		if (singular_ores != null && !singular_ores.isEmpty()) {
-			TagsProvider.TagAppender<Item> singular = this.tag(TagUtils.forgeTag("ore_rates/singular"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> singular = this.tag(Tags.Items.ORE_RATES_SINGULAR);
 			singular_ores.stream().forEach(b -> singular.add(b.asItem()));
 		}
 		if (dense_ores != null && !dense_ores.isEmpty()) {
-			TagsProvider.TagAppender<Item> dense = this.tag(TagUtils.forgeTag("ore_rates/dense"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> dense = this.tag(Tags.Items.ORE_RATES_DENSE);
 			dense_ores.stream().forEach(b -> dense.add(b.asItem()));
 		}
 	} // end registerOreRateTags
