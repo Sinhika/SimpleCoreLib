@@ -1,15 +1,15 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
-import java.io.IOException;
-import java.util.Objects;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 import mod.alexndr.simplecorelib.api.content.MultifunctionPressurePlateBlock;
 import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
@@ -30,12 +30,11 @@ public abstract class SimpleBlockStateProvider extends BlockStateProvider
 {
     private final SimpleBlockModelProvider simpleBlockModels;
 
-    public SimpleBlockStateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper)
+    public SimpleBlockStateProvider(PackOutput output, String modid, ExistingFileHelper exFileHelper)
     {
-        super(gen, modid, exFileHelper);
-        this.simpleBlockModels = new SimpleBlockModelProvider(gen, modid, exFileHelper) {
-            @Override public void run(CachedOutput p_236071_) throws IOException {}
-
+        super(output, modid, exFileHelper);
+        this.simpleBlockModels = new SimpleBlockModelProvider(output, modid, exFileHelper) {
+            @Override public CompletableFuture<?> run(CachedOutput p_236071_) {return null;}
             @Override protected void registerModels() {}
         };
     }

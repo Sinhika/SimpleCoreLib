@@ -1,7 +1,7 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
@@ -10,9 +10,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 public abstract class SimpleBlockModelProvider extends BlockModelProvider
 {
 
-    public SimpleBlockModelProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper)
+    public SimpleBlockModelProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper)
     {
-        super(generator, modid, existingFileHelper);
+        super(output, modid, existingFileHelper);
     }
 
     protected BlockModelBuilder bars(String name, String parent)
