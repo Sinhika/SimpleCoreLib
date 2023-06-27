@@ -8,10 +8,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -116,15 +116,15 @@ public class MiningBlockTags extends BlockTagsProvider
 										  Collection<DropExperienceBlock> netherrack_ore_blocks )
 	{
 		if (ore_blocks != null && !ore_blocks.isEmpty()) {
-			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> stone = this.tag(TagUtils.forgeBlockTag("ores_in_ground/stone"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> stone = this.tag(Tags.Blocks.ORES_IN_GROUND_STONE);
 			ore_blocks.stream().forEach(b -> stone.add(b));
 		}
 		if (deepslate_ore_blocks != null && !deepslate_ore_blocks.isEmpty()) {
-			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> deepslate = this.tag(TagUtils.forgeBlockTag("ores_in_ground/deepslate"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> deepslate = this.tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE);
 			deepslate_ore_blocks.stream().forEach(b -> deepslate.add(b));
 		}
 		if (netherrack_ore_blocks != null && !netherrack_ore_blocks.isEmpty()) {
-			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> netherrack = this.tag(TagUtils.forgeBlockTag("ores_in_ground/netherrack"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> netherrack = this.tag(Tags.Blocks.ORES_IN_GROUND_NETHERRACK);
 			netherrack_ore_blocks.stream().forEach(b -> netherrack.add(b));
 		}
 	} // end registerOresInGroundTags
@@ -140,15 +140,15 @@ public class MiningBlockTags extends BlockTagsProvider
 									   Collection<DropExperienceBlock> dense_ores)
 	{
 		if (sparse_ores != null && !sparse_ores.isEmpty()) {
-			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> sparse = this.tag(TagUtils.forgeBlockTag("ore_rates/sparse"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> sparse = this.tag(Tags.Blocks.ORE_RATES_SPARSE);
 			sparse_ores.stream().forEach(b -> sparse.add(b));
 		}
 		if (singular_ores != null && !singular_ores.isEmpty()) {
-			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> singular = this.tag(TagUtils.forgeBlockTag("ore_rates/singular"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> singular = this.tag(Tags.Blocks.ORE_RATES_SINGULAR);
 			singular_ores.stream().forEach(b -> singular.add(b));
 		}
 		if (dense_ores != null && !dense_ores.isEmpty()) {
-			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> dense = this.tag(TagUtils.forgeBlockTag("ore_rates/dense"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> dense = this.tag(Tags.Blocks.ORE_RATES_DENSE);
 			dense_ores.stream().forEach(b -> dense.add(b));
 		}
 	} // end registerOreRateTags
