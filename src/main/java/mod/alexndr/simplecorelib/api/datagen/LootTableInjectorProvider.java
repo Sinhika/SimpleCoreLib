@@ -1,6 +1,11 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
+import java.util.List;
+import java.util.Set;
+
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -8,12 +13,13 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public abstract class LootTableInjectorProvider extends AbstractLootTableProvider
+public abstract class LootTableInjectorProvider extends LootTableProvider
 {
 
-    public LootTableInjectorProvider(DataGenerator dataGeneratorIn)
+    public LootTableInjectorProvider(PackOutput pOutput, Set<ResourceLocation> pRequiredTables, 
+    								 List<LootTableProvider.SubProviderEntry> pSubProviders)
     {
-        super(dataGeneratorIn);
+        super(pOutput, pRequiredTables, pSubProviders);
     }
     
     public void addInjectionTable(String modid, String table_name, LootPool.Builder pool)

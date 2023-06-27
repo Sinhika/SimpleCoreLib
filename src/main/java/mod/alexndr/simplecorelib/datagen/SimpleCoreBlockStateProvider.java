@@ -3,7 +3,7 @@ package mod.alexndr.simplecorelib.datagen;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.api.datagen.SimpleBlockStateProvider;
 import mod.alexndr.simplecorelib.init.ModBlocks;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -12,9 +12,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 {
 
-	public SimpleCoreBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper)
+	public SimpleCoreBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper)
 	{
-		super(gen, SimpleCoreLib.MODID, exFileHelper);
+		super(output, SimpleCoreLib.MODID, exFileHelper);
 	}
 
 	@Override
