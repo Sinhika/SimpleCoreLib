@@ -44,7 +44,6 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -374,7 +373,8 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
         // RecipeManager#getRecipe and
         // AbstractCookingRecipe#getCraftingResult() so we make one here.
         final SimpleContainer dummyInventory = new SimpleContainer(input);
-        Optional<ItemStack> maybe_result = getRecipe(dummyInventory).map(recipe -> recipe.assemble(dummyInventory));
+        Optional<ItemStack> maybe_result = getRecipe(dummyInventory).map(
+        		recipe -> recipe.assemble(dummyInventory, level.registryAccess()));
 
         return Optional.of(maybe_result.orElse(ItemStack.EMPTY));
     }
@@ -415,7 +415,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
             {
                 return true;
             }
-            else if (!outstack.sameItem(result))
+            else if (!outstack.is(result.getItem()))
             {
                 return false;
             }
@@ -698,7 +698,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
 
         for (Entry<ResourceLocation, Integer> entry : this.recipe2xp_map.entrySet())
         {
-            player.level.getRecipeManager().byKey(entry.getKey()).ifPresent((p_213993_3_) -> {
+            player.level().getRecipeManager().byKey(entry.getKey()).ifPresent((p_213993_3_) -> {
                 list.add(p_213993_3_);
                 spawnExpOrbs(player, entry.getValue(), ((AbstractCookingRecipe) p_213993_3_).getExperience());
             });
@@ -727,7 +727,7 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
         {
             int j = ExperienceOrb.getExperienceValue(pCount);
             pCount -= j;
-            player.level.addFreshEntity(new ExperienceOrb(player.level, player.getX(), player.getY() + 0.5D,
+            player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX(), player.getY() + 0.5D,
                     player.getZ() + 0.5D, j));
         }
     } // end spawnExpOrbs()

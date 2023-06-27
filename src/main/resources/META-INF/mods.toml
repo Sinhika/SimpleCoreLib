@@ -9,7 +9,7 @@ issueTrackerURL="https://github.com/Sinhika/SimpleCoreLib/issues"
 
 [[mods]]
 modId="${mod_id}"
-version="${file.jarVersion}"
+version="${version}"
 displayName="${mod_name}"
 updateJSONURL="https://raw.githubusercontent.com/Sinhika/SimpleCoreLib/1.20/update.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/simplecore-api"
