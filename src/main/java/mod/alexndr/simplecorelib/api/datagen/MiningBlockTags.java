@@ -1,29 +1,35 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 import mod.alexndr.simplecorelib.api.helpers.TagUtils;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class MiningBlockTags extends BlockTagsProvider
 {
 
-	public MiningBlockTags(DataGenerator gen, String modId, ExistingFileHelper existingFileHelper)
+	public MiningBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, ExistingFileHelper existingFileHelper)
 	{
-		super(gen, modId, existingFileHelper);
+		super(output, lookupProvider, modId, existingFileHelper);
 	}
 
 	@Override
-	protected void addTags()
+	protected void addTags(Provider pProvider) 
 	{
 		registerOreTags();
-		registerMiningTags();
+		registerMiningTags();	
 	}
+	
 
 	/**
 	 * Override this, obviously.
@@ -50,24 +56,24 @@ public class MiningBlockTags extends BlockTagsProvider
 			Collection<Block> stone_blocks, Collection<Block> iron_blocks, 
 			Collection<Block> diamond_blocks, Collection<Block> netherite_blocks)
 	{
-		TagsProvider.TagAppender<Block> foo = this.tag(TagUtils.modBlockTag("minecraft", "mineable/pickaxe"));
+		IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_PICKAXE);
 		blocks.stream().forEach(b -> foo.add(b));
 		
 		if (stone_blocks != null && !stone_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Block> stone = this.tag(TagUtils.modBlockTag("minecraft", "needs_stone_tool"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> stone = this.tag(BlockTags.NEEDS_DIAMOND_TOOL);
 			stone_blocks.stream().forEach(b -> stone.add(b));
 		}
 		if (iron_blocks != null && !iron_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Block> iron = this.tag(TagUtils.modBlockTag("minecraft", "needs_iron_tool"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> iron = this.tag(BlockTags.NEEDS_IRON_TOOL);
 			iron_blocks.stream().forEach(b -> iron.add(b));
 		}
 		if (diamond_blocks != null && !diamond_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Block> diamond = this.tag(TagUtils.modBlockTag("minecraft", "needs_diamond_tool"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> diamond = this.tag(BlockTags.NEEDS_DIAMOND_TOOL);
 			diamond_blocks.stream().forEach(b -> diamond.add(b));
 		}
 		// NOTE: needs_netherite_tool is a FORGE tag, not a vanilla Minecraft tag.
 		if (netherite_blocks != null && !netherite_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Block> netherite = this.tag(TagUtils.forgeBlockTag("needs_netherite_tool"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> netherite = this.tag(TagUtils.forgeBlockTag("needs_netherite_tool"));
 			netherite_blocks.stream().forEach(b -> netherite.add(b));
 		}
 	} // end registerMineableTags
@@ -80,20 +86,19 @@ public class MiningBlockTags extends BlockTagsProvider
      */
     protected void registerShovelableTags(Collection<Block> blocks)
     {
-        TagsProvider.TagAppender<Block> foo = this.tag(TagUtils.modBlockTag("minecraft", "mineable/shovel"));
+    	IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_SHOVEL);
         blocks.stream().forEach(b -> foo.add(b));
       } // end registerShovelableTags()
 	
     
     /**
      * As registerMineableTags(), but for axe-harvestable things like logs.
-     * TODO: move to SimpleCoreLib in 1.19.
      * 
      * @param blocks - all the blocks that go under the mineable/axe tag.
      */
     protected void registerAxeableTags(Collection<Block> blocks)
     {
-        TagsProvider.TagAppender<Block> foo = this.tag(TagUtils.modBlockTag("minecraft", "mineable/axe"));
+    	IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_AXE);
         blocks.stream().forEach(b -> foo.add(b));
         
     } // end registerAxeableTags()
@@ -111,15 +116,15 @@ public class MiningBlockTags extends BlockTagsProvider
 										  Collection<DropExperienceBlock> netherrack_ore_blocks )
 	{
 		if (ore_blocks != null && !ore_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Block> stone = this.tag(TagUtils.forgeBlockTag("ores_in_ground/stone"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> stone = this.tag(TagUtils.forgeBlockTag("ores_in_ground/stone"));
 			ore_blocks.stream().forEach(b -> stone.add(b));
 		}
 		if (deepslate_ore_blocks != null && !deepslate_ore_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Block> deepslate = this.tag(TagUtils.forgeBlockTag("ores_in_ground/deepslate"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> deepslate = this.tag(TagUtils.forgeBlockTag("ores_in_ground/deepslate"));
 			deepslate_ore_blocks.stream().forEach(b -> deepslate.add(b));
 		}
 		if (netherrack_ore_blocks != null && !netherrack_ore_blocks.isEmpty()) {
-			TagsProvider.TagAppender<Block> netherrack = this.tag(TagUtils.forgeBlockTag("ores_in_ground/netherrack"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> netherrack = this.tag(TagUtils.forgeBlockTag("ores_in_ground/netherrack"));
 			netherrack_ore_blocks.stream().forEach(b -> netherrack.add(b));
 		}
 	} // end registerOresInGroundTags
@@ -135,17 +140,17 @@ public class MiningBlockTags extends BlockTagsProvider
 									   Collection<DropExperienceBlock> dense_ores)
 	{
 		if (sparse_ores != null && !sparse_ores.isEmpty()) {
-			TagsProvider.TagAppender<Block> sparse = this.tag(TagUtils.forgeBlockTag("ore_rates/sparse"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> sparse = this.tag(TagUtils.forgeBlockTag("ore_rates/sparse"));
 			sparse_ores.stream().forEach(b -> sparse.add(b));
 		}
 		if (singular_ores != null && !singular_ores.isEmpty()) {
-			TagsProvider.TagAppender<Block> singular = this.tag(TagUtils.forgeBlockTag("ore_rates/singular"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> singular = this.tag(TagUtils.forgeBlockTag("ore_rates/singular"));
 			singular_ores.stream().forEach(b -> singular.add(b));
 		}
 		if (dense_ores != null && !dense_ores.isEmpty()) {
-			TagsProvider.TagAppender<Block> dense = this.tag(TagUtils.forgeBlockTag("ore_rates/dense"));
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> dense = this.tag(TagUtils.forgeBlockTag("ore_rates/dense"));
 			dense_ores.stream().forEach(b -> dense.add(b));
 		}
 	} // end registerOreRateTags
-	
+
 } // end class
