@@ -2,6 +2,7 @@ package mod.alexndr.simplecorelib.api.helpers;
 
 import com.google.gson.JsonParseException;
 
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.event.LootTableLoadEvent;
 
 public final class LootUtils
@@ -33,7 +34,7 @@ public final class LootUtils
             if (real_file != null ) 
             {
                 try {
-                    event.getTable().addPool(ChestLootHandler.getInjectPool(modid, real_file));
+                   event.getTable().pools.add(ChestLootHandler.getInjectPool(modid, real_file));
                 }
                 catch (JsonParseException e)
                 {
