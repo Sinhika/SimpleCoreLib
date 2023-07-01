@@ -1,11 +1,10 @@
 package mod.alexndr.simplecorelib.api.helpers;
 
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootPool.Builder;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraft.resources.ResourceLocation;
 
 /**
  * Code that handles injecting stuff into chest loot pools.
