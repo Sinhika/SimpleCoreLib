@@ -1,15 +1,13 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.function.BiConsumer;
 
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 /**
  * A LootTableProvider class with helper functions. Based on work by sciwhiz12
@@ -20,20 +18,35 @@ import net.minecraft.world.level.block.Blocks;
  */
 public abstract class SimpleBlockLootSubProvider extends BlockLootSubProvider
 {
-//    protected static final LootItemCondition.Builder SILK_TOUCH = 
-//            MatchTool.toolMatches(ItemPredicate.Builder.item()
-//                         .hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
-	protected static final Set<Item> EXPLOSION_RESISTANT = Stream.of(Blocks.DRAGON_EGG, Blocks.BEACON, Blocks.CONDUIT, Blocks.SKELETON_SKULL, Blocks.WITHER_SKELETON_SKULL, Blocks.PLAYER_HEAD, Blocks.ZOMBIE_HEAD, Blocks.CREEPER_HEAD, Blocks.DRAGON_HEAD, Blocks.PIGLIN_HEAD, Blocks.SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.LIGHT_GRAY_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX).map(ItemLike::asItem).collect(Collectors.toSet());
 
-    protected SimpleBlockLootSubProvider(Set<Item> pExplosionResistant, FeatureFlagSet pEnabledFeatures) {
-		super(pExplosionResistant, pEnabledFeatures);
+    protected SimpleBlockLootSubProvider(Set<Item> pExplosionResistant) 
+    {
+		super(pExplosionResistant, FeatureFlags.REGISTRY.allFlags());
 	}
 
     protected SimpleBlockLootSubProvider()
     {
-    	super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
+    	super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
     
+	@Override
+	public void generate(BiConsumer<ResourceLocation, LootTable.Builder> foo) 
+	{
+		this.generate();
+		// this.map.foreach(foo.accept);
+		for (ResourceLocation resource: this.map.keySet())
+		{
+			LootTable.Builder loottable$builder = this.map.get(resource);
+			if (loottable$builder == null) {
+				continue;
+			}
+            foo.accept(resource, loottable$builder);
+		}
+		// clear map
+		this.map.clear();
+	} // end generate(Bi)
+
+
 //	/**
 //     * Creates a standard "drop yourself" block loot table, with no special conditions other
 //     * the standard "survives_explosion".

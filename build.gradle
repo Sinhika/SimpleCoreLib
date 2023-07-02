@@ -84,7 +84,7 @@ minecraft {
         server {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', mod_id
-			args '--nogui'
+            args '--nogui'
         }
 
         // This run config launches GameTestServer and runs all registered gametests, then exits.
@@ -96,7 +96,7 @@ minecraft {
         }
 
         data {
-            workingDirectory project.file('run-data')
+            workingDirectory project.file('run')
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
@@ -185,7 +185,7 @@ jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
-    	register('mavenJava', MavenPublication) {
+        register('mavenJava', MavenPublication) {
             artifact jar
         }
     }
