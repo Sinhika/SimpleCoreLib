@@ -17,7 +17,7 @@ credits="AleXndrTheGr8st (original mod), Sinhika (maintenance, ports)"
 authors="${mod_authors}"
 description='''${mod_description}'''
 
-[[dependencies.${mod_id}]] #optional
+[[dependencies.${mod_id}]]
     modId="forge"
     mandatory=true
     versionRange="${forge_version_range}"
