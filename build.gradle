@@ -48,7 +48,7 @@ minecraft {
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // uncomment if including JEI support
-    // sourceSets.main.java { srcDir 'src/api/java' }
+    sourceSets.main.java { srcDir 'src/api/java' }
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -135,10 +135,10 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     // UNCOMMENT JEI stuff if JEI support ready.
   // compile against the JEI API but do not include it at runtime
- //  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
-  //compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
+  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
+  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
   // at runtime, use the full JEI jar for Forge
-   //runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")
+  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
