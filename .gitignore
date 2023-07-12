@@ -21,6 +21,7 @@ build
 # other
 eclipse
 run
+run-data
 *.swp
 src/generated/resources/.cache/
 build.number

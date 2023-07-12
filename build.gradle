@@ -186,6 +186,7 @@ jar.finalizedBy('reobfJar')
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
+            groupId = 'simplecore-api'
             artifact jar
         }
     }
