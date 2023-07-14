@@ -7,6 +7,7 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 /**
@@ -46,31 +47,17 @@ public abstract class SimpleBlockLootSubProvider extends BlockLootSubProvider
 		this.map.clear();
 	} // end generate(Bi)
 
+  /**
+  * Create a block loot table that drops 1 or 2 slabs depending if the source block is
+  * a single slab or a double slab.
+  * 
+  * @param b slab block being harvested.
+  */
+ protected void dropSlab(Block b)
+ {
+	 this.add(b, this.createSlabItemTable(b));
+ }
 
-//	/**
-//     * Creates a standard "drop yourself" block loot table, with no special conditions other
-//     * the standard "survives_explosion".
-//     * 
-//     * @param b block being harvested/to be dropped.
-//     */
-//    protected void standardDropTable(Block b)
-//    {
-//         blockTable(b, LootTable.lootTable().withPool(createStandardDrops(b)));
-//    }
-//
-//    /**
-//     * Create a block loot table that drops an item instead of the block itself. Used 
-//     * for example, for gems that drop from gem ore blocks. Assumed to be affected by
-//     * Fortune-enchanted tools.
-//     * 
-//     * @param b block being harvested
-//     * @param ii item dropped by block.
-//     */
-//    protected void specialDropTable(Block b, Item ii)
-//    {
-//        blockTable(b, LootTable.lootTable().withPool(createItemWithFortuneDrops(b, ii)));
-//    }
-//
 //    /**
 //     * Create a block loot table that drops multiple items instead of the block itself
 //     * (e.g., redstone_ore, copper_ore). Assumed to be affected by Fortune-enchanted tools.
@@ -98,16 +85,6 @@ public abstract class SimpleBlockLootSubProvider extends BlockLootSubProvider
 //        blockTable(b, LootTable.lootTable().withPool(createItemWithNameCopy(ii)));
 //    }
 //
-//    /**
-//     * Create a block loot table that drops 1 or 2 slabs depending if the source block is
-//     * a single slab or a double slab.
-//     * 
-//     * @param b slab block being harvested.
-//     */
-//    protected void slabDropTable(Block b)
-//    {
-//		blockTable(b, LootTable.lootTable().withPool(createSlabDrops(b)));
-//    }
 //    
 //    /**
 //     * Create a block loot table that drops a single door from a door double-block.
