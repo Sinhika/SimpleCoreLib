@@ -84,7 +84,6 @@ minecraft {
         server {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
         }
 
         // This run config launches GameTestServer and runs all registered gametests, then exits.
