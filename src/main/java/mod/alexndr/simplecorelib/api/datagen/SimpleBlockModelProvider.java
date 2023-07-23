@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
+import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public abstract class SimpleBlockModelProvider extends BlockModelProvider
@@ -15,28 +16,23 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
         super(output, modid, existingFileHelper);
     }
 
-    protected BlockModelBuilder bars(String name, String parent)
-    {
-        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/" + parent));
-    }
-    
     public BlockModelBuilder barsPost(String name, ResourceLocation texture)
     {
-        return bars(name, "template_bars_post")
+        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_post"))
                 .texture("particle", texture)
                 .texture("bars", texture);
     }
     
     public BlockModelBuilder barsPostEnds(String name, ResourceLocation texture)
     {
-        return bars(name, "template_bars_post_ends")
+        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_post_ends"))
                 .texture("particle", texture)
                 .texture("edge", texture);
     }
     
     public BlockModelBuilder barsCap(String name, ResourceLocation texture)
     {
-        return bars(name, "template_bars_cap")
+        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_cap"))
                 .texture("particle", texture)
                 .texture("bars", texture)
                 .texture("edge", texture);
@@ -44,7 +40,7 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
     
     public BlockModelBuilder barsCapAlt(String name, ResourceLocation texture)
     {
-        return bars(name, "template_bars_cap_alt")
+        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_cap_alt"))
                 .texture("particle", texture)
                 .texture("bars", texture)
                 .texture("edge", texture);
@@ -52,7 +48,7 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
     
     public BlockModelBuilder barsSide(String name, ResourceLocation texture)
     {
-        return bars(name, "template_bars_side")
+        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_side"))
                 .texture("particle", texture)
                 .texture("bars", texture)
                 .texture("edge", texture);
@@ -61,7 +57,7 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
     
     public BlockModelBuilder barsSideAlt(String name, ResourceLocation texture)
     {
-        return bars(name, "template_bars_side_alt")
+        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_side_alt"))
                 .texture("particle", texture)
                 .texture("bars", texture)
                 .texture("edge", texture);
