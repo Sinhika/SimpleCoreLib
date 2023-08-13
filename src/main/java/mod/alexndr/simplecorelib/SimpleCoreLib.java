@@ -43,7 +43,7 @@ public class SimpleCoreLib
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         // comment out next line to hide test objects from Creative menu.
-        // CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+        //CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         ModMenuTypes.CONTAINER_TYPES.register(modEventBus);
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
     } // end SimpleOres()

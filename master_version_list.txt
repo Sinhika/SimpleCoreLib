@@ -5,23 +5,34 @@ org.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64
 ---------------------------------------------
 1.20.1
 ---------------------------------------------
-version_minecraft = 1.20.1
-version_parchment = 2023.07.09-1.20.1
+# ENVIRONMENT
+minecraft_version = 1.20.1
 minecraft_version_range=[1.20.1,1.21)
 
-forge_version=47.1.27
+forge_version=47.1.0
 forge_version_range=[47.0.18,)
-loader_version_range=[47,)
+loader_version_range=[47,48)
 mapping_channel=parchment
 mapping_version=1.20.1
+version_parchment = 2023.07.30-1.20.1
 
+# DEPENDENCIES
 version_mcjei = 1.20.1
 jei_version = 15.2.0.22
+jei_version_range = [15.0.0.13,16.0.0.0)
+current_bucketlib_version = 1.20.1-2.2.0.2
+buckletlib_range = 1.20.1-2.0.0.0,1.20.1-2.3.0.0 
 
-simplecorelib_version = 6.0.0.1
-simpleores_version = 
+
+# SIMPLE ORES MODS
+simplecorelib_version = 1.20.1-6.0.0.6
+simplecore_range = [1.20.1-6.0.0.3, 1.20.1-6.1.0.0)
+ashenwheat_version = 1.20.1-7.0.0.4
+simpleores_version = 1.20.1-6.0.0.2
+simpleores_range = [1.20.1-6.0.0.2,1.20.1-6.1.0.0)
+netherrocks_version = 1.20.1-6.0.0.0
+netherrocks_range = [1.20.1-6.0.0.0, 1.20.1-6.1.0.0)
 fusion_version = 
-netherrocks_version = 
 simple_machines_version = 
 onlysilver_version = 
 hadite_version = 
@@ -33,5 +44,5 @@ golden_glitter_version =
 cobalt_version = 
 tungsten_version = 
 
-ashenwheat_version = 
+
 

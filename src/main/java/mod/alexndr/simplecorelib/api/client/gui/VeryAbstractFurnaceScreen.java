@@ -3,6 +3,7 @@ package mod.alexndr.simplecorelib.api.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceMenu;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -36,6 +37,19 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMen
     }
 
     /**
+     * Draw a centered string with dropShadow = false, a function that is missing from GuiGraphics.
+     * @param pFont
+     * @param pText
+     * @param pX
+     * @param pY
+     * @param pColor
+     */
+    public void drawCenteredStringNoShadow(GuiGraphics gg, Font pFont, String pText, int pX, int pY, int pColor) 
+    {
+    	gg.drawString(pFont, pText, pX - pFont.width(pText) / 2, pY, pColor, false);
+    }
+    
+    /**
      * Probably corresponds to ContainerScreen.renderLabels() in 1.16.1.
      * Formerly drawGuiContainerForegroundLayer() in 1.15.2.
      * @param gg
@@ -47,8 +61,8 @@ public abstract class VeryAbstractFurnaceScreen<T extends VeryAbstractFurnaceMen
     {
     	// Copied from AbstractFurnaceScreen#drawGuiContainerForegroundLayer
     	String s = this.title.getString();
-    	gg.drawCenteredString( this.font, s, this.imageWidth / 2, 6, displayNameColor);
-    	gg.drawString( this.font, this.playerInventoryTitle.getString(), 8, this.imageHeight - 96 + 2, displayNameColor);
+    	this.drawCenteredStringNoShadow(gg, this.font, s, this.imageWidth / 2, 6, displayNameColor);
+    	gg.drawString( this.font, this.playerInventoryTitle.getString(), 8, this.imageHeight - 96 + 2, displayNameColor, false);
     }
 
     /**
