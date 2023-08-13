@@ -25,7 +25,7 @@ buckletlib_range = 1.20.1-2.0.0.0,1.20.1-2.3.0.0
 
 
 # SIMPLE ORES MODS
-simplecorelib_version = 1.20.1-6.0.0.6
+simplecorelib_version = 1.20.1-6.0.0.7
 simplecore_range = [1.20.1-6.0.0.3, 1.20.1-6.1.0.0)
 ashenwheat_version = 1.20.1-7.0.0.4
 simpleores_version = 1.20.1-6.0.0.2
