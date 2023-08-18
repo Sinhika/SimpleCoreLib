@@ -14,7 +14,7 @@ forge_version_range=[47.0.18,)
 loader_version_range=[47,48)
 mapping_channel=parchment
 mapping_version=1.20.1
-version_parchment = 2023.07.30-1.20.1
+version_parchment = 2023.08.13-1.20.1
 
 # DEPENDENCIES
 version_mcjei = 1.20.1
@@ -27,15 +27,16 @@ buckletlib_range = 1.20.1-2.0.0.0,1.20.1-2.3.0.0
 # SIMPLE ORES MODS
 simplecorelib_version = 1.20.1-6.0.0.7
 simplecore_range = [1.20.1-6.0.0.3, 1.20.1-6.1.0.0)
-ashenwheat_version = 1.20.1-7.0.0.4
 simpleores_version = 1.20.1-6.0.0.2
 simpleores_range = [1.20.1-6.0.0.2,1.20.1-6.1.0.0)
 netherrocks_version = 1.20.1-6.0.0.0
 netherrocks_range = [1.20.1-6.0.0.0, 1.20.1-6.1.0.0)
-fusion_version = 
-simple_machines_version = 
+simple_machines_version = 1.20.1-5.0.0.0
+simple_machines_range =[1.20.1-5.0.0.0,1.20.1-5.1.0.0)
+fusion_version = 1.20.1-6.0.0.0
+fusion_range = [1.20.1-6.0.0.0,1.20.1-6.1.0.0)
 onlysilver_version = 
-hadite_version = 
+hadite_version = 1.20.1-5.0.0.0
 cthon_version = 
 sterlingblack_version = 
 arsenic_version = 
@@ -43,6 +44,4 @@ classicalalchemy_version =
 golden_glitter_version = 
 cobalt_version = 
 tungsten_version = 
-
-
-
+ashenwheat_version = 1.20.1-7.0.0.4

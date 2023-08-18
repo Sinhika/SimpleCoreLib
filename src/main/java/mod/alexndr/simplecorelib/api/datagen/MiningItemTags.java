@@ -3,15 +3,29 @@ package mod.alexndr.simplecorelib.api.datagen;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
+import mod.alexndr.simplecorelib.api.helpers.TagUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ProjectileWeaponItem;
+import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 public class MiningItemTags extends ItemTagsProvider 
 {
@@ -35,7 +49,76 @@ public class MiningItemTags extends ItemTagsProvider
 	protected void registerOreTags() 
     {}
     
+	/**
+	 * Automatically create forge:armor tags.
+	 * 
+	 * @param item_defregistry DeferredRegistry in which armor items exist.
+	 */
+	protected void registerArmorTags(DeferredRegister<Item> item_defregistry)
+	{
+		
+		item_defregistry.getEntries().stream().map(RegistryObject::get)
+			.filter(entry -> (entry instanceof ArmorItem))
+			.forEach(armor -> {
+				String foo = ((ArmorItem)armor).getType().getName();
+				if (foo.endsWith("s")) {
+					this.tag(TagUtils.forgeTag("armors")).addTag(TagUtils.forgeTag(foo)).add(armor);
+				}
+				else {
+					this.tag(TagUtils.forgeTag("armors")).addTag(TagUtils.forgeTag(foo+"s")).add(armor);
+				}
+			});
+	} // end registerArmorTags()
+	
+	/**
+	 * Automatically create tool tags.
+	 * 
+	 * @param item_defregistry DeferredRegistry in which tool items exist.
+	 */
+	protected void registerToolTags(DeferredRegister<Item> item_defregistry)
+	{
+		// first, tiered items as a group.
+		item_defregistry.getEntries().stream().map(RegistryObject::get)
+			.filter(entry -> (entry instanceof TieredItem))
+			.forEach(item -> {
+				if (item instanceof SwordItem) {
+					this.tag(TagUtils.modTag("minecraft", "swords")).add(item);
+				}
+				else if (item instanceof AxeItem) {
+					this.tag(TagUtils.modTag("minecraft", "axes")).add(item);
+				}
+				else if (item instanceof HoeItem) {
+					this.tag(TagUtils.modTag("minecraft", "hoes")).add(item);
+				}
+				else if (item instanceof PickaxeItem) {
+					this.tag(TagUtils.modTag("minecraft", "pickaxes")).add(item);
+				}
+				else if (item instanceof ShovelItem) {
+					this.tag(TagUtils.modTag("minecraft", "shovels")).add(item);
+				}
+			});
 
+		// second, projectile weapons
+		item_defregistry.getEntries().stream().map(RegistryObject::get)
+			.filter(entry -> (entry instanceof ProjectileWeaponItem))
+			.forEach(item -> {
+				if (item instanceof BowItem) {
+					this.tag(TagUtils.forgeTag("tools")).addTag(TagUtils.forgeTag("bows")).add(item);
+				}
+				else if (item instanceof CrossbowItem) {
+					this.tag(TagUtils.forgeTag("tools")).addTag(TagUtils.forgeTag("crossbows")).add(item);
+				}
+			});
+
+		// third, shears
+		item_defregistry.getEntries().stream().map(RegistryObject::get)
+			.filter(entry -> (entry instanceof ShearsItem))
+			.forEach(item -> {
+				this.tag(Tags.Items.SHEARS).add(item);
+			});
+		
+	} // end registerToolTags()
+	
 	/** 
 	 * Creates ores_in_ground forge tags for item-blocks.
 	 * 
