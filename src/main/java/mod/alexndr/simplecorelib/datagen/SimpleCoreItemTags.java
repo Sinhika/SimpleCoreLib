@@ -10,7 +10,6 @@ import mod.alexndr.simplecorelib.init.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 /**
@@ -31,7 +30,7 @@ public class SimpleCoreItemTags extends MiningItemTags
 	protected void addTags(HolderLookup.Provider lookupProvider)
 	{
 		super.addTags(lookupProvider);
-		this.tag(Tags.Items.SHEARS).add(ModItems.test_shears.get());
+		registerToolTags(ModItems.ITEMS);
 	}
 
     @Override
