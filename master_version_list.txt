@@ -25,8 +25,8 @@ buckletlib_range = 1.20.1-2.0.0.0,1.20.1-2.3.0.0
 
 
 # SIMPLE ORES MODS
-simplecorelib_version = 1.20.1-6.0.0.7
-simplecore_range = [1.20.1-6.0.0.3, 1.20.1-6.1.0.0)
+simplecorelib_version = 1.20.1-6.0.1.0
+simplecore_range = [1.20.1-6.0.1.0, 1.20.1-6.1.0.0)
 simpleores_version = 1.20.1-6.0.0.2
 simpleores_range = [1.20.1-6.0.0.2,1.20.1-6.1.0.0)
 netherrocks_version = 1.20.1-6.0.0.0
