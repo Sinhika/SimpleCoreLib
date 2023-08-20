@@ -57,16 +57,18 @@ public class MiningItemTags extends ItemTagsProvider
 	protected void registerArmorTags(DeferredRegister<Item> item_defregistry)
 	{
 		
+		this.tag(TagUtils.forgeTag("armors"))
+			.addTag(TagUtils.forgeTag("armors/helmets"))
+			.addTag(TagUtils.forgeTag("armors/chestplates"))
+			.addTag(TagUtils.forgeTag("armors/leggings"))
+			.addTag(TagUtils.forgeTag("armors/boots"));
+	
 		item_defregistry.getEntries().stream().map(RegistryObject::get)
 			.filter(entry -> (entry instanceof ArmorItem))
 			.forEach(armor -> {
 				String foo = ((ArmorItem)armor).getType().getName();
-				if (foo.endsWith("s")) {
-					this.tag(TagUtils.forgeTag("armors")).addTag(TagUtils.forgeTag(foo)).add(armor);
-				}
-				else {
-					this.tag(TagUtils.forgeTag("armors")).addTag(TagUtils.forgeTag(foo+"s")).add(armor);
-				}
+				foo = (foo.endsWith("s") ? foo : foo + "s");
+				this.tag(TagUtils.forgeTag("armors/" + foo)).add(armor);
 			});
 	} // end registerArmorTags()
 	
@@ -99,14 +101,18 @@ public class MiningItemTags extends ItemTagsProvider
 			});
 
 		// second, projectile weapons
+		this.tag(TagUtils.forgeTag("tools"))
+			.addTag(TagUtils.forgeTag("tools/bows"))
+			.addTag(TagUtils.forgeTag("tools/crossbows"));
+				
 		item_defregistry.getEntries().stream().map(RegistryObject::get)
 			.filter(entry -> (entry instanceof ProjectileWeaponItem))
 			.forEach(item -> {
 				if (item instanceof BowItem) {
-					this.tag(TagUtils.forgeTag("tools")).addTag(TagUtils.forgeTag("bows")).add(item);
+					this.tag(TagUtils.forgeTag("tools/bows")).add(item);
 				}
 				else if (item instanceof CrossbowItem) {
-					this.tag(TagUtils.forgeTag("tools")).addTag(TagUtils.forgeTag("crossbows")).add(item);
+					this.tag(TagUtils.forgeTag("tools/crossbows")).add(item);
 				}
 			});
 
