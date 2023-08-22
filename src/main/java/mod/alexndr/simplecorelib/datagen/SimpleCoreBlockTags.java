@@ -38,7 +38,7 @@ public class SimpleCoreBlockTags extends MiningBlockTags
 	protected void registerMiningTags() 
 	{
 		registerMineableTags(List.of(ModBlocks.test_furnace.get(), ModBlocks.original_copper_ore.get(), ModBlocks.test_plate.get()), 
-				List.of(ModBlocks.original_copper_ore.get()), List.of(), List.of(), List.of());
+				List.of(ModBlocks.original_copper_ore.get()), List.of(ModBlocks.test_furnace.get()), List.of(ModBlocks.test_plate.get()), List.of());
 	}
 
     @Override

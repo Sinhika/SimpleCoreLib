@@ -15,7 +15,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class MiningBlockTags extends BlockTagsProvider
+public abstract class MiningBlockTags extends BlockTagsProvider
 {
 
 	public MiningBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, ExistingFileHelper existingFileHelper)
@@ -34,14 +34,12 @@ public class MiningBlockTags extends BlockTagsProvider
 	/**
 	 * Override this, obviously.
 	 */
-	protected void registerOreTags() 
-    {}
+	abstract protected void registerOreTags();
     
 	/**
 	 * Override this, obviously.
 	 */
-	protected void registerMiningTags()
-    {}
+	abstract protected void registerMiningTags();
 
 	/**
 	 * Generate tags for new tool tier system.
@@ -60,7 +58,7 @@ public class MiningBlockTags extends BlockTagsProvider
 		blocks.stream().forEach(b -> foo.add(b));
 		
 		if (stone_blocks != null && !stone_blocks.isEmpty()) {
-			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> stone = this.tag(BlockTags.NEEDS_DIAMOND_TOOL);
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> stone = this.tag(BlockTags.NEEDS_STONE_TOOL);
 			stone_blocks.stream().forEach(b -> stone.add(b));
 		}
 		if (iron_blocks != null && !iron_blocks.isEmpty()) {
