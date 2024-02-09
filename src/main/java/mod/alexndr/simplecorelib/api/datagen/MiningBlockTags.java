@@ -90,7 +90,8 @@ public abstract class MiningBlockTags extends BlockTagsProvider
 	
     
     /**
-     * As registerMineableTags(), but for axe-harvestable things like logs.
+     * As registerMineableTags(), but for axe-harvestable things like logs. Note that logs 
+     * are already covered if included in "minecraft:logs" tag.
      * 
      * @param blocks - all the blocks that go under the mineable/axe tag.
      */

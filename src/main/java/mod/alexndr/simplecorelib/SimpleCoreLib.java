@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import mod.alexndr.simplecorelib.config.ConfigHolder;
-import mod.alexndr.simplecorelib.init.CreativeTabs;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModItems;
 import mod.alexndr.simplecorelib.init.ModMenuTypes;
