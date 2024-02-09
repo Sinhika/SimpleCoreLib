@@ -1,10 +1,11 @@
 plugins {
     id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'net.neoforged.gradle' version '[6.0.13, 6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
-// apply from: 'https://raw.githubusercontent.com/SizableShrimp/ForgeUpdatesRemapper/main/remapper.gradle'
+//apply from: 'https://gist.githubusercontent.com/Technici4n/facbcdf18ce1a556b76e6027180c32ce/raw/059ab3d504a590461746fc6e3065159f4932a960/classremapper.gradle'
+
 group = mod_group_id
 
 base {
@@ -19,7 +20,7 @@ def getVersionAppendage() {
     proc.waitFor()
     return "DEV-" + proc.text.trim()
 }
-version = "${minecraft_version}-${mod_version}." + getVersionAppendage()
+version = mod_version + getVersionAppendage()
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17) 
     
@@ -30,7 +31,6 @@ minecraft {
     // The mappings can be changed at any time, and must be in the following format.
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    //mappings channel: 'official', version: "${version_minecraft}"
      mappings channel: 'parchment', version: "${version_parchment}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
@@ -68,6 +68,9 @@ minecraft {
             // You can set various levels here.
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile',"${buildDir}/createSrgToMcp/output.srg"
 
             mods {
                 "${mod_id}" {
@@ -125,19 +128,28 @@ repositories {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
+    maven {
+        // location of maven that hosts TOP (The One Probe)
+        url = "https://www.cursemaven.com" 
+    }
+
 }
 
 dependencies {
-    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    // Specify the version of Minecraft to use.
+    minecraft "net.neoforged:forge:${minecraft_version}-${neo_version}"
+    implementation fg.deobf("simplecore-api:SimpleCoreLib:${simplecorelib_version}") 
+    implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${minecraft_version}-${terrablender_version}")
+
     // UNCOMMENT JEI stuff if JEI support ready.
-  // compile against the JEI API but do not include it at runtime
-  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
-  compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
-  // at runtime, use the full JEI jar for Forge
-  runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")
+    // compile against the JEI API but do not include it at runtime
+    compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge-api:${jei_version}")
+    // at runtime, use the full JEI jar for Forge
+    runtimeOnly fg.deobf("mezz.jei:jei-${version_mcjei}-forge:${jei_version}")
+
+    // TOP
+    runtimeOnly fg.deobf("curse.maven:theoneprobe-${top_projectid}:${top_fileid}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -148,15 +160,21 @@ tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
             minecraft_version: minecraft_version, 
             minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version, 
-            forge_version_range: forge_version_range,
+        neo_version: neo_version, 
+        neo_version_range: neo_version_range,
             loader_version_range: loader_version_range,
             mod_id: mod_id, 
             mod_name: mod_name, 
             mod_license: mod_license, 
-            version: version,
+        mod_version: mod_version,
             mod_authors: mod_authors, 
             mod_description: mod_description,
+        pack_format_number: pack_format_number,
+        version_mcjei : version_mcjei,
+        jei_version : jei_version,
+        jei_version_range : jei_version_range,
+        top_version : top_version, 
+        top_projectid : top_projectid, top_fileid : top_fileid,
     ]
     inputs.properties replaceProperties
 

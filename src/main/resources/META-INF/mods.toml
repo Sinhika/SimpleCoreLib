@@ -9,7 +9,7 @@ issueTrackerURL="https://github.com/Sinhika/SimpleCoreLib/issues"
 
 [[mods]]
 modId="${mod_id}"
-version="${version}"
+version="${mod_version}"
 displayName="${mod_name}"
 updateJSONURL="https://raw.githubusercontent.com/Sinhika/SimpleCoreLib/1.20/update.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/simplecore-api"
@@ -20,7 +20,7 @@ description='''${mod_description}'''
 [[dependencies.${mod_id}]]
     modId="forge"
     mandatory=true
-    versionRange="${forge_version_range}"
+    versionRange="${neo_version_range}"
     ordering="NONE"
     side="BOTH"
 
