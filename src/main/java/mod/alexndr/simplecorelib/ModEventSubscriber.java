@@ -1,21 +1,22 @@
 package mod.alexndr.simplecorelib;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import mod.alexndr.simplecorelib.config.ConfigHelper;
 import mod.alexndr.simplecorelib.config.ConfigHolder;
 import mod.alexndr.simplecorelib.init.ModBlocks;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.RegisterEvent;
-import net.neoforged.neoforge.registries.RegistryObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @EventBusSubscriber(modid = SimpleCoreLib.MODID, bus = EventBusSubscriber.Bus.MOD)
 public final class ModEventSubscriber
@@ -33,7 +34,7 @@ public final class ModEventSubscriber
         {
 	         // Automatically register BlockItems for all our Blocks
 	        ModBlocks.BLOCKS.getEntries().stream()
-	                .map(RegistryObject::get)
+	                .map(DeferredBlock<Block>::get)
 	                // You can do extra filtering here if you don't want some blocks to have an BlockItem automatically registered for them
 	                // .filter(block -> needsItemBlock(block))
 	                // Register the BlockItem for the block
@@ -42,7 +43,7 @@ public final class ModEventSubscriber
 	                    final BlockItem blockItem = new BlockItem(block, new Item.Properties());
 	                    // Register the BlockItem
 	                    event.register(Registries.ITEM,  helper -> {
-	                        helper.register(ForgeRegistries.BLOCKS.getKey(block), blockItem);
+	                        helper.register(BuiltInRegistries.BLOCK.getKey(block), blockItem);
 	                    });
 	                });
 	        LOGGER.debug("Registered BlockItems");
