@@ -1,8 +1,7 @@
 package mod.alexndr.simplecorelib.api.helpers;
 
 import com.google.gson.JsonParseException;
-
-import net.minecraftforge.event.LootTableLoadEvent;
+import net.neoforged.neoforge.event.LootTableLoadEvent;
 
 public final class LootUtils
 {

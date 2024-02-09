@@ -17,11 +17,11 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 //public abstract class VeryAbstractFurnaceMenu<T extends VeryAbstractFurnaceBlock> extends RecipeBookMenu<Container>
 public abstract class VeryAbstractFurnaceMenu extends AbstractContainerMenu
@@ -66,7 +66,7 @@ public abstract class VeryAbstractFurnaceMenu extends AbstractContainerMenu
             // Add tracking for data (Syncs to client/updates value when it changes)
             this.addDataSlots(this.data);
 
-            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(
+            blockEntity.getCapability(Capabilities.ITEM_HANDLER).ifPresent(
                     h -> { 
                         addSlot(new SlotItemHandler(h, INGREDIENT_SLOT, 56, 17)); 
                         addSlot(new SlotItemHandler(h, FUEL_SLOT, 56, 53)); 

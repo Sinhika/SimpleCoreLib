@@ -1,6 +1,6 @@
 package mod.alexndr.simplecorelib.config;
 
-import net.minecraftforge.fml.config.ModConfig;
+import net.neoforged.fml.config.ModConfig;
 
 public final class ConfigHelper
 {

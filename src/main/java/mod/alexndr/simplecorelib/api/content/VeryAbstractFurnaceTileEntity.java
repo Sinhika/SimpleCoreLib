@@ -40,12 +40,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
 /**
  * Abstracts the mechanics of a conventional-ish furnace (1 input, 1 fuel, 1 output slot).
@@ -229,11 +229,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, @Nullable final Direction side)
     {
-        if (cap == ForgeCapabilities.ITEM_HANDLER && side == null)
+        if (cap == Capabilities.ITEM_HANDLER && side == null)
         {
             return inventoryCapabilityInternal.cast();
         }
-        if (cap == ForgeCapabilities.ITEM_HANDLER && side != null) 
+        if (cap == Capabilities.ITEM_HANDLER && side != null) 
         {
             switch (side) {
                 case DOWN:
@@ -391,11 +391,11 @@ public abstract class VeryAbstractFurnaceTileEntity extends BlockEntity
         // ForgeHooks.getBurnTime() handles empty stack case, so we don't have to.
         if (!hasFuelMultiplier)
         {
-            returnval = ForgeHooks.getBurnTime(fuelstack, recipeType);
+            returnval = CommonHooks.getBurnTime(fuelstack, recipeType);
         }
         else {
             // improved fuel efficiency processing here.
-            returnval = (int) Math.ceil(((double) ForgeHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
+            returnval = (int) Math.ceil(((double) CommonHooks.getBurnTime(fuelstack, recipeType)) * fuelMultiplier);
         }
         // LOGGER.debug("[" + getDisplayName().getString() + "]VeryAbstractFurnaceTileEntity.getBurnDuration: returns " + returnval + " for " + fuelstack.toString());
         return returnval;

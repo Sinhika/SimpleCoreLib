@@ -1,10 +1,10 @@
 package mod.alexndr.simplecorelib.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.NeoForgeConfigSpec;
 
 public final class ClientConfig
 {
-    ClientConfig(final ForgeConfigSpec.Builder builder) 
+    ClientConfig(final NeoForgeConfigSpec.Builder builder) 
     {
         builder.push("General");
         builder.pop();

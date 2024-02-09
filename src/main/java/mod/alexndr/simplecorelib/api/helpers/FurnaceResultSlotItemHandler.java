@@ -5,9 +5,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 /**
  * Based on vanilla FurnaceResultSlot class, but for SlotItemHandlers.
@@ -62,7 +62,7 @@ public class FurnaceResultSlotItemHandler extends SlotItemHandler
         	((VeryAbstractFurnaceTileEntity)this.blockEntity).grantExperience(this.player);
         }
         this.removeCount = 0;
-        ForgeEventFactory.firePlayerSmeltedEvent(this.player, stack);
+        EventHooks.firePlayerSmeltedEvent(this.player, stack);
     } // end onCrafting
 
     @Override

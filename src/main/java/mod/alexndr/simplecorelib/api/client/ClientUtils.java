@@ -9,7 +9,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.ComputeFovModifierEvent;
+import net.neoforged.neoforge.client.event.ComputeFovModifierEvent;
 
 /**
  * small functions that are used client-side.

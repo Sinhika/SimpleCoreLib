@@ -3,7 +3,7 @@ package mod.alexndr.simplecorelib.api.helpers;
 import com.google.common.base.Preconditions;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 import net.minecraft.resources.ResourceLocation;
 
 public final class NameUtils

@@ -3,7 +3,7 @@ package mod.alexndr.simplecorelib.api.datagen;
 import mod.alexndr.simplecorelib.api.config.FlagCondition;
 import mod.alexndr.simplecorelib.api.config.ISimpleConfig;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.crafting.conditions.ICondition;
 
 /**
  * Condition builders for SimpleOres-type mods. Inspired by Forge's IConditionBuilder.

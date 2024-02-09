@@ -1,8 +1,7 @@
 package mod.alexndr.simplecorelib.config;
 
+import net.neoforged.neoforge.common.NeoForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
-
-import net.minecraftforge.common.ForgeConfigSpec;
 
 
 /**
@@ -13,18 +12,18 @@ import net.minecraftforge.common.ForgeConfigSpec;
  */
 public final class ConfigHolder
 {
-    public static final ForgeConfigSpec CLIENT_SPEC;
-	public static final ForgeConfigSpec SERVER_SPEC;
+    public static final NeoForgeConfigSpec CLIENT_SPEC;
+	public static final NeoForgeConfigSpec SERVER_SPEC;
     static final ClientConfig CLIENT;
 	public static final ServerConfig SERVER;
 	static {
         {
-            final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
+            final Pair<ClientConfig, NeoForgeConfigSpec> specPair = new NeoForgeConfigSpec.Builder().configure(ClientConfig::new);
             CLIENT = specPair.getLeft();
             CLIENT_SPEC = specPair.getRight();
         }
 		{
-			final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
+			final Pair<ServerConfig, NeoForgeConfigSpec> specPair = new NeoForgeConfigSpec.Builder().configure(ServerConfig::new);
 			SERVER = specPair.getLeft();
 			SERVER_SPEC = specPair.getRight();
 		}

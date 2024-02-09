@@ -1,7 +1,7 @@
 package mod.alexndr.simplecorelib.api.helpers;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
 /**
  * Implements helper functions comparable to ContainerHelper, but for ItemStackHandler-based inventories.

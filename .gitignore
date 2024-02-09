@@ -25,6 +25,7 @@ run-data
 *.swp
 src/generated/resources/.cache/
 build.number
+*_old
 
 # Files from Forge MDK
 forge*changelog.txt
