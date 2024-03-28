@@ -7,12 +7,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +32,7 @@ public final class ModEventSubscriber
         {
 	         // Automatically register BlockItems for all our Blocks
 	        ModBlocks.BLOCKS.getEntries().stream()
-	                .map(DeferredBlock<Block>::get)
+                    .map(DeferredHolder::get)
 	                // You can do extra filtering here if you don't want some blocks to have an BlockItem automatically registered for them
 	                // .filter(block -> needsItemBlock(block))
 	                // Register the BlockItem for the block

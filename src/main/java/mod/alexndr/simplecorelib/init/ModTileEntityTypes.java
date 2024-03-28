@@ -2,20 +2,20 @@ package mod.alexndr.simplecorelib.init;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.content.TestFurnaceTileEntity;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
 
 public final class ModTileEntityTypes
 {
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITY_TYPES = 
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, SimpleCoreLib.MODID);
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, SimpleCoreLib.MODID);
     
-    public static RegistryObject<BlockEntityType<TestFurnaceTileEntity>> test_furnace = 
+    public static DeferredHolder<BlockEntityType<?>, BlockEntityType<TestFurnaceTileEntity>> test_furnace =
             TILE_ENTITY_TYPES.register("test_furnace", 
-                            () -> BlockEntityType.Builder.of(TestFurnaceTileEntity::new, 
-                                                                ModBlocks.test_furnace.get())
-             .build(null));
-    
+                            () -> BlockEntityType.Builder.of(TestFurnaceTileEntity::new, ModBlocks.test_furnace.get())
+                                    .build(null));
+
+
 }

@@ -1,8 +1,5 @@
 package mod.alexndr.simplecorelib;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import mod.alexndr.simplecorelib.config.ConfigHolder;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModItems;
@@ -14,6 +11,8 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SimpleCoreLib.MODID)
@@ -28,11 +27,10 @@ public class SimpleCoreLib
     // texture atlas for JEI sprites
     public static final ResourceLocation SIMPLE_TEXTURE_ATLAS = new ResourceLocation(MODID, "textures/atlas/gui.png");
 
-    public SimpleCoreLib()
+    public SimpleCoreLib(IEventBus modEventBus)
     {
         LOGGER.info("Hello from SimpleCoreLib!");
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
-        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register Configs
         modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.SERVER_SPEC);

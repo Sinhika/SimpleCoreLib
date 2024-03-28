@@ -1,14 +1,14 @@
 package mod.alexndr.simplecorelib.config;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import net.neoforged.neoforge.common.NeoForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class ServerConfig
 {
     // general
-    public final NeoForgeConfigSpec.IntValue serverTestShearDurability;
+    public final ModConfigSpec.IntValue serverTestShearDurability;
     
-    ServerConfig(final NeoForgeConfigSpec.Builder builder)
+    ServerConfig(final ModConfigSpec.Builder builder)
     {
         builder.push("General");
         serverTestShearDurability = builder.comment("test shears durability value (tests initializing properties from config)")
