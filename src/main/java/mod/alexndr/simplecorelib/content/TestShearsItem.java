@@ -8,9 +8,9 @@ import net.minecraft.world.item.ShearsItem;
 public class TestShearsItem extends ShearsItem
 {
 
-    public TestShearsItem()
+    public TestShearsItem(Item.Properties pProperties)
     {
-        super(new Item.Properties().durability(SimpleCoreLibConfig.testShearDurability));
+        super(pProperties.durability(SimpleCoreLibConfig.testShearDurability));
     }
 
     @Override

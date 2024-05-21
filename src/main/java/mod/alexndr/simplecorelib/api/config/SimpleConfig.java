@@ -1,5 +1,7 @@
 package mod.alexndr.simplecorelib.api.config;
 
+import net.neoforged.neoforge.common.ModConfigSpec;
+
 import java.util.HashMap;
 import java.util.Map;
 
