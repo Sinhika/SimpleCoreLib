@@ -1,95 +1,97 @@
 package mod.alexndr.simplecorelib.content;
 
-import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceBlock;
+import com.mojang.serialization.MapCodec;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.Containers;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 
-public class TestFurnaceBlock extends VeryAbstractFurnaceBlock
+
+public class TestFurnaceBlock extends AbstractFurnaceBlock
 {
-    private static final String DISPLAY_NAME = "block.simplecorelib.test_furnace";
-        
-    public TestFurnaceBlock(Properties builder)
+    public static final MapCodec<TestFurnaceBlock> CODEC = simpleCodec(TestFurnaceBlock::new);
+
+    public TestFurnaceBlock(BlockBehaviour.Properties builder)
     {
         super(builder);
     }
 
+    @Override protected @NotNull MapCodec<? extends AbstractFurnaceBlock> codec()
+    {
+        return CODEC;
+    }
+
+    @Nullable @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+            @NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType)
+    {
+        return createFurnaceTicker(pLevel, pBlockEntityType, ModTileEntityTypes.test_furnace.get());
+    }
 
     /**
-     * Called on the logical server when a BlockState with a TileEntity is replaced by another BlockState.
-     * We use this method to drop all the items from our tile entity's inventory and update comparators near our block.
+     * Called to open this furnace's container.
      *
-     * @Deprecated Call via {@link BlockState#onReplaced(World, BlockPos, BlockState, boolean)}
-     * Implementing/overriding is fine.
+     * @param pLevel
+     * @param pPos
+     * @param pPlayer
      */
-    @SuppressWarnings("deprecation")
-	@Override
-    public void onRemove(BlockState oldState, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) 
+    @Override protected void openContainer(Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer)
     {
-        if (oldState.getBlock() != newState.getBlock()) 
-        {
-            BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-            if (tileEntity instanceof TestFurnaceTileEntity) {
-                final ItemStackHandler inventory = ((TestFurnaceTileEntity) tileEntity).inventory;
-                for (int slot = 0; slot < inventory.getSlots(); ++slot)
-                    Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), inventory.getStackInSlot(slot));
+        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+        if (blockentity instanceof TestFurnaceTileEntity) {
+            pPlayer.openMenu((MenuProvider)blockentity);
+            pPlayer.awardStat(Stats.INTERACT_WITH_FURNACE);
+        }
+    }
+
+
+    @Nullable @Override public BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState)
+    {
+        return new TestFurnaceTileEntity(pPos, pState);
+    }
+
+    /**
+     * Called periodically clientside on blocks near the player to show effects (like furnace fire particles).
+     *
+     * @param stateIn
+     * @param worldIn
+     * @param pos
+     * @param rand
+     */
+    @Override public void animateTick(BlockState stateIn, @NotNull Level worldIn, @NotNull BlockPos pos, @NotNull RandomSource rand)
+    {
+        if (stateIn.getValue(LIT)) {
+            double d0 = (double) pos.getX() + 0.5D;
+            double d1 = pos.getY();
+            double d2 = (double) pos.getZ() + 0.5D;
+            if (rand.nextDouble() < 0.1D) {
+                worldIn.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F,
+                        false);
             }
+
+            Direction direction = stateIn.getValue(FACING);
+            Direction.Axis direction$axis = direction.getAxis();
+            // double d3 = 0.52D;
+            double d4 = rand.nextDouble() * 0.6D - 0.3D;
+            double d5 = direction$axis == Direction.Axis.X ? (double) direction.getStepX() * 0.52D : d4;
+            double d6 = rand.nextDouble() * 6.0D / 16.0D;
+            double d7 = direction$axis == Direction.Axis.Z ? (double) direction.getStepZ() * 0.52D : d4;
+            worldIn.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
         }
-        super.onRemove(oldState, worldIn, pos, newState, isMoving);
-    } // end onReplaced()
-
-
-	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState bstate, BlockEntityType<T> entityType) 
-	{
-		return createFurnaceTicker(level, entityType, ModTileEntityTypes.test_furnace.get());
-	}
-
-
-	@Override
-	public BlockEntity newBlockEntity(BlockPos bpos, BlockState bstate) {
-		return new TestFurnaceTileEntity(bpos, bstate);
-	}
-
-
-	@Override
-	protected void openContainer(Level level, BlockPos bpos, Player player) 
-	{
-        BlockEntity be = level.getBlockEntity(bpos);
-        if (be instanceof TestFurnaceTileEntity) 
-        {
-            MenuProvider containerProvider = new MenuProvider() {
-                @Override
-                public Component getDisplayName() {
-                    return Component.translatable(DISPLAY_NAME);
-                }
-                
-                @Override
-                public AbstractContainerMenu createMenu(int windowId, Inventory playerInventory, Player playerEntity)
-                {
-                    return new TestFurnaceContainerMenu(windowId, playerInventory, bpos, playerEntity);
-                }
-            }; // end anonymous-class
-            NetworkHooks.openScreen((ServerPlayer) player, containerProvider, be.getBlockPos());
-            player.awardStat(Stats.INTERACT_WITH_FURNACE);
-        } // end-if
-        else {
-            throw new IllegalStateException("Our named container provider is missing!");
-        }
-	} // end openContainer
-    
+    } // end animateTick
 } // end class

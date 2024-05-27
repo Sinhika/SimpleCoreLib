@@ -1,26 +1,25 @@
 package mod.alexndr.simplecorelib.content;
 
-import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceMenu;
 import mod.alexndr.simplecorelib.init.ModMenuTypes;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractFurnaceMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.crafting.RecipeType;
 
-public class TestFurnaceContainerMenu extends VeryAbstractFurnaceMenu
+public class TestFurnaceContainerMenu extends AbstractFurnaceMenu
 {
 
-    /**
-     * Constructor called logical-server-side from {@link TestFurnaceTileEntity#createMenu}
-     * and logical-client-side from {@link #ModFurnaceContainer(int, PlayerInventory, PacketBuffer)}
-     */
-    public TestFurnaceContainerMenu(final int windowId, final Inventory playerInventory, final BlockPos pos, Player playerEntity) 
+    public TestFurnaceContainerMenu(int pContainerId, Inventory pPlayerInventory)
     {
-    	// MenuType<?> menutype, RecipeType<? extends AbstractCookingRecipe> recipetype, int id, Inventory playerInventory,
-		// ItemStackHandler container, ContainerData containerdata,  Container tilecontainer)
-    	
-        super(ModMenuTypes.test_furnace.get(), windowId, pos, playerInventory, playerEntity, RecipeType.SMELTING);
-    } // end-server-side ctor
+        super(ModMenuTypes.test_furnace.get(), RecipeType.SMELTING, RecipeBookType.FURNACE, pContainerId, pPlayerInventory);
+    }
 
-
+    public TestFurnaceContainerMenu(int pContainerId, Inventory pPlayerInventory, Container pFurnaceContainer,
+                                    ContainerData pFurnaceData)
+    {
+        super(ModMenuTypes.test_furnace.get(), RecipeType.SMELTING, RecipeBookType.FURNACE, pContainerId, pPlayerInventory,
+                pFurnaceContainer, pFurnaceData);
+    }
 } // end class

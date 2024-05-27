@@ -1,30 +1,26 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-
 import mod.alexndr.simplecorelib.api.content.MultifunctionPressurePlateBlock;
-import mod.alexndr.simplecorelib.api.content.VeryAbstractFurnaceBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
+import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder.PartBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public abstract class SimpleBlockStateProvider extends BlockStateProvider
 {
@@ -40,20 +36,20 @@ public abstract class SimpleBlockStateProvider extends BlockStateProvider
     }
     
     @Override
-    public SimpleBlockModelProvider models()
+    public @NotNull SimpleBlockModelProvider models()
     {
         return this.simpleBlockModels;
     }
 
     @Override
-    public ItemModelProvider itemModels()
+    public @NotNull ItemModelProvider itemModels()
     {
         return super.itemModels();
     }
 
     public ItemModelBuilder basicBlockItem(Block block)
     {
-        ResourceLocation blockItemRL = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(block.asItem()));
+        ResourceLocation blockItemRL = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(block.asItem()));
         
         return this.itemModels().getBuilder(block.asItem().toString())
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
@@ -63,7 +59,7 @@ public abstract class SimpleBlockStateProvider extends BlockStateProvider
 
     public void buildBarsBlockState(IronBarsBlock pBars, ResourceLocation texture) 
     {
-        barsBlockInternal(pBars, ForgeRegistries.BLOCKS.getKey(pBars).toString(), texture);
+        barsBlockInternal(pBars, BuiltInRegistries.BLOCK.getKey(pBars).toString(), texture);
     }
     
   
@@ -176,24 +172,24 @@ public abstract class SimpleBlockStateProvider extends BlockStateProvider
     } // end ()
     
     
-    public void buildFurnaceBlockState(VeryAbstractFurnaceBlock pFurnace, ModelFile pFurnaceModel, ModelFile pFurnaceModel_lit)
+    public void buildFurnaceBlockState(AbstractFurnaceBlock pFurnace, ModelFile pFurnaceModel, ModelFile pFurnaceModel_lit)
     {
         this.getVariantBuilder(pFurnace)
-            .partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.NORTH).with(BlockStateProperties.LIT, false)
+            .partialState().with(AbstractFurnaceBlock.FACING, Direction.NORTH).with(BlockStateProperties.LIT, false)
             .setModels(new ConfiguredModel(pFurnaceModel))
-            .partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.SOUTH).with(BlockStateProperties.LIT, false)
+            .partialState().with(AbstractFurnaceBlock.FACING, Direction.SOUTH).with(BlockStateProperties.LIT, false)
             .setModels(new ConfiguredModel(pFurnaceModel, 0, 180, false))
-            .partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.WEST).with(BlockStateProperties.LIT, false)
+            .partialState().with(AbstractFurnaceBlock.FACING, Direction.WEST).with(BlockStateProperties.LIT, false)
             .setModels(new ConfiguredModel(pFurnaceModel, 0, 270, false))
-            .partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.EAST).with(BlockStateProperties.LIT, false)
+            .partialState().with(AbstractFurnaceBlock.FACING, Direction.EAST).with(BlockStateProperties.LIT, false)
             .setModels(new ConfiguredModel(pFurnaceModel, 0, 90, false))
-            .partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.NORTH).with(BlockStateProperties.LIT, true)
+            .partialState().with(AbstractFurnaceBlock.FACING, Direction.NORTH).with(BlockStateProperties.LIT, true)
             .setModels(new ConfiguredModel(pFurnaceModel_lit))
-            .partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.SOUTH).with(BlockStateProperties.LIT, true)
+            .partialState().with(AbstractFurnaceBlock.FACING, Direction.SOUTH).with(BlockStateProperties.LIT, true)
             .setModels(new ConfiguredModel(pFurnaceModel_lit, 0, 180, false))
-            .partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.WEST).with(BlockStateProperties.LIT, true)
+            .partialState().with(AbstractFurnaceBlock.FACING, Direction.WEST).with(BlockStateProperties.LIT, true)
             .setModels(new ConfiguredModel(pFurnaceModel_lit, 0, 270, false))
-            .partialState().with(VeryAbstractFurnaceBlock.FACING, Direction.EAST).with(BlockStateProperties.LIT, true)
+            .partialState().with(AbstractFurnaceBlock.FACING, Direction.EAST).with(BlockStateProperties.LIT, true)
             .setModels(new ConfiguredModel(pFurnaceModel_lit, 0, 90, false));
        
     }
