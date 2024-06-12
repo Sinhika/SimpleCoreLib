@@ -4,6 +4,8 @@ import mod.alexndr.simplecorelib.config.SimpleCoreLibConfig;
 import mod.alexndr.simplecorelib.init.CreativeTabs;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModItems;
+import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
+import mod.alexndr.simplecorelib.init.ModMenuTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -27,16 +29,16 @@ public class SimpleCoreLib
     public SimpleCoreLib(IEventBus modEventBus, ModContainer modContainer)
     {
         LOGGER.info("Hello from SimpleCoreLib!");
-//
+
         // Register Deferred Registers (Does not need to be before Configs)
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         // comment out next line to hide test objects from Creative menu.
         CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
-//        ModMenuTypes.CONTAINER_TYPES.register(modEventBus);
-//        ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
+        ModMenuTypes.MENU_TYPES.register(modEventBus);
+        ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
 
-//        // Register Configs
+        // Register Configs
         modContainer.registerConfig(ModConfig.Type.COMMON, SimpleCoreLibConfig.SPEC);
 
     } // end SimpleOres()

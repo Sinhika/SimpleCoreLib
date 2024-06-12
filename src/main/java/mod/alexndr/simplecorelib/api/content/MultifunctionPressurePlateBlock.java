@@ -45,7 +45,7 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
     									   int pPressedTime, BlockBehaviour.Properties pProperties,
     									   BlockSetType pSetType)
     {
-        super(pMaxWeight, pProperties, pSetType);
+        super(pMaxWeight, pSetType, pProperties);
         this.sensitivity = pSensitify;
         this.pressTime = pPressedTime;
         this.is_weighted = List.of(Sensitivity.EVERYTHING_WEIGHTED, Sensitivity.MOBS_WEIGHTED, Sensitivity.PLAYERS_WEIGHTED,

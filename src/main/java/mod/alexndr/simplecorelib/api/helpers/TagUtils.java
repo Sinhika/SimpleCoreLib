@@ -17,7 +17,11 @@ public final class TagUtils
     
     public static TagKey<Item> forgeTag(String name)
     {
-        return modTag("forge", name);
+        return modTag("neoforge", name);
+    }
+    public static TagKey<Item> cTag(String name)
+    {
+        return modTag("c.tags", name);
     }
 
     public static TagKey<Item> silentsTag(String name) {
@@ -29,10 +33,10 @@ public final class TagUtils
         return BlockTags.create(new ResourceLocation(modid, name));
     }
     
-    public static TagKey<Block> forgeBlockTag(String name) {
-        return modBlockTag("forge", name);
-    }
-    
+    public static TagKey<Block> forgeBlockTag(String name) {  return modBlockTag("neoforge", name); }
+
+    public static TagKey<Block> cBlockTag(String name) {  return modBlockTag("c.tags", name); }
+
     public static TagKey<Block> mcMiningTag(String name, int harvest_level)
     {
     	String needs_name;

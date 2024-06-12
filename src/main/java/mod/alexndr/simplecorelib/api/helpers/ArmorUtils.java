@@ -33,7 +33,7 @@ public final class ArmorUtils
             if (stack.isEmpty()) { return false; }
             if (!(stack.getItem() instanceof ArmorItem)) { return false; }
             ArmorItem piece = (ArmorItem) stack.getItem();
-            ArmorMaterial pieceMaterial = piece.getMaterial();
+            ArmorMaterial pieceMaterial = piece.getMaterial().value();
             if (pieceMaterial != material)
             {
                 return false;

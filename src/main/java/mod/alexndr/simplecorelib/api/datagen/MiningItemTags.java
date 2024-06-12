@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import mod.alexndr.simplecorelib.api.helpers.TagUtils;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegistryObject;
 
@@ -50,25 +52,27 @@ public class MiningItemTags extends ItemTagsProvider
     {}
     
 	/**
-	 * Automatically create forge:armor tags.
+	 * Automatically create minecraft:armor tags.
 	 * 
 	 * @param item_defregistry DeferredRegistry in which armor items exist.
 	 */
 	protected void registerArmorTags(DeferredRegister<Item> item_defregistry)
 	{
-		
-		this.tag(TagUtils.forgeTag("armors"))
-			.addTag(TagUtils.forgeTag("armors/helmets"))
-			.addTag(TagUtils.forgeTag("armors/chestplates"))
-			.addTag(TagUtils.forgeTag("armors/leggings"))
-			.addTag(TagUtils.forgeTag("armors/boots"));
-	
-		item_defregistry.getEntries().stream().map(RegistryObject::get)
+		item_defregistry.getEntries().stream().map(DeferredHolder::get)
 			.filter(entry -> (entry instanceof ArmorItem))
 			.forEach(armor -> {
-				String foo = ((ArmorItem)armor).getType().getName();
-				foo = (foo.endsWith("s") ? foo : foo + "s");
-				this.tag(TagUtils.forgeTag("armors/" + foo)).add(armor);
+				if (((ArmorItem) armor).getType() == ArmorItem.Type.BOOTS) {
+					this.tag(TagUtils.modTag("minecraft", "foot_armor")).add((ArmorItem) armor);
+				}
+				else if (((ArmorItem) armor).getType() == ArmorItem.Type.LEGGINGS) {
+					this.tag(TagUtils.modTag("minecraft", "leg_armor")).add((ArmorItem) armor);
+				}
+				else if (((ArmorItem) armor).getType() == ArmorItem.Type.CHESTPLATE) {
+					this.tag(TagUtils.modTag("minecraft", "chest_armor")).add((ArmorItem) armor);
+				}
+				else if (((ArmorItem) armor).getType() == ArmorItem.Type.LEGGINGS) {
+					this.tag(TagUtils.modTag("minecraft", "head_armor")).add((ArmorItem) armor);
+				}
 			});
 	} // end registerArmorTags()
 	
@@ -80,7 +84,7 @@ public class MiningItemTags extends ItemTagsProvider
 	protected void registerToolTags(DeferredRegister<Item> item_defregistry)
 	{
 		// first, tiered items as a group.
-		item_defregistry.getEntries().stream().map(RegistryObject::get)
+		item_defregistry.getEntries().stream().map(DeferredHolder::get)
 			.filter(entry -> (entry instanceof TieredItem))
 			.forEach(item -> {
 				if (item instanceof SwordItem) {
@@ -105,7 +109,7 @@ public class MiningItemTags extends ItemTagsProvider
 			.addTag(TagUtils.forgeTag("tools/bows"))
 			.addTag(TagUtils.forgeTag("tools/crossbows"));
 				
-		item_defregistry.getEntries().stream().map(RegistryObject::get)
+		item_defregistry.getEntries().stream().map(DeferredHolder::get)
 			.filter(entry -> (entry instanceof ProjectileWeaponItem))
 			.forEach(item -> {
 				if (item instanceof BowItem) {
@@ -117,10 +121,10 @@ public class MiningItemTags extends ItemTagsProvider
 			});
 
 		// third, shears
-		item_defregistry.getEntries().stream().map(RegistryObject::get)
+		item_defregistry.getEntries().stream().map(DeferredHolder::get)
 			.filter(entry -> (entry instanceof ShearsItem))
 			.forEach(item -> {
-				this.tag(Tags.Items.SHEARS).add(item);
+				this.tag(Tags.Items.TOOLS_SHEARS).add(item);
 			});
 		
 	} // end registerToolTags()
