@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -130,16 +131,11 @@ public class MultifunctionPressurePlateBlock extends WeightedPressurePlateBlock
         }
     } // end getSignalForState()
 
-    @Override
-    protected BlockState setSignalForState(BlockState pState, int pStrength)
-    {
-        return pState.setValue(POWER, Integer.valueOf(pStrength));
-    }
 
     @Override
-    public void appendHoverText(ItemStack pStack, BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag)
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag)
     {
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
         String tipKey = null;
         
         switch(this.sensitivity) 

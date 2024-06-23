@@ -3,7 +3,9 @@ package mod.alexndr.simplecorelib.api.datagen;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -36,11 +38,11 @@ public abstract class SimpleBlockLootSubProvider extends BlockLootSubProvider
     }
     
 	@Override
-	public void generate(BiConsumer<ResourceLocation, LootTable.Builder> foo) 
+	public void generate(HolderLookup.Provider pRegistries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> foo)
 	{
 		this.generate();
 		// this.map.foreach(foo.accept);
-		for (ResourceLocation resource: this.map.keySet())
+		for (ResourceKey<LootTable> resource: this.map.keySet())
 		{
 			LootTable.Builder loottable$builder = this.map.get(resource);
 			if (loottable$builder == null) {
@@ -68,9 +70,9 @@ public abstract class SimpleBlockLootSubProvider extends BlockLootSubProvider
 	* (e.g., redstone_ore, copper_ore). Assumed to be affected by Fortune-enchanted tools.
 	* 
 	* @param bb block being harvested.
-	* @param ii items dropped by block
-	* @param mincount minimum number of items dropped.
-	* @param maxcount maximum number of items dropped.
+	* @param item items dropped by block
+	* @param min_count minimum number of items dropped.
+	* @param max_count maximum number of items dropped.
 	*/
 	protected void dropMultiItemsWithFortune(Block bb, Item item, int min_count, int max_count)
 	{
@@ -82,7 +84,7 @@ public abstract class SimpleBlockLootSubProvider extends BlockLootSubProvider
 	    return createSilkTouchDispatchTable(pBlock, 
 	    		this.applyExplosionDecay(pBlock, LootItem.lootTableItem(item)
 	    				.apply(SetItemCountFunction.setCount(UniformGenerator.between(min_count, max_count)))
-	    					.apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
+	    					.apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE))));
 	}
 	
 
@@ -101,7 +103,6 @@ public abstract class SimpleBlockLootSubProvider extends BlockLootSubProvider
     /**
      * Create a block loot table that drops a single door from a door double-block.
      * @param b
-     * @param lootTable
      */
     protected void doorDropTable(Block b)
     {

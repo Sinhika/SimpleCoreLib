@@ -46,6 +46,8 @@ public class SimpleCoreBlockTags extends MiningBlockTags
     {
         registerOresInGroundTags(List.of(ModBlocks.original_copper_ore.get()), null, null);
         registerOreRateTags(null, List.of(ModBlocks.original_copper_ore.get()), null);
+		this.tag(BlockTags.COPPER_ORES)
+				.add(ModBlocks.original_copper_ore.get());
     }
 
     private void registerMiscTags()

@@ -33,7 +33,7 @@ public class SimpleCoreDataGenerator
     			new SimpleCoreItemTags(packOutput, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
     	gen.addProvider(event.includeServer(), 
     			new SimpleLootTableProvider(packOutput, List.of(
-    					new LootTableProvider.SubProviderEntry(CoreBlockLootSubProvider::new, LootContextParamSets.BLOCK))));
+    					new LootTableProvider.SubProviderEntry(CoreBlockLootSubProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
     	
     	// client datagen
     	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
