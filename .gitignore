@@ -26,7 +26,7 @@ run-data
 src/generated/resources/.cache/
 build.number
 *_old
- .~lock*
+.~lock*
 
 # Files from Forge MDK
 forge*changelog.txt
