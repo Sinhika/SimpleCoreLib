@@ -30,6 +30,9 @@ public class SimpleCoreLib
     {
         LOGGER.info("Hello from SimpleCoreLib!");
 
+        // register event listeners.
+        modEventBus.addListener(ModEventSubscriber::onRegisterItems);
+
         // Register Deferred Registers (Does not need to be before Configs)
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);

@@ -75,35 +75,35 @@ public class MiningItemTags extends ItemTagsProvider
 			.filter(entry -> (entry instanceof TieredItem))
 			.forEach(item -> {
 				if (item instanceof SwordItem) {
-					this.tag(TagUtils.modTag("minecraft", "swords")).add(item);
+					this.tag(TagUtils.mcTag( "swords")).add(item);
 				}
 				else if (item instanceof AxeItem) {
-					this.tag(TagUtils.modTag("minecraft", "axes")).add(item);
+					this.tag(TagUtils.mcTag( "axes")).add(item);
 				}
 				else if (item instanceof HoeItem) {
-					this.tag(TagUtils.modTag("minecraft", "hoes")).add(item);
+					this.tag(TagUtils.mcTag( "hoes")).add(item);
 				}
 				else if (item instanceof PickaxeItem) {
-					this.tag(TagUtils.modTag("minecraft", "pickaxes")).add(item);
+					this.tag(TagUtils.mcTag( "pickaxes")).add(item);
 				}
 				else if (item instanceof ShovelItem) {
-					this.tag(TagUtils.modTag("minecraft", "shovels")).add(item);
+					this.tag(TagUtils.mcTag( "shovels")).add(item);
 				}
 			});
 
 		// second, projectile weapons
-		this.tag(TagUtils.forgeTag("tools"))
-			.addTag(TagUtils.forgeTag("tools/bows"))
-			.addTag(TagUtils.forgeTag("tools/crossbows"));
+		this.tag(TagUtils.cTag("tools"))
+			.addTag(TagUtils.cTag("tools/bows"))
+			.addTag(TagUtils.cTag("tools/crossbows"));
 				
 		item_defregistry.getEntries().stream().map(DeferredHolder::get)
 			.filter(entry -> (entry instanceof ProjectileWeaponItem))
 			.forEach(item -> {
 				if (item instanceof BowItem) {
-					this.tag(TagUtils.forgeTag("tools/bows")).add(item);
+					this.tag(TagUtils.cTag("tools/bows")).add(item);
 				}
 				else if (item instanceof CrossbowItem) {
-					this.tag(TagUtils.forgeTag("tools/crossbows")).add(item);
+					this.tag(TagUtils.cTag("tools/crossbows")).add(item);
 				}
 			});
 

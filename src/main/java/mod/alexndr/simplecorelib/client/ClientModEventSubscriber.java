@@ -13,7 +13,7 @@ public final class ClientModEventSubscriber
 {
 
    @SubscribeEvent
-   public void registerScreens(RegisterMenuScreensEvent event)
+   public static void registerScreens(RegisterMenuScreensEvent event)
    {
         event.register(ModMenuTypes.test_furnace.get(), TestFurnaceScreen::new);
    }

@@ -12,7 +12,6 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@EventBusSubscriber(modid = SimpleCoreLib.MODID, bus = EventBusSubscriber.Bus.MOD)
 public final class ModEventSubscriber
 {
     private static final Logger LOGGER = LogManager.getLogger(SimpleCoreLib.MODID + " Mod Event Subscriber");
@@ -21,7 +20,6 @@ public final class ModEventSubscriber
 //     * This method will be called by Forge when it is time for the mod to register its Items.
 //     * This method will always be called after the Block registry method.
 //     */
-    @SubscribeEvent
     public static void onRegisterItems(final RegisterEvent event)
     {
         if (event.getRegistryKey() == Registries.ITEM)
