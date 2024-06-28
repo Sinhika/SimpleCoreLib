@@ -3,6 +3,7 @@
    	"block.simplecorelib.test_furnace": "Test Furnace",
    	"block.simplecorelib.test_plate" : "Test Pressure Plate",
     "block.simplecorelib.original_copper_ore" : "Original Copper Ore",
+    "block.simplecorelib.test_bars" : "Test Bars",
     "item.simplecorelib.test_shears" : "Test Shears",
     "tips.test_plate" : "Used to test pp concepts",
     "tips.pressure_plate.everything" : "Triggered by anything",
