@@ -1,5 +1,6 @@
 package mod.alexndr.simplecorelib.api.client.gui;
 
+import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -53,7 +54,7 @@ public class DrawableSprite implements IDrawableStatic
 	}
 
 	@Override
-	public void draw(GuiGraphics guiGraphics, int xOffset, int yOffset) {
+	public void draw(@NotNull GuiGraphics guiGraphics, int xOffset, int yOffset) {
 		draw(guiGraphics, xOffset, yOffset, 0, 0, 0, 0);
 	}
 

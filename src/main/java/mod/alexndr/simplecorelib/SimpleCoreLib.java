@@ -6,6 +6,7 @@ import mod.alexndr.simplecorelib.init.ModBlocks;
 import mod.alexndr.simplecorelib.init.ModItems;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import mod.alexndr.simplecorelib.init.ModMenuTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -24,7 +25,7 @@ public class SimpleCoreLib
     public static final Logger LOGGER = LogManager.getLogger();
     
     // texture atlas for JEI sprites
-    // public static final ResourceLocation SIMPLE_TEXTURE_ATLAS = new ResourceLocation(MODID, "textures/atlas/gui.png");
+    public static final ResourceLocation SIMPLE_TEXTURE_ATLAS = new ResourceLocation(MODID, "textures/atlas/gui.png");
 
     public SimpleCoreLib(IEventBus modEventBus, ModContainer modContainer)
     {
