@@ -21,7 +21,7 @@ public final class TagUtils
     }
     public static TagKey<Item> cTag(String name)
     {
-        return modTag("c.tags", name);
+        return modTag("c", name);
     }
     public static TagKey<Item> mcTag(String name)
     {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplecorelib:test_plate"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "simplecorelib:blocks/test_plate"
+}

@@ -5,6 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
@@ -49,16 +50,16 @@ public class MiningItemTags extends ItemTagsProvider
 			.filter(entry -> (entry instanceof ArmorItem))
 			.forEach(armor -> {
 				if (((ArmorItem) armor).getType() == ArmorItem.Type.BOOTS) {
-					this.tag(TagUtils.modTag("minecraft", "foot_armor")).add((ArmorItem) armor);
+					this.tag(ItemTags.FOOT_ARMOR).add((ArmorItem) armor);
 				}
 				else if (((ArmorItem) armor).getType() == ArmorItem.Type.LEGGINGS) {
-					this.tag(TagUtils.modTag("minecraft", "leg_armor")).add((ArmorItem) armor);
+					this.tag(ItemTags.LEG_ARMOR).add((ArmorItem) armor);
 				}
 				else if (((ArmorItem) armor).getType() == ArmorItem.Type.CHESTPLATE) {
-					this.tag(TagUtils.modTag("minecraft", "chest_armor")).add((ArmorItem) armor);
+					this.tag(ItemTags.CHEST_ARMOR).add((ArmorItem) armor);
 				}
-				else if (((ArmorItem) armor).getType() == ArmorItem.Type.LEGGINGS) {
-					this.tag(TagUtils.modTag("minecraft", "head_armor")).add((ArmorItem) armor);
+				else if (((ArmorItem) armor).getType() == ArmorItem.Type.HELMET) {
+					this.tag(ItemTags.HEAD_ARMOR).add((ArmorItem) armor);
 				}
 			});
 	} // end registerArmorTags()
@@ -75,35 +76,31 @@ public class MiningItemTags extends ItemTagsProvider
 			.filter(entry -> (entry instanceof TieredItem))
 			.forEach(item -> {
 				if (item instanceof SwordItem) {
-					this.tag(TagUtils.mcTag( "swords")).add(item);
+					this.tag(ItemTags.SWORDS).add(item);
 				}
 				else if (item instanceof AxeItem) {
-					this.tag(TagUtils.mcTag( "axes")).add(item);
+					this.tag(ItemTags.AXES).add(item);
 				}
 				else if (item instanceof HoeItem) {
-					this.tag(TagUtils.mcTag( "hoes")).add(item);
+					this.tag(ItemTags.HOES).add(item);
 				}
 				else if (item instanceof PickaxeItem) {
-					this.tag(TagUtils.mcTag( "pickaxes")).add(item);
+					this.tag(ItemTags.PICKAXES).add(item);
 				}
 				else if (item instanceof ShovelItem) {
-					this.tag(TagUtils.mcTag( "shovels")).add(item);
+					this.tag(ItemTags.SHOVELS).add(item);
 				}
 			});
 
 		// second, projectile weapons
-		this.tag(TagUtils.cTag("tools"))
-			.addTag(TagUtils.cTag("tools/bows"))
-			.addTag(TagUtils.cTag("tools/crossbows"));
-				
 		item_defregistry.getEntries().stream().map(DeferredHolder::get)
 			.filter(entry -> (entry instanceof ProjectileWeaponItem))
 			.forEach(item -> {
 				if (item instanceof BowItem) {
-					this.tag(TagUtils.cTag("tools/bows")).add(item);
+					this.tag(Tags.Items.TOOLS_BOWS).add(item);
 				}
 				else if (item instanceof CrossbowItem) {
-					this.tag(TagUtils.cTag("tools/crossbows")).add(item);
+					this.tag(Tags.Items.TOOLS_CROSSBOWS).add(item);
 				}
 			});
 
