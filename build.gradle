@@ -6,8 +6,15 @@ plugins {
     id 'net.neoforged.gradle.userdev' version '7.0.145'
 }
 
+def getVersionAppendage() {
+    if (System.env.BUILD_NUMBER)
+        return System.env.BUILD_NUMBER
+    else
+        return "0"
+}
+
 group = mod_group_id
-version = mod_version
+version = "${minecraft_version}-${mod_version}." + getVersionAppendage()
 
 repositories {
     mavenLocal()

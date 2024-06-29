@@ -1,0 +1,25 @@
+PORTING FROM 1.20.1 to 1.20.6
+==============================
+
+Where old_version = 1.20.1 and new_version = 1.20.6.
+Details are in the CombinedUpdatePrimer1.20.6.odt document.
+
+ 1. Make sure old version builds, still.
+ 2. Run remapping script BEFORE any other updates.
+ 3. Update gradlew, gradlew.bat, and the ./gradle directory.
+ 4. Update build.gradle, settings.gradle, gradle.properties.
+ 5. Rename mods.toml to neoforge.mods.toml.
+ 6. Delete pack.mcmeta.
+ 7. Comment out any access transformers until we know if we need them.
+ 8. Main mod class:
+        A. add listener for onRegisterItems() and any other event 
+        subscribers in ModEventSubscriber() or ForgeEventSubscriber().
+        B. register revised config class
+ 9. Revise primary config class; it now contains everything the old 
+    ServerConfig, ConfigHelper, and ConfigHolder classes did.Also revise
+    ClientConfig into primary-client config class.
+ 10. Revise init classes. Tool tiers have changes, so..
+ 11. Revise Tool tiers.
+ 
+    
+ 
