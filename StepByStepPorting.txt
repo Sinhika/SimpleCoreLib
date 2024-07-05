@@ -18,8 +18,19 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
  9. Revise primary config class; it now contains everything the old 
     ServerConfig, ConfigHelper, and ConfigHolder classes did.Also revise
     ClientConfig into primary-client config class.
- 10. Revise init classes. Tool tiers have changes, so..
- 11. Revise Tool tiers.
+ 10. Revise init classes. Tool tiers and armor materials have changes, so..
+         A. Revise Tool tiers.
+         B. Revise Armor Materials.
+         C. create NEED_X_TOOL and INCORRECT_FOR_X_TOOL tags as needed.
+ 11. Update CreativeTabs init. RegistryObject is now DeferredHolder.
+ 12. Update any ore-type tags from forge tags to common (c) tags.
+ 13. Update any buckets. All init should be done by now.
+ 14. VillagerTrades really does need that access transformer.
+ 15. Update any client event subscribers. TODO how to addListener()?
+ 16. DATAGEN
+    A. in the main DataGenerator class, new SimpleLootTableProvider() has
+        an extra argument, lookupProvider.
+    
  
     
  
