@@ -19,9 +19,10 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
     ServerConfig, ConfigHelper, and ConfigHolder classes did.Also revise
     ClientConfig into primary-client config class.
  10. Revise init classes. Tool tiers and armor materials have changes, so..
-         A. Revise Tool tiers.
+         A. Revise Tool tiers. 
          B. Revise Armor Materials.
          C. create NEED_X_TOOL and INCORRECT_FOR_X_TOOL tags as needed.
+            Completely replaces TierSortingRegistry.
  11. Update CreativeTabs init. RegistryObject is now DeferredHolder.
  12. Update any ore-type tags from forge tags to common (c) tags.
  13. Update any buckets. All init should be done by now.
@@ -30,7 +31,23 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
  16. DATAGEN
     A. in the main DataGenerator class, new SimpleLootTableProvider() has
         an extra argument, lookupProvider.
-    
- 
+    B. In BlockTags provider, most forgeBlockTag() will be converted to
+        cBlockTag(). Use official tag constants when available.
+    C. In the ItemTags provider, most forgeTab() will be converted to cTag().
+        There are many official neoForge constants to be used.
+    D. In RecipeProvider, 
+        i. parameter type for buildRecipes changes from Consumer<> to 
+            RecipeOutput.
+        ii. RecipeProvider constructor has a 2nd argument now.
+        iii. Remove all flag() args from setbuilder methods. If users want
+            to disable recipes, that's what datapacks are for. Toward the
+            same end, toss any ConditionalRecipe builders.
+    E. LootTableSubProviders probably don't need changing.
+    F. BlockStateProviders probably don't need changing.
+    G. ItemModelProviders probably don't need changing.
+  17. REPLACE loot injection tables with Global Loot Modifiers.
+  
+
+            
     
  

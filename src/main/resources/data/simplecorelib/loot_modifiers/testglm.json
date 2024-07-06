@@ -1,0 +1,17 @@
+{
+  "type" : "simplecorelib:village_house_lootmod",
+  "conditions" : [
+    {
+      "condition": "minecraft:any_of",
+      "terms": [
+
+      ]
+    }
+  ],
+  "additional_items" : [
+    {
+      "name": "simplecorelib:test_shears",
+      "weight" : 1
+    }
+  ]
+}
