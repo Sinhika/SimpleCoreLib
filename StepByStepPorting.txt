@@ -8,7 +8,8 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
  2. Run remapping script BEFORE any other updates.
  3. Update gradlew, gradlew.bat, and the ./gradle directory.
  4. Update build.gradle, settings.gradle, gradle.properties.
- 5. Rename mods.toml to neoforge.mods.toml.
+ 5. Rename mods.toml to neoforge.mods.toml. Don't forget to update 
+    build.gradle with the new name.
  6. Delete pack.mcmeta.
  7. Comment out any access transformers until we know if we need them.
  8. Main mod class:
@@ -28,7 +29,10 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
  13. Update any buckets. All init should be done by now.
  14. VillagerTrades really does need that access transformer.
  15. Update any client event subscribers. TODO how to addListener()?
- 16. DATAGEN
+ 16. Enchantments have changed; redo any Enchantment code to properly use
+    ItemEnchantments.
+ 
+ 17. DATAGEN
     A. in the main DataGenerator class, new SimpleLootTableProvider() has
         an extra argument, lookupProvider.
     B. In BlockTags provider, most forgeBlockTag() will be converted to
@@ -45,7 +49,7 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
     E. LootTableSubProviders probably don't need changing.
     F. BlockStateProviders probably don't need changing.
     G. ItemModelProviders probably don't need changing.
-  17. REPLACE loot injection tables with Global Loot Modifiers.
+  18. REPLACE loot injection tables with Global Loot Modifiers.
   
 
             
