@@ -39,7 +39,7 @@ public final class TagUtils
     
     public static TagKey<Block> forgeBlockTag(String name) {  return modBlockTag("neoforge", name); }
 
-    public static TagKey<Block> cBlockTag(String name) {  return modBlockTag("c.tags", name); }
+    public static TagKey<Block> cBlockTag(String name) {  return modBlockTag("c", name); }
     public static TagKey<Block> mcBlockTag(String name) {  return modBlockTag("minecraft", name); }
 
     public static TagKey<Block> mcMiningTag(String name, int harvest_level)

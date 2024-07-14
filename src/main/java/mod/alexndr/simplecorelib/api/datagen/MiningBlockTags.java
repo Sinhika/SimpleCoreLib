@@ -54,8 +54,10 @@ public abstract class MiningBlockTags extends BlockTagsProvider
 			Collection<Block> stone_blocks, Collection<Block> iron_blocks, 
 			Collection<Block> diamond_blocks, Collection<Block> netherite_blocks)
 	{
-		IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_PICKAXE);
-		blocks.stream().forEach(b -> foo.add(b));
+		if (blocks != null && !blocks.isEmpty()) {
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_PICKAXE);
+			blocks.stream().forEach(b -> foo.add(b));
+		}
 		
 		if (stone_blocks != null && !stone_blocks.isEmpty()) {
 			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> stone = this.tag(BlockTags.NEEDS_STONE_TOOL);
@@ -84,8 +86,10 @@ public abstract class MiningBlockTags extends BlockTagsProvider
      */
     protected void registerShovelableTags(Collection<Block> blocks)
     {
-    	IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_SHOVEL);
-        blocks.stream().forEach(b -> foo.add(b));
+		if (blocks != null && !blocks.isEmpty()) {
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_SHOVEL);
+			blocks.stream().forEach(b -> foo.add(b));
+		}
       } // end registerShovelableTags()
 	
     
@@ -97,9 +101,10 @@ public abstract class MiningBlockTags extends BlockTagsProvider
      */
     protected void registerAxeableTags(Collection<Block> blocks)
     {
-    	IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_AXE);
-        blocks.stream().forEach(b -> foo.add(b));
-        
+		if (blocks != null && !blocks.isEmpty()) {
+			IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> foo = this.tag(BlockTags.MINEABLE_WITH_AXE);
+			blocks.stream().forEach(b -> foo.add(b));
+		}
     } // end registerAxeableTags()
     
 
