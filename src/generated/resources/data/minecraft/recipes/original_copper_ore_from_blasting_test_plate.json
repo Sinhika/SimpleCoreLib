@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.6,
+  "group": "recycle test items",
+  "ingredient": {
+    "item": "simplecorelib:test_plate"
+  },
+  "result": {
+    "count": 1,
+    "id": "simplecorelib:original_copper_ore"
+  }
+}
