@@ -9,6 +9,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -34,7 +36,8 @@ public class SimpleCoreDataGenerator
     	gen.addProvider(event.includeServer(), 
     			new SimpleLootTableProvider(packOutput, List.of(
     					new LootTableProvider.SubProviderEntry(CoreBlockLootSubProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
-    	
+    	gen.addProvider(event.includeServer(),
+				new SimpleCoreRecipeProvider(packOutput, lookupProvider));
     	// client datagen
     	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
     	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(packOutput, existingFileHelper));

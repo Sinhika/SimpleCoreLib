@@ -1,5 +1,6 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
+import mod.alexndr.simplecorelib.api.helpers.NameUtils;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -103,30 +104,31 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                                           ItemLike nugget, Criterion<?> criterion)
     {
         // block <=> ingots
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ingot.asItem(), 9)
-            .requires(block.asItem())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ingot, 9)
+            .requires(block)
             .unlockedBy("has_item", criterion)
             .save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block.asItem())
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block)
+            .pattern("SSS")
+            .pattern("SSS")
+            .pattern("SSS")
             .define('S', ingot)
-            .pattern("SSS")
-            .pattern("SSS")
-            .pattern("SSS")
             .unlockedBy("has_item", criterion)
             .save(consumer);
         
         // ingot <=> nuggets
         if (nugget != null)
         {
-            String ingot_name = ingot.asItem().toString();
+            String ingot_name = NameUtils.fromItem(ingot.asItem()).getPath();
                     
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,nugget.asItem(), 9)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,nugget, 9)
                 .requires(ingot)
                 .unlockedBy("has_item", criterion)
                 .save(consumer);
             
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC,ingot)
-                .define('S', nugget.asItem())
+                .define('S', nugget)
                 .pattern("SSS")
                 .pattern("SSS")
                 .pattern("SSS")
@@ -140,7 +142,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
                                             ItemLike medium_chunk, ItemLike large_chunk, 
                                             Criterion<?> criterion)
     {
-        String nugget_name = nugget.asItem().toString();
+        String nugget_name = NameUtils.fromItem(nugget.asItem()).getPath();
         
         if (medium_chunk != null)
         {
@@ -148,38 +150,38 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
             
             // nuggets to medium chunk,
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC,medium_chunk)
-                .define('S', nugget.asItem())
+                .define('S', nugget)
                 .pattern("SS")
                 .pattern("SS")
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(mchunk_name + "_from_nuggets"));
                 
             // medium chunk to nuggets
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,nugget.asItem(), 4)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, nugget, 4)
                 .requires(medium_chunk)
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(nugget_name + "_from_medium_chunk"));
         }
         if (large_chunk != null && medium_chunk != null)
         {
-            String lchunk_name = large_chunk.asItem().toString();
-            String mchunk_name = medium_chunk.asItem().toString();
+            String lchunk_name = NameUtils.fromItem(large_chunk.asItem()).getPath();
+            String mchunk_name = NameUtils.fromItem(medium_chunk.asItem()).getPath();
             
             // large chunk to medium chunks
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,medium_chunk.asItem(), 2)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,medium_chunk, 2)
                 .requires(large_chunk)
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(mchunk_name + "_from_large_chunk"));
             
             // medium chunks + nugget to large chunk
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,large_chunk.asItem())
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,large_chunk)
                 .requires(medium_chunk, 2)
                 .requires(nugget)
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(lchunk_name + "_from_medium_chunks"));
             
             // nuggets & medium chunk to large chunk.
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,large_chunk.asItem())
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,large_chunk)
                 .requires(nugget, 5)
                 .requires(medium_chunk)
                 .unlockedBy("has_item", criterion)
@@ -189,7 +191,7 @@ public class RecipeSetBuilder extends AbstractRecipeSetBuilder
         else if (large_chunk != null)
         {
             // large chunk to nuggets
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,nugget.asItem(), 8)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,nugget, 8)
                 .requires(large_chunk)
                 .unlockedBy("has_item", criterion)
                 .save(consumer, make_resource(nugget_name + "_from_large_chunk"));
