@@ -148,7 +148,7 @@ public abstract class SimpleRecipeProvider extends RecipeProvider
         ShapelessRecipeBuilder.shapeless(pUnpackedCategory, pUnpacked, 9)
                 .requires(pPacked)
                 .unlockedBy("has_item", has(pPacked))
-                .save(pRecipeOutput, prependModid(getSimpleRecipeName(pUnpacked)));
+                .save(pRecipeOutput, prependModid(getSimpleRecipeName(pUnpacked) + "_from_" + getSimpleRecipeName(pPacked)));
 
         ShapedRecipeBuilder.shaped(pPackedCategory, pPacked)
                 .define('S', pUnpacked)
