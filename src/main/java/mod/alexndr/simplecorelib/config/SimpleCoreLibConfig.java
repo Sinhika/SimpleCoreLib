@@ -7,7 +7,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-@EventBusSubscriber(modid = SimpleCoreLib.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class SimpleCoreLibConfig extends SimpleConfig
 {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
@@ -27,8 +26,7 @@ public class SimpleCoreLibConfig extends SimpleConfig
 
     public static int testShearDurability = 10;
 
-    @SubscribeEvent
-    static void onLoad(final ModConfigEvent event)
+    public static void onLoad(final ModConfigEvent event)
     {
         testShearDurability = serverTestShearDurability.get();
     }
