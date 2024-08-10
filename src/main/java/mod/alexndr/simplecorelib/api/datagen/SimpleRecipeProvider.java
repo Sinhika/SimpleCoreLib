@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -144,11 +145,18 @@ public abstract class SimpleRecipeProvider extends RecipeProvider
             RecipeCategory pPackedCategory, ItemLike pPacked
     )
     {
-        nineBlockStorageRecipes(
-                pRecipeOutput, pUnpackedCategory, pUnpacked, pPackedCategory, pPacked,
-                prependModid(getSimpleRecipeName(pPacked)),
-                null, prependModid(getSimpleRecipeName(pUnpacked)), null
-        );
+        ShapelessRecipeBuilder.shapeless(pUnpackedCategory, pUnpacked, 9)
+                .requires(pPacked)
+                .unlockedBy("has_item", has(pPacked))
+                .save(pRecipeOutput, prependModid(getSimpleRecipeName(pUnpacked)));
+
+        ShapedRecipeBuilder.shaped(pPackedCategory, pPacked)
+                .define('S', pUnpacked)
+                .pattern("SSS")
+                .pattern("SSS")
+                .pattern("SSS")
+                .unlockedBy("has_item", has(pUnpacked))
+                .save(pRecipeOutput, prependModid(getSimpleRecipeName(pPacked) + "_from_" + getSimpleRecipeName(pUnpacked)));
     } // end modNineBlockStorageRecipes()
 
     // ===================================== //

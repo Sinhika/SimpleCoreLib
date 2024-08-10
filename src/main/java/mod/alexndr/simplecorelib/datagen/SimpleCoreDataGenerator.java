@@ -43,7 +43,7 @@ public class SimpleCoreDataGenerator
 		// uncomment to enable test recipes
 //    	gen.addProvider(event.includeServer(),
 //				new SimpleCoreRecipeProvider(packOutput, lookupProvider));
-    	// client datagen
+//    	 client datagen
     	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
     	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(packOutput, existingFileHelper));
 	} // end gatherData()
