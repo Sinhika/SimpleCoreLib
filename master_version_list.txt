@@ -7,7 +7,7 @@ org.gradle.java.home=/usr/lib/jvm/msopenjdk-21-amd64
 ---------------------------------------------
 # ENVIRONMENT
 neogradle.subsystems.parchment.minecraftVersion=1.20.6
-neogradle.subsystems.parchment.mappingsVersion=2024.06.02
+neogradle.subsystems.parchment.mappingsVersion=2024.06.16
 
 minecraft_version = 1.20.6
 minecraft_version_range=[1.20.6,1.21)
@@ -26,48 +26,23 @@ buckletlib_range=[1.20.6-3.3.0.1, 1.21-4.0.0.0)
 simplecorelib_version=1.20.6-7.0.0.3
 simplecore_range=[1.20.6-7.0.0.3, 1.21-8.0.0.0)
 
----------------------------------------------
-1.20.1
----------------------------------------------
-# ENVIRONMENT
-minecraft_version = 1.20.1
-minecraft_version_range=[1.20.1,1.21)
-
-forge_version=47.1.0
-forge_version_range=[47.0.18,)
-loader_version_range=[47,48)
-mapping_channel=parchment
-mapping_version=1.20.1
-version_parchment = 2023.09.03-1.20.1
-
-# DEPENDENCIES
-version_mcjei = 1.20.1
-jei_version = 15.2.0.27
-jei_version_range = [15.0.0.13,16.0.0.0)
-current_bucketlib_version = 1.20.1-2.3.0.0
-buckletlib_range = [1.20.1-2.2.0.1, 1.20.1-3.0.0.0)
-
-
-# SIMPLE ORES MODS
-simplecorelib_version = 1.20.1-6.0.1.2
-simplecore_range = [1.20.1-6.0.1.0, 1.20.1-6.1.0.0)
-simpleores_version = 1.20.1-6.0.0.3
-simpleores_range = [1.20.1-6.0.0.2,1.20.1-6.1.0.0)
-netherrocks_version = 1.20.1-6.0.0.1
-netherrocks_range = [1.20.1-6.0.0.0, 1.20.1-6.1.0.0)
-simple_machines_version = 1.20.1-5.0.0.0
-simple_machines_range =[1.20.1-5.0.0.0,1.20.1-5.1.0.0)
-fusion_version = 1.20.1-6.0.0.3
-fusion_range = [1.20.1-6.0.0.0,1.20.1-6.1.0.0)
-onlysilver_version =  1.20.1-6.0.0.0
-onlysilver_range = [1.20.1-6.0.0.0,1.20.1-6.1.0.0)
-hadite_version = 1.20.1-5.0.0.0
-golden_glitter_version = 1.20.1-5.0.0.0 
-arsenic_version = 1.20.1-6.0.0.0
-arsenic_range = [1.20.1-6.0.0.0,1.20.1-6.1.0.0)
-sterlingblack_version = 1.20.1-5.0.0.0
-classicalalchemy_version = 1.20.1-5.0.0.0
-cthon_version = 1.20.1-5.0.0.0
-cobalt_version = 1.20.1-5.0.0.0 
-tungsten_version = 1.20.1-5.0.0.0
-ashenwheat_version = 1.20.1-7.0.0.4
+simpleores_version = 
+simpleores_range = 
+netherrocks_version =
+netherrocks_range =
+simple_machines_version =
+simple_machines_range =
+fusion_version =
+fusion_range =
+onlysilver_version =
+onlysilver_range =
+hadite_version =
+golden_glitter_version =
+arsenic_version =
+arsenic_range =
+sterlingblack_version =
+classicalalchemy_version =
+cthon_version =
+cobalt_version =
+tungsten_version =
+ashenwheat_version =

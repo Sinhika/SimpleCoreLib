@@ -1,21 +1,15 @@
 package mod.alexndr.simplecorelib.datagen;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.api.datagen.SimpleLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+
+import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid=SimpleCoreLib.MODID, bus=EventBusSubscriber.Bus.MOD)
 public class SimpleCoreDataGenerator
@@ -44,8 +38,8 @@ public class SimpleCoreDataGenerator
 //    	gen.addProvider(event.includeServer(),
 //				new SimpleCoreRecipeProvider(packOutput, lookupProvider));
 //    	 client datagen
-    	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
-    	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(packOutput, existingFileHelper));
+//    	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
+//    	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(packOutput, existingFileHelper));
 	} // end gatherData()
 	
 } // end class

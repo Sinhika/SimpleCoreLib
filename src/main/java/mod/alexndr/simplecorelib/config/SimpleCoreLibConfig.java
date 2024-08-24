@@ -2,8 +2,6 @@ package mod.alexndr.simplecorelib.config;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.api.config.SimpleConfig;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
