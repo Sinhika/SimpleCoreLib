@@ -31,26 +31,26 @@ public class SimpleCoreLib
 
         // uncomment to register test block-items.
         // register event listeners.
-        modEventBus.addListener(ModEventSubscriber::onRegisterItems);
-        modEventBus.addListener(SimpleCoreLibConfig::onLoad);
+//        modEventBus.addListener(ModEventSubscriber::onRegisterItems);
+//        modEventBus.addListener(SimpleCoreLibConfig::onLoad);
 
         // client events
-        modEventBus.addListener( RegisterMenuScreensEvent.class, ClientModEventSubscriber::registerScreens);
+//        modEventBus.addListener( RegisterMenuScreensEvent.class, ClientModEventSubscriber::registerScreens);
 
         // uncomment to register test blocks and items
         // Register Deferred Registers (Does not need to be before Configs)
-        ModBlocks.BLOCKS.register(modEventBus);
-        ModItems.ITEMS.register(modEventBus);
+//        ModBlocks.BLOCKS.register(modEventBus);
+//        ModItems.ITEMS.register(modEventBus);
 
         // comment out next line to hide test objects from Creative menu.
-        CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+//        CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         // uncomment to register test_furnace GUI and blockentity.
-        ModMenuTypes.MENU_TYPES.register(modEventBus);
-        ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
+//        ModMenuTypes.MENU_TYPES.register(modEventBus);
+//        ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
 
         // Register Configs
         // uncomment to test configs.
-        modContainer.registerConfig(ModConfig.Type.COMMON, SimpleCoreLibConfig.SPEC);
+//        modContainer.registerConfig(ModConfig.Type.COMMON, SimpleCoreLibConfig.SPEC);
 
     } // end SimpleOres()
 
