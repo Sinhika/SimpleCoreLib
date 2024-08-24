@@ -49,7 +49,8 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
     E. LootTableSubProviders probably don't need changing.
     F. BlockStateProviders probably don't need changing.
     G. ItemModelProviders probably don't need changing.
-  18. REPLACE loot injection tables with Global Loot Modifiers.
+  18. Change all biome_modifers to 'neoforge' instead of 'forge'. Change directory name, too.
+  19. REPLACE loot injection tables with Global Loot Modifiers - TODO
   
 
             

@@ -26,8 +26,8 @@ buckletlib_range=[1.20.6-3.3.0.1, 1.21-4.0.0.0)
 simplecorelib_version=1.20.6-7.0.1.5
 simplecore_range=[1.20.6-7.0.1.4, 1.21-8.0.0.0)
 
-simpleores_version=1.20.6-7.0.0.1
-simpleores_range=[1.20.6-7.0.0.1, 1.21-8.0.0.0) 
+simpleores_version=1.20.6-7.0.0.2
+simpleores_range=[1.20.6-7.0.0.2, 1.21-8.0.0.0) 
 netherrocks_version =
 netherrocks_range =
 simple_machines_version =
