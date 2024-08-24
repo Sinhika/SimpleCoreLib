@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_test_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplecorelib:test_plate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplecorelib:original_copper_ore_from_smelting_test_plate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_test_plate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplecorelib:original_copper_ore_from_smelting_test_plate"
+    ]
+  }
+}

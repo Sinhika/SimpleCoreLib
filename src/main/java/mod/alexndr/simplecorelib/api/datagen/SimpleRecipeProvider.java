@@ -548,7 +548,6 @@ public abstract class SimpleRecipeProvider extends RecipeProvider
     } // end buildSimpleToolSet()
 
 
-    @Deprecated
     public void buildSimplePressurePlate(RecipeOutput consumer, Ingredient item,
                                          Block pp, Criterion<?> criterion)
     {

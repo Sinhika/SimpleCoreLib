@@ -17,7 +17,7 @@ public final class TagUtils
     
     public static TagKey<Item> forgeTag(String name)
     {
-        return modTag("neoforge", name);
+        return modTag("data/neoforge", name);
     }
     public static TagKey<Item> cTag(String name)
     {
@@ -37,7 +37,7 @@ public final class TagUtils
         return BlockTags.create(new ResourceLocation(modid, name));
     }
     
-    public static TagKey<Block> forgeBlockTag(String name) {  return modBlockTag("neoforge", name); }
+    public static TagKey<Block> forgeBlockTag(String name) {  return modBlockTag("data/neoforge", name); }
 
     public static TagKey<Block> cBlockTag(String name) {  return modBlockTag("c", name); }
     public static TagKey<Block> mcBlockTag(String name) {  return modBlockTag("minecraft", name); }
