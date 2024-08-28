@@ -19,6 +19,8 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
  9. Revise primary config class; it now contains everything the old 
     ServerConfig, ConfigHelper, and ConfigHolder classes did.Also revise
     ClientConfig into primary-client config class.
+        A. if any config values are used to define items, blocks or materials, 
+        they must be loaded from a STARTUP type config.
  10. Revise init classes. Tool tiers and armor materials have changes, so..
          A. Revise Tool tiers. 
          B. Revise Armor Materials.
