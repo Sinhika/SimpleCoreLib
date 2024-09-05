@@ -12,21 +12,24 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * net.neoforged.neoforge.common.loot.AddTableLootModifier and NeoForgeMod. ADD_TABLE_LOOT_MODIFIER_TYPE.
+ *  Thanks to <a href="https://github.com/railcraft-reborn/railcraft">"Railcraft Reborn"</a> making their source
+ *  code available so that I could see a working example of loot table injection as a GlobalLootModifier
+ *  and learn from it. All the code below is my own; I did not cut & paste. However, there are only
+ *  so many ways to make code do the same thing when working within a defined API.
  *
  */
 public class ChestLootModifier extends LootModifier
 {
     public static final MapCodec<ChestLootModifier> CODEC =
             RecordCodecBuilder.mapCodec(inst -> LootModifier.codecStart(inst)
-                            .and(ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("lootTable")
-                                    .forGetter((m) -> m.lootTable))
-                            .apply(inst, ChestLootModifier::new));
+                    .and(ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("lootTable")
+                            .forGetter((m) -> m.lootTable))
+                    .apply(inst, ChestLootModifier::new));
 
     private final ResourceKey<LootTable> lootTable;
-    //private final ResourceLocation lootTable;
 
     public ChestLootModifier(LootItemCondition[] conditionsIn, ResourceKey<LootTable> lootTable)
     {
@@ -42,10 +45,13 @@ public class ChestLootModifier extends LootModifier
      * @param context       the LootContext, identical to what is passed to loot tables
      * @return modified loot drops
      */
-    @Override protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot,
+    @SuppressWarnings("deprecation")
+    @Override
+    @NotNull
+    protected ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> generatedLoot,
                                                            LootContext context)
     {
-        // 1.21.1 version?
+        // 1.20.6/1.21.1 version
         context.getResolver().get(Registries.LOOT_TABLE, this.lootTable)
                 .ifPresent(extraTable -> {
                     extraTable.value().getRandomItemsRaw(context,
@@ -57,7 +63,7 @@ public class ChestLootModifier extends LootModifier
     /**
      * Returns the registered codec for this modifier
      */
-    @Override
+    @Override @NotNull
     public MapCodec<? extends IGlobalLootModifier> codec()
     {
         return ModCodecs.CHEST_LOOT.get();
