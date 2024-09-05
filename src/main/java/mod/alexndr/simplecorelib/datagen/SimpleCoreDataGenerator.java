@@ -37,8 +37,12 @@ public class SimpleCoreDataGenerator
     	gen.addProvider(event.includeServer(),
     			new SimpleLootTableProvider(packOutput, List.of(
     					new LootTableProvider.SubProviderEntry(CoreBlockLootSubProvider::new, LootContextParamSets.BLOCK),
-						new LootTableProvider.SubProviderEntry(LootTableInjectorProvider::new, LootContextParamSets.CHEST)),
+						new LootTableProvider.SubProviderEntry(LootTableInjectorSubProvider::new, LootContextParamSets.CHEST)),
 						lookupProvider));
+
+		// global loot modifier generator test.
+		gen.addProvider(event.includeServer(), )
+				new CoreLootModifierProvider(packOutput, lookupProvider);
 
 		// uncomment to enable test recipes
     	gen.addProvider(event.includeServer(),
