@@ -1,5 +1,5 @@
 {
-  "type" : "simplecorelib:village_house_lootmod",
+  "type" : "simplecorelib:village_house",
   "conditions" : [
     {
       "condition": "minecraft:any_of",
@@ -39,10 +39,5 @@
       ]
     }
   ],
-  "additional_items" : [
-    {
-      "name": "simplecorelib:test_shears",
-      "weight" : 1
-    }
-  ]
+  "lootTable" : "simplecorelib:chest/village_house"
 }

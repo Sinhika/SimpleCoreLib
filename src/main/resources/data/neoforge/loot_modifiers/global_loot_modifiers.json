@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
-    "simplecorelib:village_house_lootmod"
-  ]
+    "simplecorelib:chests/village_house"
+  ],
+  "replace" : false
 }
