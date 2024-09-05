@@ -1,5 +1,5 @@
 {
-  "type" : "simplecorelib:village_house",
+  "type" : "simplecorelib:village_house_loot",
   "conditions" : [
     {
       "condition": "minecraft:any_of",

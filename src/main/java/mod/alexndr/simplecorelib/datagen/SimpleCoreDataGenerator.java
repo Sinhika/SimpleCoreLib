@@ -36,7 +36,9 @@ public class SimpleCoreDataGenerator
 		// uncomment for loot table tests
     	gen.addProvider(event.includeServer(),
     			new SimpleLootTableProvider(packOutput, List.of(
-    					new LootTableProvider.SubProviderEntry(CoreBlockLootSubProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
+    					new LootTableProvider.SubProviderEntry(CoreBlockLootSubProvider::new, LootContextParamSets.BLOCK),
+						new LootTableProvider.SubProviderEntry(LootTableInjectorProvider::new, LootContextParamSets.CHEST)),
+						lookupProvider));
 
 		// uncomment to enable test recipes
     	gen.addProvider(event.includeServer(),
