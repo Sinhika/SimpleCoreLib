@@ -1,7 +1,7 @@
 package mod.alexndr.simplecorelib.datagen;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.api.datagen.SimpleLootInjectorProvider;
+import mod.alexndr.simplecorelib.api.datagen.SimpleLootInjectorSubProvider;
 import mod.alexndr.simplecorelib.init.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.function.BiConsumer;
 
-public class LootTableInjectorProvider extends SimpleLootInjectorProvider
+public class LootTableInjectorProvider extends SimpleLootInjectorSubProvider
 {
     private static final ResourceKey<LootTable> VILLAGE_HOUSE = getInjectionTableId(SimpleCoreLib.MODID, "village_house");
 
