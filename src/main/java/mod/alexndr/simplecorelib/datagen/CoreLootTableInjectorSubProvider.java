@@ -12,7 +12,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.function.BiConsumer;
 
-public class LootTableInjectorSubProvider extends SimpleLootInjectorSubProvider
+public class CoreLootTableInjectorSubProvider extends SimpleLootInjectorSubProvider
 {
     public static final ResourceKey<LootTable> VILLAGE_HOUSE = getInjectionTableId(SimpleCoreLib.MODID, "village_house");
 
