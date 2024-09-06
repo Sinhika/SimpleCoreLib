@@ -41,7 +41,7 @@ public class SimpleCoreLib
         // Register Deferred Registers (Does not need to be before Configs)
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
-        ModCodecs.register(modEventBus);
+        ModCodecs.GLM.register(modEventBus);
 
         // comment out next line to hide test objects from Creative menu.
         CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
