@@ -28,29 +28,29 @@ public class SimpleCoreDataGenerator
         
         // server datagen
 		// uncomment for test block & item tags.
-        SimpleCoreBlockTags blockTags = new SimpleCoreBlockTags(packOutput, lookupProvider, existingFileHelper);
-        gen.addProvider(event.includeServer(), blockTags);
-    	gen.addProvider(event.includeServer(),
-    			new SimpleCoreItemTags(packOutput, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
+//        SimpleCoreBlockTags blockTags = new SimpleCoreBlockTags(packOutput, lookupProvider, existingFileHelper);
+//        gen.addProvider(event.includeServer(), blockTags);
+//    	gen.addProvider(event.includeServer(),
+//    			new SimpleCoreItemTags(packOutput, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
 
 		// uncomment for loot table tests
-    	gen.addProvider(event.includeServer(),
-    			new SimpleLootTableProvider(packOutput, List.of(
-    					new LootTableProvider.SubProviderEntry(CoreBlockLootSubProvider::new, LootContextParamSets.BLOCK),
-						new LootTableProvider.SubProviderEntry(CoreLootTableInjectorSubProvider::new, LootContextParamSets.CHEST)),
-						lookupProvider));
+//    	gen.addProvider(event.includeServer(),
+//    			new SimpleLootTableProvider(packOutput, List.of(
+//    					new LootTableProvider.SubProviderEntry(CoreBlockLootSubProvider::new, LootContextParamSets.BLOCK),
+//						new LootTableProvider.SubProviderEntry(CoreLootTableInjectorSubProvider::new, LootContextParamSets.CHEST)),
+//						lookupProvider));
 
-		// global loot modifier generator test.
-		gen.addProvider(event.includeServer(),
-				new CoreLootModifierProvider(packOutput, lookupProvider));
+		// uncomment for global loot modifier generator test.
+//		gen.addProvider(event.includeServer(),
+//				new CoreLootModifierProvider(packOutput, lookupProvider));
 
 		// uncomment to enable test recipes
-    	gen.addProvider(event.includeServer(),
-				new SimpleCoreRecipeProvider(packOutput, lookupProvider));
+//    	gen.addProvider(event.includeServer(),
+//				new SimpleCoreRecipeProvider(packOutput, lookupProvider));
 
 		//    	 client datagen
-    	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
-    	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(packOutput, existingFileHelper));
+//    	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
+//    	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(packOutput, existingFileHelper));
 	} // end gatherData()
 	
 } // end class

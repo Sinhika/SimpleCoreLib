@@ -52,7 +52,8 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
     F. BlockStateProviders probably don't need changing.
     G. ItemModelProviders probably don't need changing.
   18. Change all biome_modifers to 'neoforge' instead of 'forge'. Change directory name, too.
-  19. REPLACE loot injection tables with Global Loot Modifiers - TODO
+  19. REPLACE loot injection tables with Global Loot Modifiers. Use datagen to create loot tables
+      and loot modifiers. See SimpleCoreLib for examples. 
   
 
             
