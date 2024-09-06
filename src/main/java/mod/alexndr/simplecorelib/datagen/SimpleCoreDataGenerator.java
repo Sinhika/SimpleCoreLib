@@ -41,8 +41,8 @@ public class SimpleCoreDataGenerator
 						lookupProvider));
 
 		// global loot modifier generator test.
-		gen.addProvider(event.includeServer(), )
-				new CoreLootModifierProvider(packOutput, lookupProvider);
+		gen.addProvider(event.includeServer(),
+				new CoreLootModifierProvider(packOutput, lookupProvider));
 
 		// uncomment to enable test recipes
     	gen.addProvider(event.includeServer(),

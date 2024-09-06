@@ -1,0 +1,10 @@
+{
+  "type": "simplecorelib:village_house_loot",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/village/village_taiga_house"
+    }
+  ],
+  "lootTable": "simplecorelib:chest/village_house"
+}

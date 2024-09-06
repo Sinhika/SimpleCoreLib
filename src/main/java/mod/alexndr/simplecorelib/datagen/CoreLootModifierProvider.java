@@ -29,6 +29,13 @@ public class CoreLootModifierProvider extends GlobalLootModifierProvider
     protected void start()
     {
         this.add(BuiltInLootTables.VILLAGE_PLAINS_HOUSE, LootTableInjectorSubProvider.VILLAGE_HOUSE);
+        this.add(BuiltInLootTables.VILLAGE_DESERT_HOUSE, LootTableInjectorSubProvider.VILLAGE_HOUSE);
+        this.add(BuiltInLootTables.VILLAGE_SHEPHERD, LootTableInjectorSubProvider.VILLAGE_HOUSE);
+        this.add(BuiltInLootTables.VILLAGE_TOOLSMITH, LootTableInjectorSubProvider.VILLAGE_HOUSE);
+        this.add(BuiltInLootTables.VILLAGE_SAVANNA_HOUSE, LootTableInjectorSubProvider.VILLAGE_HOUSE);
+        this.add(BuiltInLootTables.VILLAGE_SNOWY_HOUSE, LootTableInjectorSubProvider.VILLAGE_HOUSE);
+        this.add(BuiltInLootTables.VILLAGE_TAIGA_HOUSE, LootTableInjectorSubProvider.VILLAGE_HOUSE);
+        this.add(BuiltInLootTables.SPAWN_BONUS_CHEST, LootTableInjectorSubProvider.VILLAGE_HOUSE);
     }
 
     protected void add(ResourceKey<LootTable> targetLootTable, ResourceKey<LootTable> customLootTable)
