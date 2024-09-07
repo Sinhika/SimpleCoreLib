@@ -24,9 +24,5 @@ public abstract class SimpleLootInjectorSubProvider implements LootTableSubProvi
                 .when(LootItemRandomChanceCondition.randomChance(chanceRoll));
     } // end createChestPool
 
-//    public void addInjectionTable(BiConsumer<ResourceLocation, LootTable.Builder> foo, ResourceLocation tableId, LootPool.Builder pool)
-//    {
-//    	foo.accept(tableId, LootTable.lootTable().withPool(pool));
-//    }
 
 } // end class

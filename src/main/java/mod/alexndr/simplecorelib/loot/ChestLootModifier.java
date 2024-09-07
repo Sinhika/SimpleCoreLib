@@ -2,6 +2,7 @@ package mod.alexndr.simplecorelib.loot;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import mod.alexndr.simplecorelib.api.loot.AbstractChestLootModifier;
 import mod.alexndr.simplecorelib.init.ModCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
  *  so many ways to make code do the same thing when working within a defined API.
  *
  */
-public class ChestLootModifier extends mod.alexndr.simplecorelib.api.loot.AbstractChestLootModifier
+public class ChestLootModifier extends AbstractChestLootModifier
 {
     public static final MapCodec<ChestLootModifier> CODEC =
             RecordCodecBuilder.mapCodec(inst -> LootModifier.codecStart(inst)

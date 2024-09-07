@@ -9,6 +9,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
 
@@ -17,7 +18,7 @@ public class CoreLootTableInjectorSubProvider extends SimpleLootInjectorSubProvi
     public static final ResourceKey<LootTable> VILLAGE_HOUSE = getInjectionTableId(SimpleCoreLib.MODID, "village_house");
 
     @Override
-    public void generate(HolderLookup.Provider pRegistries,
+    public void generate(HolderLookup.@NotNull Provider pRegistries,
                          BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator)
     {
         pGenerator.accept(VILLAGE_HOUSE, LootTable.lootTable()

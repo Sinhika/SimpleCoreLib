@@ -1,6 +1,7 @@
 package mod.alexndr.simplecorelib.datagen;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
+import mod.alexndr.simplecorelib.api.datagen.SimpleLootModifierProvider;
 import mod.alexndr.simplecorelib.loot.ChestLootModifier;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -10,7 +11,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class CoreLootModifierProvider extends mod.alexndr.simplecorelib.api.datagen.SimpleLootModifierProvider
+public class CoreLootModifierProvider extends SimpleLootModifierProvider
 {
     public CoreLootModifierProvider(PackOutput output,
                                     CompletableFuture<HolderLookup.Provider> registries)
@@ -24,13 +25,9 @@ public class CoreLootModifierProvider extends mod.alexndr.simplecorelib.api.data
     @Override
     protected void start()
     {
-        this.add(BuiltInLootTables.VILLAGE_PLAINS_HOUSE, CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
-        this.add(BuiltInLootTables.VILLAGE_DESERT_HOUSE, CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
+        AddVillageHouseAliases(CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
         this.add(BuiltInLootTables.VILLAGE_SHEPHERD, CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
         this.add(BuiltInLootTables.VILLAGE_TOOLSMITH, CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
-        this.add(BuiltInLootTables.VILLAGE_SAVANNA_HOUSE, CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
-        this.add(BuiltInLootTables.VILLAGE_SNOWY_HOUSE, CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
-        this.add(BuiltInLootTables.VILLAGE_TAIGA_HOUSE, CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
         this.add(BuiltInLootTables.SPAWN_BONUS_CHEST, CoreLootTableInjectorSubProvider.VILLAGE_HOUSE);
     }
 
