@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simplecorelib:block/test_sided_cube"
+    }
+  }
+}

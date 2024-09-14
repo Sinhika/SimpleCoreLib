@@ -9,9 +9,12 @@ public class CoreBlockLootSubProvider extends SimpleBlockLootSubProvider
 	@Override
 	protected void generate() {
 		this.dropNameableBlockEntity(ModBlocks.test_furnace.get());
-		this.dropSelf(ModBlocks.test_plate.get());
 		this.dropMultiItemsWithFortune(ModBlocks.original_copper_ore.get(), Items.RAW_COPPER, 1, 3);
+		this.dropSelf(ModBlocks.test_plate.get());
 		this.dropSelf(ModBlocks.test_bars.get());
+		this.dropSelf(ModBlocks.test_cube_all.get());
+		this.dropSelf(ModBlocks.test_cube_column.get());
+		this.dropSelf(ModBlocks.test_sided_cube.get());
 	}
 	
 } // end class CoreBlockLootSubProvider

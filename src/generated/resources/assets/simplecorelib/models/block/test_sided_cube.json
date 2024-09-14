@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/acacia_planks",
+    "east": "minecraft:block/cherry_planks",
+    "north": "minecraft:block/bamboo_block",
+    "south": "minecraft:block/birch_planks",
+    "up": "minecraft:block/bamboo_block_top",
+    "west": "minecraft:block/crimson_planks"
+  }
+}

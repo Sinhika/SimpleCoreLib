@@ -1,6 +1,7 @@
 package mod.alexndr.simplecorelib.init;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
+import mod.alexndr.simplecorelib.config.SimpleCoreLibConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -26,15 +27,41 @@ public final class CreativeTabs {
 				.title(Component.translatable("item_group." + SimpleCoreLib.MODID + ".simplecore_tab"))
 				.icon(() -> ModBlocks.original_copper_ore.get().asItem().getDefaultInstance())
 				.displayItems((parameters, output) -> {
-					output.acceptAll(ModBlocks.BLOCKS.getEntries().stream()
-										.map(DeferredHolder::get)
-										.map(b -> (new ItemStack(b.asItem())))
-										.toList()
-										);
-					output.acceptAll(ModItems.ITEMS.getEntries().stream()
-							.map(DeferredHolder::get)
-							.map(ItemStack::new)
-							.toList()
-							);
+					// blocks
+					if (SimpleCoreLibConfig.showTestCubeAll) {
+						output.accept(ModBlocks.test_cube_all.asItem());
+					}
+					if (SimpleCoreLibConfig.showTestCubeColumn) {
+						output.accept(ModBlocks.test_cube_column.asItem());
+					}
+					if (SimpleCoreLibConfig.ShowTestFurnace) {
+						output.accept(ModBlocks.test_furnace.asItem());
+					}
+					if (SimpleCoreLibConfig.ShowTestOreBlock) {
+						output.accept(ModBlocks.original_copper_ore.asItem());
+					}
+					if (SimpleCoreLibConfig.ShowTestBars) {
+						output.accept(ModBlocks.test_bars.asItem());
+					}
+					if (SimpleCoreLibConfig.ShowTestPlate) {
+						output.accept(ModBlocks.test_plate.asItem());
+					}
+					if (SimpleCoreLibConfig.ShowTestSidedCube) {
+						output.accept(ModBlocks.test_sided_cube.asItem());
+					}
+					// items
+					if (SimpleCoreLibConfig.ShowTestShears) {
+						output.accept(ModItems.test_shears.get());
+					}
+//					output.acceptAll(ModBlocks.BLOCKS.getEntries().stream()
+//										.map(DeferredHolder::get)
+//										.map(b -> (new ItemStack(b.asItem())))
+//										.toList()
+//										);
+//					output.acceptAll(ModItems.ITEMS.getEntries().stream()
+//							.map(DeferredHolder::get)
+//							.map(ItemStack::new)
+//							.toList()
+//							);
 				}).build());
 } // end class

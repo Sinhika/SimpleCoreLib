@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simplecorelib:block/original_copper_ore"
+    }
+  }
+}

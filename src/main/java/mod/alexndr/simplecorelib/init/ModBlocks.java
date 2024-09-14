@@ -7,9 +7,7 @@ import mod.alexndr.simplecorelib.api.helpers.LightUtils;
 import mod.alexndr.simplecorelib.content.TestFurnaceBlock;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.IronBarsBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -41,5 +39,15 @@ public final class ModBlocks
     
     public static final DeferredBlock<IronBarsBlock> test_bars = BLOCKS.register("test_bars",
             () -> new IronBarsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)));
-    
+
+    public static final DeferredBlock<Block> test_cube_all = BLOCKS.register("test_cube_all",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+
+    public static final DeferredBlock<RotatedPillarBlock> test_cube_column = BLOCKS.register("test_cube_column",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+
+    public static final DeferredBlock<Block> test_sided_cube = BLOCKS.register("test_sided_cube",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+
+
 } // end class
