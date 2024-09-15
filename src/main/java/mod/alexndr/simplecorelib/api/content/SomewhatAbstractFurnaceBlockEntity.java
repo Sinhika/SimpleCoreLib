@@ -1,9 +1,12 @@
 package mod.alexndr.simplecorelib.api.content;
 
+import mod.alexndr.simplecorelib.mixins.AbstractFurnaceBlockEntityAccessor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -13,6 +16,7 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnaceBlockEntity
 {
@@ -28,6 +32,11 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
         super(type, pos, blockState, recipeType);
     }
 
+    RecipeType<? extends AbstractCookingRecipe> getRecipeType()
+    {
+        return ((AbstractFurnaceBlockEntityAccessor) this).simplecorelib$getRecipeType();
+    }
+
     @Override protected int getBurnDuration(@NotNull ItemStack fuel)
     {
         if (!hasFuelMultiplier) {
@@ -38,8 +47,29 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
         }
     } // end getBurnDuration()
 
+    /**
+     * Override for unusual fuels, like Nether Furnace or Necrotic Furnace uses.
+     * @param stack
+     * @return
+     */
     public boolean isCustomFuel(ItemStack stack) {
-        return stack.getBurnTime(null) > 0;
+        return this.getBurnTime(stack, this.getRecipeType()) > 0;
+    }
+
+    /**
+     * Returns the fuel burn time for this item stack. If it is zero, this item is not a fuel.
+     *      * <p>
+     *      * Will never return a negative value.
+     *      *
+     *      * @return the fuel burn time for this item stack in a furnace.
+     *      * @apiNote This method by default returns the {@code burn_time} specified in
+     *      *          the {@code furnace_fuels.json} file.
+     * Override for custom fuels and burn time handlers (such as Nether Furnace fuels).
+     */
+    int getBurnTime(ItemStack stack, @Nullable RecipeType<?> recipeType)
+    {
+        // default:
+        return stack.getBurnTime(recipeType);
     }
 
     /**
@@ -53,8 +83,45 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
     protected int getSmeltTime(Level level, SomewhatAbstractFurnaceBlockEntity blockEntity)
     {
         // default
-        AbstractFurnaceBlockEntity.getTotalCookTime(level, blockEntity);
+        return AbstractFurnaceBlockEntity.getTotalCookTime(level, blockEntity);
     }
+
+    /**
+     * Returns {@code true} if automation can insert the given item in the given slot from the given side.
+     *
+     * @param index
+     * @param stack
+     * @param direction
+     */
+    @Override public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction)
+    {
+        if (index == 2) {
+            return false;
+        } else if (index != 1) {
+            return true;
+        } else {
+            ItemStack itemstack = this.items.get(1);
+            return this.getBurnTime(stack, this.getRecipeType()) > 0 || stack.is(Items.BUCKET) && !itemstack.is(Items.BUCKET);
+        }
+    } // end canPlaceItemThroughFace()
+
+    /**
+     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     */
+    @Override
+    public void setItem(int index, ItemStack stack)
+    {
+        ItemStack itemstack = this.items.get(index);
+        boolean flag = !stack.isEmpty() && ItemStack.isSameItemSameComponents(itemstack, stack);
+        this.items.set(index, stack);
+        stack.limitSize(this.getMaxStackSize(stack));
+        if (index == 0 && !flag) {
+            this.cookingTotalTime = getSmeltTime(this.level, this);
+            this.cookingProgress = 0;
+            this.setChanged();
+        }
+    } // end setItem()
+
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, SomewhatAbstractFurnaceBlockEntity blockEntity)
     {
@@ -104,7 +171,7 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
                 if (blockEntity.cookingProgress == blockEntity.cookingTotalTime)
                 {
                     blockEntity.cookingProgress = 0;
-                    blockEntity.cookingTotalTime = getSmeltTime(level, blockEntity);
+                    blockEntity.cookingTotalTime = blockEntity.getSmeltTime(level, blockEntity);
                     if (burn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity))
                     {
                         blockEntity.setRecipeUsed(recipeholder);

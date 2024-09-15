@@ -17,6 +17,9 @@ credits="AleXndrTheGr8st (original mod), Sinhika (maintenance, ports)"
 authors="${mod_authors}"
 description='''${mod_description}'''
 
+[[mixins]]
+    config="simplecorelib.mixin.json"
+
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"

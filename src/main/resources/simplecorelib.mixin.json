@@ -1,0 +1,9 @@
+{
+  "required" : true,
+  "package" : "",
+  "CompatibilityLevel" : "JAVA-21",
+  "mixins": [
+    "AbstractFurnaceBlockEntityAccessor"
+  ],
+  "minVersion": "0.8"
+}
