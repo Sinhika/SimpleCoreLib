@@ -30,9 +30,11 @@ public final class CreativeTabs {
 					// blocks
 					if (SimpleCoreLibConfig.showTestCubeAll) {
 						output.accept(ModBlocks.test_cube_all.asItem());
+						output.accept(ModBlocks.test_cube_all2.asItem());
 					}
 					if (SimpleCoreLibConfig.showTestCubeColumn) {
 						output.accept(ModBlocks.test_cube_column.asItem());
+						output.accept(ModBlocks.test_cube_column2.asItem());
 					}
 					if (SimpleCoreLibConfig.ShowTestFurnace) {
 						output.accept(ModBlocks.test_furnace.asItem());
@@ -48,6 +50,7 @@ public final class CreativeTabs {
 					}
 					if (SimpleCoreLibConfig.ShowTestSidedCube) {
 						output.accept(ModBlocks.test_sided_cube.asItem());
+						output.accept(ModBlocks.test_sided_cube2.asItem());
 					}
 					// items
 					if (SimpleCoreLibConfig.ShowTestShears) {

@@ -24,10 +24,10 @@ public class SimpleCoreLibConfig extends SimpleConfig
         // general
         BUILDER.push("General");
         serverShowTestCubeAll = BUILDER
-                .comment("show texture test_cube_all in Creative Tab")
+                .comment("show texture test_cube_all objects in Creative Tab")
                 .define("Show test_cube_all", false);
         serverShowTestCubeColumn = BUILDER
-                .comment("show texture test_cube_column in Creative Tab")
+                .comment("show texture test_cube_column objects in Creative Tab")
                 .define("Show test_cube_column", false);
         serverShowTestShears = BUILDER
                 .comment("show texture test_shears in Creative Tab")

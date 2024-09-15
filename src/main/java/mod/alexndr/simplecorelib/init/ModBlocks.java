@@ -42,11 +42,17 @@ public final class ModBlocks
 
     public static final DeferredBlock<Block> test_cube_all = BLOCKS.register("test_cube_all",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+    public static final DeferredBlock<Block> test_cube_all2 = BLOCKS.register("test_cube_all2",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
 
     public static final DeferredBlock<RotatedPillarBlock> test_cube_column = BLOCKS.register("test_cube_column",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+    public static final DeferredBlock<RotatedPillarBlock> test_cube_column2 = BLOCKS.register("test_cube_column2",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
 
     public static final DeferredBlock<Block> test_sided_cube = BLOCKS.register("test_sided_cube",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+    public static final DeferredBlock<Block> test_sided_cube2 = BLOCKS.register("test_sided_cube2",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
 
 

@@ -1,0 +1,8 @@
+// 1.20.6	2024-09-14T13:12:18.364350415	Loot Tables
+b009d4b3a628602abe88b94b93e4e4067d682f17 data/simplecorelib/loot_tables/blocks/original_copper_ore.json
+d7877a2d67ce1a0e54b572ed9a39c826916e499c data/simplecorelib/loot_tables/blocks/test_bars.json
+dc6a88fc7eda5f7d84ddf9bc3bd7bc2bc64e004c data/simplecorelib/loot_tables/blocks/test_cube_all.json
+daa3a95e88cfe17c4acb96b747d156cf3f2290b9 data/simplecorelib/loot_tables/blocks/test_cube_column.json
+946aa5814af43d63e85909d71c5e786e4735ad72 data/simplecorelib/loot_tables/blocks/test_furnace.json
+b7ad1d3609de976f21db7e333debf802a76a1d50 data/simplecorelib/loot_tables/blocks/test_plate.json
+bc66161365df708e6c7b9f85ca083b604ee8b850 data/simplecorelib/loot_tables/blocks/test_sided_cube.json
