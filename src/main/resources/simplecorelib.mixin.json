@@ -1,6 +1,6 @@
 {
   "required" : true,
-  "package" : "",
+  "package" : "mod.alexndr.simplecorelib.mixins",
   "CompatibilityLevel" : "JAVA-21",
   "mixins": [
     "AbstractFurnaceBlockEntityAccessor",

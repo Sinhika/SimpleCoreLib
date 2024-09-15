@@ -1,16 +1,16 @@
 package mod.alexndr.simplecorelib.content;
 
+import mod.alexndr.simplecorelib.api.content.SomewhatAbstractFurnaceBlockEntity;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class TestFurnaceTileEntity extends AbstractFurnaceBlockEntity
+public class TestFurnaceTileEntity extends SomewhatAbstractFurnaceBlockEntity
 {
     private static final String DISPLAY_NAME = "block.simplecorelib.test_furnace";
 

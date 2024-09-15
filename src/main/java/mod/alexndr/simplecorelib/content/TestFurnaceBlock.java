@@ -1,10 +1,13 @@
 package mod.alexndr.simplecorelib.content;
 
 import com.mojang.serialization.MapCodec;
+import mod.alexndr.simplecorelib.api.content.SomewhatAbstractFurnaceBlock;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.MenuProvider;
@@ -18,11 +21,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 
 
-public class TestFurnaceBlock extends AbstractFurnaceBlock
+public class TestFurnaceBlock extends SomewhatAbstractFurnaceBlock
 {
     public static final MapCodec<TestFurnaceBlock> CODEC = simpleCodec(TestFurnaceBlock::new);
 
@@ -39,7 +40,7 @@ public class TestFurnaceBlock extends AbstractFurnaceBlock
     @Nullable @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
             @NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType)
     {
-        return createFurnaceTicker(pLevel, pBlockEntityType, ModTileEntityTypes.test_furnace.get());
+        return SomewhatAbstractFurnaceBlock.createFurnaceTicker(pLevel, pBlockEntityType, ModTileEntityTypes.test_furnace.get());
     }
 
     /**
