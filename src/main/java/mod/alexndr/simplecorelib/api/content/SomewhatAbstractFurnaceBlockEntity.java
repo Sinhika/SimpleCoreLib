@@ -1,6 +1,7 @@
 package mod.alexndr.simplecorelib.api.content;
 
 import mod.alexndr.simplecorelib.mixins.AbstractFurnaceBlockEntityAccessor;
+import mod.alexndr.simplecorelib.mixins.AbstractFurnaceBlockEntityInvoker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -144,7 +145,8 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
             }
             int i = blockEntity.getMaxStackSize();
             if (!blockEntity.isLit() &&
-                    canBurn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity))
+                    AbstractFurnaceBlockEntityInvoker.simplecorelib$callCanBurn(level.registryAccess(),
+                            recipeholder, blockEntity.items, i, blockEntity))
             {
                 blockEntity.litTime = blockEntity.getBurnDuration(itemstack);
                 blockEntity.litDuration = blockEntity.litTime;
@@ -165,14 +167,16 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
                 } // end-if
             } // end-if
             if (blockEntity.isLit() &&
-                    canBurn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity))
+                    AbstractFurnaceBlockEntityInvoker.simplecorelib$callCanBurn(level.registryAccess(),
+                            recipeholder, blockEntity.items, i, blockEntity))
             {
                 blockEntity.cookingProgress++;
                 if (blockEntity.cookingProgress == blockEntity.cookingTotalTime)
                 {
                     blockEntity.cookingProgress = 0;
                     blockEntity.cookingTotalTime = blockEntity.getSmeltTime(level, blockEntity);
-                    if (burn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity))
+                    if (AbstractFurnaceBlockEntityInvoker.simplecorelib$callBurn(level.registryAccess(), recipeholder,
+                            blockEntity.items, i, blockEntity))
                     {
                         blockEntity.setRecipeUsed(recipeholder);
                     }
@@ -191,7 +195,7 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
         if (flag != blockEntity.isLit())
         {
             flag1 = true;
-            state = state.setValue(AbstractFurnaceBlock.LIT, Boolean.valueOf(blockEntity.isLit()));
+            state = state.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit());
             level.setBlock(pos, state, 3);
         }
 

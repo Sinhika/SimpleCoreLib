@@ -3,7 +3,11 @@
   "package" : "",
   "CompatibilityLevel" : "JAVA-21",
   "mixins": [
-    "AbstractFurnaceBlockEntityAccessor"
+    "AbstractFurnaceBlockEntityAccessor",
+    "AbstractFurnaceBlockEntityInvoker"
   ],
+  "injectors": {
+    "defaultRequire": 1
+  },
   "minVersion": "0.8"
 }
