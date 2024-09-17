@@ -33,12 +33,13 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
         super(type, pos, blockState, recipeType);
     }
 
-    RecipeType<? extends AbstractCookingRecipe> getRecipeType()
+    protected RecipeType<? extends AbstractCookingRecipe> getRecipeType()
     {
         return ((AbstractFurnaceBlockEntityAccessor) this).simplecorelib$getRecipeType();
     }
 
-    @Override protected int getBurnDuration(@NotNull ItemStack fuel)
+    @Override
+    protected int getBurnDuration(@NotNull ItemStack fuel)
     {
         if (!hasFuelMultiplier) {
             return super.getBurnDuration(fuel);
@@ -67,7 +68,7 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
      *      *          the {@code furnace_fuels.json} file.
      * Override for custom fuels and burn time handlers (such as Nether Furnace fuels).
      */
-    int getBurnTime(ItemStack stack, @Nullable RecipeType<?> recipeType)
+    protected int getBurnTime(ItemStack stack, @Nullable RecipeType<?> recipeType)
     {
         // default:
         return stack.getBurnTime(recipeType);
@@ -94,7 +95,8 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
      * @param stack
      * @param direction
      */
-    @Override public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction)
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction)
     {
         if (index == 2) {
             return false;

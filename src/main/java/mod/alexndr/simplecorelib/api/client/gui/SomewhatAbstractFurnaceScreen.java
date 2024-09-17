@@ -12,8 +12,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public abstract class SomewhatAbstractFurnaceScreen<T extends AbstractFurnaceMenu> extends AbstractFurnaceScreen<T>
 {
-    protected static final ResourceLocation LIT_PROGRESS_SPRITE = new ResourceLocation("container/furnace/lit_progress");
-    protected static final ResourceLocation BURN_PROGRESS_SPRITE = new ResourceLocation("container/furnace/burn_progress");
+    private static final ResourceLocation LIT_PROGRESS_SPRITE = new ResourceLocation("container/furnace/lit_progress");
+    private static final ResourceLocation BURN_PROGRESS_SPRITE = new ResourceLocation("container/furnace/burn_progress");
 
     public SomewhatAbstractFurnaceScreen(T menu,
                                          AbstractFurnaceRecipeBookComponent recipeBookComponent,
@@ -22,5 +22,16 @@ public abstract class SomewhatAbstractFurnaceScreen<T extends AbstractFurnaceMen
                                          ResourceLocation texture)
     {
         super(menu, recipeBookComponent, playerInventory, title, texture, LIT_PROGRESS_SPRITE, BURN_PROGRESS_SPRITE);
+    }
+
+    public SomewhatAbstractFurnaceScreen(T menu,
+                                         AbstractFurnaceRecipeBookComponent recipeBookComponent,
+                                         Inventory playerInventory,
+                                         Component title,
+                                         ResourceLocation texture,
+                                         ResourceLocation litProgressSprite,
+                                         ResourceLocation burnProgressSprite)
+    {
+        super(menu, recipeBookComponent, playerInventory, title, texture, litProgressSprite, burnProgressSprite);
     }
 } // end class
