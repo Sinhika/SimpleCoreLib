@@ -55,7 +55,7 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
      * @return
      */
     public boolean isCustomFuel(ItemStack stack) {
-        return this.getBurnTime(stack, this.getRecipeType()) > 0;
+        return getBurnTime(stack, this.getRecipeType()) > 0;
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
             return true;
         } else {
             ItemStack itemstack = this.items.get(1);
-            return this.getBurnTime(stack, this.getRecipeType()) > 0 || stack.is(Items.BUCKET) && !itemstack.is(Items.BUCKET);
+            return isCustomFuel(stack) || stack.is(Items.BUCKET) && !itemstack.is(Items.BUCKET);
         }
     } // end canPlaceItemThroughFace()
 
