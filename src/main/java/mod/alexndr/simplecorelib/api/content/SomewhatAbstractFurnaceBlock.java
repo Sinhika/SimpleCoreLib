@@ -2,7 +2,6 @@ package mod.alexndr.simplecorelib.api.content;
 
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -17,8 +16,8 @@ public abstract class SomewhatAbstractFurnaceBlock extends AbstractFurnaceBlock
     }
 
     @Nullable
-    protected static <T extends BlockEntity> BlockEntityTicker<T> createFurnaceTicker(
-            Level level, BlockEntityType<T> serverType, BlockEntityType<? extends AbstractFurnaceBlockEntity> clientType
+    protected static <T extends BlockEntity> BlockEntityTicker<T> createCustomFurnaceTicker(
+            Level level, BlockEntityType<T> serverType, BlockEntityType<? extends SomewhatAbstractFurnaceBlockEntity> clientType
     )
     {
         return level.isClientSide

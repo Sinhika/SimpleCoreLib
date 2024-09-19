@@ -40,7 +40,7 @@ public class TestFurnaceBlock extends SomewhatAbstractFurnaceBlock
     @Nullable @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
             @NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType)
     {
-        return SomewhatAbstractFurnaceBlock.createFurnaceTicker(pLevel, pBlockEntityType, ModTileEntityTypes.test_furnace.get());
+        return SomewhatAbstractFurnaceBlock.createCustomFurnaceTicker(pLevel, pBlockEntityType, ModTileEntityTypes.test_furnace.get());
     }
 
     /**
