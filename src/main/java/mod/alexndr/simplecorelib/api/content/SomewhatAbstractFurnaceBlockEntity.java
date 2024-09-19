@@ -41,11 +41,12 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
     @Override
     protected int getBurnDuration(@NotNull ItemStack fuel)
     {
+        int bt =  getBurnTime(fuel, ((AbstractFurnaceBlockEntityAccessor) this).simplecorelib$getRecipeType());
         if (!hasFuelMultiplier) {
-            return super.getBurnDuration(fuel);
+            return bt;
         }
         else {
-            return ( (int) Math.ceil(((double) super.getBurnDuration(fuel)) * fuelMultiplier));
+            return ( (int) Math.ceil(((double) bt) * fuelMultiplier));
         }
     } // end getBurnDuration()
 
