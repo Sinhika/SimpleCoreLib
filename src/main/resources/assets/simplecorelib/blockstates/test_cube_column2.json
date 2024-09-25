@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "simplecorelib:block/test_cube_column_horizontal2",
+      "model": "simplecorelib:block/test_cube_column2_horizontal",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "simplecorelib:block/test_cube_column2"
     },
     "axis=z": {
-      "model": "simplecorelib:block/test_cube_column_horizontal2",
+      "model": "simplecorelib:block/test_cube_column2_horizontal",
       "x": 90
     }
   }

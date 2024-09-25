@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "simplecorelib:block/test_door_lower",
+    "top": "simplecorelib:block/test_door_upper"
+  }
+}

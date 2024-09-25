@@ -18,9 +18,10 @@ public class SimpleCoreItemModelProvider extends ItemModelProvider
 	protected void registerModels()
 	{
 		this.withExistingParent("test_item", "generated")
-				.texture("layer0", new ResourceLocation(SimpleCoreLib.MODID, "original_copper_ingot"));
+				.texture("layer0", new ResourceLocation(SimpleCoreLib.MODID, "item/test_item"));
 		this.withExistingParent("test_item2", "generated")
-				.texture("layer0", new ResourceLocation(SimpleCoreLib.MODID, "original_copper_ingot"));
+				.texture("layer0", new ResourceLocation(SimpleCoreLib.MODID, "item/test_item2"));
+
 		this.withExistingParent("test_shears", "shears");
 	}
 

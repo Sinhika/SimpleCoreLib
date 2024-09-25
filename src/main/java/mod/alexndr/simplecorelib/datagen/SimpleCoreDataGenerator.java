@@ -49,8 +49,8 @@ public class SimpleCoreDataGenerator
 //				new SimpleCoreRecipeProvider(packOutput, lookupProvider));
 
 		//    	 client datagen
-    	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
-    	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(packOutput, existingFileHelper));
+//    	gen.addProvider(event.includeClient(), new SimpleCoreBlockStateProvider(packOutput, existingFileHelper));
+//    	gen.addProvider(event.includeClient(), new SimpleCoreItemModelProvider(packOutput, existingFileHelper));
 	} // end gatherData()
 	
 } // end class

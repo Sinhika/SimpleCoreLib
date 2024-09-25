@@ -36,9 +36,13 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
         ModelFile testPlateModel = this.models().pressurePlate("test_plate", new ResourceLocation("minecraft", "block/obsidian"));
         ModelFile testPlateModel_down = this.models().pressurePlateDown("test_plate_down", new ResourceLocation("minecraft", "block/obsidian"));
 		ModelFile testCubeAll = this.models().cubeAll("test_cube_all", new ResourceLocation(SimpleCoreLib.MODID, "block/copper_bricks"));
-		ModelFile testSidedCube = this.models().cube(	"test_sided_cube", mcLoc("block/acacia_planks"), mcLoc("block/bamboo_block_top"),
+		ModelFile testCubeAll2 = this.models().cubeAll("test_cube_all2", new ResourceLocation(SimpleCoreLib.MODID, "block/copper_bricks"));
+		ModelFile testSidedCube = this.models().cube("test_sided_cube", mcLoc("block/acacia_planks"), mcLoc("block/bamboo_block_top"),
 														mcLoc("block/bamboo_block"), mcLoc("block/birch_planks"),
 														mcLoc("block/cherry_planks"), mcLoc("block/crimson_planks"));
+		ModelFile testSidedCube2 = this.models().cube("test_sided_cube2", mcLoc("block/acacia_planks"), mcLoc("block/bamboo_block_top"),
+				mcLoc("block/bamboo_block"), mcLoc("block/birch_planks"),
+				mcLoc("block/cherry_planks"), mcLoc("block/crimson_planks"));
 
 
 		// blockstates
@@ -47,6 +51,8 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 		this.simpleBlock(ModBlocks.original_copper_ore.get(), new ConfiguredModel(testOriginalCopperOre));
 		this.simpleBlock(ModBlocks.test_cube_all.get(), new ConfiguredModel(testCubeAll));
 		this.simpleBlock(ModBlocks.test_sided_cube.get(), new ConfiguredModel(testSidedCube));
+		this.simpleBlock(ModBlocks.test_cube_all2.get(), new ConfiguredModel(testCubeAll2));
+		this.simpleBlock(ModBlocks.test_sided_cube2.get(), new ConfiguredModel(testSidedCube2));
 
 		this.buildWeightedPressurePlateBlockState(ModBlocks.test_plate.get(), testPlateModel, testPlateModel_down);
 		
@@ -60,6 +66,8 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 		// models & blockstates
 		this.axisBlock(ModBlocks.test_cube_column.get(), new ResourceLocation(SimpleCoreLib.MODID, "block/polished_onyx_basalt_side"),
 				mcLoc("block/polished_basalt_top"));
+		this.axisBlock(ModBlocks.test_cube_column2.get(), new ResourceLocation(SimpleCoreLib.MODID, "block/polished_onyx_basalt_side"),
+				mcLoc("block/polished_basalt_top"));
 
 		// item models
 		this.itemModels().withExistingParent("test_furnace", new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace"));
@@ -68,8 +76,11 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 		this.itemModels().withExistingParent("test_plate", new ResourceLocation(SimpleCoreLib.MODID, "block/test_plate"));
 		this.basicBlockItem(ModBlocks.test_bars.get());
 		this.itemModels().withExistingParent("test_cube_all", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_all"));
+		this.itemModels().withExistingParent("test_cube_all2", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_all2"));
 		this.itemModels().withExistingParent("test_cube_column", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_column"));
+		this.itemModels().withExistingParent("test_cube_column2", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_column2"));
 		this.itemModels().withExistingParent("test_sided_cube", new ResourceLocation(SimpleCoreLib.MODID, "block/test_sided_cube"));
+		this.itemModels().withExistingParent("test_sided_cube2", new ResourceLocation(SimpleCoreLib.MODID, "block/test_sided_cube2"));
 		this.itemModels().basicItem(ModBlocks.test_door.get().asItem());
 		this.itemModels().basicItem(ModBlocks.test_door2.get().asItem());
 
