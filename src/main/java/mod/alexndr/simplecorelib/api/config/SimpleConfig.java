@@ -1,12 +1,13 @@
 package mod.alexndr.simplecorelib.api.config;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class SimpleConfig implements ISimpleConfig
 {
+    public record ToolProperties (int uses, float speedBonus, float attackDamageBonus, int enchantability) {};
+    public record ArmorProperties(int durabilityFactor, int baseDefense, int enchantability, float toughness, float knockbackResistance) {};
+
     // recipe flags
     protected Map<String, Boolean> flags = new HashMap<>();
     

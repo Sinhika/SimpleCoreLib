@@ -19,6 +19,8 @@ public class SimpleCoreLibConfig extends SimpleConfig
     private static final ModConfigSpec.BooleanValue serverShowTestPlate;
     private static final ModConfigSpec.BooleanValue serverShowTestBars;
     private static final ModConfigSpec.BooleanValue serverShowTestSidedCube;
+    private static final ModConfigSpec.BooleanValue serverShowTestItems;
+    private static final ModConfigSpec.BooleanValue serverShowTestDoors;
 
     static {
         // general
@@ -51,7 +53,12 @@ public class SimpleCoreLibConfig extends SimpleConfig
         serverShowTestSidedCube = BUILDER
                 .comment("show texture test_sided_cube in Creative Tab")
                 .define("Show test_sided_cube", false);
-
+        serverShowTestItems = BUILDER
+                .comment("show texture test_item in Creative Tab")
+                .define("Show test_item", false);
+        serverShowTestDoors = BUILDER
+                .comment("show texture test_door in Creative Tab")
+                .define("Show test_door", false);
         BUILDER.pop();
     }
     public static final ModConfigSpec SPEC = BUILDER.build();
@@ -65,6 +72,8 @@ public class SimpleCoreLibConfig extends SimpleConfig
     public static boolean ShowTestPlate;
     public static boolean ShowTestBars;
     public static boolean ShowTestSidedCube;
+    public static boolean ShowTestItems;
+    public static boolean ShowTestDoors;
 
     public static void onLoad(final ModConfigEvent event)
     {
@@ -77,6 +86,8 @@ public class SimpleCoreLibConfig extends SimpleConfig
         ShowTestPlate = serverShowTestPlate.get();
         ShowTestBars = serverShowTestBars.get();
         ShowTestSidedCube = serverShowTestSidedCube.get();
+        ShowTestItems = serverShowTestItems.get();
+        ShowTestDoors = serverShowTestDoors.get();
     }
 
 } // end class

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -55,5 +56,13 @@ public final class ModBlocks
     public static final DeferredBlock<Block> test_sided_cube2 = BLOCKS.register("test_sided_cube2",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
 
+    public static final DeferredBlock<DoorBlock> test_door = BLOCKS.register("test_door",
+            () -> new DoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA)
+                    .strength(7.0F, 72.0F)
+                    .noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<DoorBlock> test_door2 = BLOCKS.register("test_door2",
+            () -> new DoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA)
+                    .strength(7.0F, 72.0F)
+                    .noOcclusion().pushReaction(PushReaction.DESTROY)));
 
 } // end class

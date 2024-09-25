@@ -52,9 +52,18 @@ public final class CreativeTabs {
 						output.accept(ModBlocks.test_sided_cube.asItem());
 						output.accept(ModBlocks.test_sided_cube2.asItem());
 					}
+					if (SimpleCoreLibConfig.ShowTestDoors) {
+						output.accept(ModBlocks.test_door.asItem());
+						output.accept(ModBlocks.test_door2.asItem());
+					}
+
 					// items
 					if (SimpleCoreLibConfig.ShowTestShears) {
 						output.accept(ModItems.test_shears.get());
+					}
+					if (SimpleCoreLibConfig.ShowTestItems) {
+						output.accept(ModItems.test_item.get());
+						output.accept(ModItems.test_item2.get());
 					}
 //					output.acceptAll(ModBlocks.BLOCKS.getEntries().stream()
 //										.map(DeferredHolder::get)

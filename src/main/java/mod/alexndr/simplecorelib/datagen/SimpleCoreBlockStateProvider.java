@@ -52,6 +52,11 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 		
 		this.buildBarsBlockState(ModBlocks.test_bars.get(), mcLoc("block/iron_bars"));
 
+		this.doorBlockWithRenderType(ModBlocks.test_door.get(), modLoc("block/test_door_lower"),
+				modLoc("block/test_door_upper"), "cutout");
+		this.doorBlockWithRenderType(ModBlocks.test_door2.get(), modLoc("block/test_door2_lower"),
+				modLoc("block/test_door2_upper"), "cutout");
+
 		// models & blockstates
 		this.axisBlock(ModBlocks.test_cube_column.get(), new ResourceLocation(SimpleCoreLib.MODID, "block/polished_onyx_basalt_side"),
 				mcLoc("block/polished_basalt_top"));
@@ -65,6 +70,8 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 		this.itemModels().withExistingParent("test_cube_all", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_all"));
 		this.itemModels().withExistingParent("test_cube_column", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_column"));
 		this.itemModels().withExistingParent("test_sided_cube", new ResourceLocation(SimpleCoreLib.MODID, "block/test_sided_cube"));
+		this.itemModels().basicItem(ModBlocks.test_door.get().asItem());
+		this.itemModels().basicItem(ModBlocks.test_door2.get().asItem());
 
 	} // end registerStatesAndModels()
 
