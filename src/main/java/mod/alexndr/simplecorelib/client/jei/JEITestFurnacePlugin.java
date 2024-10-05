@@ -39,6 +39,9 @@ public class JEITestFurnacePlugin implements IModPlugin
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration)
     {
+        if (!SimpleCoreLibConfig.ShowTestFurnace) {
+            return;
+        }
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.test_furnace.get()), RecipeTypes.SMELTING);
     }
 
