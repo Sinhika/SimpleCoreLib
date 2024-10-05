@@ -6,35 +6,37 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
 
  1. Make sure old version builds, still.
  2. Run remapping script BEFORE any other updates.
- 3. Update gradlew, gradlew.bat, and the ./gradle directory.
- 4. Update build.gradle, settings.gradle, gradle.properties.
- 5. Rename mods.toml to neoforge.mods.toml. Don't forget to update 
+ 3. Update gradle version: ./gradlew wrapper --gradle-version=8.8
+ 4. Update userdev plugin to latest stable neogradle version.
+ 5. Update gradlew, gradlew.bat, and the ./gradle directory.
+ 6. Update build.gradle, settings.gradle, gradle.properties.
+ 7. Rename mods.toml to neoforge.mods.toml. Don't forget to update 
     build.gradle with the new name.
- 6. Delete pack.mcmeta.
- 7. Comment out any access transformers until we know if we need them.
- 8. Main mod class:
+ 8. Delete pack.mcmeta.
+ 9. Comment out any access transformers until we know if we need them.
+ 10.Main mod class:
         A. add listener for onRegisterItems() and any other event 
         subscribers in ModEventSubscriber() or ForgeEventSubscriber().
         B. register revised config class
- 9. Revise primary config class; it now contains everything the old 
+ 11.Revise primary config class; it now contains everything the old 
     ServerConfig, ConfigHelper, and ConfigHolder classes did.Also revise
     ClientConfig into primary-client config class.
         A. if any config values are used to define items, blocks or materials, 
         they must be loaded from a STARTUP type config.
- 10. Revise init classes. Tool tiers and armor materials have changes, so..
+ 12. Revise init classes. Tool tiers and armor materials have changes, so..
          A. Revise Tool tiers. 
          B. Revise Armor Materials.
          C. create NEED_X_TOOL and INCORRECT_FOR_X_TOOL tags as needed.
             Completely replaces TierSortingRegistry.
- 11. Update CreativeTabs init. RegistryObject is now DeferredHolder.
- 12. Update any ore-type tags from forge tags to common (c) tags.
- 13. Update any buckets. All init should be done by now.
- 14. VillagerTrades really does need that access transformer.
- 15. Update any client event subscribers. TODO how to addListener()?
- 16. Enchantments have changed; redo any Enchantment code to properly use
+ 13. Update CreativeTabs init. RegistryObject is now DeferredHolder.
+ 14. Update any ore-type tags from forge tags to common (c) tags.
+ 15. Update any buckets. All init should be done by now.
+ 16. VillagerTrades really does need that access transformer.
+ 17. Update any client event subscribers. TODO how to addListener()?
+ 18. Enchantments have changed; redo any Enchantment code to properly use
     ItemEnchantments.
  
- 17. DATAGEN
+ 19. DATAGEN
     A. in the main DataGenerator class, new SimpleLootTableProvider() has
         an extra argument, lookupProvider.
     B. In BlockTags provider, most forgeBlockTag() will be converted to
@@ -51,11 +53,6 @@ Details are in the CombinedUpdatePrimer1.20.6.odt document.
     E. LootTableSubProviders probably don't need changing.
     F. BlockStateProviders probably don't need changing.
     G. ItemModelProviders probably don't need changing.
-  18. Change all biome_modifers to 'neoforge' instead of 'forge'. Change directory name, too.
-  19. REPLACE loot injection tables with Global Loot Modifiers. Use datagen to create loot tables
+  20. Change all biome_modifers to 'neoforge' instead of 'forge'. Change directory name, too.
+  21. REPLACE loot injection tables with Global Loot Modifiers. Use datagen to create loot tables
       and loot modifiers. See SimpleCoreLib for examples. 
-  
-
-            
-    
- 
