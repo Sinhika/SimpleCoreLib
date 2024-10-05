@@ -14,6 +14,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.runtime.IIngredientManager;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.client.gui.TestFurnaceScreen;
+import mod.alexndr.simplecorelib.config.SimpleCoreLibConfig;
 import mod.alexndr.simplecorelib.init.ModBlocks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -49,6 +50,9 @@ public class JEITestFurnacePlugin implements IModPlugin
      */
     @Override public void registerCategories(IRecipeCategoryRegistration registration)
     {
+        if (!SimpleCoreLibConfig.ShowTestFurnace) {
+            return;
+        }
         IJeiHelpers jeiHelpers = registration.getJeiHelpers();
         IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
@@ -62,6 +66,9 @@ public class JEITestFurnacePlugin implements IModPlugin
      */
     @Override public void registerRecipes(IRecipeRegistration registration)
     {
+        if (!SimpleCoreLibConfig.ShowTestFurnace) {
+            return;
+        }
         IJeiHelpers jeiHelpers = registration.getJeiHelpers();
         IIngredientManager ingredientManager = registration.getIngredientManager();
         registration.addRecipes(TEST_FUEL, TestFuelRecipeMaker.getFuelRecipes(ingredientManager, jeiHelpers));
@@ -78,6 +85,9 @@ public class JEITestFurnacePlugin implements IModPlugin
      */
     @Override public void registerGuiHandlers(IGuiHandlerRegistration registration)
     {
+        if (!SimpleCoreLibConfig.ShowTestFurnace) {
+            return;
+        }
         registration.addRecipeClickArea(TestFurnaceScreen.class, 78, 32, 28, 23, RecipeTypes.SMELTING, TEST_FUEL);
     }
 } // end class

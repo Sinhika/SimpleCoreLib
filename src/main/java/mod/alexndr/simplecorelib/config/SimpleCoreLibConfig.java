@@ -39,7 +39,7 @@ public class SimpleCoreLibConfig extends SimpleConfig
                 .translation(SimpleCoreLib.MODID + ".config.test_shears_durability")
                 .defineInRange("TestShearDurability", 1500, 1, 99999);
         serverShowTestFurnace = BUILDER
-                .comment("show texture test_furnace in Creative Tab")
+                .comment("show texture test_furnace in Creative Tab, and fake Test Furnace Fuel in JEI tab")
                 .define("Show test_furnace", false);
         serverShowTestOreBlock = BUILDER
                 .comment("show texture original_copper_ore in Creative Tab")
