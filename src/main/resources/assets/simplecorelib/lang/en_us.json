@@ -19,5 +19,11 @@
     "tips.pressure_plate.everything" : "Triggered by anything",
     "tips.pressure_plate.living" : "Triggered by living things",
     "tips.pressure_plate.mobs" : "Triggerd by non-player mobs",
-    "tips.pressure_plate.players" : "Triggered only by players"
+    "tips.pressure_plate.players" : "Triggered only by players",
+    "simplecorelib.test_furnace.info" : "Weird colored test furnace that behaves like a normal furnace",
+    "gui.simplecorelib.category.fuel" : "Test Furnace Fuel",
+    "gui.simplecorelib.smeltTimeProgress": "Smelt time %s/%s",
+    "gui.simplecorelib.fuelBurnTimeProgress": "Fuel burn time %s/%s",
+    "gui.jei.category.fuel.smeltCount.single": "Smelts 1 item",
+    "gui.jei.category.fuel.smeltCount": "Smelts %s items"
 }

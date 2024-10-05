@@ -69,7 +69,7 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
      *      *          the {@code furnace_fuels.json} file.
      * Override for custom fuels and burn time handlers (such as Nether Furnace fuels).
      */
-    protected int getBurnTime(ItemStack stack, @Nullable RecipeType<?> recipeType)
+    public int getBurnTime(ItemStack stack, @Nullable RecipeType<?> recipeType)
     {
         // default:
         return stack.getBurnTime(recipeType);

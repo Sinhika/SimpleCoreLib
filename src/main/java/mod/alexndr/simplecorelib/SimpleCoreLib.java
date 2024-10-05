@@ -22,9 +22,6 @@ public class SimpleCoreLib
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
     
-    // texture atlas for JEI sprites
-    public static final ResourceLocation SIMPLE_TEXTURE_ATLAS = new ResourceLocation(MODID, "textures/atlas/gui.png");
-
     public SimpleCoreLib(IEventBus modEventBus, ModContainer modContainer)
     {
         LOGGER.info("Hello from SimpleCoreLib!");

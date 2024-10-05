@@ -1,7 +1,5 @@
 package mod.alexndr.simplecorelib.api.client.jei;
 
-import java.text.NumberFormat;
-
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -10,11 +8,12 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.api.client.JEIClientModEventSubscriber;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+
+import java.text.NumberFormat;
 
 /**
  * Class copied and adapted from mezz's FurnaceVariantCategory class, just to avoid requiring access to the non-api
@@ -26,7 +25,8 @@ import net.minecraft.resources.ResourceLocation;
  */
 public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuelRecipe> implements IRecipeCategory<T> 
 {
-	public static final ResourceLocation RECIPE_GUI_VANILLA = new ResourceLocation(SimpleCoreLib.MODID, "textures/gui/gui_vanilla.png");
+	public static final ResourceLocation RECIPE_GUI_VANILLA =
+            new ResourceLocation(SimpleCoreLib.MODID, "textures/gui/gui_vanilla.png");
 
 	protected static final int inputSlot = 0;
 	protected static final int fuelSlot = 1;
@@ -58,7 +58,7 @@ public abstract class VeryAbstractFurnaceVariantCategory<T extends AlternateFuel
             .addPadding(0, 0, 0, stringWidth + 20)
             .build();
 
-        flameTransparentBackground = JEIClientModEventSubscriber.textures.getFlameIcon();
+        flameTransparentBackground = staticFlame;
 	}
 
     public Component getSmeltCountText()
