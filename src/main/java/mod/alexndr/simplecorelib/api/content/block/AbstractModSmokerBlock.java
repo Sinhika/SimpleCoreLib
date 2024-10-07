@@ -1,6 +1,5 @@
-package mod.alexndr.machines.api.content;
+package mod.alexndr.simplecorelib.api.content.block;
 
-import mod.alexndr.simplecorelib.api.content.SomewhatAbstractFurnaceBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;

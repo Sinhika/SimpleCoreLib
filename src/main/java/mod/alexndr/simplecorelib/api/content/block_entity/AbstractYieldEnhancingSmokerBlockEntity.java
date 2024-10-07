@@ -1,4 +1,4 @@
-package mod.alexndr.machines.api.content;
+package mod.alexndr.simplecorelib.api.content.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;

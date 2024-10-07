@@ -1,6 +1,5 @@
-package mod.alexndr.machines.api.content;
+package mod.alexndr.simplecorelib.api.content.block_entity;
 
-import mod.alexndr.simplecorelib.api.content.SomewhatAbstractFurnaceBlockEntity;
 import mod.alexndr.simplecorelib.mixins.AbstractFurnaceBlockEntityInvoker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
