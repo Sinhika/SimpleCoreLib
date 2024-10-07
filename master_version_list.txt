@@ -23,12 +23,12 @@ current_bucketlib_version=1.20.6-3.3.0.7
 buckletlib_range=[1.20.6-3.3.0.1, 1.21-4.0.0.0)
 
 # SIMPLE ORES MODS
-simplecorelib_version=1.20.6-7.0.4.0
+simplecorelib_version=1.20.6-7.0.4.2
 simplecore_range=[1.20.6-7.0.4.0, 1.21-8.0.0.0)
 
 simpleores_version=1.20.6-7.0.2.2
 simpleores_range=[1.20.6-7.0.2.0, 1.21-8.0.0.0) 
-netherrocks_version = 1.20.6-8.0.0.1
+netherrocks_version = 1.20.6-8.0.0.2
 netherrocks_range = [1.20.6-8.0.0.1, 1.21-9.0.0.0)
 simple_machines_version =
 simple_machines_range =

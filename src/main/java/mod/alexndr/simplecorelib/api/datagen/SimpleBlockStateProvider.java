@@ -1,6 +1,6 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
-import mod.alexndr.simplecorelib.api.content.MultifunctionPressurePlateBlock;
+import mod.alexndr.simplecorelib.api.content.block.MultifunctionPressurePlateBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.registries.BuiltInRegistries;

@@ -1,7 +1,7 @@
 package mod.alexndr.simplecorelib.content;
 
 import com.mojang.serialization.MapCodec;
-import mod.alexndr.simplecorelib.api.content.SomewhatAbstractFurnaceBlock;
+import mod.alexndr.simplecorelib.api.content.block.SomewhatAbstractFurnaceBlock;
 import mod.alexndr.simplecorelib.init.ModTileEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

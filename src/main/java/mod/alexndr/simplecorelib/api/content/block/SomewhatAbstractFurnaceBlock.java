@@ -1,5 +1,6 @@
-package mod.alexndr.simplecorelib.api.content;
+package mod.alexndr.simplecorelib.api.content.block;
 
+import mod.alexndr.simplecorelib.api.content.block_entity.SomewhatAbstractFurnaceBlockEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

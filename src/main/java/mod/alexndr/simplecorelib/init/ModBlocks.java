@@ -1,8 +1,8 @@
 package mod.alexndr.simplecorelib.init;
 
 import mod.alexndr.simplecorelib.SimpleCoreLib;
-import mod.alexndr.simplecorelib.api.content.MFPressurePlateBlockWithTooltip;
-import mod.alexndr.simplecorelib.api.content.MultifunctionPressurePlateBlock;
+import mod.alexndr.simplecorelib.api.content.block.MFPressurePlateBlockWithTooltip;
+import mod.alexndr.simplecorelib.api.content.block.MultifunctionPressurePlateBlock;
 import mod.alexndr.simplecorelib.api.helpers.LightUtils;
 import mod.alexndr.simplecorelib.content.TestFurnaceBlock;
 import net.minecraft.util.valueproviders.ConstantInt;

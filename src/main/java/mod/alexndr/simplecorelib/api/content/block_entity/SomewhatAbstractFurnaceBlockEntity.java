@@ -1,4 +1,4 @@
-package mod.alexndr.simplecorelib.api.content;
+package mod.alexndr.simplecorelib.api.content.block_entity;
 
 import mod.alexndr.simplecorelib.mixins.AbstractFurnaceBlockEntityAccessor;
 import mod.alexndr.simplecorelib.mixins.AbstractFurnaceBlockEntityInvoker;
