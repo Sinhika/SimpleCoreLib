@@ -1,5 +1,6 @@
 package mod.alexndr.simplecorelib.api.content.block_entity;
 
+import mod.alexndr.simplecorelib.SimpleCoreLib;
 import mod.alexndr.simplecorelib.mixins.AbstractFurnaceBlockEntityInvoker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -53,10 +54,10 @@ public abstract class AbstractYieldEnhancingFurnaceBlockEntity extends SomewhatA
             else {
                 recipeholder = null;
             }
-            int i = blockEntity.getMaxStackSize();
+            int maxStackSize = blockEntity.getMaxStackSize();
             if (!blockEntity.isLit() &&
                     AbstractFurnaceBlockEntityInvoker.simplecorelib$callCanBurn(level.registryAccess(),
-                            recipeholder, blockEntity.items, i, blockEntity))
+                            recipeholder, blockEntity.items, maxStackSize, blockEntity))
             {
                 blockEntity.litTime = blockEntity.getBurnDuration(itemstack);
                 blockEntity.litDuration = blockEntity.litTime;
@@ -78,7 +79,7 @@ public abstract class AbstractYieldEnhancingFurnaceBlockEntity extends SomewhatA
             } // end-if
             if (blockEntity.isLit() &&
                     AbstractFurnaceBlockEntityInvoker.simplecorelib$callCanBurn(level.registryAccess(),
-                            recipeholder, blockEntity.items, i, blockEntity))
+                            recipeholder, blockEntity.items, maxStackSize, blockEntity))
             {
                 blockEntity.cookingProgress++;
                 if (blockEntity.cookingProgress == blockEntity.cookingTotalTime)
@@ -86,7 +87,7 @@ public abstract class AbstractYieldEnhancingFurnaceBlockEntity extends SomewhatA
                     blockEntity.cookingProgress = 0;
                     blockEntity.cookingTotalTime = blockEntity.getSmeltTime(level, blockEntity);
                     if (customBurn(level.registryAccess(), recipeholder,
-                            blockEntity.items, i, blockEntity))
+                            blockEntity.items, maxStackSize, blockEntity))
                     {
                         blockEntity.setRecipeUsed(recipeholder);
                     }
@@ -119,8 +120,9 @@ public abstract class AbstractYieldEnhancingFurnaceBlockEntity extends SomewhatA
                                       NonNullList<ItemStack> inventory, int maxStackSize,
                                      AbstractYieldEnhancingFurnaceBlockEntity furnace)
     {
-        if (recipe != null
-                && AbstractFurnaceBlockEntityInvoker.simplecorelib$callCanBurn(registryAccess, recipe, inventory, maxStackSize, furnace))
+        SimpleCoreLib.LOGGER.debug("entered AbstractYieldEnhandingFurnaceBlockEntity.customBurn\n");
+
+        if (recipe != null)
         {
             ItemStack itemstack = inventory.get(0);
             ItemStack itemstack1 = ((RecipeHolder<? extends AbstractCookingRecipe>) recipe).value().assemble(furnace, registryAccess);
