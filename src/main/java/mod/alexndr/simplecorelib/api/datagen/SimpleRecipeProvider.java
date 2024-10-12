@@ -177,7 +177,7 @@ public abstract class SimpleRecipeProvider extends RecipeProvider
     {
         modOreSmelting(consumer, pIngredients, RecipeCategory.MISC,
                 ingotOut, experienceIn, cookingTimeIn, pGroup);
-        modOreBlasting(consumer, pIngredients, RecipeCategory.MISC, ingotOut, experienceIn, cookingTimeIn,
+        modOreBlasting(consumer, pIngredients, RecipeCategory.MISC, ingotOut, experienceIn, cookingTimeIn/2,
                 pGroup);
     }
 
