@@ -120,7 +120,7 @@ public abstract class AbstractYieldEnhancingFurnaceBlockEntity extends SomewhatA
                                       NonNullList<ItemStack> inventory, int maxStackSize,
                                      AbstractYieldEnhancingFurnaceBlockEntity furnace)
     {
-        SimpleCoreLib.LOGGER.debug("entered AbstractYieldEnhandingFurnaceBlockEntity.customBurn\n");
+        //SimpleCoreLib.LOGGER.debug("entered AbstractYieldEnhandingFurnaceBlockEntity.customBurn\n");
 
         if (recipe != null)
         {
