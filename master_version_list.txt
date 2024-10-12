@@ -23,7 +23,7 @@ current_bucketlib_version=1.20.6-3.3.0.7
 buckletlib_range=[1.20.6-3.3.0.1, 1.21-4.0.0.0)
 
 # SIMPLE ORES MODS
-simplecorelib_version=1.20.6-7.0.5.0
+simplecorelib_version=1.20.6-7.0.5.3
 simplecore_range=[1.20.6-7.0.5.0, 1.20.6-7.0.6.0)
 
 simpleores_version=1.20.6-7.0.3.0
