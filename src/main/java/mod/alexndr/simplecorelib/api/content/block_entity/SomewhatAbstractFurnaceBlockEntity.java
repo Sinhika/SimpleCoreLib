@@ -99,6 +99,16 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
     @Override
     public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction)
     {
+        return this.canPlaceItem(index, stack);
+    } // end canPlaceItemThroughFace()
+
+    /**
+     * Returns {@code true} if automation is allowed to insert the given stack (ignoring stack size)
+     * into the given slot. For guis use Slot.isItemValid
+     */
+    @Override
+    public boolean canPlaceItem(int index, @NotNull ItemStack stack)
+    {
         if (index == 2) {
             return false;
         } else if (index != 1) {
@@ -107,7 +117,7 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
             ItemStack itemstack = this.items.get(1);
             return isCustomFuel(stack) || stack.is(Items.BUCKET) && !itemstack.is(Items.BUCKET);
         }
-    } // end canPlaceItemThroughFace()
+    }
 
     /**
      * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
