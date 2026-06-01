@@ -11,7 +11,7 @@ issueTrackerURL="https://github.com/Sinhika/SimpleCoreLib/issues"
 modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
-updateJSONURL="https://raw.githubusercontent.com/Sinhika/SimpleCoreLib/1.20/update.json"
+updateJSONURL="https://raw.githubusercontent.com/Sinhika/SimpleCoreLib/1.21/update.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/simplecore-api"
 credits="AleXndrTheGr8st (original mod), Sinhika (maintenance, ports)"
 authors="${mod_authors}"
@@ -19,6 +19,9 @@ description='''${mod_description}'''
 
 [[mixins]]
     config="simplecorelib.mixin.json"
+
+[[accessTransformers]]
+    file="META-INF/accesstransformer.cfg"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"
@@ -41,11 +44,3 @@ description='''${mod_description}'''
     versionRange="${jei_version_range}"
     ordering="NONE"
     side="BOTH"
-
-[[dependencies.${mod_id}]]
-    modId="top"
-    type="optional"
-    versionRange="${top_version}"
-    ordering="NONE"
-    side="BOTH"
-

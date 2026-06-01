@@ -1,35 +1,37 @@
 USED BY GRADLE BUILDS - with MOJANG MAPPINGS
 ============================================
-org.gradle.java.home=/usr/lib/jvm/msopenjdk-21-amd64
+org.gradle.java.home=/usr/lib/jvm/java-21-openjdk
 
 ---------------------------------------------
 1.20.6
 ---------------------------------------------
 # ENVIRONMENT
-neogradle.subsystems.parchment.minecraftVersion=1.20.6
-neogradle.subsystems.parchment.mappingsVersion=2024.06.16
+neogradle.subsystems.parchment.minecraftVersion=1.21.1
+neogradle.subsystems.parchment.mappingsVersion=
 
-minecraft_version = 1.20.6
-minecraft_version_range=[1.20.6,1.21)
-neo_version=20.6.119
-neo_version_range=[20.6.0,20.6.120)
-loader_version_range=[2,)
+minecraft_version = 1.21.1
+minecraft_version_range=[1.21.1,1.22)
+neo_version=
+neo_version_range=[,)
+loader_version_range=[,)
 
 # DEPENDENCIES
-version_mcjei=1.20.6
-jei_version=18.0.0.65
-jei_version_range=[18.0.0.0,19.0.0.0)
-current_bucketlib_version=1.20.6-3.3.0.7
-buckletlib_range=[1.20.6-3.3.0.1, 1.21-4.0.0.0)
+version_mcjei=
+jei_version=
+jei_version_range=[)
+current_bucketlib_version=
+buckletlib_range=[)
 
 # SIMPLE ORES MODS
-simplecorelib_version=1.20.6-7.0.5.3
-simplecore_range=[1.20.6-7.0.5.0, 1.20.6-7.0.6.0)
+simplecorelib_version=
+simplecore_range=[)
 
-simpleores_version=1.20.6-7.0.3.1
-simpleores_range=[1.20.6-7.0.3.0, 1.20.6-7.0.4.0) 
-netherrocks_version = 1.20.6-8.0.1.1
-netherrocks_range = [1.20.6-8.0.1.0, 1.20.6-8.0.2.0)
+ashenwheat_version =
+
+simpleores_version=
+simpleores_range=[)
+netherrocks_version =
+netherrocks_range = [)
 simple_machines_version =
 simple_machines_range =
 fusion_version =
@@ -45,4 +47,3 @@ classicalalchemy_version =
 cthon_version =
 cobalt_version =
 tungsten_version =
-ashenwheat_version =
