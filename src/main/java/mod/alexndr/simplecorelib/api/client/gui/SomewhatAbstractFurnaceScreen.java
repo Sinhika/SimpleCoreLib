@@ -15,21 +15,21 @@ public abstract class SomewhatAbstractFurnaceScreen<T extends AbstractFurnaceMen
 {
     // for furnaces
     protected static final ResourceLocation LIT_PROGRESS_SPRITE =
-            new ResourceLocation(SimpleCoreLib.MODID, "container/furnace/lit_progress");
+            ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "container/furnace/lit_progress");
     protected static final ResourceLocation BURN_PROGRESS_SPRITE =
-            new ResourceLocation(SimpleCoreLib.MODID, "container/furnace/burn_progress");
+            ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "container/furnace/burn_progress");
 
     // for blast_furnace
     protected static final ResourceLocation BLAST_FURNACE_LIT_PROGRESS_SPRITE =
-            new ResourceLocation(SimpleCoreLib.MODID, "container/blast_furnace/lit_progress");
+            ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "container/blast_furnace/lit_progress");
     protected static final ResourceLocation BLAST_FURNACE_BURN_PROGRESS_SPRITE =
-            new ResourceLocation(SimpleCoreLib.MODID, "container/blast_furnace/burn_progress");
+            ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "container/blast_furnace/burn_progress");
 
     // for smoker
     protected static final ResourceLocation SMOKER_LIT_PROGRESS_SPRITE =
-            new ResourceLocation(SimpleCoreLib.MODID, "container/smoker/lit_progress");
+            ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "container/smoker/lit_progress");
     protected static final ResourceLocation SMOKER_BURN_PROGRESS_SPRITE =
-            new ResourceLocation(SimpleCoreLib.MODID, "container/smoker/burn_progress");
+            ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "container/smoker/burn_progress");
 
     public SomewhatAbstractFurnaceScreen(T menu,
                                          AbstractFurnaceRecipeBookComponent recipeBookComponent,

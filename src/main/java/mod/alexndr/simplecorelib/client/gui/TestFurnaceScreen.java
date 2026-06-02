@@ -11,8 +11,9 @@ import net.minecraft.world.entity.player.Inventory;
 public class TestFurnaceScreen extends SomewhatAbstractFurnaceScreen<TestFurnaceContainerMenu>
 {
     // private final static int name_color =  0x0ffffff;
-    private static final ResourceLocation TEXTURE = new ResourceLocation(SimpleCoreLib.MODID,
-                                                                        "textures/gui/container/test_furnace_gui.png");
+    private static final ResourceLocation TEXTURE =
+            ResourceLocation.fromNamespaceAndPath( SimpleCoreLib.MODID,
+                                                    "textures/gui/container/test_furnace_gui.png");
 
     public TestFurnaceScreen(TestFurnaceContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle)
     {

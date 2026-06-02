@@ -47,11 +47,11 @@ public abstract class SimpleRecipeProvider extends RecipeProvider
     /**
      * build a ResourceLocation from this.modid, path.
      * @param path
-     * @return new ResourceLocation.
+     * @return ResourceLocation.fromNamespaceAndPath.
      */
     public ResourceLocation make_resource(String path)
     {
-        return new ResourceLocation(this.modid, path);
+        return ResourceLocation.fromNamespaceAndPath(this.modid, path);
     }
 
 
@@ -411,7 +411,7 @@ public abstract class SimpleRecipeProvider extends RecipeProvider
             SingleItemRecipeBuilder.stonecutting(
                             Ingredient.of(bricks.asItem()), RecipeCategory.BUILDING_BLOCKS, brick_stairs)
                     .unlockedBy("has_item", criterion)
-                    .save(consumer, new ResourceLocation(brick_stairs_name + "_stonecutting"));
+                    .save(consumer, ResourceLocation.withDefaultNamespace(brick_stairs_name + "_stonecutting"));
         }
         if (brick_slab != null && bricks != null) // we need bricks to have and make brick slabs.
         {
@@ -427,7 +427,7 @@ public abstract class SimpleRecipeProvider extends RecipeProvider
             SingleItemRecipeBuilder.stonecutting(
                             Ingredient.of(bricks.asItem()), RecipeCategory.BUILDING_BLOCKS, brick_slab, 2)
                     .unlockedBy("has_item", criterion)
-                    .save(consumer, new ResourceLocation(brick_slab_name + "_stonecutting"));
+                    .save(consumer, ResourceLocation.withDefaultNamespace(brick_slab_name + "_stonecutting"));
 
         } // end-if brick_slab.
 

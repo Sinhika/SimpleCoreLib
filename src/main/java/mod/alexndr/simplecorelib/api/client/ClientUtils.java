@@ -21,7 +21,7 @@ public final class ClientUtils
     /**
      * The guts of the standard onFovEvent handler are pretty standard, with a few variables.
      * @param event - the FOVModifierEvent being handled.
-     * @param p - predicate that tests heldItem for inclusion. 
+     * @param itemChecker - predicate that tests heldItem for inclusion.
      *   Example: p -> p instanceof MythrilBowItem
      */
     public static void handleFovEvent(ComputeFovModifierEvent event, Predicate<Item> itemChecker, float zoomVal)
@@ -60,7 +60,7 @@ public final class ClientUtils
     {
         // String modid = ForgeRegistries.ITEMS.getKey(bow).getNamespace();
         
-        ItemProperties.register(bow, new ResourceLocation("pull"), (p0, p1, p2, p4) -> {
+        ItemProperties.register(bow, ResourceLocation.parse("pull"), (p0, p1, p2, p4) -> {
             if (p2 == null)
             {
                 return 0.0F;
@@ -71,7 +71,7 @@ public final class ClientUtils
                         : (float) (p0.getUseDuration() - p2.getUseItemRemainingTicks()) / 20.0F;
             }
         });
-        ItemProperties.register(bow, new ResourceLocation("pulling"), (p0, p1, p2, p4) -> {
+        ItemProperties.register(bow, ResourceLocation.parse("pulling"), (p0, p1, p2, p4) -> {
             return p2 != null && p2.isUsingItem() && p2.getUseItem() == p0 ? 1.0F : 0.0F;
         });
     } // end setupBowModelProperties()

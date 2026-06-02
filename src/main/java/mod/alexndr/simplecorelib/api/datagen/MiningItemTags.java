@@ -1,6 +1,5 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
-import mod.alexndr.simplecorelib.api.helpers.TagUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -97,10 +96,10 @@ public class MiningItemTags extends ItemTagsProvider
 			.filter(entry -> (entry instanceof ProjectileWeaponItem))
 			.forEach(item -> {
 				if (item instanceof BowItem) {
-					this.tag(Tags.Items.TOOLS_BOWS).add(item);
+					this.tag(Tags.Items.TOOLS_BOW).add(item);
 				}
 				else if (item instanceof CrossbowItem) {
-					this.tag(Tags.Items.TOOLS_CROSSBOWS).add(item);
+					this.tag(Tags.Items.TOOLS_CROSSBOW).add(item);
 				}
 			});
 
@@ -108,7 +107,7 @@ public class MiningItemTags extends ItemTagsProvider
 		item_defregistry.getEntries().stream().map(DeferredHolder::get)
 			.filter(entry -> (entry instanceof ShearsItem))
 			.forEach(item -> {
-				this.tag(Tags.Items.TOOLS_SHEARS).add(item);
+				this.tag(Tags.Items.TOOLS_SHEAR).add(item);
 			});
 		
 	} // end registerToolTags()

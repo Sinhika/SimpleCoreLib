@@ -1,9 +1,7 @@
 package mod.alexndr.simplecorelib.api.loot;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import mod.alexndr.simplecorelib.loot.ChestLootModifier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;

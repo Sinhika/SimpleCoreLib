@@ -2,12 +2,14 @@
 PORTING FROM 1.20.6 to 1.21.1
 =============================
 
- 1. Replace ./gradle/, gradlew, gradlew.bat with versions from NeoGradle MDK.
- 2. Update settings.gradle based on NeoGradle MDK.
- 3. Update gradle.properties based on NeoGradle MDK.
+ 1. Replace ./gradle/, gradlew, gradlew.bat with versions from NeoGradle MDK/SimpleCoreLib
+ 2. Update settings.gradle based on NeoGradle MDK/SimpleCoreLib.
+ 3. Update gradle.properties based on NeoGradle MDK/SimpleCoreLib.
     NOTE changed location of org.gradlejava.home on this machine.
- 4. Update build.gradle based on NeoGradle MDK.
+ 4. Update build.gradle based on NeoGradle MDK/SimpleCoreLib.
     A. Remove TOP references, it is apparently dead.
+ 5. Update gradle version: ./gradlew wrapper --gradle-version=9.2.1
+ 6. Fix all ResourceLocation constructors, which are now private, to use public helper functions instead.
 
 =============================
 PORTING FROM 1.20.1 to 1.20.6

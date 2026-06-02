@@ -17,21 +17,21 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
 
     public BlockModelBuilder barsPost(String name, ResourceLocation texture)
     {
-        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_post"))
+        return withExistingParent(name, ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_post"))
                 .texture("particle", texture)
                 .texture("bars", texture);
     }
     
     public BlockModelBuilder barsPostEnds(String name, ResourceLocation texture)
     {
-        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_post_ends"))
+        return withExistingParent(name, ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_post_ends"))
                 .texture("particle", texture)
                 .texture("edge", texture);
     }
     
     public BlockModelBuilder barsCap(String name, ResourceLocation texture)
     {
-        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_cap"))
+        return withExistingParent(name, ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_cap"))
                 .texture("particle", texture)
                 .texture("bars", texture)
                 .texture("edge", texture);
@@ -39,7 +39,7 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
     
     public BlockModelBuilder barsCapAlt(String name, ResourceLocation texture)
     {
-        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_cap_alt"))
+        return withExistingParent(name, ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_cap_alt"))
                 .texture("particle", texture)
                 .texture("bars", texture)
                 .texture("edge", texture);
@@ -47,7 +47,7 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
     
     public BlockModelBuilder barsSide(String name, ResourceLocation texture)
     {
-        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_side"))
+        return withExistingParent(name, ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_side"))
                 .texture("particle", texture)
                 .texture("bars", texture)
                 .texture("edge", texture);
@@ -56,7 +56,7 @@ public abstract class SimpleBlockModelProvider extends BlockModelProvider
     
     public BlockModelBuilder barsSideAlt(String name, ResourceLocation texture)
     {
-        return withExistingParent(name, new ResourceLocation(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_side_alt"))
+        return withExistingParent(name, ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, BLOCK_FOLDER + "/template_bars_side_alt"))
                 .texture("particle", texture)
                 .texture("bars", texture)
                 .texture("edge", texture);

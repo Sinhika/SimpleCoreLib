@@ -12,7 +12,7 @@ public final class TagUtils
     // ITEM TAGS
     public static TagKey<Item> modTag(String modid, String name)
     {
-        return ItemTags.create(new ResourceLocation(modid, name));
+        return ItemTags.create(ResourceLocation.fromNamespaceAndPath(modid, name));
     }
     
     public static TagKey<Item> forgeTag(String name)
@@ -34,7 +34,7 @@ public final class TagUtils
     
     // BLOCK TAGS
     public static TagKey<Block> modBlockTag(String modid, String name) {
-        return BlockTags.create(new ResourceLocation(modid, name));
+        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(modid, name));
     }
     
     public static TagKey<Block> forgeBlockTag(String name) {  return modBlockTag("data/neoforge", name); }

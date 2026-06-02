@@ -3,7 +3,6 @@ package mod.alexndr.simplecorelib;
 import mod.alexndr.simplecorelib.client.ClientModEventSubscriber;
 import mod.alexndr.simplecorelib.config.SimpleCoreLibConfig;
 import mod.alexndr.simplecorelib.init.*;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;

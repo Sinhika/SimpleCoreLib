@@ -53,7 +53,7 @@ public abstract class SimpleBlockStateProvider extends BlockStateProvider
         
         return this.itemModels().getBuilder(block.asItem().toString())
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
-                .texture("layer0", new ResourceLocation(blockItemRL.getNamespace(), "block/" + blockItemRL.getPath()));
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath(blockItemRL.getNamespace(), "block/" + blockItemRL.getPath()));
     }
            
 

@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 @JeiPlugin
 public class JEITestFurnacePlugin implements IModPlugin
 {
-    ResourceLocation UUID = new ResourceLocation(SimpleCoreLib.MODID, "test_furnace_jei");
+    ResourceLocation UUID = ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "test_furnace_jei");
 
     // custom fuel test
     public static final RecipeType<TestFurnaceFuelRecipe> TEST_FUEL = RecipeType.create(SimpleCoreLib.MODID,

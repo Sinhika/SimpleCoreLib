@@ -13,7 +13,7 @@ public abstract class SimpleLootInjectorSubProvider implements LootTableSubProvi
 {
     public static ResourceKey<LootTable> getInjectionTableId(String modid, String table_name)
     {
-        return ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(modid, "chest/" + table_name));
+        return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(modid, "chest/" + table_name));
     }
 
     public LootPool.Builder createChestPool(String Name, int minRolls, int maxRolls, float chanceRoll)

@@ -1,6 +1,5 @@
 package mod.alexndr.simplecorelib.api.datagen;
 
-import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
@@ -11,7 +10,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.ObjIntConsumer;
 
