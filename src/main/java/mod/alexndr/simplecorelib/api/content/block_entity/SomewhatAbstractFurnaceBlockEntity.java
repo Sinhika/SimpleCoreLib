@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -145,13 +146,15 @@ public abstract class SomewhatAbstractFurnaceBlockEntity extends AbstractFurnace
             blockEntity.litTime--;
         }
         ItemStack itemstack = blockEntity.items.get(1);
-        boolean flag2 = !blockEntity.items.get(0).isEmpty();
+        ItemStack itemstack1 = blockEntity.items.get(0);
+        boolean flag2 = !itemstack1.isEmpty();
         boolean flag3 = !itemstack.isEmpty();
+
         if (blockEntity.isLit() || flag3 && flag2)
         {
             RecipeHolder<?> recipeholder;
             if (flag2) {
-                recipeholder = blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null);
+                recipeholder = blockEntity.quickCheck.getRecipeFor(new SingleRecipeInput(itemstack1), level).orElse(null);
             }
             else {
                 recipeholder = null;

@@ -10,6 +10,7 @@ PORTING FROM 1.20.6 to 1.21.1
     A. Remove TOP references, it is apparently dead.
  5. Update gradle version: ./gradlew wrapper --gradle-version=9.2.1
  6. Fix all ResourceLocation constructors, which are now private, to use public helper functions instead.
+ 7.
 
 =============================
 PORTING FROM 1.20.1 to 1.20.6

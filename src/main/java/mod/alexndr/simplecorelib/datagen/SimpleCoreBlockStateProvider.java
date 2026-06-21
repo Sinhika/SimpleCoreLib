@@ -22,21 +22,21 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 	{
 		// block models
 		ModelFile testFurnaceModel = this.models().orientable("test_furnace", 
-														 new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace_side"),
-														 new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace_front"),
-														 new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace_top"));
+														 ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_furnace_side"),
+														 ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_furnace_front"),
+														 ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_furnace_top"));
 		ModelFile testFurnaceModel_lit = this.models().orientable("block/test_furnace_on", 
-				 new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace_side"),
-				 new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace_front_lit"),
-				 new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace_top"));
+				 ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_furnace_side"),
+				 ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_furnace_front_lit"),
+				 ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_furnace_top"));
 		
         ModelFile testOriginalCopperOre = this.models().cubeAll("original_copper_ore", 
-		                                                new ResourceLocation(SimpleCoreLib.MODID, "block/original_copper_ore"));
+		                                                ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/original_copper_ore"));
         
-        ModelFile testPlateModel = this.models().pressurePlate("test_plate", new ResourceLocation("minecraft", "block/obsidian"));
-        ModelFile testPlateModel_down = this.models().pressurePlateDown("test_plate_down", new ResourceLocation("minecraft", "block/obsidian"));
-		ModelFile testCubeAll = this.models().cubeAll("test_cube_all", new ResourceLocation(SimpleCoreLib.MODID, "block/copper_bricks"));
-		ModelFile testCubeAll2 = this.models().cubeAll("test_cube_all2", new ResourceLocation(SimpleCoreLib.MODID, "block/copper_bricks"));
+        ModelFile testPlateModel = this.models().pressurePlate("test_plate", ResourceLocation.fromNamespaceAndPath("minecraft", "block/obsidian"));
+        ModelFile testPlateModel_down = this.models().pressurePlateDown("test_plate_down", ResourceLocation.fromNamespaceAndPath("minecraft", "block/obsidian"));
+		ModelFile testCubeAll = this.models().cubeAll("test_cube_all", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/copper_bricks"));
+		ModelFile testCubeAll2 = this.models().cubeAll("test_cube_all2", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/copper_bricks"));
 		ModelFile testSidedCube = this.models().cube("test_sided_cube", mcLoc("block/acacia_planks"), mcLoc("block/bamboo_block_top"),
 														mcLoc("block/bamboo_block"), mcLoc("block/birch_planks"),
 														mcLoc("block/cherry_planks"), mcLoc("block/crimson_planks"));
@@ -64,23 +64,23 @@ public class SimpleCoreBlockStateProvider extends SimpleBlockStateProvider
 				modLoc("block/test_door2_upper"), "cutout");
 
 		// models & blockstates
-		this.axisBlock(ModBlocks.test_cube_column.get(), new ResourceLocation(SimpleCoreLib.MODID, "block/polished_onyx_basalt_side"),
+		this.axisBlock(ModBlocks.test_cube_column.get(), ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/polished_onyx_basalt_side"),
 				mcLoc("block/polished_basalt_top"));
-		this.axisBlock(ModBlocks.test_cube_column2.get(), new ResourceLocation(SimpleCoreLib.MODID, "block/polished_onyx_basalt_side"),
+		this.axisBlock(ModBlocks.test_cube_column2.get(), ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/polished_onyx_basalt_side"),
 				mcLoc("block/polished_basalt_top"));
 
 		// item models
-		this.itemModels().withExistingParent("test_furnace", new ResourceLocation(SimpleCoreLib.MODID, "block/test_furnace"));
+		this.itemModels().withExistingParent("test_furnace", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_furnace"));
 		this.itemModels().withExistingParent("original_copper_ore",
-				new ResourceLocation(SimpleCoreLib.MODID, "block/original_copper_ore"));
-		this.itemModels().withExistingParent("test_plate", new ResourceLocation(SimpleCoreLib.MODID, "block/test_plate"));
+				ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/original_copper_ore"));
+		this.itemModels().withExistingParent("test_plate", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_plate"));
 		this.basicBlockItem(ModBlocks.test_bars.get());
-		this.itemModels().withExistingParent("test_cube_all", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_all"));
-		this.itemModels().withExistingParent("test_cube_all2", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_all2"));
-		this.itemModels().withExistingParent("test_cube_column", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_column"));
-		this.itemModels().withExistingParent("test_cube_column2", new ResourceLocation(SimpleCoreLib.MODID, "block/test_cube_column2"));
-		this.itemModels().withExistingParent("test_sided_cube", new ResourceLocation(SimpleCoreLib.MODID, "block/test_sided_cube"));
-		this.itemModels().withExistingParent("test_sided_cube2", new ResourceLocation(SimpleCoreLib.MODID, "block/test_sided_cube2"));
+		this.itemModels().withExistingParent("test_cube_all", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_cube_all"));
+		this.itemModels().withExistingParent("test_cube_all2", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_cube_all2"));
+		this.itemModels().withExistingParent("test_cube_column", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_cube_column"));
+		this.itemModels().withExistingParent("test_cube_column2", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_cube_column2"));
+		this.itemModels().withExistingParent("test_sided_cube", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_sided_cube"));
+		this.itemModels().withExistingParent("test_sided_cube2", ResourceLocation.fromNamespaceAndPath(SimpleCoreLib.MODID, "block/test_sided_cube2"));
 		this.itemModels().basicItem(ModBlocks.test_door.get().asItem());
 		this.itemModels().basicItem(ModBlocks.test_door2.get().asItem());
 

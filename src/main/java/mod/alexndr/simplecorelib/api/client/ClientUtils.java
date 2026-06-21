@@ -68,7 +68,7 @@ public final class ClientUtils
             else
             {
                 return p2.getUseItem() != p0 ? 0.0F
-                        : (float) (p0.getUseDuration() - p2.getUseItemRemainingTicks()) / 20.0F;
+                        : (float) (p0.getUseDuration(p2) - p2.getUseItemRemainingTicks()) / 20.0F;
             }
         });
         ItemProperties.register(bow, ResourceLocation.parse("pulling"), (p0, p1, p2, p4) -> {
