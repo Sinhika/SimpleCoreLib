@@ -31,6 +31,18 @@ public abstract class SimpleBlockLootSubProvider extends BlockLootSubProvider
         super(Set.of(), FeatureFlags.DEFAULT_FLAGS, lookupProvider);
     }
 
+	// The contents of this Iterable are used for validation.
+	// We return an Iterable over our block registry's values here.
+	@Override
+	protected abstract Iterable<Block> getKnownBlocks();
+//	{
+//		// The contents of our DeferredRegister.
+//		return MyRegistries.BLOCK_REGISTRY.getEntries()
+//				.stream()
+//				// Cast to Block here, otherwise it will be a ? extends Block and Java will complain.
+//				.map(e -> (Block) e.value())
+//				.toList();
+//	}
 
 	/**
 	 * Create a block loot table that drops 1 or 2 slabs depending if the source block is
